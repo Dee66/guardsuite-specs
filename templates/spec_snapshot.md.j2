@@ -1,0 +1,164 @@
+{# COPILOT: Keep templates fully generic. Never hardcode product names. #}
+{# templates/spec_snapshot.md.j2 - single-file AI snapshot #}
+# {{ product.name }} — Spec Snapshot
+_Commit: {{ meta.commit }} — Generated: {{ meta.timestamp }}_
+
+{{ product.long_description }}
+
+{% if product.marketing %}
+## Marketing
+
+{% if product.marketing.hero %}**Hero:** {{ product.marketing.hero }}{% endif %}
+{% if product.marketing.blurbs %}
+- {{ product.marketing.blurbs | join("\n- ") }}
+{% endif %}
+{% if product.marketing.ctas %}
+
+| CTA | Link |
+|-----|------|
+{% for cta in product.marketing.ctas %}
+| {{ cta.text }} | {{ cta.href }} |
+{% endfor %}
+{% endif %}
+{% endif %}
+
+## Spec (machine-readable excerpt)
+```yaml
+{{ product_raw }}
+```
+
+## Architecture
+
+- Core dependency: `{{ product.architecture.core_dependency_id }}`  
+- Schema source: `{{ product.architecture.schema_source }}`  
+{% if product.architecture.required_interfaces %}- Interfaces: {{ product.architecture.required_interfaces | join(", ") }}  
+{% endif %}
+{% if product.architecture.override_exclusion %}- Overrides excluded: {{ product.architecture.override_exclusion | join(", ") }}  
+{% endif %}
+- Output contract: `{{ product.architecture.output_contract | default('n/a') }}`
+
+{% if product.api %}
+## API Surface
+
+- REST endpoint: `{{ product.api.rest_endpoint | default('n/a') }}`  
+- Auth: {{ product.api.auth | default('n/a') }}
+{% endif %}
+
+## Feature Summary
+
+{% if product.features %}
+{% for f in product.features %}
+- `{{ f.id }}` — **{{ f.title }}**{% if f.summary %}: {{ f.summary }}{% endif %} _(Included: {{ "Yes" if f.included else "No" }})_
+{% endfor %}
+{% else %}
+_No feature metadata published yet._
+{% endif %}
+
+## FixPack Snapshot
+
+{% set fixpack = product.fixpack %}
+{% if fixpack and fixpack.included %}
+- Reference hints: `{{ fixpack.reference_hint_format | default('fixpack:<ISSUE_ID>') }}`  
+- Surfaces hints: **{{ fixpack.surfaces_hints | default(false) | string | title }}**
+{% set shipped = fixpack.shipped_snippets | default([]) %}
+{% if shipped %}
+
+| **ID** | **Title** | **Path** |
+|--------|-----------|----------|
+{% for fp in shipped %}
+| `{{ fp.id }}` | {{ fp.title }} | `{{ fp.path }}` |
+{% endfor %}
+{% endif %}
+{% else %}
+_No bundled FixPack metadata._
+{% endif %}
+
+## Compliance & Security
+
+- Ledger visibility: **{{ product.compliance.ledger_visibility | default('n/a') }}**  
+- Ledger enabled: **{{ product.compliance.compliance_ledger_enabled | default(false) | string | title }}**  
+- Sandbox requirement: `{{ product.security.sandbox_requirement | default('n/a') }}`  
+- WASM compatible: **{{ product.security.wasm_compatible | default(false) | string | title }}**  
+- SVG sanitization: **{{ product.security.svg_sanitization | default(false) | string | title }}**
+
+## Ecosystem Integrations
+
+- GuardScore weight: {{ product.ecosystem_integrations.guardscore.pillar_weight }} (inputs: {{ (product.ecosystem_integrations.guardscore.provided_score_inputs | default([])) | join(", ") }})  
+- Playground latency target: {{ product.ecosystem_integrations.playground.playground_latency_target_ms }} ms (quick mode: {{ product.ecosystem_integrations.playground.quick_score_mode | default(false) | string | title }})  
+- GuardBoard badge preview: {{ product.ecosystem_integrations.guardboard.badge_preview_supported | default(false) | string | title }}
+
+## Performance Snapshot
+
+{% set perf = product.performance_constraints %}
+- Max memory: {{ perf.max_memory_mb }} MB  
+- Expected runtime: {{ perf.expected_runtime_ms }} ms  
+{% if perf.large_plan_runtime_ms is defined %}- Large plan runtime: {{ perf.large_plan_runtime_ms }} ms  
+{% endif %}
+- Playground runtime: {{ perf.playground_runtime_ms }} ms  
+- QuickScore threshold: {{ perf.quickscore_threshold_resources }} resources  
+{% if perf.realtime_refresh_interval_ms is defined %}- Realtime refresh interval: {{ perf.realtime_refresh_interval_ms }} ms  
+{% endif %}
+
+{% if product.scoring_model %}
+## Scoring Model
+
+{{ product.scoring_model.description | default('n/a') }}
+
+- Severity penalties: {{ product.scoring_model.severity_penalties | default({}) }}  
+- Pillar weights: {{ product.scoring_model.pillar_weights | default({}) }}  
+- Inputs: {{ product.scoring_model.scoring_inputs_expected | default([]) | join(", ") }}  
+{% if product.scoring_model.synthetic_dataset %}- Synthetic dataset size: {{ product.scoring_model.synthetic_dataset.size | default('n/a') }} ({{ product.scoring_model.synthetic_dataset.distribution_model | default('model?') }})  
+{% endif %}
+{% if product.scoring_model.output_fields %}- Output fields: {{ product.scoring_model.output_fields | join(", ") }}  
+{% endif %}
+{% endif %}
+
+{% if product.badge_contract %}
+## Badge Contract
+
+- SVG sanitize: {{ product.badge_contract.sanitize_svg | default(false) | string | title }}  
+- WASM safe: {{ product.badge_contract.wasm_render_safe | default(false) | string | title }}  
+- Fields: {{ product.badge_contract.badge_svg_fields | default([]) | join(", ") }}
+{% if product.badge_contract.tiering_rules %}
+- Tier rules: {{ product.badge_contract.tiering_rules }}
+{% endif %}
+{% endif %}
+
+{% if product.integration_points %}
+## Integration Points
+
+- Products consuming: {{ product.integration_points.products_consuming | default([]) | join(", ") }}  
+{% if product.integration_points.playground %}- Playground requirements: {{ product.integration_points.playground.required_fields | default([]) | join(", ") }} (Quick mode: {{ product.integration_points.playground.quick_score_mode_supported | default(false) | string | title }})
+{% endif %}
+{% endif %}
+
+## Versioning & Roadmap
+
+- Core pin: `{{ product.versioning.core_dependency_pin | default('n/a') }}`  
+- Schema pin: `{{ product.versioning.schema_version_pin | default('n/a') }}`  
+- Breaking policy: {{ product.versioning.breaking_change_policy | default('Documented per release.') }}
+
+{% if product.interoperability_conflicts %}
+**Interoperability Risks**
+
+- {{ product.interoperability_conflicts | join("\n- ") }}
+{% endif %}
+
+{% if product.future_extensions %}
+**Future Extensions**
+
+- {{ product.future_extensions | join("\n- ") }}
+{% endif %}
+
+## References
+
+{% set refs = product.references or {} %}
+{% if refs %}
+- Master Spec: `{{ refs.master_spec | default('n/a') }}`  
+- Template: `{{ refs.template_spec | default('n/a') }}`  
+- Canonical schema: `{{ refs.canonical_schema | default('n/a') }}`
+{% else %}
+_No references recorded._
+{% endif %}
+
+Generated by guardsuite-specs export tool.

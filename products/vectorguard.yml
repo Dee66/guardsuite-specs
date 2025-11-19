@@ -1,0 +1,207 @@
+id: vectorguard
+name: VectorGuard
+product_type: paid_blueprint
+pillar: vector
+version: "2.0.0"
+status: production
+
+short_description: >
+  Enterprise-grade governance, remediation, compliance, and GuardScore
+  enhancement for vector-serving infrastructure and embedding pipelines.
+
+long_description: |
+  VectorGuard is the premium governance layer for vector-serving stacks,
+  embedding pipelines, and retrieval architectures. It extends the free
+  VectorScan engine with advanced rule coverage, FixPack-Lite deterministic
+  remediation snippets, a full compliance ledger, premium GuardScore inputs,
+  and GuardBoard-ready reporting. VectorGuard is designed for teams needing
+  auditability, deterministic fixes, and enterprise security workflows in
+  RAG-like vector architectures.
+
+purpose_summary: >
+  Provide deterministic enterprise governance, remediation, scoring inputs,
+  and compliance visibility for vector-based infrastructure.
+
+marketing:
+  hero: "Enterprise-grade vector governance with deterministic remediation."
+  blurbs:
+    - "500+ canonicalized vector governance checks"
+    - "Compliance ledger and advanced GuardScore inputs"
+    - "Deterministic FixPack-Lite remediation"
+    - "Perfect for RAG, embeddings, and vector DB pipelines"
+  ctas:
+    - text: "Get VectorGuard"
+      href: "/buy/vectorguard"
+
+architecture:
+  core_dependency_id: "guardsuite-core@>=1.4.0,<2.0.0"
+  schema_source: "guardsuite-core/canonical_schema.json"
+  required_interfaces:
+    - "I_Evaluator"
+    - "I_ScannerCLI"
+    - "I_ComplianceLedger"
+  override_exclusion:
+    - "canonical.output_contract"
+    - "evaluator.runtime_override"
+    - "compliance.disable_ledger"
+  output_contract: "strict"
+
+governance_domains:
+  - embedding_security
+  - network_exposure
+  - encryption
+  - iam_controls
+  - retrieval_pipeline_safety
+  - drift_detection
+  - observability_gaps
+  - compliance_mapping
+  - deterministic_remediation
+
+rule_categories:
+  - "Embedding Security"
+  - "Network Boundary Controls"
+  - "Vector Storage Encryption"
+  - "IAM Hardening"
+  - "Retrieval Configuration Safety"
+  - "Drift & Misalignment Detection"
+  - "Operational Observability"
+  - "Compliance Alignment"
+  - "Deterministic Remediation"
+
+features:
+  - id: VECG-FEAT-010
+    title: "Full Vector Governance Coverage"
+    summary: "500+ advanced rules for vector-serving infrastructure."
+    included: true
+  - id: VECG-FEAT-020
+    title: "Compliance Ledger"
+    summary: "Persistent compliance ledger for audits and reporting."
+    included: true
+  - id: VECG-FEAT-030
+    title: "FixPack-Lite Deterministic Remediation"
+    summary: "Auto-generated HCL snippets for top misconfigurations."
+    included: true
+  - id: VECG-FEAT-040
+    title: "Advanced GuardScore Weighting"
+    summary: "Premium score inputs for executive reporting."
+    included: true
+  - id: VECG-FEAT-050
+    title: "Enhanced Pipeline Intelligence"
+    summary: "Deep retrieval pipeline safety and parameter analysis."
+    included: true
+
+fixpack:
+  included: true
+  fixpack_folder: "fixpack/vector"
+  reference_hint_format: "fixpack:<ISSUE_ID>"
+  surfaces_hints: true
+  snippet_count: 10
+
+compliance:
+  compliance_ledger_enabled: true
+  ledger_visibility: "full"
+  ledger_schema_version: "1.0.0"
+
+cli:
+  base_command: "vectorguard"
+  scan_command: "vectorguard scan"
+  supported_flags:
+    - "--json"
+    - "--stdin"
+    - "--quiet"
+    - "--explain"
+    - "--output json"
+    - "--fixpack-summary"
+    - "--compliance-ledger"
+  reserved_flags:
+    - "--ledger-only"
+    - "--fixpack-diff"
+
+performance_constraints:
+  max_memory_mb: 220
+  expected_runtime_ms: 650
+  large_plan_runtime_ms: 1500
+  playground_runtime_ms: 1600
+  quickscore_threshold_resources: 1000
+
+ecosystem_integrations:
+
+  guardscore:
+    pillar_weight: 0.33
+    severity_penalties:
+      critical: 40
+      high: 25
+      medium: 10
+      low: 2
+    provided_score_inputs:
+      - issue_count_by_severity
+      - remediation_hint_count
+      - fixpack_applied_count
+      - compliance_ledger_item_count
+      - resource_count
+    badge_eligibility_signal: true
+
+  playground:
+    wasm_safe: true
+    max_runtime_ms: 2000
+    playground_latency_target_ms: 1400
+    json_sanitize: true
+    svg_sanitize: true
+    quick_score_mode: true
+
+  guardboard:
+    exposes_fixpack_hints: true
+    shows_compliance_ledger: true
+    badge_preview_supported: true
+    advanced_score_overlays: true
+
+testing:
+  unit_tests_required: true
+  integration_tests_required: true
+  snapshot_schema_test: true
+  test_coverage_min_percent: 85
+  ci_jobs:
+    - validate_schema
+    - unit
+    - integration
+    - snapshot_conformance
+
+versioning:
+  semver: true
+  core_dependency_pin: "guardsuite-core@>=1.4.0,<2.0.0"
+  schema_version_pin: "canonical_schema@1.0.0"
+  breaking_change_policy: >
+    Any breaking change requires a guardsuite-core RFC, a ledger CSV schema
+    update, and a coordinated release with VectorScan.
+
+interoperability_conflicts:
+  - "FixPack-Lite expansion may require GuardScore v2 recalibration."
+  - "Compliance ledger schema updates affect GuardBoard overlays."
+
+future_extensions:
+  - "RAG-specific inference-path validation"
+  - "PII propagation analysis for embeddings"
+  - "Vector cost modeling (advanced mode)"
+
+security:
+  no_external_calls_at_runtime: true
+  sanitize_all_inputs: true
+  svg_sanitization: true
+  wasm_compatible: true
+  sandbox_requirement: "Playground runtime must be WASM sandboxed"
+  safe_error_reporting: true
+
+maintainers:
+  - name: "Deon Prinsloo"
+    role: "AI Solutions Architect"
+    contact: "deon@shieldcraft-ai.com"
+
+release_metadata:
+  release_channel: "stable"
+  release_notes_url: "https://shieldcraft-ai.com/guardsuite/vectorguard/releases/2.0.0"
+  published_date: "2025-11-19"
+
+references:
+  master_spec: "docs/guardsuite_master_spec.md"
+  template_spec: "templates/spec_page.md.j2"
+  canonical_schema: "guardsuite-core/canonical_schema.json"

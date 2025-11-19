@@ -1,0 +1,209 @@
+id: pipelineguard
+name: PipelineGuard
+product_type: paid_blueprint
+pillar: pipeline
+version: "2.0.0"
+status: production
+
+short_description: >
+  Enterprise supply-chain governance, deterministic remediation, compliance ledger,
+  and premium GuardScore inputs for CI/CD workflows and artifact pipelines.
+
+long_description: |
+  PipelineGuard is the premium CI/CD and supply-chain governance blueprint for
+  enterprise infrastructure and MLOps pipelines. It extends PipelineScan with
+  advanced workflow-security rules, supply-chain integrity enforcement, a full
+  compliance ledger, and deterministic FixPack-Lite remediation snippets. Designed
+  for organizations requiring airtight workflow governance, artifact provenance,
+  safe secret boundaries, and governance visibility across complex CI/CD systems.
+  It integrates deeply with GuardBoard, GuardScore, and the Playground ecosystem.
+
+purpose_summary: >
+  Provide deterministic enterprise-grade governance, remediation, and compliance
+  visibility for CI/CD workflows, supply-chain integrity, and pipeline security.
+
+marketing:
+  hero: "Enterprise CI/CD governance with deterministic remediation and supply-chain integrity."
+  blurbs:
+    - "Advanced CI/CD and supply-chain rule coverage with 600+ checks"
+    - "Deterministic FixPack-Lite remediation for workflow risks"
+    - "Compliance ledger for pipeline integrity and auditability"
+    - "Premium GuardScore signals for executive insights"
+  ctas:
+    - text: "Get PipelineGuard"
+      href: "/buy/pipelineguard"
+
+architecture:
+  core_dependency_id: "guardsuite-core@>=1.4.0,<2.0.0"
+  schema_source: "guardsuite-core/canonical_schema.json"
+  required_interfaces:
+    - "I_Evaluator"
+    - "I_ScannerCLI"
+    - "I_ComplianceLedger"
+  override_exclusion:
+    - "canonical.output_contract"
+    - "evaluator.runtime_override"
+    - "compliance.disable_ledger"
+  output_contract: "strict"
+
+governance_domains:
+  - workflow_permissions
+  - supply_chain_integrity
+  - artifact_governance
+  - secret_management
+  - runner_security
+  - job_boundary_controls
+  - drift_detection
+  - observability_gaps
+  - compliance_mapping
+  - deterministic_remediation
+
+rule_categories:
+  - "Workflow Permissions & Boundaries"
+  - "Supply-Chain Provenance & Integrity"
+  - "Artifact Hardening & Lifecycle Governance"
+  - "Secret Boundary Enforcements"
+  - "Runner & Executor Hardening"
+  - "Job Boundary Safety"
+  - "Drift & Pipeline Misalignment"
+  - "Telemetry & Logging Gaps"
+  - "Deterministic Remediation"
+
+features:
+  - id: PIPEG-FEAT-010
+    title: "Full Pipeline Governance Coverage"
+    summary: "600+ workflow-security and supply-chain governance rules."
+    included: true
+  - id: PIPEG-FEAT-020
+    title: "Compliance Ledger"
+    summary: "Pipeline and artifact governance ledger for audits."
+    included: true
+  - id: PIPEG-FEAT-030
+    title: "FixPack-Lite Remediation"
+    summary: "Deterministic remediation snippets for CI/CD misconfigurations."
+    included: true
+  - id: PIPEG-FEAT-040
+    title: "Advanced GuardScore Inputs"
+    summary: "Premium supply-chain and workflow-risk scoring signals."
+    included: true
+  - id: PIPEG-FEAT-050
+    title: "Artifact Lifecycle Governance"
+    summary: "End-to-end artifact safety and provenance enforcement."
+    included: true
+
+fixpack:
+  included: true
+  fixpack_folder: "fixpack/pipeline"
+  reference_hint_format: "fixpack:<ISSUE_ID>"
+  surfaces_hints: true
+  snippet_count: 10
+
+compliance:
+  compliance_ledger_enabled: true
+  ledger_visibility: "full"
+  ledger_schema_version: "1.0.0"
+
+cli:
+  base_command: "pipelineguard"
+  scan_command: "pipelineguard scan"
+  supported_flags:
+    - "--json"
+    - "--stdin"
+    - "--quiet"
+    - "--explain"
+    - "--output json"
+    - "--fixpack-summary"
+    - "--compliance-ledger"
+  reserved_flags:
+    - "--ledger-only"
+    - "--fixpack-diff"
+
+performance_constraints:
+  max_memory_mb: 230
+  expected_runtime_ms: 700
+  large_plan_runtime_ms: 1700
+  playground_runtime_ms: 1800
+  quickscore_threshold_resources: 800
+
+ecosystem_integrations:
+
+  guardscore:
+    pillar_weight: 0.33
+    severity_penalties:
+      critical: 40
+      high: 25
+      medium: 10
+      low: 2
+    provided_score_inputs:
+      - workflow_permission_risk
+      - artifact_integrity_risk
+      - remediation_hint_count
+      - fixpack_applied_count
+      - compliance_ledger_item_count
+      - resource_count
+    badge_eligibility_signal: true
+
+  playground:
+    wasm_safe: true
+    max_runtime_ms: 2000
+    playground_latency_target_ms: 1500
+    json_sanitize: true
+    svg_sanitize: true
+    quick_score_mode: true
+
+  guardboard:
+    exposes_fixpack_hints: true
+    shows_compliance_ledger: true
+    badge_preview_supported: true
+    advanced_score_overlays: true
+
+testing:
+  unit_tests_required: true
+  integration_tests_required: true
+  snapshot_schema_test: true
+  test_coverage_min_percent: 85
+  ci_jobs:
+    - validate_schema
+    - unit
+    - integration
+    - snapshot_conformance
+
+versioning:
+  semver: true
+  core_dependency_pin: "guardsuite-core@>=1.4.0,<2.0.0"
+  schema_version_pin: "canonical_schema@1.0.0"
+  breaking_change_policy: >
+    Breaking changes require a guardsuite-core RFC, provenance schema update,
+    and coordinated release with PipelineScan.
+
+interoperability_conflicts:
+  - "Supply-chain provenance deep-mode may require schema updates."
+  - "FixPack-Lite for pipeline remediation may require GuardScore v2 recalibration."
+
+future_extensions:
+  - "SBOM validation and vulnerability correlation"
+  - "Pipeline-level provenance scoring"
+  - "Container build-graph integrity heuristics"
+
+security:
+  no_external_calls_at_runtime: true
+  sanitize_all_inputs: true
+  svg_sanitization: true
+  wasm_compatible: true
+  sandbox_requirement: "Playground runtime must be WASM sandboxed"
+  safe_error_reporting: true
+
+maintainers:
+  - name: "Deon Prinsloo"
+    role: "AI Solutions Architect"
+    contact: "deon@shieldcraft-ai.com"
+
+release_metadata:
+  release_channel: "stable"
+  release_notes_url: "https://shieldcraft-ai.com/guardsuite/pipelineguard/releases/2.0.0"
+  published_date: "2025-11-19"
+
+references:
+  master_spec: "docs/guardsuite_master_spec.md"
+  template_spec: "templates/spec_page.md.j2"
+  canonical_schema: "guardsuite-core/canonical_schema.json"

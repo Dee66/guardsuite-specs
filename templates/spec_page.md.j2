@@ -1,0 +1,470 @@
+{# ================================================================ #}
+{# templates/spec_page.md.j2                                       #}
+{# Full product-spec layout template for MkDocs.                   #}
+{# This file is the canonical source for visually rich product     #}
+{# documentation.                                                  #}
+{# ================================================================ #}
+
+{% include "partials/spec_header.html" %}
+
+{{ product.long_description | trim }}
+
+---
+
+## Quick Overview
+
+| **Field** | **Value** |
+|----------:|:----------|
+| **Product** | {{ product.name }} |
+| **ID** | `{{ product.id }}` |
+| **Pillar** | {{ product.pillar | capitalize }} |
+| **Type** | {{ product.product_type.replace("_", " ") }} |
+| **Version** | {{ product.version }} |
+| **Status** | {{ product.status | default("n/a") }} |
+
+{% if product.marketing and product.marketing.hero %}
+> **Hero:** {{ product.marketing.hero }}
+{% endif %}
+
+{% if product.marketing and product.marketing.blurbs %}
+**Highlights**
+
+- {{ product.marketing.blurbs | join("\n- ") }}
+{% endif %}
+
+{% if product.marketing and product.marketing.ctas %}
+
+| **CTA** | **Link** |
+|---------|----------|
+{% for cta in product.marketing.ctas %}
+| {{ cta.text }} | {{ cta.href }} |
+{% endfor %}
+{% endif %}
+
+---
+
+## Semantic Identity
+
+```yaml
+id: {{ product.id }}
+name: {{ product.name }}
+pillar: {{ product.pillar }}
+product_type: {{ product.product_type }}
+version: "{{ product.version }}"
+core_dependency_id: "{{ product.architecture.core_dependency_id }}"
+schema_source: "{{ product.architecture.schema_source }}"
+```
+
+## Architecture & Interfaces
+
+{% if product.architecture %}
+| **Key** | **Value** |
+|---------|-----------|
+| Core dependency | `{{ product.architecture.core_dependency_id }}` |
+| Output contract | `{{ product.architecture.output_contract | default('n/a') }}` |
+{% if product.architecture.override_exclusion %}
+| Override exclusions | {{ product.architecture.override_exclusion | join(", ") }} |
+{% endif %}
+
+{% if product.architecture.required_interfaces %}
+**Required Interfaces**
+
+- {{ product.architecture.required_interfaces | join("\n- ") }}
+{% endif %}
+{% else %}
+_No architecture metadata provided._
+{% endif %}
+
+---
+
+## Purpose & Scope
+
+### Mission
+{{ product.purpose_summary | default(product.short_description) }}
+
+### Problem Space
+{% if product.governance_domains %}
+- {{ product.governance_domains | join("\n- ") }}
+{% else %}
+_No governance domains defined in YAML._
+{% endif %}
+
+### Intended Users
+{% if product.intended_users %}
+- {{ product.intended_users | join("\n- ") }}
+{% else %}
+- DevOps / Platform Engineers  
+- Cloud Security Engineers  
+- AI Platform / Infra Engineers  
+- SREs / Platform Architects  
+{% endif %}
+
+### Out of Scope
+{% if product.out_of_scope %}
+- {{ product.out_of_scope | join("\n- ") }}
+{% else %}
+- Live runtime probing  
+- Active cloud account queries  
+- Auto-remediation (free scanners)
+{% endif %}
+
+---
+
+## Key Features
+
+{% if product.features %}
+| **ID** | **Title** | **Summary** | **Included** |
+|--------|-----------|-------------|--------------|
+{% for f in product.features %}
+| `{{ f.id }}` | **{{ f.title }}** | {{ f.summary }} | {{ "Yes" if f.included else "No" }} |
+{% endfor %}
+{% else %}
+_No feature definitions present. Add under `features:` in YAML._
+{% endif %}
+
+---
+
+## FixPack & Remediation
+
+{% set fixpack = product.fixpack %}
+{% if fixpack %}
+- Included in output: **{{ fixpack.included | default(false) | string | title }}**  
+- Hint format: `{{ fixpack.reference_hint_format | default('fixpack:<ISSUE_ID>') }}`  
+- Surfaces hints: **{{ fixpack.surfaces_hints | default(false) | string | title }}**
+{% if fixpack.fixpack_folder %}
+- FixPack folder: `{{ fixpack.fixpack_folder }}`
+{% endif %}
+{% if fixpack.snippet_count %}
+- Shipped snippets: **{{ fixpack.snippet_count }}**
+{% endif %}
+{% set snippets = fixpack.shipped_snippets | default([]) %}
+{% if snippets %}
+
+| **ID** | **Title** | **Path** |
+|--------|-----------|----------|
+{% for snippet in snippets %}
+| `{{ snippet.id }}` | {{ snippet.title }} | `{{ snippet.path }}` |
+{% endfor %}
+{% endif %}
+{% else %}
+_No FixPack metadata published for this product._
+{% endif %}
+
+---
+
+## Rule Architecture
+
+### Categories
+{{ product.rule_categories | join(", ") }}
+
+### Philosophy
+- Deterministic pure functions: `rule(plan) -> list[IssueDict]`  
+- No side effects (no network I/O, FS I/O, mutation)  
+- No nondeterminism (random, timestamps, UUIDs)  
+- Output MUST conform to canonical IssueDict schema  
+
+---
+
+## Ecosystem Integrations
+
+{% set guardscore = product.ecosystem_integrations.guardscore %}
+{% set playground = product.ecosystem_integrations.playground %}
+{% set guardboard = product.ecosystem_integrations.guardboard %}
+
+### GuardScore
+- Pillar weight: **{{ product.ecosystem_integrations.guardscore.pillar_weight }}**  
+- Severity penalties:  
+  - Critical: {{ product.ecosystem_integrations.guardscore.severity_penalties.critical }}  
+  - High: {{ product.ecosystem_integrations.guardscore.severity_penalties.high }}  
+  - Medium: {{ product.ecosystem_integrations.guardscore.severity_penalties.medium }}  
+  - Low: {{ product.ecosystem_integrations.guardscore.severity_penalties.low }}  
+{% set provided_inputs = guardscore.provided_score_inputs | default([]) %}
+{% if provided_inputs %}
+- Provided inputs: {{ provided_inputs | join(", ") }}  
+{% endif %}
+- Badge eligibility signal: **{{ guardscore.badge_eligibility_signal | default(false) | string | title }}**
+
+### Playground
+- WASM safe: **{{ playground.wasm_safe }}**  
+- Max runtime: **{{ playground.max_runtime_ms }} ms**  
+- Latency target: **{{ playground.playground_latency_target_ms }} ms**  
+- JSON sanitize: **{{ playground.json_sanitize | default(false) | string | title }}**  
+- SVG sanitize: **{{ playground.svg_sanitize | default(false) | string | title }}**  
+- QuickScore mode: **{{ playground.quick_score_mode | default(false) | string | title }}**
+
+### GuardBoard
+- FixPack hints: **{{ guardboard.exposes_fixpack_hints }}**  
+- Compliance ledger: **{{ guardboard.shows_compliance_ledger }}**  
+- Badge preview: **{{ guardboard.badge_preview_supported | default(false) | string | title }}**
+
+---
+
+## Performance & Constraints
+
+{% set perf = product.performance_constraints %}
+| **Constraint** | **Value** |
+|----------------|----------:|
+| Max memory | {{ perf.max_memory_mb }} MB |
+| Expected runtime | {{ perf.expected_runtime_ms }} ms |
+{% if perf.large_plan_runtime_ms is defined %}| Large plan runtime | {{ perf.large_plan_runtime_ms }} ms |
+{% endif %}
+| Playground runtime cap | {{ perf.playground_runtime_ms }} ms |
+| QuickScore threshold | {{ perf.quickscore_threshold_resources }} resources |
+{% if perf.realtime_refresh_interval_ms is defined %}| Realtime refresh interval | {{ perf.realtime_refresh_interval_ms }} ms |
+{% endif %}
+
+---
+
+## CLI & Usage
+
+{% set scan_command = product.cli.scan_command | default('') %}
+{% if scan_command %}
+```bash
+# Example usage
+{{ scan_command }} path/to/plan.json --output json
+```
+{% else %}
+> {{ product.name }} exposes functionality via the API endpoint `{{ product.api.rest_endpoint | default('n/a') }}`.
+{% endif %}
+
+- Base command: `{{ product.cli.base_command }}`
+- Supported flags: `{{ product.cli.supported_flags | join("`, `") }}`
+{% if product.cli.reserved_flags %}
+- Reserved flags: `{{ product.cli.reserved_flags | join("`, `") }}`
+{% endif %}
+
+---
+
+## API Surface
+
+{% if product.api %}
+- REST endpoint: `{{ product.api.rest_endpoint | default('n/a') }}`  
+- Auth: {{ product.api.auth | default('n/a') }}
+{% else %}
+_No API surface documented._
+{% endif %}
+
+---
+
+## Testing & CI Requirements
+
+- Unit tests required: **{{ product.testing.unit_tests_required }}**  
+- Integration tests required: **{{ product.testing.integration_tests_required }}**  
+- Snapshot schema test: **{{ product.testing.snapshot_schema_test }}**  
+- Min coverage: **{{ product.testing.test_coverage_min_percent }}%**
+
+CI jobs:
+{% if product.testing.ci_jobs %}
+- {{ product.testing.ci_jobs | join("\n- ") }}
+{% else %}
+- _No CI jobs defined_
+{% endif %}
+
+---
+
+## Versioning & Compatibility
+
+{% if product.versioning %}
+- SemVer: **{{ product.versioning.semver | default(false) | string | title }}**  
+- Core dependency pin: `{{ product.versioning.core_dependency_pin | default('n/a') }}`  
+- Schema version pin: `{{ product.versioning.schema_version_pin | default('n/a') }}`  
+- Breaking change policy: {{ product.versioning.breaking_change_policy | default('Documented in release notes.') }}
+{% else %}
+_No versioning metadata provided._
+{% endif %}
+
+---
+
+## Interoperability Notes
+
+{% if product.interoperability_conflicts %}
+- {{ product.interoperability_conflicts | join("\n- ") }}
+{% else %}
+_No interoperability warnings recorded._
+{% endif %}
+
+---
+
+## Future Extensions
+
+---
+
+{% if product.scoring_model %}
+## Scoring Model
+
+{{ product.scoring_model.description | default('No scoring model description provided.') }}
+
+{% if product.scoring_model.severity_penalties %}
+| Severity | Penalty |
+|----------|---------|
+{% for sev, penalty in product.scoring_model.severity_penalties.items() %}
+| {{ sev | capitalize }} | {{ penalty }} |
+{% endfor %}
+{% endif %}
+
+{% if product.scoring_model.pillar_weights %}
+| Pillar | Weight |
+|--------|-------:|
+{% for pillar, weight in product.scoring_model.pillar_weights.items() %}
+| {{ pillar | capitalize }} | {{ weight }} |
+{% endfor %}
+{% endif %}
+
+{% if product.scoring_model.scoring_inputs_expected %}
+**Inputs expected**
+
+- {{ product.scoring_model.scoring_inputs_expected | join("\n- ") }}
+{% endif %}
+
+{% if product.scoring_model.synthetic_dataset %}
+- Synthetic dataset size: {{ product.scoring_model.synthetic_dataset.size | default('n/a') }} plans  
+- Distribution model: {{ product.scoring_model.synthetic_dataset.distribution_model | default('n/a') }}  
+- Recalibration policy: {{ product.scoring_model.synthetic_dataset.recalibration_policy | default('n/a') }}
+{% endif %}
+
+{% if product.scoring_model.output_fields %}
+**Output fields**: {{ product.scoring_model.output_fields | join(", ") }}
+{% endif %}
+
+---
+{% endif %}
+
+{% if product.badge_contract %}
+## Badge Contract
+
+- SVG sanitize: **{{ product.badge_contract.sanitize_svg | default(false) | string | title }}**  
+- WASM render safe: **{{ product.badge_contract.wasm_render_safe | default(false) | string | title }}**  
+- Badge fields: {{ product.badge_contract.badge_svg_fields | default([]) | join(", ") }}
+
+{% if product.badge_contract.tiering_rules %}
+| Tier | Rule |
+|------|------|
+{% for tier, rule in product.badge_contract.tiering_rules.items() %}
+| {{ tier | capitalize }} | {{ rule }} |
+{% endfor %}
+{% endif %}
+
+---
+{% endif %}
+
+{% if product.integration_points %}
+## Integration Points
+
+{% if product.integration_points.products_consuming %}
+- Consumed by: {{ product.integration_points.products_consuming | join(", ") }}
+{% endif %}
+
+{% if product.integration_points.playground %}
+**Playground**  
+- QuickScore supported: {{ product.integration_points.playground.quick_score_mode_supported | default(false) | string | title }}  
+- Required fields: {{ product.integration_points.playground.required_fields | default([]) | join(", ") }}  
+- WASM safe: {{ product.integration_points.playground.wasm_safe | default(false) | string | title }}  
+- Max runtime: {{ product.integration_points.playground.max_runtime_ms | default('n/a') }} ms
+{% endif %}
+
+---
+{% endif %}
+
+{% if product.future_extensions %}
+- {{ product.future_extensions | join("\n- ") }}
+{% else %}
+_No future extensions documented._
+{% endif %}
+
+---
+
+## Security Requirements
+
+| **Requirement** | **Value** |
+|-----------------|-----------|
+| External calls allowed | {{ "No" if product.security.no_external_calls_at_runtime else "Yes" }} |
+| Sanitize all inputs | {{ product.security.sanitize_all_inputs }} |
+| SVG sanitization | {{ product.security.svg_sanitization }} |
+| WASM compatible | {{ product.security.wasm_compatible }} |
+| Sandbox requirement | {{ product.security.sandbox_requirement }} |
+| Safe error reporting | {{ product.security.safe_error_reporting | default('n/a') }} |
+
+---
+
+## Compliance & Ledger
+
+{% if product.compliance %}
+- Ledger enabled: **{{ product.compliance.compliance_ledger_enabled | default(false) | string | title }}**  
+- Visibility: **{{ product.compliance.ledger_visibility | default('n/a') }}**
+{% if product.compliance.policy_packs %}
+- Policy packs: {{ product.compliance.policy_packs | join(', ') }}
+{% endif %}
+{% else %}
+_No compliance metadata provided._
+{% endif %}
+
+---
+
+## Release Metadata
+
+{% if product.release_metadata %}
+- Channel: **{{ product.release_metadata.release_channel | default('n/a') }}**  
+- Published: **{{ product.release_metadata.published_date | default('n/a') }}**  
+- Release notes: [View here]({{ product.release_metadata.release_notes_url }})
+{% if product.release_metadata.contact %}
+- Contact: {{ product.release_metadata.contact }}
+{% endif %}
+{% else %}
+_Release metadata pending._
+{% endif %}
+
+---
+
+## References & Artifacts
+
+{% set refs = product.references or {} %}
+{% if refs %}
+| **Artifact** | **Location** |
+|--------------|--------------|
+{% if refs.master_spec %}| Master Spec | `{{ refs.master_spec }}` |
+{% endif %}
+{% if refs.template_spec %}| Template | `{{ refs.template_spec }}` |
+{% endif %}
+{% if refs.canonical_schema %}| Canonical Schema | `{{ refs.canonical_schema }}` |
+{% endif %}
+{% else %}
+_References not provided._
+{% endif %}
+
+---
+
+## Maintainers
+
+{% if product.maintainers %}
+| **Name** | **Role** | **Contact** |
+|----------|----------|-------------|
+{% for maintainer in product.maintainers %}
+| {{ maintainer.name }} | {{ maintainer.role | default('n/a') }} | {{ maintainer.contact | default('n/a') }} |
+{% endfor %}
+{% else %}
+_No maintainer data supplied._
+{% endif %}
+
+---
+
+## Appendices
+
+### Sample IssueDict
+
+```json
+{
+  "id": "SAMPLE-001",
+  "severity": "high",
+  "title": "Example Issue",
+  "description": "Illustrative placeholder example",
+  "resource_address": "aws_resource.example",
+  "attributes": {},
+  "remediation_hint": "fixpack:SAMPLE-001",
+  "remediation_difficulty": "low"
+}
+```
+
+---
+
+_Spec generated by guardsuite-specs.  
+Do **not** manually edit generated docs; edit `products/{{ product.id }}.yml` instead._

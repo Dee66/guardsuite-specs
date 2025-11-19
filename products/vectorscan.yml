@@ -1,0 +1,230 @@
+# products/vectorscan.yml
+# VectorScan — Full Rich Source-of-Truth (canonical, semantically tagged)
+# Generated for guardsuite-specs (Spec Template System V1.0)
+
+id: vectorscan
+name: VectorScan
+product_type: free_scanner       # free_scanner | paid_blueprint
+pillar: vector
+version: "2.0.0"
+status: production               # incubating | beta | production | deprecated
+
+# ---------------------------------------------------------------------
+# Human-friendly descriptions
+# ---------------------------------------------------------------------
+short_description: >
+  Free, deterministic Terraform plan scanner for vector databases,
+  embedding pipelines, and RAG-like architectures.
+long_description: |
+  VectorScan provides fast, deterministic governance and security scanning
+  for vector-serving infrastructure, embedding storage, and RAG
+  configuration patterns. It emits canonical schema–aligned output,
+  integrates seamlessly with Playground, and feeds GuardScore and
+  GuardBoard for scoring and reporting. VectorScan is the top-of-funnel
+  entry point into the GuardSuite ecosystem.
+purpose_summary: "Detect misconfigurations and exposure risks in vector-serving infrastructure."
+
+marketing:
+  hero: "Secure your vector stack with instant, deterministic scans."
+  blurbs:
+    - "Detect embedding leaks and public vector endpoints"
+    - "Perfect for Playground paste-to-scan"
+    - "Upgrade to VectorGuard for remediation & ledger"
+  ctas:
+    - text: "Scan your plan now"
+      href: "/playground"
+
+# ---------------------------------------------------------------------
+# Semantic architecture & machine-readable integration block
+# ---------------------------------------------------------------------
+architecture:
+  core_dependency_id: "guardsuite-core@>=1.4.0,<2.0.0"
+  schema_source: "guardsuite-core/canonical_schema.json"
+  required_interfaces:
+    - "I_Evaluator"
+    - "I_ScannerCLI"
+  override_exclusion:
+    - "canonical.output_contract"
+    - "evaluator.runtime_override"
+  output_contract: "strict"        # always strict for scanners
+
+# ---------------------------------------------------------------------
+# Governance & technical scope
+# ---------------------------------------------------------------------
+governance_domains:
+  - embedding_security
+  - network_exposure
+  - encryption
+  - iam_controls
+  - retrieval_pipeline_safety
+  - drift_detection
+  - observability_gaps
+
+rule_categories:
+  - "Embedding Security"
+  - "Network Exposure & Boundary Controls"
+  - "IAM Hardening"
+  - "Storage Encryption"
+  - "Retrieval Configuration Safety"
+  - "Drift Detection"
+  - "Operational Logging & Observability"
+
+# Free scanner SHOULD list representative features (not exhaustive)
+features:
+  - id: VEC-FEAT-001
+    title: "Public Endpoint Detection"
+    summary: "Detects vector indices exposed to global CIDRs."
+    included: true
+  - id: VEC-FEAT-004
+    title: "Embedding Storage Encryption Check"
+    summary: "Flags storage lacking encryption-at-rest."
+    included: true
+  - id: VEC-FEAT-020
+    title: "IAM Wildcard Detection"
+    summary: "Detects IAM roles with unsafe vector path wildcards."
+    included: true
+  - id: VEC-FEAT-030
+    title: "Retrieval Pipeline Configuration Safety"
+    summary: "Detects missing filters, PII omissions, or risky retrieval params."
+    included: true
+
+# ---------------------------------------------------------------------
+# FixPack-lite integration (exposed only as hints in free products)
+# ---------------------------------------------------------------------
+fixpack:
+  included: false                 # VectorScan DOES NOT ship FixPack
+  reference_hint_format: "fixpack:<ISSUE_ID>"
+  surfaces_hints: true            # show "upgrade to VectorGuard" paths
+
+# ---------------------------------------------------------------------
+# Compliance & operational metadata
+# ---------------------------------------------------------------------
+compliance:
+  compliance_ledger_enabled: false    # reserved for paid products
+  ledger_visibility: "none"
+
+# ---------------------------------------------------------------------
+# CLI & runtime flags (semantic)
+# ---------------------------------------------------------------------
+cli:
+  base_command: "vectorscan"
+  scan_command: "vectorscan scan"
+  supported_flags:
+    - "--json"
+    - "--stdin"
+    - "--quiet"
+    - "--explain"
+    - "--output json"
+  reserved_flags:
+    - "--compliance-ledger"       # paid only
+    - "--fixpack-summary"         # paid only
+
+# ---------------------------------------------------------------------
+# Performance & resource constraints (quantified)
+# ---------------------------------------------------------------------
+performance_constraints:
+  max_memory_mb: 150
+  expected_runtime_ms: 500
+  large_plan_runtime_ms: 1200
+  playground_runtime_ms: 1300
+  quickscore_threshold_resources: 1000
+
+# ---------------------------------------------------------------------
+# Ecosystem integrations
+# ---------------------------------------------------------------------
+ecosystem_integrations:
+
+  guardscore:
+    pillar_weight: 0.33
+    severity_penalties:
+      critical: 40
+      high: 25
+      medium: 10
+      low: 2
+    provided_score_inputs:
+      - issue_count_by_severity
+      - remediation_hint_count
+      - resource_count
+    badge_eligibility_signal: true
+
+  playground:
+    wasm_safe: true
+    max_runtime_ms: 2000
+    playground_latency_target_ms: 1300
+    json_sanitize: true
+    svg_sanitize: true
+    quick_score_mode: true
+
+  guardboard:
+    exposes_fixpack_hints: true
+    shows_compliance_ledger: false    # free product
+    badge_preview_supported: true
+
+# ---------------------------------------------------------------------
+# Testing / CI expectations
+# ---------------------------------------------------------------------
+testing:
+  unit_tests_required: true
+  integration_tests_required: true
+  snapshot_schema_test: true
+  test_coverage_min_percent: 80
+  ci_jobs:
+    - validate_schema
+    - unit
+    - integration
+    - snapshot_conformance
+
+# ---------------------------------------------------------------------
+# Versioning, compatibility, and evolution notes
+# ---------------------------------------------------------------------
+versioning:
+  semver: true
+  core_dependency_pin: "guardsuite-core@>=1.4.0,<2.0.0"
+  schema_version_pin: "canonical_schema@1.0.0"
+  breaking_change_policy: >
+    Any breaking change MUST include a guardsuite-core RFC, updated schema,
+    and coordinated release with VectorGuard.
+
+# ---------------------------------------------------------------------
+# Interoperability, conflicts & future extensions
+# ---------------------------------------------------------------------
+interoperability_conflicts:
+  - "QuickScore mode may require recalibration for GuardScore v2."
+  - "Embedding governance model expansion (2026) may introduce new fields."
+
+future_extensions:
+  - "vector store cost estimation (lightweight mode)"
+  - "embedding density heuristics"
+  - "advanced retrieval pattern heuristics"
+
+# ---------------------------------------------------------------------
+# Security & operational constraints
+# ---------------------------------------------------------------------
+security:
+  no_external_calls_at_runtime: true
+  sanitize_all_inputs: true
+  svg_sanitization: true
+  wasm_compatible: true
+  sandbox_requirement: "Playground runtime must be WASM sandboxed"
+  safe_error_reporting: true
+
+# ---------------------------------------------------------------------
+# Administrative metadata (for updates without spec rewrite)
+# ---------------------------------------------------------------------
+maintainers:
+  - name: "Deon Prinsloo"
+    role: "AI Solutions Architect"
+    contact: "deon@shieldcraft-ai.com"
+
+release_metadata:
+  release_channel: "stable"
+  release_notes_url: "https://shieldcraft-ai.com/guardsuite/vectorscan/releases/2.0.0"
+  published_date: "2025-11-19"
+
+# ---------------------------------------------------------------------
+# References (internal cross-links)
+# ---------------------------------------------------------------------
+references:
+  master_spec: "docs/guardsuite_master_spec.md"
+  template_spec: "templates/spec_page.md.j2"
+  canonical_schema: "guardsuite-core/canonical_schema.json"

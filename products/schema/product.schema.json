@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://guardsuite.dev/specs/product.schema.json",
+  "title": "GuardSuite Product Specification",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "short_description",
+    "long_description",
+    "version",
+    "features"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "short_description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "long_description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "title": {"type": "string", "minLength": 1},
+          "severity": {"type": "string"},
+          "description": {"type": "string"},
+          "summary": {"type": "string"},
+          "included": {"type": "boolean"}
+        },
+        "additionalProperties": true
+      }
+    },
+    "fixpack": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "title"],
+            "properties": {
+              "id": {"type": "string", "minLength": 1},
+              "title": {"type": "string", "minLength": 1},
+              "difficulty": {"type": "string"}
+            },
+            "additionalProperties": true
+          }
+        },
+        {
+          "type": "object",
+          "required": ["shipped_snippets"],
+          "properties": {
+            "included": {"type": "boolean"},
+            "reference_hint_format": {"type": "string"},
+            "surfaces_hints": {"type": "boolean"},
+            "shipped_snippets": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["id", "title", "path"],
+                "properties": {
+                  "id": {"type": "string", "minLength": 1},
+                  "title": {"type": "string", "minLength": 1},
+                  "path": {"type": "string", "minLength": 1},
+                  "difficulty": {"type": "string"}
+                },
+                "additionalProperties": true
+              }
+            }
+          },
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "included": {"type": "boolean"},
+            "reference_hint_format": {"type": "string"},
+            "surfaces_hints": {"type": "boolean"}
+          },
+          "additionalProperties": true
+        }
+      ]
+    }
+  }
+}

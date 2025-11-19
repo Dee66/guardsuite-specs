@@ -1,0 +1,39 @@
+{# COPILOT: Keep templates fully generic. Never hardcode product names. #}
+{# templates/product_page.md.j2 - Jinja2 template #}
+# {{ product.name }} (v{{ product.version }})
+
+{{ product.short_description }}
+
+## Overview
+{{ product.long_description }}
+
+## Features
+{% if product.features %}
+{% for f in product.features %}
+### {{ f.id }} — {{ f.title }}
+- Severity: **{{ (f.severity | default('n/a')) | upper }}**
+- Description: {{ f.description | default(f.summary, true) | default('Description forthcoming.') }}
+{% endfor %}
+{% else %}
+_Feature metadata will be populated in a future release._
+{% endif %}
+
+## FixPack (sample)
+{% set fixpack_entries = product.fixpack %}
+{% if fixpack_entries is mapping %}
+	{% set fixpack_entries = fixpack_entries.get('shipped_snippets', []) %}
+{% endif %}
+{% if fixpack_entries %}
+{% for fp in fixpack_entries %}
+- **{{ fp.id }}** — {{ fp.title }} (Difficulty: {{ fp.difficulty | default('n/a') }})
+{% endfor %}
+{% else %}
+_FixPack metadata will be published when remediation snippets are available._
+{% endif %}
+
+## Marketing
+{{ product.marketing.hero }}
+
+{{ snippets.shared_cta.title }} — {{ snippets.shared_cta.href }}
+
+> Snapshot generated from guardsuite-specs at commit `{{ meta.commit }}`.

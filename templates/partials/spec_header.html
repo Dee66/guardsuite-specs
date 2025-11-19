@@ -1,0 +1,81 @@
+<div class="spec-header">
+
+  <h1 class="spec-title">
+    {{ product.name }}
+  </h1>
+
+  {% if product.marketing and product.marketing.hero %}
+  <p class="spec-tagline">
+    {{ product.marketing.hero }}
+  </p>
+  {% elif product.short_description %}
+  <p class="spec-tagline">
+    {{ product.short_description }}
+  </p>
+  {% endif %}
+
+  <div class="spec-meta-chips">
+
+    {% if product.pillar %}
+    <span class="md-tag md-tag-pill spec-chip">
+      {{ product.pillar|capitalize }} Pillar
+    </span>
+    {% endif %}
+
+    {% if product.product_type %}
+    <span class="md-tag md-tag-pill spec-chip">
+      {{ product.product_type.replace("_", " ") }}
+    </span>
+    {% endif %}
+
+    {% if product.version %}
+    <span class="md-tag md-tag-pill spec-chip">
+      Version {{ product.version }}
+    </span>
+    {% endif %}
+
+    {% if product.status %}
+    <span class="md-tag md-tag-pill spec-chip">
+      {{ product.status|capitalize }}
+    </span>
+    {% endif %}
+
+  </div>
+
+</div>
+
+<style>
+  .spec-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid var(--md-default-fg-color--lighter);
+  }
+
+  .spec-title {
+    margin: 0;
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .spec-tagline {
+    margin: 0.2rem 0 1rem 0;
+    font-size: 1.1rem;
+    color: var(--md-default-fg-color--light);
+  }
+
+  .spec-meta-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .spec-chip {
+    background-color: var(--md-primary-fg-color--transparent);
+    padding: 0.25em 0.75em;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border-radius: 1rem;
+    border: 1px solid var(--md-primary-fg-color--light);
+  }
+</style>

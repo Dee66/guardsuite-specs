@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "guardsuite-specs"
+version = "0.1.0"
+description = "GuardSuite canonical specs and doc generator"
+authors = ["GuardSuite"]
+packages = [{ include = "guardsuite_plugins" }]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pyyaml = "^6.0"
+jinja2 = "^3.1"
+marko = "^1.0"
+jsonschema = "^4.23"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0"
+ruff = "^0.13.0"
+black = "^23.9.1"
+mkdocs = "^1.6"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.plugins."mkdocs.plugins"]
+admonition = "guardsuite_plugins.admonition:AdmonitionPlugin"
+
+[tool.pytest.ini_options]
+python_files = "test_*.py"
+testpaths = ["tests"]

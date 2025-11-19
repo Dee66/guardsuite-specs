@@ -1,0 +1,11 @@
+# snippets/marketing.yml
+taglines:
+  - "Deterministic IaC governance for vector and compute workloads."
+  - "From paste-to-fix: instant, auditable remediation hints."
+
+shared_cta:
+  title: "Get a quick GuardScore"
+  href: "/playground"
+
+legal_disclaimers:
+  - "Generated suggestions are deterministic snippets. Review before applying to production."

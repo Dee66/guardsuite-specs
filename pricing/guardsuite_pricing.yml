@@ -1,0 +1,304 @@
+pricing_version: "1.0.0"
+generated_at: "2025-11-19"
+
+channels:
+  gumroad_fee_percent: 8.5
+  github_marketplace_fee_percent: 20
+  direct_discount_percent: 0
+
+# =====================================================================
+# 1. FREE PRODUCTS (Top of Funnel)
+# =====================================================================
+free_products:
+
+  vectorscan:
+    id: "GS-VS-FREE"
+    name: "VectorScan"
+    spec_ref: "products/vectorscan.yml"
+    tier: "free"
+    price_usd: 0
+    description: "Deterministic Terraform scanner for vector workloads."
+    upsell_to: "vectorguard"
+    included_features:
+      - "Canonical deterministic output"
+      - "Vector DB public endpoint detection"
+      - "Embedding storage encryption checks"
+      - "IAM wildcard scans"
+    limitations:
+      - "No FixPack"
+      - "No compliance ledger"
+      - "No GuardBoard export"
+
+  computescan:
+    id: "GS-CS-FREE"
+    name: "ComputeScan"
+    spec_ref: "products/computescan.yml"
+    tier: "free"
+    price_usd: 0
+    description: "Compute waste and GPU configuration scanner."
+    upsell_to: "computeguard"
+    included_features:
+      - "GPU waste detection"
+      - "Idle compute checks"
+      - "Vector/AI pipeline compute mismatches"
+    limitations:
+      - "No FixPack"
+      - "No ledger"
+      - "Limited rule depth"
+
+  pipelinescan:
+    id: "GS-PS-FREE"
+    name: "PipelineScan"
+    spec_ref: "products/pipelinescan.yml"
+    tier: "free"
+    price_usd: 0
+    description: "Supply chain and CI/CD pipeline security scanner."
+    upsell_to: "pipelineguard"
+    included_features:
+      - "Basic OPA rules"
+      - "Detect missing signing enforcement"
+      - "Hard-coded secrets detection"
+    limitations:
+      - "No FixPack"
+      - "No ledger"
+      - "No remediation templates"
+
+# =====================================================================
+# 2. PAID GUARD PRODUCTS (One-Time Purchases)
+# =====================================================================
+paid_products:
+
+  vectorguard:
+    id: "GS-VG-079"
+    name: "VectorGuard"
+    spec_ref: "products/vectorguard.yml"
+    tier: "paid"
+    price_usd: 79
+    marketplace:
+      gumroad: 79
+      github_marketplace: 99
+      direct: 79
+    description: "Advanced governance + FixPack-Lite for vector workloads."
+    includes:
+      - "FixPack-Lite"
+      - "Compliance ledger"
+      - "GuardScore integration"
+      - "Advanced ruleset"
+      - "Unlimited local scans"
+
+  computeguard:
+    id: "GS-CG-099"
+    name: "ComputeGuard"
+    spec_ref: "products/computeguard.yml"
+    tier: "paid"
+    price_usd: 99
+    marketplace:
+      gumroad: 99
+      github_marketplace: 119
+      direct: 99
+    description: "Compute and GPU waste guardrail suite."
+    includes:
+      - "FixPack-Lite"
+      - "Drift ledger"
+      - "GPU utilization heuristics"
+      - "Cost governance rules"
+      - "GuardScore integration"
+
+  pipelineguard:
+    id: "GS-PG-089"
+    name: "PipelineGuard"
+    spec_ref: "products/pipelineguard.yml"
+    tier: "paid"
+    price_usd: 89
+    marketplace:
+      gumroad: 89
+      github_marketplace: 109
+      direct: 89
+    description: "OPA rule pack + signing enforcement guardrails."
+    includes:
+      - "FixPack-Lite"
+      - "Compliance ledger"
+      - "Signing templates"
+      - "GuardScore integration"
+
+# Future paid pillars
+  storageguard:
+    id: "GS-SG-089"
+    name: "StorageGuard"
+    spec_ref: null
+    spec_status: "pending"
+    notes: "Pricing gated until spec exists in guardsuite-specs."
+    tier: "paid"
+    price_usd: 89
+    status: "future"
+    description: "Object storage governance (S3/GCS/MinIO)."
+    includes:
+      - "Encryption checks"
+      - "Public bucket detection"
+      - "FixPack-Lite"
+      - "Audit ledger"
+
+  identityguard:
+    id: "GS-IG-109"
+    name: "IdentityGuard"
+    spec_ref: null
+    spec_status: "pending"
+    notes: "Pricing gated until spec exists in guardsuite-specs."
+    tier: "paid"
+    price_usd: 109
+    status: "future"
+    description: "IAM hardening and drift detection."
+    includes:
+      - "IAM risk scoring"
+      - "Privilege escalation checks"
+      - "FixPack-Lite"
+      - "Compliance ledger"
+
+# =====================================================================
+# 3. PROFESSIONAL COMPONENTS
+# =====================================================================
+pro_components:
+
+  fixpack_pro:
+    id: "GS-FXP-149"
+    name: "FixPack-Pro"
+    spec_ref: null
+    spec_status: "pending"
+    tier: "pro"
+    one_time_usd: 149
+    subscription_usd_month: 10
+    description: "Advanced multi-step remediation engine."
+
+  guardscore_engine:
+    id: "GS-SCORE-129"
+    name: "GuardScore Engine"
+    spec_ref: "products/guardscore.yml"
+    tier: "pro"
+    one_time_usd: 129
+    subscription_usd_month: 9
+    description: "Deterministic security scoring engine."
+
+  canonical_schema:
+    id: "GS-SCHEMA-FREE"
+    name: "Canonical Schema"
+    spec_ref: "products/guardsuite-core.yml"
+    tier: "free"
+    price_usd: 0
+    description: "Public schema for GuardSuite ecosystem."
+
+# =====================================================================
+# 4. GUARDBOARD PRODUCTS
+# =====================================================================
+guardboard:
+
+  guardboard_base:
+    id: "GS-BOARD-199"
+    name: "GuardBoard"
+    spec_ref: "products/guardboard.yml"
+    tier: "paid"
+    price_usd: 199
+    marketplace:
+      gumroad: 199
+      github_marketplace: 249
+      direct: 199
+    description: "Local governance dashboard and report generator."
+    features:
+      - "Compliance ledger viewer"
+      - "FixPack viewer"
+      - "Score trend explorer"
+      - "PDF export"
+
+  guardboard_pro:
+    id: "GS-BOARD-PRO"
+    spec_ref: "products/guardboard.yml"
+    tier: "pro"
+    subscription_usd_month: 19
+    subscription_usd_year: 189
+    description: "Professional multi-project and team collaboration features."
+    features:
+      - "Multi-project workspace"
+      - "History & diffs"
+      - "Team sharing"
+      - "Project templates"
+
+  guardboard_enterprise:
+    id: "GS-BOARD-ENT"
+    spec_ref: "products/guardboard.yml"
+    tier: "enterprise"
+    subscription_usd_month_per_user: 49
+    sla_hours: 48
+    description: "Enterprise dashboard with SSO, RBAC, report API."
+    features:
+      - "RBAC"
+      - "SSO"
+      - "Analytics API"
+      - "Multi-user compliance ledger"
+      - "Extended history"
+
+# =====================================================================
+# 5. BUNDLES
+# =====================================================================
+bundles:
+
+  guardsuite_full:
+    id: "GS-BUNDLE-FULL-249"
+    name: "GuardSuite Full"
+    spec_refs:
+      - "products/vectorguard.yml"
+      - "products/computeguard.yml"
+      - "products/pipelineguard.yml"
+    price_usd: 249
+    includes:
+      - vectorguard
+      - computeguard
+      - pipelineguard
+
+  guardsuite_pro:
+    id: "GS-BUNDLE-PRO-399"
+    name: "GuardSuite Pro Kit"
+    spec_refs:
+      - "products/vectorguard.yml"
+      - "products/computeguard.yml"
+      - "products/pipelineguard.yml"
+      - null  # fixpack_pro pending spec
+      - "products/guardscore.yml"
+      - "products/guardboard.yml"
+    price_usd: 399
+    includes:
+      - vectorguard
+      - computeguard
+      - pipelineguard
+      - fixpack_pro
+      - guardscore_engine
+      - guardboard_base
+
+  guardsuite_enterprise:
+    id: "GS-BUNDLE-ENT"
+    name: "GuardSuite Enterprise Kit"
+    spec_refs:
+      - "products/guardboard.yml"
+      - null  # fixpack_pro pending spec
+      - "products/guardscore.yml"
+      - "products/vectorguard.yml"
+      - "products/computeguard.yml"
+      - "products/pipelineguard.yml"
+    subscription_usd_month: 199
+    includes:
+      - guardboard_enterprise
+      - fixpack_pro
+      - guardscore_engine
+      - vectorguard
+      - computeguard
+      - pipelineguard
+      - all_free_products
+
+# =====================================================================
+# 6. INTERNAL NOTES
+# =====================================================================
+internal_notes:
+  currency: "USD"
+  pricing_philosophy: "Simple, predictable one-time pricing; optional pro subscriptions; enterprise monthly."
+  future_skus:
+    - "CostGuard"
+    - "KubeGuard"
+    - "LLMGuard"

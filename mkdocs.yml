@@ -1,0 +1,25 @@
+site_name: GuardSuite Spec Documentation (Canonical)
+docs_dir: docs
+site_dir: site
+nav:
+  - Home: index.md
+  - Products:
+    - Overview: products/README.md
+    - VectorScan: products/vectorscan.md
+    - VectorGuard: products/vectorguard.md
+    - ComputeScan: products/computescan.md
+    - ComputeGuard: products/computeguard.md
+    - PipelineScan: products/pipelinescan.md
+    - PipelineGuard: products/pipelineguard.md
+    - GuardScore Engine: products/guardscore.md
+    - GuardBoard: products/guardboard.md
+    - GuardSuite Core: products/guardsuite-core.md
+  - Specifications:
+    - Master Spec: guardsuite_master_spec.md
+
+extra_css:
+  - assets/stylesheets/spec.css
+
+plugins:
+  - search
+  - admonition

@@ -1,0 +1,184 @@
+id: computescan
+name: ComputeScan
+product_type: free_scanner
+pillar: compute
+version: "2.0.0"
+status: production
+
+short_description: >
+  Free, deterministic scanner for GPU and compute waste, cost risk, and misconfiguration.
+long_description: |
+  ComputeScan analyzes Terraform plans and compute-heavy deployment manifests to
+  detect GPU provisioning waste, incorrect instance sizing, idle or orphaned GPUs,
+  and cost-risk patterns. It is deterministic, offline-capable, and designed to
+  serve as the top-of-funnel scanner in the GuardSuite compute pillar.
+
+purpose_summary: >
+  Surface cost waste, risky GPU provisioning, and compute misconfiguration
+  that lead to excessive cloud spend or unstable ML infrastructure.
+
+marketing:
+  hero: "Detect GPU waste and cut cloud spend before it ships."
+  blurbs:
+    - "Identify idle or oversized GPU instances"
+    - "Catch unbounded autoscaling and expensive spot misuse"
+    - "Perfect for quick paste-to-scan in Playground"
+  ctas:
+    - text: "Scan your plan for waste"
+      href: "/playground"
+
+architecture:
+  core_dependency_id: "guardsuite-core@>=1.4.0,<2.0.0"
+  schema_source: "guardsuite-core/canonical_schema.json"
+  required_interfaces:
+    - "I_Evaluator"
+    - "I_ScannerCLI"
+  override_exclusion:
+    - "canonical.output_contract"
+    - "evaluator.runtime_override"
+  output_contract: "strict"
+
+governance_domains:
+  - cost_finops
+  - gpu_provisioning
+  - instance_sizing
+  - autoscaling_risk
+  - spot_instance_policy
+  - drift_detection
+  - observability_gaps
+
+rule_categories:
+  - "GPU Provisioning & Utilization"
+  - "Instance Sizing & Rightsizing"
+  - "Autoscaling & Scaling Policies"
+  - "Spot & Preemptible Usage"
+  - "Idle/Orphaned Resource Detection"
+  - "Cost Pattern Detection"
+  - "Observability & Telemetry Gaps"
+
+features:
+  - id: CMP-FEAT-001
+    title: "Idle GPU Detection"
+    summary: "Detect GPU resources that are provisioned but show no usage indicators in config."
+    included: true
+  - id: CMP-FEAT-010
+    title: "Oversized Instance Detection"
+    summary: "Identify instances that are likely overprovisioned relative to workload hints."
+    included: true
+  - id: CMP-FEAT-020
+    title: "Autoscaling Risk Detection"
+    summary: "Detect autoscaling policies that may lead to runaway costs or instability."
+    included: true
+  - id: CMP-FEAT-030
+    title: "Spot/Preemptible Misuse"
+    summary: "Flags risky spot instance configurations or absence of fallbacks."
+    included: true
+
+fixpack:
+  included: false
+  reference_hint_format: "fixpack:<ISSUE_ID>"
+  surfaces_hints: true
+
+compliance:
+  compliance_ledger_enabled: false
+  ledger_visibility: "none"
+
+cli:
+  base_command: "computescan"
+  scan_command: "computescan scan"
+  supported_flags:
+    - "--json"
+    - "--stdin"
+    - "--quiet"
+    - "--explain"
+    - "--output json"
+  reserved_flags:
+    - "--compliance-ledger"
+    - "--fixpack-summary"
+
+performance_constraints:
+  max_memory_mb: 200
+  expected_runtime_ms: 700
+  large_plan_runtime_ms: 1800
+  playground_runtime_ms: 2000
+  quickscore_threshold_resources: 800
+
+ecosystem_integrations:
+
+  guardscore:
+    pillar_weight: 0.33
+    severity_penalties:
+      critical: 40
+      high: 25
+      medium: 10
+      low: 2
+    provided_score_inputs:
+      - gpu_waste_estimate
+      - cost_risk_score
+      - issue_count_by_severity
+      - resource_count
+    badge_eligibility_signal: true
+
+  playground:
+    wasm_safe: true
+    max_runtime_ms: 2000
+    playground_latency_target_ms: 1600
+    json_sanitize: true
+    svg_sanitize: true
+    quick_score_mode: true
+
+  guardboard:
+    exposes_fixpack_hints: true
+    shows_compliance_ledger: false
+    badge_preview_supported: true
+
+testing:
+  unit_tests_required: true
+  integration_tests_required: true
+  snapshot_schema_test: true
+  test_coverage_min_percent: 80
+  ci_jobs:
+    - validate_schema
+    - unit
+    - integration
+    - snapshot_conformance
+
+versioning:
+  semver: true
+  core_dependency_pin: "guardsuite-core@>=1.4.0,<2.0.0"
+  schema_version_pin: "canonical_schema@1.0.0"
+  breaking_change_policy: >
+    Breaking changes must include an RFC in guardsuite-core, migration guidance,
+    and coordinated release across dependent pillars.
+
+interoperability_conflicts:
+  - "Cost-modeling extensions may require new GuardScore inputs."
+  - "FixPack-Pro conflict if later automated remediation writes compute resources."
+
+future_extensions:
+  - "Lightweight cost forecasting module"
+  - "GPU utilization inference from infra hints"
+  - "Container-level GPU request/limit heuristics"
+
+security:
+  no_external_calls_at_runtime: true
+  sanitize_all_inputs: true
+  svg_sanitization: true
+  wasm_compatible: true
+  sandbox_requirement: "Playground runtime must be WASM sandboxed"
+  safe_error_reporting: true
+
+maintainers:
+  - name: "Deon Prinsloo"
+    role: "AI Solutions Architect"
+    contact: "deon@shieldcraft-ai.com"
+
+release_metadata:
+  release_channel: "stable"
+  release_notes_url: "https://shieldcraft-ai.com/guardsuite/computescan/releases/2.0.0"
+  published_date: "2025-11-19"
+
+references:
+  master_spec: "docs/guardsuite_master_spec.md"
+  template_spec: "templates/spec_page.md.j2"
+  canonical_schema: "guardsuite-core/canonical_schema.json"

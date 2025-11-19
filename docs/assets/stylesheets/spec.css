@@ -1,0 +1,17 @@
+/* GuardSuite documentation custom styling */
+:root {
+  --guardsuite-primary: #2d5fd3;
+  --guardsuite-muted: #eef2ff;
+}
+
+.md-main article h1,
+.md-main article h2,
+.md-main article h3 {
+  font-weight: 600;
+}
+
+.md-typeset .admonition,
+.md-typeset details {
+  border-left: 0.25rem solid var(--guardsuite-primary);
+  background-color: var(--guardsuite-muted);
+}
