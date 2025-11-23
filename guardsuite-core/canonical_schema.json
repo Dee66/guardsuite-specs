@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GuardSuite Canonical Plan",
+  "description": "Primary schema enforced by GuardSuite Core for normalized IaC plan ingestion.",
+  "type": "object",
+  "required": [
+    "plan_id",
+    "schema_version",
+    "resources",
+    "metadata"
+  ],
+  "properties": {
+    "plan_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema_version": {
+      "type": "string",
+      "pattern": "^gs-[0-9]{4}\\.[0-9]{2}$"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["source", "ingested_at"],
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "qos": {
+          "type": "string",
+          "enum": ["debug", "standard", "strict"]
+        }
+      },
+      "additionalProperties": true
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "name"],
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "properties": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "violations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "severity", "resource_ref"],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "critical"]
+          },
+          "resource_ref": {
+            "type": "string"
+          },
+          "details": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}

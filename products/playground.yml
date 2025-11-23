@@ -1,0 +1,73 @@
+# provenance: Master Spec reference file:///mnt/data/gpt-instructions.txt
+id: playground
+name: GuardSuite Playground
+product_type: experience
+version: "2.0.0"
+short_description: >
+  Web-based GuardSuite sandbox that lets teams exercise canonical outputs and
+  deterministic badge checks without installing the full suite.
+long_description: |
+  GuardSuite Playground is the hosted evaluation environment for GuardSuite
+  products. It mirrors the evaluator pipeline, surfaces guardrails inside a
+  browser, and ships with deterministic sample plans so contributors can preview
+  badge eligibility, see FixPack snippets, and validate product metadata before
+  promoting release candidates. Playground is safe to embed in docs, demos, and
+  AI showcases because it avoids filesystem or network escapes and keeps latency
+  predictable for WASM runtimes.
+description: "Hosted GuardSuite evaluator sandbox for demos, docs, and AI showcases."
+features:
+  - id: PLAY-FEAT-010
+    title: "Deterministic GuardSuite Evaluations"
+    summary: "Runs the evaluator + canonical schema in a WASM sandbox with curated plans."
+    included: true
+  - id: PLAY-FEAT-020
+    title: "Badge Eligibility Preview"
+    summary: "Displays GuardScore signals, severity totals, and badge decisions inline."
+    included: true
+  - id: PLAY-FEAT-030
+    title: "Shareable Playground Links"
+    summary: "Generates pre-loaded URLs for documentation, customer enablement, and demos."
+    included: true
+marketing:
+  hero: "Exercise GuardSuite rules safely inside a browser sandbox."
+  blurbs:
+    - "Great for solution engineers, docs teams, and AI showcases."
+    - "Pre-wired with deterministic GuardSuite sample plans."
+    - "Exports badge-ready JSON for GuardBoard and GuardScore."
+metadata:
+  version: "2025.11"
+  funnel_stage: toplevel_funnel
+  pricing_reference: "pricing/guardsuite_pricing.yml"
+  ux_goals:
+    - "Give teams a zero-install GuardSuite sandbox."
+    - "Expose GuardScore + badge eligibility inline for demos."
+governance:
+  spec_version: "2025.11"
+  last_reviewed: "2025-11-23"
+  owner: "GuardSuite PMO"
+  stability_level: beta
+contract_ref: "contracts/playground_contract.yml"
+related_products:
+  - vectorscan
+  - guardscore
+  - guardboard
+compliance:
+  matrix_snippet: "docs/playground_matrix.yml"
+architecture:
+  schema_source: "products/schema/playground.schema.yml"
+  required_interfaces:
+    - "I_PlaygroundRuntime"
+    - "I_GuardSuiteAPI"
+  runtime_constraints:
+    wasm_safe: true
+    latency_budget_ms: 750
+    max_memory_mb: 192
+references:
+  playground_schema: "products/schema/playground.schema.yml"
+  canonical_equivalence: "guardsuite-core/canonical_schema.json"
+  template_spec: "templates/spec_page.md.j2"
+sample_data:
+  deterministic_response:
+    issues: []
+provenance:
+  - "Generated from Architect instructions for GuardSuite Playground."

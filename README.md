@@ -32,6 +32,9 @@ scripts/sync_to_repo.py --dry-run --product <id> --target ../product-repo --ensu
 - MkDocs site navigation: `mkdocs.yml`
 - Canonical schema: `products/schema/product.schema.json`
 
+## Canonical Rollout
+Canonical enforcement is complete across validators, docs, exports, snapshots, registry, and cross-map surfaces. Each export directory now includes `canonical_integrity_rollup.yml`, a single-file health indicator referencing the validator’s one-line status for downstream automation (see Architect guidance: `file:///mnt/data/gpt-instructions.txt`).
+
 ### Sample Commands
 ```bash
 python scripts/gen_docs.py --all

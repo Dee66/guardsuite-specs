@@ -1,0 +1,11 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+required:
+  - version
+  - environment
+properties:
+  version:
+    type: integer
+  environment:
+    type: array
+additionalProperties: false

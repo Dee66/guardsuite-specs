@@ -4,24 +4,25 @@ type: object
 required:
   - id
   - name
+  - product_type
   - version
   - short_description
   - long_description
   - features
-  - description
   - marketing
   - metadata
   - governance
+  - contract_ref
   - related_products
-  - pillars
-  - components
-  - semantic_assets
+  - architecture
   - references
   - provenance
 properties:
   id:
     type: string
   name:
+    type: string
+  product_type:
     type: string
   version:
     type: string
@@ -31,8 +32,21 @@ properties:
     type: string
   features:
     type: array
-  description:
-    type: string
+    items:
+      type: object
+      required:
+        - id
+        - title
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        summary:
+          type: string
+        included:
+          type: boolean
+      additionalProperties: true
   marketing:
     type: object
     required:
@@ -78,28 +92,30 @@ properties:
         type: string
     additionalProperties: true
   contract_ref:
-    type:
-      - "null"
-      - string
+    type: string
   related_products:
     type: array
     items:
       type: string
-  pillars:
-    type: array
-  components:
-    type: array
-  semantic_assets:
-    type: array
+  architecture:
+    type: object
+    required:
+      - schema_source
+      - required_interfaces
+    properties:
+      schema_source:
+        type: string
+      required_interfaces:
+        type: array
+        items:
+          type: string
+    additionalProperties: true
   references:
     type: object
-    properties:
-      canonical_schema:
-        type: string
-        const: "guardsuite-core/canonical_schema.json"
-    required:
-      - canonical_schema
-    additionalProperties: false
+    additionalProperties:
+      type: string
   provenance:
     type: array
-additionalProperties: false
+    items:
+      type: string
+additionalProperties: true

@@ -1,0 +1,54 @@
+# Compliance traceability matrix for VectorScan Playground
+---
+controls:
+  - id: COM-1.0
+    title: Deterministic Input Handling
+    coverage:
+      - type: ui
+        field: ui.input_panel.components.textarea.oversize_copy
+        rationale: "Displays deterministic error copy when MAX_PLAN_BYTES exceeded."
+      - type: ui
+        field: ui.input_panel.components.scan_button.blocked_states
+        rationale: "Prevents scan when plan input missing or oversize."
+      - type: ui
+        field: ui.input_panel.trust_footer.copy
+        rationale: "Communicates deterministic handling in the UI footer."
+  - id: COM-2.0
+    title: No Network Escalation
+    coverage:
+      - type: ui
+        field: ui.results_panel.guardscore_card.quick_score_mode
+        rationale: "Badge logic enforces WASM-only quick score mode."
+      - type: api
+        field: security.no_external_calls_at_runtime
+        rationale: "Spec requires zero network escalation during analysis."
+  - id: COM-3.0
+    title: Latency Transparency
+    coverage:
+      - type: ui
+        field: ui.input_panel.components.scan_button.latency_indicator_ms
+        rationale: "Shows simulated runtime directly in the CTA."
+      - type: latency
+        field: latency_contract.behavior
+        rationale: "Defines deterministic under/over target messaging."
+  - id: COM-4.0
+    title: GuardScore Prominence
+    coverage:
+      - type: ui
+        field: ui.results_panel.guardscore_card.min_font_px
+        rationale: "Ensures badge is the largest visual element."
+      - type: api
+        field: sample_data.deterministic_response.issues[].remediation_hint
+        rationale: "Forces fixpack:<ISSUE_ID> formatting for GuardScore + FixPack traces."
+  - id: COM-5.0
+    title: FixPack Upgrade Disclosure
+    coverage:
+      - type: ui
+        field: ui.results_panel.fixpack_cta.behavior
+        rationale: "Unlock CTA opens lead capture modal before showing snippets."
+      - type: ui
+        field: ui.results_panel.fixpack_cta.modal_fields
+        rationale: "Captures user identity prior to remediation access."
+      - type: api
+        field: api.mock_behavior.keyword_map
+        rationale: "Maps deterministic issues to FixPack references for upgrade preview."

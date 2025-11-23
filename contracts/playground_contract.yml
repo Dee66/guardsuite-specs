@@ -1,0 +1,179 @@
+# Canonical machine-readable contract for the VectorScan Playground experience.
+---
+id: "playground_contract"
+version: "2025.11"
+source_spec: "products/playground.yml"
+schema_ref: "products/schema/playground.schema.yml#/components/response_schema"
+description: >
+  Defines how downstream renderers, API mocks, and automation pipelines consume the
+  VectorScan Playground spec. This contract is the single source of truth for the
+  POST /api/vectorscan/analyze mock surface, GuardScore response layout, and UI obligations.
+
+api_surface:
+  endpoint: "/api/vectorscan/analyze"
+  method: "POST"
+  auth: "None (browser sandbox)"
+  content_type: "application/json"
+  latency_budget_ms: 1800
+  simulated_latency_ms: 1500
+  remediation_hint_format: "fixpack:<ISSUE_ID>"
+  payload:
+    required_fields:
+      - name: "plan_text"
+        type: "string"
+        max_bytes: 262144
+        description: "Raw Terraform plan body; trimmed to MAX_PLAN_BYTES before hashing."
+      - name: "environment"
+        type: "string"
+        description: "Free-form workspace label surfaced in telemetry only."
+      - name: "latency_budget_ms"
+        type: "integer"
+        minimum: 0
+        maximum: 2000
+        description: "Client-declared timeout; used to gate progress copy."
+    optional_fields:
+      - name: "user_agent"
+        type: "string"
+        description: "Browser UA string captured for aggregate metrics only."
+      - name: "quick_score_override"
+        type: "boolean"
+        default: false
+        description: "When true, bypasses oversize guardrails for internal QA."
+
+response_contract:
+  description: "Outputs must satisfy schema_ref and stay deterministic."
+  fields:
+    guard_score:
+      schema_pointer: "#/components/response_schema/properties/guard_score"
+      required: true
+      constraints:
+        minimum: 0
+        maximum: 100
+    status:
+      schema_pointer: "#/components/response_schema/properties/status"
+      required: true
+      constraints:
+        enum: [clean, medium_risk, high_risk]
+    issues:
+      schema_pointer: "#/components/response_schema/properties/issues"
+      required: true
+      constraints:
+        min_items: 1
+        ordering: [severity, issue_id]
+        remediation_hint_format: "fixpack:<ISSUE_ID>"
+    issues.id:
+      schema_pointer: "#/components/response_schema/properties/issues/items/properties/id"
+      required: true
+    issues.severity:
+      schema_pointer: "#/components/response_schema/properties/issues/items/properties/severity"
+      required: true
+      constraints:
+        enum: [critical, high, medium, low]
+    issues.title:
+      schema_pointer: "#/components/response_schema/properties/issues/items/properties/title"
+      required: true
+    issues.description:
+      schema_pointer: "#/components/response_schema/properties/issues/items/properties/description"
+      required: true
+    issues.remediation_hint:
+      schema_pointer: "#/components/response_schema/properties/issues/items/properties/remediation_hint"
+      required: true
+    issues.remediation_difficulty:
+      schema_pointer: "#/components/response_schema/properties/issues/items/properties/remediation_difficulty"
+      required: true
+      constraints:
+        enum: [low, medium, high]
+    metadata:
+      schema_pointer: "#/components/response_schema/properties/metadata"
+      required: true
+    metadata.latency_ms:
+      schema_pointer: "#/components/response_schema/properties/metadata/properties/latency_ms"
+      required: true
+      constraints:
+        minimum: 0
+        maximum: 2000
+    metadata.engine_version:
+      schema_pointer: "#/components/response_schema/properties/metadata/properties/engine_version"
+      required: true
+    input_digest:
+      schema_pointer: "#/components/response_schema/properties/input_digest"
+      required: true
+      constraints:
+        pattern: "^[a-f0-9]{64}$"
+
+enumerations:
+  status: [clean, medium_risk, high_risk]
+  issue_severity: [critical, high, medium, low]
+  remediation_difficulty: [low, medium, high]
+
+ui_obligations:
+  input_panel:
+    layout: "single-column"
+    max_plan_bytes: 262144
+    oversize_copy: "Plan exceeds 256 KB quick-score limit."
+    latency_indicator_ms: 1500
+    trust_footer_copy: "No plan data leaves your browser."
+  results_panel:
+    guardscore_card:
+      min_font_px: 32
+      quick_score_mode: true
+      badge_position: "top-left"
+      disable_conditions:
+        - condition: "_oversize_plan"
+          copy: "Quick Score disabled for oversize plans."
+    issue_stream_order: [severity, issue_id]
+    fixpack_cta_behavior: "opens_lead_modal"
+    modal_fields: [full_name, email, company]
+  ctas:
+    primary:
+      text: "Unlock FixPack"
+      behavior: "open_modal"
+      href: "/upgrade/vectorguard"
+    secondary:
+      text: "Run another scan"
+      behavior: "reset_form"
+
+compliance_alignment:
+  COM-1.0:
+    summary: "Deterministic Input Handling"
+    contract_guards:
+      - "api_surface.payload.required_fields.plan_text"
+      - "ui_obligations.input_panel.max_plan_bytes"
+  COM-2.0:
+    summary: "No Network Escalation"
+    contract_guards:
+      - "ui_obligations.results_panel.guardscore_card.quick_score_mode"
+      - "security.no_external_calls_at_runtime"
+  COM-3.0:
+    summary: "Latency Transparency"
+    contract_guards:
+      - "ui_obligations.input_panel.latency_indicator_ms"
+      - "response_contract.fields.metadata.latency_ms"
+  COM-4.0:
+    summary: "GuardScore Prominence"
+    contract_guards:
+      - "ui_obligations.results_panel.guardscore_card.min_font_px"
+      - "response_contract.fields.issues.remediation_hint"
+  COM-5.0:
+    summary: "FixPack Upgrade Disclosure"
+    contract_guards:
+      - "ui_obligations.results_panel.fixpack_cta_behavior"
+      - "ui_obligations.results_panel.modal_fields"
+
+security:
+  no_external_calls_at_runtime: true
+  wasm_only_execution: true
+  sandbox_requirement: "Playground runtime must stay inside the WASM sandbox."
+
+ui_mappings:
+  input_panel: "ui.input_panel"
+  results_panel: "ui.results_panel"
+  ctas: "ui.ctas"
+
+downstream_consumers:
+  - name: "playground_renderer"
+    consumes: [ui_obligations, enumerations]
+  - name: "api_mock_engine"
+    consumes: [api_surface, response_contract]
+  - name: "fixpack_exporter"
+    consumes: [response_contract, compliance_alignment]

@@ -1,0 +1,17 @@
+# provenance: Master Spec — semantic layer bootstrap
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+required:
+  - version
+  - rules
+  - provenance
+properties:
+  version:
+    type: integer
+  rules:
+    type: array
+  provenance:
+    type: array
+    items:
+      type: string
+additionalProperties: false

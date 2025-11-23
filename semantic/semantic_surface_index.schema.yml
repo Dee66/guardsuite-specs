@@ -1,0 +1,29 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+required:
+  - version
+  - surface_index
+properties:
+  version:
+    type: integer
+  surface_index:
+    type: object
+    required:
+      - groups
+      - map
+      - matrix
+      - manifest
+      - governance
+    properties:
+      groups:
+        type: array
+      map:
+        type: array
+      matrix:
+        type: array
+      manifest:
+        type: array
+      governance:
+        type: array
+    additionalProperties: false
+additionalProperties: false

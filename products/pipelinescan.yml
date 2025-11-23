@@ -193,3 +193,22 @@ references:
   master_spec: "docs/guardsuite_master_spec.md"
   template_spec: "templates/spec_page.md.j2"
   canonical_schema: "guardsuite-core/canonical_schema.json"
+
+metadata:
+  version: "2025.11"
+  funnel_stage: bottom_funnel
+  pricing_reference: "pricing/guardsuite_pricing.yml"
+  ux_goals:
+    - "Detect pipeline misconfigurations"
+    - "Feed GuardBoard remediation queues"
+governance:
+  spec_version: "2025.11"
+  last_reviewed: "2025-11-23"
+  owner: "GuardSuite PMO"
+  stability_level: ga
+contract_ref: null
+related_products:
+  - pipelineguard
+  - guardscore
+  - guardboard
+  - playground

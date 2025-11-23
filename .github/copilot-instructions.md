@@ -1,38 +1,122 @@
-# GuardSuite Template — Copilot Instructions
+version: 4.3
+title: GuardSuite Copilot Instructions (Optimized YAML)
 
-## Orientation
-- Template for new GuardSuite pillars; most work happens under `src/pillar/**` with CLI + engine + renderer layers
-- CLI entry (`src/pillar/cli.py`) wires loader → evaluator → renderer; always preserve deterministic stdout/json and latency accounting
-- SCAN metadata constants live in `src/pillar/engine/evaluator.py`; update `PILLAR_PLACEHOLDER`, `SCAN_VERSION`, `GUARDSCORE_RULES_VERSION` when cloning for a real pillar
+role:
+purpose: "Copilot implements code inside GuardSuite repos under strict architectural + schema constraints."
+chatgpt_relationship: "ChatGPT = architect/orchestrator. Copilot = implementor."
 
-## Architecture & Data Flow
-- Loader (`src/pillar/engine/loader.py`) accepts either a file path or stdin; enforce `MAX_PLAN_BYTES`/`MAX_PLAN_RESOURCES`, set `_oversize` flags, and never perform network I/O
-- Evaluator composes pure rule helpers returning dicts shaped like `tests/snapshots/test_schema_snapshot.py` expects; use `remediation_for_issue` to generate deterministic `fixpack:<ISSUE>` hints and keep rule functions side-effect free
-- Renderer (`src/pillar/renderer.py`) formats deterministic text output by sorting issues via severity/id; sanitize/strip user-controlled strings before concatenation
-- Schema contracts live in `src/pillar/schema.py`; keep outputs aligned so snapshots and downstream consumers stay green
-- Fixpack snippets (`fixpack/*.hcl`) must be named after issue IDs with HCL comment headers describing metadata
+mode:
+allowed: [modify_code, update_files, run_tests, refactor, update_docs_when_instructed]
+forbidden: [invent_files, change_schema, introduce_nondeterminism, rename_dirs_without_instruction]
 
-## Implementation Patterns
-- Prefer small, isolated rule evaluators returning `Issue` dataclasses so `_severity_totals` continues to derive counts automatically
-- Set `quick_score_mode` when `_oversize` is present or resource count exceeds `MAX_PLAN_RESOURCES`; `guardscore_badge` should disable eligibility in quick mode
-- Always fill `environment` via `_infer_environment` to keep provider-stage inference consistent; add new keys there instead of per-rule logic
-- When adding CLI options, update both `tests/unit/test_cli.py` and README usage so scaffolding instructions remain accurate
+project_invariants:
+required_paths:
+- src/pillar/cli.py
+- src/pillar/evaluator.py
+- src/pillar/constants.py
+- src/pillar/metadata.py
+- src/pillar/rules/
+- src/pillar/rules/registry.py
+- src/pillar/fixpack/
+- docs/spec.yml
+- tests/unit/
+- tests/integration/
+- tests/snapshots/
+- tests/fixtures/minimal_plan.json
+do_not_modify: [canonical_schema, registry_contract, evaluator_lifecycle]
 
-## Developer Workflow
-- Use Poetry via Makefile targets: `make install` (installs poetry + deps), `make test` (`pytest -v`), `make lint` (`ruff` + `black --check`), `make format` to autofix
-- Quick CLI check: `make run-example` runs `pillar.cli scan tests/fixtures/minimal_plan.json`
-- Long-running or manual CLI runs should prefer `poetry run python -m pillar.cli scan --stdin < plan.json` to reuse the virtualenv
-- To scaffold a new pillar, run `python scripts/scaffold_new_pillar.py <pillar_name>` from repo root; it copies the template and rewrites placeholder tokens
+architecture:
+determinism: [no_random, no_timestamps_except_latency, no_uuid, stable_sort_severity_then_id, registry_order_rules]
+wasm_safe: [no_dynamic_imports, no_network, no_subprocess, no_fs_writes_outside_pkg]
+evaluator_pipeline:
+- load_plan
+- run rule_registry.all_rules()
+- aggregate_issues
+- attach_fixpack_metadata
+- compute_severity_totals
+- compute_quick_score_mode
+- build_metadata
+- canonicalize_output
+- validate_schema_attach_errors
+cli:
+commands: [scan, validate, rules]
+flags: [--json, --stdin, --quiet, --version, --output json]
+scan_output: "canonical JSON + latency_ms"
+validate_output: "same + schema_validation_error"
 
-## Testing Guidance
-- Unit coverage focuses on CLI flags (`tests/unit/test_cli.py`); extend when adding new user-facing toggles
-- Integration tests (`tests/integration/test_playground_flow.py`) expect loader/evaluator parity with fixtures—keep fixture helpers in `tests/shared/loader.py` in sync
-- Schema regression lives in `tests/snapshots/test_schema_snapshot.py`; update snapshots only after verifying canonical schema deltas with platform owners
-- Add fixture JSON under `tests/fixtures/` and reference via shared loader to avoid duplicated path math
+canonical_schema:
+required_issue_fields:
+- id, severity, title, description, resource_address
+- attributes, remediation_hint, remediation_difficulty
+severity: [critical, high, medium, low]
+evaluator_output_required:
+- pillar, scan_version, canonical_schema_version
+- guardscore_rules_version, environment, issues
+- severity_totals, latency_ms
+- quick_score_mode, badge_eligible
+- metadata, schema_validation_error
 
-## Conventions & Gotchas
-- Never make network calls or mutate global state inside rules; determinism and reproducibility are top-level architecture principles
-- Latency is measured in `cli.scan`—rule code must remain pure so total wall time stays dominated by parsing
-- Renderer output is the only text mode; JSON mode should always be raw `evaluate_plan` output (plus latency) without additional formatting
-- Keep remediation hints synchronized with `fixpack/` filenames; callers look for `fixpack:<ISSUE>` markers when stitching HCL snippets
-- If you change schema keys or constants, ripple updates into `README.md`, fixtures, and any scaffolding defaults so downstream teams inherit the new contract
+rules:
+signature: "rule(plan) -> list[IssueDict]"
+constraints: [pure, deterministic, no_io, no_global_mutation]
+registry:
+file: src/pillar/rules/registry.py
+must: [register(rule), all_rules_ordered, no_duplicates]
+recommended_issue_template: |
+{
+"id": "PILLAR-XXX-000",
+"severity": "medium",
+"title": "",
+"description": "",
+"resource_address": "",
+"attributes": {},
+"remediation_hint": "fixpack:PILLAR-XXX-000",
+"remediation_difficulty": "low"
+}
+
+fixpack:
+loader_file: src/pillar/fixpack/loader.py
+loader_must: [exists(issue_id), load(issue_id)_returns_metadata]
+naming: "fixpack/<ISSUE_ID>.hcl"
+hint_format: "fixpack:<ISSUE_ID>"
+required_stub_fields: [id, summary, difficulty]
+
+error_model:
+evaluator: [never_raise_schema_errors, attach_schema_errors, continue_processing]
+cli: [wrap_exceptions, exit_1_on_user_error, deterministic_json]
+
+testing:
+required: [unit, integration, snapshots, schema, remediation, quickscore, deterministic]
+fixture_minimal_plan: tests/fixtures/minimal_plan.json
+snapshot_update_only_when_instructed: true
+
+copilot_behavior:
+must: [follow_yaml_strictly, modify_only_requested_dirs, run_pytest_after_changes,
+update_snapshots_when_allowed, preserve_determinism, preserve_formatting]
+must_not: [reorganize_repo, rename_modules, modify_schema_keys, delete_tests_unless_instructed]
+
+ai_dev:
+description: "/ai-dev triggers a single mandatory Copilot instruction block."
+block_format:
+begin: "--- BEGIN COPILOT INSTRUCTIONS ---"
+end: "--- END COPILOT INSTRUCTIONS ---"
+expected_copilot_outputs:
+- ANALYSIS_COMPLETE: true
+- ANALYSIS_COMPLETE: false
+- MIGRATION_PHASE_*_COMPLETE: true
+when_false: "Return numbered list of fixes."
+rules: [one_block_only, no_extra_text, no_summary, ask_for_missing_paths_only]
+
+NEW RULE: Behavior for the Audit Command (Synchronized with Architect)
+
+ai_dev_report:
+description: "Generated by the Architect when user types /ai-dev-report."
+action: "Scan the repository, validate against the Master Spec, and check checklist progress."
+required_output: "Must return a comprehensive #FEEDBACK_CONTRACT summarizing project status, structural drift, spec alignment issues, and errors found."
+allowed_action: "May update progress tracking files (e.g., checklist) if instructed by the Architect to do so during the audit."
+
+revision:
+locked: true
+user_confirmation_required: true
+
+end_of_file: true

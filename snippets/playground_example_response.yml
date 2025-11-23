@@ -1,0 +1,22 @@
+# Deterministic example response for /api/vectorscan/analyze
+# Mirrors products/schema/playground.schema.yml#/components/response_schema
+---
+guard_score: 778
+status: medium_risk
+issues:
+  - id: VEC-NET-001
+    severity: high
+    title: "Open vector endpoint"
+    description: "VPC security group allows 0.0.0.0/0 ingress to managed vector endpoint."
+    remediation_hint: "fixpack:VEC-NET-001"
+    remediation_difficulty: medium
+  - id: VEC-STO-004
+    severity: medium
+    title: "Missing encryption at rest"
+    description: "Elasticsearch/OpenSearch domain lacks encryption_at_rest block."
+    remediation_hint: "fixpack:VEC-STO-004"
+    remediation_difficulty: low
+metadata:
+  latency_ms: 1520
+  engine_version: "playground-engine@2.0.0"
+input_digest: "2a61dfc4d03be1f5122c8d5c0a0f0bbcd8c0396ff8dc82d4ed4096743c2f118e"
