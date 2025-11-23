@@ -1,0 +1,53 @@
+meta:
+  commit: 3bd5022f5527568a4ab4017beafbfa234536f4d2
+  timestamp: '2025-11-23T10:57:57.877821Z'
+  canonical_schema_status: 'canonical_schema: OK'
+  canonical_schema_excerpt:
+    required:
+    - plan_id
+    - schema_version
+    - resources
+    - metadata
+    properties:
+    - metadata
+    - plan_id
+    - resources
+    - schema_version
+    - violations
+product:
+  id: computescan
+  name: ComputeScan
+  version: 2.0.0
+  category: free_scanner
+crossmap:
+  pillars: []
+  components: []
+  semantic_assets: []
+  related_products:
+  - computeguard
+  - guardscore
+  - guardboard
+  - playground
+  references:
+    canonical_schema: guardsuite-core/canonical_schema.json
+    master_spec: docs/guardsuite_master_spec.md
+    template_spec: templates/spec_page.md.j2
+  capabilities:
+  - id: CMP-FEAT-001
+    title: Idle GPU Detection
+    severity: null
+    description: Detect GPU resources that are provisioned but show no usage indicators
+      in config.
+  - id: CMP-FEAT-010
+    title: Oversized Instance Detection
+    severity: null
+    description: Identify instances that are likely overprovisioned relative to workload
+      hints.
+  - id: CMP-FEAT-020
+    title: Autoscaling Risk Detection
+    severity: null
+    description: Detect autoscaling policies that may lead to runaway costs or instability.
+  - id: CMP-FEAT-030
+    title: Spot/Preemptible Misuse
+    severity: null
+    description: Flags risky spot instance configurations or absence of fallbacks.

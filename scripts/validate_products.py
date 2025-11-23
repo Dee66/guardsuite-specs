@@ -43,6 +43,7 @@ PRODUCT_TYPE_CATEGORY = {
     "scoring_engine": "core",
     "core": "core",
 }
+PRODUCT_VALIDATION_EXCLUSIONS = {"pillar-template"}
 
 SEMANTIC_RULES_PATH = ROOT / "semantic_rules.yml"
 SEMANTIC_RULES_SCHEMA = ROOT / "semantic_rules.schema.yml"
@@ -128,8 +129,8 @@ SEMANTIC_RUNTIME_CAPABILITY_GROUPS_PREFIX = "Semantic runtime capability groups 
 SEMANTIC_RUNTIME_CAPABILITY_TOPOLOGY_PATH = ROOT / "semantic_runtime_capability_topology.yml"
 SEMANTIC_RUNTIME_CAPABILITY_TOPOLOGY_SCHEMA = ROOT / "semantic_runtime_capability_topology.schema.yml"
 SEMANTIC_RUNTIME_CAPABILITY_TOPOLOGY_PREFIX = "Semantic runtime capability topology schema failed: "
-PILLAR_TEMPLATE_SPEC_PATH = ROOT / "product_specs" / "pillar-template.yml"
-PILLAR_TEMPLATE_SCHEMA_PATH = ROOT / "product_specs" / "pillar-template.schema.yml"
+PILLAR_TEMPLATE_SPEC_PATH = PRODUCTS / "pillar-template.yml"
+PILLAR_TEMPLATE_SCHEMA_PATH = ROOT / "products" / "schema" / "pillar-template.schema.yml"
 PILLAR_TEMPLATE_SCHEMA_PREFIX = "Pillar template schema failed: "
 
 ISSUEDICT_REQUIRED_FIELDS = (
@@ -609,10 +610,10 @@ def _load_semantic_runtime_capability_topology() -> None:
 
 def _load_pillar_template() -> None:
     if not PILLAR_TEMPLATE_SPEC_PATH.exists():
-        raise FileNotFoundError("product_specs/pillar-template.yml missing; bootstrap pillar template spec")
+        raise FileNotFoundError("products/pillar-template.yml missing; bootstrap pillar template spec")
     if not PILLAR_TEMPLATE_SCHEMA_PATH.exists():
         raise FileNotFoundError(
-            "product_specs/pillar-template.schema.yml missing; bootstrap pillar template schema"
+            "products/schema/pillar-template.schema.yml missing; bootstrap pillar template schema"
         )
     payload = load_yaml(PILLAR_TEMPLATE_SPEC_PATH)
     schema = load_yaml(PILLAR_TEMPLATE_SCHEMA_PATH)
@@ -1046,6 +1047,7 @@ def main() -> None:
         for p in PRODUCTS.glob("*.yml")
         if not p.name.endswith("_worksheet.yml")
         and p.name not in {"guardsuite_master_spec.yml", "product_index.yml"}
+        and p.stem not in PRODUCT_VALIDATION_EXCLUSIONS
     )
     if not product_files:
         print("No product specs found under products/", file=sys.stderr)
@@ -1063,7 +1065,7 @@ def main() -> None:
         product_id = product.get("id")
         seen_ids.add(product_id)
         problems.extend(validate_product(product, file_path, product_index, known_products))
-    missing_in_specs = set(product_index.keys()) - seen_ids
+    missing_in_specs = set(product_index.keys()) - seen_ids - PRODUCT_VALIDATION_EXCLUSIONS
     if missing_in_specs:
         problems.append(
             "product_index.yml lists products without specs: "

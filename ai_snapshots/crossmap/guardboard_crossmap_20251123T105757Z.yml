@@ -1,0 +1,59 @@
+meta:
+  commit: 3bd5022f5527568a4ab4017beafbfa234536f4d2
+  timestamp: '2025-11-23T10:57:57.892794Z'
+  canonical_schema_status: 'canonical_schema: OK'
+  canonical_schema_excerpt:
+    required:
+    - plan_id
+    - schema_version
+    - resources
+    - metadata
+    properties:
+    - metadata
+    - plan_id
+    - resources
+    - schema_version
+    - violations
+product:
+  id: guardboard
+  name: GuardBoard
+  version: 2.0.0
+  category: paid_blueprint
+crossmap:
+  pillars: []
+  components: []
+  semantic_assets: []
+  related_products:
+  - guardscore
+  - vectorguard
+  - computeguard
+  - pipelineguard
+  - playground
+  - vectorscan
+  - computescan
+  - pipelinescan
+  references:
+    master_spec: docs/guardsuite_master_spec.md
+    template_spec: templates/spec_page.md.j2
+    canonical_schema: guardsuite-core/canonical_schema.json
+  capabilities:
+  - id: GB-FEAT-001
+    title: Unified GuardScore View
+    severity: null
+    description: Aggregates GuardScore inputs from all scanners and guards.
+  - id: GB-FEAT-010
+    title: Compliance Ledger Summaries
+    severity: null
+    description: Reads ledger data from VectorGuard / ComputeGuard / PipelineGuard.
+  - id: GB-FEAT-020
+    title: SVG Badge Generator
+    severity: null
+    description: Generates sanitized, signed badges for CI and repo README usage.
+  - id: GB-FEAT-030
+    title: FixPack Insights
+    severity: null
+    description: Displays FixPack-Lite hints and paid FixPack upgrade paths.
+  - id: GB-FEAT-040
+    title: Multi-Pillar Correlation
+    severity: null
+    description: Correlates risks across vector, compute, and pipeline pillars.

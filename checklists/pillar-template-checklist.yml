@@ -4,14 +4,14 @@ product_id: pillar-template
 items:
   - id: GS-013
     title: "Create initial Checklist"
-    status: "pending"
+    status: "completed"
     description: >
       Establish the synthesized checklist scaffold for pillar-template based on the
       Master Spec pillars (vector, compute, pipeline) and existing runtime scaffolding
       patterns.
   - id: GS-014
     title: "Add canonical schema references"
-    status: "pending"
+    status: "completed"
     description: >
       Link pillar-template.yml to the canonical schema sources so downstream tooling
       and validators can locate schema inputs deterministically.

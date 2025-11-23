@@ -1,0 +1,55 @@
+meta:
+  commit: 3bd5022f5527568a4ab4017beafbfa234536f4d2
+  timestamp: '2025-11-23T10:57:57.943472Z'
+  canonical_schema_status: 'canonical_schema: OK'
+  canonical_schema_excerpt:
+    required:
+    - plan_id
+    - schema_version
+    - resources
+    - metadata
+    properties:
+    - metadata
+    - plan_id
+    - resources
+    - schema_version
+    - violations
+product:
+  id: pipelineguard
+  name: PipelineGuard
+  version: 2.0.0
+  category: paid_blueprint
+crossmap:
+  pillars: []
+  components: []
+  semantic_assets: []
+  related_products:
+  - pipelinescan
+  - guardscore
+  - guardboard
+  - playground
+  references:
+    master_spec: docs/guardsuite_master_spec.md
+    template_spec: templates/spec_page.md.j2
+    canonical_schema: guardsuite-core/canonical_schema.json
+  capabilities:
+  - id: PIPEG-FEAT-010
+    title: Full Pipeline Governance Coverage
+    severity: null
+    description: 600+ workflow-security and supply-chain governance rules.
+  - id: PIPEG-FEAT-020
+    title: Compliance Ledger
+    severity: null
+    description: Pipeline and artifact governance ledger for audits.
+  - id: PIPEG-FEAT-030
+    title: FixPack-Lite Remediation
+    severity: null
+    description: Deterministic remediation snippets for CI/CD misconfigurations.
+  - id: PIPEG-FEAT-040
+    title: Advanced GuardScore Inputs
+    severity: null
+    description: Premium supply-chain and workflow-risk scoring signals.
+  - id: PIPEG-FEAT-050
+    title: Artifact Lifecycle Governance
+    severity: null
+    description: End-to-end artifact safety and provenance enforcement.

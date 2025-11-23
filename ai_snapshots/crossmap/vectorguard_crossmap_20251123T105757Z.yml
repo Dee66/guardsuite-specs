@@ -1,0 +1,55 @@
+meta:
+  commit: 3bd5022f5527568a4ab4017beafbfa234536f4d2
+  timestamp: '2025-11-23T10:57:57.994066Z'
+  canonical_schema_status: 'canonical_schema: OK'
+  canonical_schema_excerpt:
+    required:
+    - plan_id
+    - schema_version
+    - resources
+    - metadata
+    properties:
+    - metadata
+    - plan_id
+    - resources
+    - schema_version
+    - violations
+product:
+  id: vectorguard
+  name: VectorGuard
+  version: 2.0.0
+  category: paid_blueprint
+crossmap:
+  pillars: []
+  components: []
+  semantic_assets: []
+  related_products:
+  - vectorscan
+  - guardscore
+  - guardboard
+  - playground
+  references:
+    master_spec: docs/guardsuite_master_spec.md
+    template_spec: templates/spec_page.md.j2
+    canonical_schema: guardsuite-core/canonical_schema.json
+  capabilities:
+  - id: VECG-FEAT-010
+    title: Full Vector Governance Coverage
+    severity: null
+    description: 500+ advanced rules for vector-serving infrastructure.
+  - id: VECG-FEAT-020
+    title: Compliance Ledger
+    severity: null
+    description: Persistent compliance ledger for audits and reporting.
+  - id: VECG-FEAT-030
+    title: FixPack-Lite Deterministic Remediation
+    severity: null
+    description: Auto-generated HCL snippets for top misconfigurations.
+  - id: VECG-FEAT-040
+    title: Advanced GuardScore Weighting
+    severity: null
+    description: Premium score inputs for executive reporting.
+  - id: VECG-FEAT-050
+    title: Enhanced Pipeline Intelligence
+    severity: null
+    description: Deep retrieval pipeline safety and parameter analysis.
