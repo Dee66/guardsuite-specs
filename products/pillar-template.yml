@@ -15,8 +15,23 @@ features: []
 description: "Template project for generating new GuardSuite product repositories."
 marketing:
   hero: "Bootstrap new GuardSuite pillar products from this deterministic template."
+metadata:
+  version: "2025.11-pillar-template"
+  funnel_stage: toplevel_funnel
+  pricing_reference: "pricing/guardsuite_pricing.yml"
+  ux_goals:
+    - "Provide a deterministic baseline for new GuardSuite pillars."
+governance:
+  spec_version: "2025.11"
+  last_reviewed: "2025-11-23"
+  owner: "GuardSuite PMO"
+  stability_level: experimental
+contract_ref: null
+related_products: []
 pillars: []
 components: []
 semantic_assets: []
+references:
+  canonical_schema: "guardsuite-core/canonical_schema.json"
 provenance:
   - "Generated automatically by Architect Engine according to Master Spec rules."

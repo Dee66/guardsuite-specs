@@ -13,6 +13,7 @@ required:
   - pillars
   - components
   - semantic_assets
+  - references
   - provenance
 properties:
   id:
@@ -43,6 +44,15 @@ properties:
     type: array
   semantic_assets:
     type: array
+  references:
+    type: object
+    properties:
+      canonical_schema:
+        type: string
+        const: "guardsuite-core/canonical_schema.json"
+    required:
+      - canonical_schema
+    additionalProperties: false
   provenance:
     type: array
 additionalProperties: false
