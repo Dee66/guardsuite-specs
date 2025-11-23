@@ -128,6 +128,9 @@ SEMANTIC_RUNTIME_CAPABILITY_GROUPS_PREFIX = "Semantic runtime capability groups 
 SEMANTIC_RUNTIME_CAPABILITY_TOPOLOGY_PATH = ROOT / "semantic_runtime_capability_topology.yml"
 SEMANTIC_RUNTIME_CAPABILITY_TOPOLOGY_SCHEMA = ROOT / "semantic_runtime_capability_topology.schema.yml"
 SEMANTIC_RUNTIME_CAPABILITY_TOPOLOGY_PREFIX = "Semantic runtime capability topology schema failed: "
+PILLAR_TEMPLATE_SPEC_PATH = ROOT / "product_specs" / "pillar-template.yml"
+PILLAR_TEMPLATE_SCHEMA_PATH = ROOT / "product_specs" / "pillar-template.schema.yml"
+PILLAR_TEMPLATE_SCHEMA_PREFIX = "Pillar template schema failed: "
 
 ISSUEDICT_REQUIRED_FIELDS = (
     "id",
@@ -604,6 +607,24 @@ def _load_semantic_runtime_capability_topology() -> None:
         raise ValueError(f"{location}: {detail}" if location else detail)
 
 
+def _load_pillar_template() -> None:
+    if not PILLAR_TEMPLATE_SPEC_PATH.exists():
+        raise FileNotFoundError("product_specs/pillar-template.yml missing; bootstrap pillar template spec")
+    if not PILLAR_TEMPLATE_SCHEMA_PATH.exists():
+        raise FileNotFoundError(
+            "product_specs/pillar-template.schema.yml missing; bootstrap pillar template schema"
+        )
+    payload = load_yaml(PILLAR_TEMPLATE_SPEC_PATH)
+    schema = load_yaml(PILLAR_TEMPLATE_SCHEMA_PATH)
+    validator = Draft202012Validator(schema)
+    errors = sorted(validator.iter_errors(payload), key=lambda e: e.path)
+    if errors:
+        first = errors[0]
+        location = ".".join(str(part) for part in first.path)
+        detail = first.message
+        raise ValueError(f"{location}: {detail}" if location else detail)
+
+
 def load_product_index() -> Dict[str, dict]:
     if not PRODUCT_INDEX_PATH.exists():
         raise FileNotFoundError("products/product_index.yml missing; run index alignment.")
@@ -1012,6 +1033,12 @@ def main() -> None:
         _load_semantic_runtime_capability_topology()
     except (FileNotFoundError, ValueError) as exc:
         print(f"{SEMANTIC_RUNTIME_CAPABILITY_TOPOLOGY_PREFIX}{exc}", file=sys.stderr)
+        sys.exit(1)
+
+    try:
+        _load_pillar_template()
+    except (FileNotFoundError, ValueError) as exc:
+        print(f"{PILLAR_TEMPLATE_SCHEMA_PREFIX}{exc}", file=sys.stderr)
         sys.exit(1)
 
     product_files = sorted(

@@ -5,4 +5,5 @@ description: "Template project for generating new GuardSuite product repositorie
 pillars: []
 components: []
 semantic_assets: []
-provenance: "Generated automatically by Architect Engine according to Master Spec rules."
+provenance:
+  - "Generated automatically by Architect Engine according to Master Spec rules."

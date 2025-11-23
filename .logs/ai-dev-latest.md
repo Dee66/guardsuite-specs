@@ -1,3 +1,23 @@
+# AI Dev Log — 2025-11-23 (Cycle: GS-012 Pillar Template Schema Integration)
+
+## Actions Taken
+1. Added `product_specs/pillar-template.schema.yml` (Draft 2020-12) with Master Spec provenance, requiring product_id/version/description/pillars/components/semantic_assets/provenance and disallowing extra properties.
+2. Updated `product_specs/pillar-template.yml` so `provenance` is an array, aligning data with the new schema contract.
+3. Extended `scripts/validate_products.py` with pillar template constants, `_load_pillar_template()`, and deterministic prefix `Pillar template schema failed:` inserted into the validator flow.
+4. Logged ATU `GS-012` here capturing files changed, prefix, and provenance details for audit traceability.
+
+## Current State Summary
+- Pillar template spec + schema now validate alongside other guardrails, ensuring new pillars inherit a deterministic baseline.
+- Validator emits `Pillar template schema failed:` on schema regressions, keeping CI signals consistent.
+
+## Next Steps
+1. Expand the pillar template spec when downstream pillar scaffolding requires additional keys.
+2. Mirror changes into blueprint scaffolding scripts once the template evolves.
+
+ANALYSIS_COMPLETE: true
+
+---
+
 # AI Dev Log — 2025-11-23 (Cycle: GS-010 Semantic Runtime Capability Topology Bootstrap)
 
 ## Actions Taken
