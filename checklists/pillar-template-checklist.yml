@@ -1,0 +1,35 @@
+# provenance: Master Spec reference file:///mnt/data/gpt-instructions.txt
+version: 1
+product_id: pillar-template
+items:
+  - id: GS-013
+    title: "Create initial Checklist"
+    status: "pending"
+    description: >
+      Establish the synthesized checklist scaffold for pillar-template based on the
+      Master Spec pillars (vector, compute, pipeline) and existing runtime scaffolding
+      patterns.
+  - id: GS-014
+    title: "Add canonical schema references"
+    status: "pending"
+    description: >
+      Link pillar-template.yml to the canonical schema sources so downstream tooling
+      and validators can locate schema inputs deterministically.
+  - id: GS-015
+    title: "Export-for-AI coverage"
+    status: "pending"
+    description: >
+      Ensure pillar-template participates in scripts/export_for_ai.py outputs, including
+      ai_snapshots bundles and canonical registry exports.
+  - id: GS-016
+    title: "Docs generation hookup"
+    status: "pending"
+    description: >
+      Wire pillar-template into docs/product generation (gen_docs.py) so the templated
+      README and product page render alongside other GuardSuite products.
+  - id: GS-017
+    title: "Validator coverage tests"
+    status: "pending"
+    description: >
+      Add pytest coverage for the pillar-template schema to guarantee regressions are
+      caught during CI (e.g., test_product_schema_contract or dedicated fixture tests).
