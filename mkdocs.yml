@@ -5,17 +5,21 @@ nav:
   - Home: index.md
   - Products:
     - Overview: products/README.md
-    - VectorScan: products/vectorscan.md
-    - VectorGuard: products/vectorguard.md
-    - ComputeScan: products/computescan.md
     - ComputeGuard: products/computeguard.md
-    - PipelineScan: products/pipelinescan.md
-    - PipelineGuard: products/pipelineguard.md
-    - GuardScore Engine: products/guardscore.md
+    - ComputeScan: products/computescan.md
     - GuardBoard: products/guardboard.md
+    - GuardScore Engine: products/guardscore.md
     - GuardSuite Core: products/guardsuite-core.md
+    - Pillar Template: products/pillar-template.md
+    - PipelineGuard: products/pipelineguard.md
+    - PipelineScan: products/pipelinescan.md
+    - Playground: products/playground.md
+    - VectorGuard: products/vectorguard.md
+    - VectorScan: products/vectorscan.md
   - Specifications:
     - Master Spec: guardsuite_master_spec.md
+  - Schemas:
+    - Canonical Plan Schema: schema/canonical_schema.md
 
 extra_css:
   - assets/stylesheets/spec.css
@@ -23,3 +27,6 @@ extra_css:
 plugins:
   - search
   - admonition
+
+hooks:
+  - scripts/gen_docs.py
