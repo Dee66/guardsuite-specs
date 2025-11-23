@@ -1,0 +1,22 @@
+# provenance: Master Spec reference file:///mnt/data/gpt-instructions.txt
+id: pillar-template
+name: GuardSuite Pillar Template
+version: "1.0.0"
+short_description: >
+  Minimal GuardSuite product scaffold that keeps doc/export pipelines satisfied
+  while teams bootstrap a new pillar repository.
+long_description: |
+  The pillar-template product is intentionally sparse. It acts as a reference
+  stub that proves the documentation, export, and validation tooling can locate
+  a GuardSuite product entry even before real product content exists. Downstream
+  teams can clone this YAML as a starting point and flesh out pillars, features,
+  remediation metadata, and marketing copy as they mature their product.
+features: []
+description: "Template project for generating new GuardSuite product repositories."
+marketing:
+  hero: "Bootstrap new GuardSuite pillar products from this deterministic template."
+pillars: []
+components: []
+semantic_assets: []
+provenance:
+  - "Generated automatically by Architect Engine according to Master Spec rules."

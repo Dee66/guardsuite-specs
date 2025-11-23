@@ -1,0 +1,48 @@
+# provenance: Master Spec reference file:///mnt/data/gpt-instructions.txt
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+required:
+  - id
+  - name
+  - version
+  - short_description
+  - long_description
+  - features
+  - description
+  - marketing
+  - pillars
+  - components
+  - semantic_assets
+  - provenance
+properties:
+  id:
+    type: string
+  name:
+    type: string
+  version:
+    type: string
+  short_description:
+    type: string
+  long_description:
+    type: string
+  features:
+    type: array
+  description:
+    type: string
+  marketing:
+    type: object
+    required:
+      - hero
+    properties:
+      hero:
+        type: string
+    additionalProperties: true
+  pillars:
+    type: array
+  components:
+    type: array
+  semantic_assets:
+    type: array
+  provenance:
+    type: array
+additionalProperties: false
