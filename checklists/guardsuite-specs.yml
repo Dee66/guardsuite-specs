@@ -1,0 +1,255 @@
+# GuardSuite Product Checklist (guard-specs)
+# Generated from template v1.0.0
+# Product: guard-specs
+
+metadata:
+  checklist_version: 1.0.0
+  product_id: guard-specs
+  generated_by: system
+  last_updated: 2025-11-23
+  description: >
+    Checklist for implementing the guard-specs repository. Defines all tasks required
+    to build the source-of-truth metadata service, bootstrap generator, validation
+    engine, API layer, CLI, scheduler, and supporting systems.
+
+states:
+  allowed:
+    - todo
+    - in_progress
+    - partial
+    - done
+    - blocked
+
+phases:
+  - id: PH-001
+    name: "Project Initialization"
+    description: "Bootstrap validation, folder structure, schema setup"
+    required: true
+  - id: PH-002
+    name: "Core Service Scaffolding"
+    description: "Base app, modules, API foundations, schema loader"
+    required: true
+  - id: PH-003
+    name: "Feature Implementation"
+    description: "Full CRUD API, bootstrap generator, validator, scheduler"
+    required: true
+  - id: PH-004
+    name: "Determinism & Validation"
+    description: "Schema validation, reproducible bootstraps, hashing"
+    required: true
+  - id: PH-005
+    name: "Integration & API Alignment"
+    description: "Webhook ingestion, CI integration, multi-product support"
+    required: true
+  - id: PH-006
+    name: "Documentation & Release Readiness"
+    description: "Docs, examples, changelogs, maturity checks"
+    required: true
+
+items:
+  - id: GSPEC-001
+    phase: PH-001
+    title: "Validate bootstrap input integrity"
+    status: todo
+    description: >
+      Ensure that the product spec, checklist template, and gpt-instructions for
+      guard-specs itself are valid and loadable. Architect confirms bootstrap
+      completeness.
+    acceptance_criteria:
+      - All three YAMLs parse without error.
+      - Architect session state initialized correctly.
+      - Implementor verifies GuardTemplate directory structure.
+    dependencies: []
+    audit:
+      required: true
+
+  - id: GSPEC-002
+    phase: PH-001
+    title: "Initialize repository structure"
+    status: todo
+    description: >
+      Create baseline folders: /api, /schemas, /cli, /bootstrap, /scheduler,
+      /webhooks, /validation, /db, /docs. Populate with placeholders as defined in
+      GuardTemplate.
+    acceptance_criteria:
+      - Repo matches template layout.
+      - Placeholder modules created.
+    dependencies: [GSPEC-001]
+
+  - id: GSPEC-003
+    phase: PH-002
+    title: "Define product metadata schema"
+    status: todo
+    description: >
+      Create YAML/JSON schema for product metadata including spec_yaml, checklist_yaml,
+      gpt_instructions_yaml, bootstrap_version, validation_errors, status and tags.
+    acceptance_criteria:
+      - product_schema.yml exists under /schemas.
+      - CI validation passes sample valid/invalid inputs.
+    dependencies: [GSPEC-002]
+
+  - id: GSPEC-004
+    phase: PH-002
+    title: "Define checklist schema"
+    status: todo
+    description: >
+      Implement the official checklist schema used by all GuardSuite products.
+      Defines allowed states, required fields, dependencies, acceptance criteria.
+    acceptance_criteria:
+      - checklist_schema.yml exists under /schemas.
+      - Tools validate against this schema.
+    dependencies: [GSPEC-003]
+
+  - id: GSPEC-005
+    phase: PH-002
+    title: "Define bootstrap schema"
+    status: todo
+    description: >
+      Create schema for the bootstrap artifact (spec + checklist + instructions +
+      session_state). Include versioning, validation_errors, and incomplete flag.
+    acceptance_criteria:
+      - bootstrap_schema.yml implemented.
+      - Testing confirms schema correctness.
+    dependencies: [GSPEC-004]
+
+  - id: GSPEC-006
+    phase: PH-002
+    title: "Implement core application scaffolding"
+    status: todo
+    description: >
+      Implement basic application entrypoint, service container, routing structure,
+      config loader, logging setup, environment config.
+    acceptance_criteria:
+      - App compiles & starts.
+      - Base routes respond with 200.
+    dependencies: [GSPEC-002]
+
+  - id: GSPEC-007
+    phase: PH-003
+    title: "Implement product CRUD layer"
+    status: todo
+    description: >
+      Implement endpoints to create, read, update, and list product metadata. Support
+      spec/checklist/instructions updates.
+    acceptance_criteria:
+      - /products supports POST, GET, PATCH, GET list.
+      - Metadata stored in DB.
+    dependencies: [GSPEC-006, GSPEC-003]
+
+  - id: GSPEC-008
+    phase: PH-003
+    title: "Implement server-side YAML validation engine"
+    status: todo
+    description: >
+      Build validator module to validate spec, checklist, and gpt-instructions YAMLs
+      against schemas. Supports validation endpoint.
+    acceptance_criteria:
+      - /products/{id}/validate returns valid/invalid + errors.
+      - Validation integrated into bootstrap generation.
+    dependencies: [GSPEC-004, GSPEC-005]
+
+  - id: GSPEC-009
+    phase: PH-003
+    title: "Implement bootstrap generator"
+    status: todo
+    description: >
+      Implement generator that composes the bootstrap JSON from spec, checklist,
+      and instructions; hashes version; stores artifact; returns metadata.
+    acceptance_criteria:
+      - /products/{id}/bootstrap returns latest bootstrap.
+      - /products/{id}/bootstrap/generate regenerates artifact.
+      - Hashing uses deterministic SHA256.
+    dependencies: [GSPEC-007, GSPEC-008]
+
+  - id: GSPEC-010
+    phase: PH-003
+    title: "Implement GuardSpecs CLI"
+    status: todo
+    description: >
+      Create CLI commands for bootstrap generation, product creation, validation,
+      and listing. Must output JSON for paste into Architect sessions.
+    acceptance_criteria:
+      - guard-specs-cli bootstrap generate works.
+      - CLI validated in CI.
+    dependencies: [GSPEC-009]
+
+  - id: GSPEC-011
+    phase: PH-004
+    title: "Implement deterministic validation & hashing rules"
+    status: todo
+    description: >
+      Ensure all bootstraps and schema validations are reproducible and deterministic.
+      No timestamp drift, no nondeterministic ordering.
+    acceptance_criteria:
+      - Identical inputs produce identical bootstrap hashes.
+      - All sorted outputs follow canonical rules.
+    dependencies: [GSPEC-009]
+    audit:
+      required: true
+
+  - id: GSPEC-012
+    phase: PH-005
+    title: "Implement webhook ingestion"
+    status: todo
+    description: >
+      Support POST /webhooks/scan-result for receiving Implementor audit outputs,
+      feedback_contracts, and syncing state.
+    acceptance_criteria:
+      - Webhook validates secret.
+      - Product metadata updated from audit.
+    dependencies: [GSPEC-007]
+
+  - id: GSPEC-013
+    phase: PH-005
+    title: "Implement scheduler for periodic bootstrap generation"
+    status: todo
+    description: >
+      Implement scheduled job to regenerate bootstrap artifacts every X minutes and
+      commit to storage if changed.
+    acceptance_criteria:
+      - Scheduler runs every interval.
+      - Only changed artifacts persist.
+    dependencies: [GSPEC-009]
+
+  - id: GSPEC-014
+    phase: PH-005
+    title: "Implement CI pipeline integration"
+    status: todo
+    description: >
+      Provide endpoints and CLI commands for CI to validate specs, regenerate
+      bootstraps, and perform structural checks.
+    acceptance_criteria:
+      - CI can call /validate and /bootstrap/generate.
+    dependencies: [GSPEC-008, GSPEC-009]
+
+  - id: GSPEC-015
+    phase: PH-006
+    title: "Documentation and release readiness"
+    status: todo
+    description: >
+      Produce documentation for the API, schema formats, lifecycle flows, CLI usage,
+      bootstrap artifacts, and developer onboarding.
+    acceptance_criteria:
+      - Documentation in /docs is complete.
+      - Ready for internal adoption.
+      - Changelog generated.
+    dependencies: [GSPEC-010, GSPEC-014]
+
+settings:
+  sequencing:
+    default_order: by_phase_then_id
+    architect_can_reorder: true
+  atu_behavior:
+    description: "Architect decomposes items into ATUs."
+    requirements:
+      - Track partial progress.
+      - Maintain dependencies.
+      - Mark done when all ATUs complete.
+
+validation:
+  require_all_phases: true
+  require_unique_ids: true
+  require_dependencies_exist: true
+  require_acceptance_criteria: true
+  require_status_valid: true
+  schema_version: 1
