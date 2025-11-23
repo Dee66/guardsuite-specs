@@ -1,0 +1,8 @@
+# provenance: Master Spec reference file:///mnt/data/gpt-instructions.txt
+product_id: pillar-template
+version: 1
+description: "Template project for generating new GuardSuite product repositories."
+pillars: []
+components: []
+semantic_assets: []
+provenance: "Generated automatically by Architect Engine according to Master Spec rules."
