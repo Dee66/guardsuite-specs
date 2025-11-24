@@ -42,8 +42,10 @@ PRODUCT_TYPE_CATEGORY = {
     "experience": "experience",
     "scoring_engine": "core",
     "core": "core",
+    "platform_service": "platform",
+    "platform": "platform",
 }
-PRODUCT_VALIDATION_EXCLUSIONS = {"pillar-template"}
+PRODUCT_VALIDATION_EXCLUSIONS = {"pillar-template", "guardsuite-template"}
 
 SEMANTIC_DIR = ROOT / "semantic"
 SEMANTIC_RULES_PATH = SEMANTIC_DIR / "semantic_rules.yml"
@@ -711,6 +713,13 @@ def _parse_args() -> argparse.Namespace:
         action="store_true",
         help="Only verify canonical schema presence and structure",
     )
+    parser.add_argument(
+        "--product",
+        dest="products",
+        action="append",
+        default=None,
+        help="Validate only the specified product id (can be passed multiple times)",
+    )
     return parser.parse_args()
 
 
@@ -1053,12 +1062,30 @@ def main() -> None:
     if not product_files:
         print("No product specs found under products/", file=sys.stderr)
         sys.exit(1)
+
+    all_product_ids = {path.stem for path in product_files}
+    requested: set[str] | None = None
+    if args.products:
+        requested = {prod.strip() for prod in args.products if prod and prod.strip()}
+        missing = requested - all_product_ids
+        if missing:
+            print(
+                "Product validation failed:",
+                *[f" - unknown product id '{name}'" for name in sorted(missing)],
+                sep="\n",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        product_files = [path for path in product_files if path.stem in requested]
+        if not product_files:
+            print("No matching product specs after filtering", file=sys.stderr)
+            sys.exit(1)
     try:
         product_index = load_product_index()
     except FileNotFoundError as exc:
         print(str(exc), file=sys.stderr)
         sys.exit(1)
-    known_products = {p.stem for p in product_files}
+    known_products = all_product_ids
     problems: List[str] = []
     seen_ids: set[str] = set()
     for file_path in product_files:
@@ -1067,6 +1094,8 @@ def main() -> None:
         seen_ids.add(product_id)
         problems.extend(validate_product(product, file_path, product_index, known_products))
     missing_in_specs = set(product_index.keys()) - seen_ids - PRODUCT_VALIDATION_EXCLUSIONS
+    if requested is not None:
+        missing_in_specs &= requested
     if missing_in_specs:
         problems.append(
             "product_index.yml lists products without specs: "

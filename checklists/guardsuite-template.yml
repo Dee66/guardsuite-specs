@@ -1,0 +1,285 @@
+# repos/guardsuite-template/checklist.yml
+# GuardSuite Template Checklist (v2.1.2)
+# Hybrid Phase + Contract checklist — authoritative, production-ready
+
+id: guardsuite_template_checklist
+product: guardsuite-template
+version: "2.1.2"
+status: active
+
+phases:
+
+# ============================================================
+# PH-001: INITIALIZATION & REPO BOOTSTRAP
+# ============================================================
+- phase: PH-001
+  title: "Initialization & Repository Bootstrap"
+  tasks:
+    - id: INIT-001
+      title: "Repo minimum files"
+      task: "Ensure repo contains required files: spec.yml, checklist.yml, schemas/, rules/, fixpack/, cli entrypoint, migrations/"
+
+    - id: INIT-002
+      title: "Cross-repo version check"
+      task: "Verify guardsuite-specs version >= spec.schema_version AND guardsuite-core runtime >= spec.min_pillar_runtime"
+
+    - id: INIT-003
+      title: "Scaffold script presence"
+      task: "Ensure scaffold_new_pillar.py present and executable"
+
+    - id: INIT-004
+      title: "Spec metadata validation"
+      task: "Check spec.yml includes spec_version, runtime_api_version, schema_version, min_pillar_runtime and all are semver-valid"
+
+    - id: INIT-005
+      title: "ABI manifest presence"
+      task: "Confirm binary ABI manifest exists for supported architectures and matches spec.binary_abi_matrix"
+
+    - id: INIT-006
+      title: "Binary signature & integrity check"
+      task: "Verify signatures of core binary modules and validate integrity against ABI manifest (signature verification + checksum)"
+
+# ============================================================
+# PH-002: CORE CONTRACT IMPLEMENTATION
+# ============================================================
+- phase: PH-002
+  title: "Core Template Contract Implementation"
+  tasks:
+
+    - id: CORE-001
+      title: "Implement evaluator_pipeline"
+      task: "Implement authoritative evaluator_pipeline stages and ensure stage order enforcement with instrumentation"
+
+    - id: CORE-002
+      title: "Lifecycle state machine"
+      task: "Implement lifecycle_state_machine and tests for valid/invalid transitions and state logging"
+
+    - id: CORE-003
+      title: "Schema fragments"
+      task: "Place core fragments under schemas/core; ensure pillar extensions under schemas/pillar and that inheritance rules are enforced"
+
+    - id: CORE-004
+      title: "Fragment governance metadata"
+      task: "Add fragment governance metadata (RFC links, approvers, version) and include fragment_governance in spec"
+
+    - id: CORE-005
+      title: "Canonical output schema"
+      task: "Include canonical_output schema and implement validation pipeline for outputs"
+
+    - id: CORE-006
+      title: "Adapter interface exposure"
+      task: "Expose adapter interfaces (discover, fetch_metadata, capability_manifest) in template runtime"
+
+    - id: CORE-007
+      title: "Resource discovery baseline"
+      task: "Implement resource_discovery schema validation, identifier canonicalization and capability manifest contract"
+
+    - id: CORE-008
+      title: "CLI base contract"
+      task: "Implement CLI verbs (scan, explain, validate, rules, verify, validate-self) and enforce flags and exit codes"
+
+    - id: CORE-009
+      title: "Binary core architecture tests"
+      task: "Validate binary_core module loading across supported CPU architectures (x86_64, arm64) using ABI manifest + signed binaries"
+
+    - id: CORE-010
+      title: "Canonical output contract tests"
+      task: "Validate output JSON against canonical_output.schema, enforce provenance presence and canonical field ordering"
+
+    - id: CORE-011
+      title: "Canonical ordering & provenance enforcement"
+      task: "Test deterministic key ordering and ensure provenance fields are always present and properly formatted"
+
+    - id: CORE-012
+      title: "Adapter interface compliance tests"
+      task: "Static + runtime tests that adapter implements discover(), fetch_metadata(), capability_manifest() and returns capability_manifest schema"
+
+    - id: CORE-013
+      title: "Capability manifest validation"
+      task: "Validate adapter capability_manifest semantics and ensure capability fields map to template capability_manifest schema"
+
+# ============================================================
+# PH-003: UTILITIES, RULES & FIXPACKS
+# ============================================================
+- phase: PH-003
+  title: "Utilities, Rule System & Fixpack Contracts"
+  tasks:
+
+    - id: UTIL-001
+      title: "Rule scaffolder implementation"
+      task: "Implement pillar.rules scaffold <rule-id> generating rule source, metadata, schema fragment, unit test skeleton, snapshot fixture and optional fixpack stub"
+
+    - id: UTIL-002
+      title: "Severity mapping integration"
+      task: "Integrate severity_mapping_core binary; validate mapping correctness and that buckets cannot be overridden by pillar config"
+
+    - id: UTIL-003
+      title: "Fixpack format validators"
+      task: "Implement fixpack HCL/JSON format validation, metadata completeness checks (difficulty, remediation_hint), and normalized preview outputs"
+
+    - id: UTIL-004
+      title: "Rule-Fixpack alignment checks"
+      task: "Validate fixpack references rule_ids; ensure rule bundle emits at least required severities and include severity-coverage snapshot tests"
+
+    - id: UTIL-005
+      title: "Fixpack difficulty taxonomy tests"
+      task: "Validate fixpack.difficulty conforms to canonical taxonomy and that normalization is enforced"
+
+# ============================================================
+# PH-004: DETERMINISM & WASM CONTRACTS
+# ============================================================
+- phase: PH-004
+  title: "Determinism, Normalization, Hashing & WASM Safety"
+  tasks:
+
+    - id: DET-001
+      title: "Canonicalization rules"
+      task: "Implement path normalization, timestamp normalization, float rules, and enforce canonical ordering"
+
+    - id: DET-002
+      title: "Snapshot determinism"
+      task: "Run 3x snapshot tests on ubuntu/debian/macos with identical hashes; fail on any divergence"
+
+    - id: DET-003
+      title: "Hash contract enforcement"
+      task: "Compute SHA256 canonical_json_utf8 hash; include required fields and exclude transient fields"
+
+    - id: DET-004
+      title: "Frontend determinism"
+      task: "Enforce pinned Node runtime in CI, ensure lockfile present, deterministic SSR snapshot generation, and fail on randomized artifacts"
+
+    - id: DET-005
+      title: "WASM execution validation"
+      task: "Validate WASM safety by executing key stages (evaluator_primitives) in WASM runtime; ensure deterministic numerics and no dynamic imports"
+
+    - id: DET-006
+      title: "Binary vs Python fallback parity"
+      task: "Run comparators: compare outputs of Python fallback vs binary modules across representative fixtures; assert equality within tolerances"
+
+    - id: DET-007
+      title: "Adapter determinism"
+      task: "Execute adapter discovery multiple times; assert idempotent resource lists and no nondeterministic I/O; fail if inconsistent"
+
+    - id: DET-008
+      title: "Binary module WASM runtime test"
+      task: "Execute evaluator_primitives.so or equivalent under WASM/wasi shim and assert correct interface behavior and determinism"
+
+# ============================================================
+# PH-005: TELEMETRY, PERFORMANCE & CROSS-REPO INTEGRATION
+# ============================================================
+- phase: PH-005
+  title: "Telemetry, Performance, Security & Multi-Repo Integration"
+  tasks:
+
+    - id: TEL-001
+      title: "Telemetry hook implementation"
+      task: "Implement unified telemetry hooks and ensure emitted events conform exactly to telemetry.schema"
+
+    - id: TEL-002
+      title: "Telemetry format snapshot tests"
+      task: "Store snapshot of telemetry events for sample runs; assert canonical order and schema conformance; fail on deviations"
+
+    - id: TEL-003
+      title: "Telemetry limits enforcement"
+      task: "Enforce max_event_payload_bytes <= 64KB and max_events_per_rule_execution <= 10 in test harness"
+
+    - id: TEL-004
+      title: "Telemetry redaction & binary logging"
+      task: "Ensure redaction patterns applied and binary-backed logging used in production builds"
+
+    - id: PERF-001
+      title: "Performance budgets"
+      task: "Validate max_rule_execution_ms <= 50ms, max_fixpack_load_ms <= 200ms, max_evaluator_latency_ms <= 300ms via perf harness"
+
+    - id: PERF-002
+      title: "Performance regression tests"
+      task: "Add representative datasets and assert regression threshold <= 5% across CI images"
+
+    - id: TEN-001
+      title: "Multi-tenancy baseline enforcement"
+      task: "Ensure tenant_id normalization and isolation (even if multitenancy disabled), and tests for tenant bleed prevention"
+
+    - id: XREPO-001
+      title: "Cross-repo bootstrap integration tests"
+      task: "Ensure bootstrap outputs (evaluators, registry, fixpack index, cli manifest) are generated and consumable by guardsuite-specs; perform guard-specs import smoke test"
+
+# ============================================================
+# PH-006: SELF-TEST, VERIFY, GOVERNANCE & CI ENFORCEMENT
+# ============================================================
+- phase: PH-006
+  title: "Self-Test, Verify, Governance & CI Enforcement"
+  tasks:
+
+    - id: QA-001
+      title: "Self-test command"
+      task: "Implement pillar validate-self; produce selftest-report.json and canonical-output-preview.json and enforce exit codes"
+
+    - id: QA-002
+      title: "Verify command"
+      task: "Implement guardtemplate verify producing verify-report.json and run all checks (schema_presence, wasm_safety, rule_registry_integrity, fixpack_consistency)"
+
+    - id: QA-003
+      title: "CI pipeline enforcement"
+      task: "CI must run: validate_schema, unit, integration, snapshot, wasm, self_test, verify; merging blocked if any fail"
+
+    - id: QA-004
+      title: "Governance metadata validation"
+      task: "Validate codeowners presence, RFC markers for major changes, changelog fragment on PR, license compliance checks"
+
+    - id: QA-005
+      title: "RFC & changelog checks"
+      task: "Enforce RFC presence for changes to evaluator stages, severity mapping, schemas; validate changelog fragment included in PRs"
+
+    - id: QA-006
+      title: "Forbidden overrides enforcement"
+      task: "Static analysis: detect modifications to forbidden areas (evaluator_pipeline, core binaries, canonicalization logic, severity mapping, CLI verbs, schema fragments) and fail PRs"
+
+    - id: QA-007
+      title: "Scaffold regression test"
+      task: "Use scaffold_new_pillar.py to generate an example pillar; run guardtemplate verify and pillar validate-self on generated pillar; assert CI contract passes"
+
+    - id: QA-008
+      title: "Scaffold determinism"
+      task: "Confirm scaffold outputs deterministic templates (no timestamps/UUIDs) and governance metadata injected; snapshot the scaffold output and assert parity"
+
+    - id: QA-009
+      title: "Bootstrap outputs validation"
+      task: "Verify evaluator_pipeline_manifest.json, rule_registry_index.json, fixpack_catalog_index.json, cli_flag_manifest.json exist, validate their schemas, and assert deterministic generation"
+
+    - id: QA-010
+      title: "CLI JSON schema tests"
+      task: "Validate that CLI --json outputs match CLI JSON schema for sample runs and enforce machine-parseable help snapshots"
+
+    - id: QA-011
+      title: "Frontend CI determinism enforcement"
+      task: "CI must run SSR snapshot tests and fail on any nondeterministic build artifacts; ensure lockfile pinned and node version enforced in CI"
+
+# ============================================================
+# ACCEPTANCE CRITERIA (Expanded & Enforced)
+# ============================================================
+acceptance_criteria:
+  - "All verify & self-test commands implemented and passing (QA-001, QA-002)."
+  - "Evaluator pipeline and lifecycle state machine implemented and fully tested (CORE-001, CORE-002)."
+  - "Binary core modules validated across ABI and CPU arch; signature and integrity checks pass (CORE-009, INIT-006)."
+  - "Python fallback parity tested and allowed only where specified (DET-006)."
+  - "Canonical output validated against output_contract.schema and deterministic ordering ensured (CORE-010, CORE-011)."
+  - "Adapters comply with interface and determinism rules and capability_manifest validated (CORE-012, CORE-013, DET-007)."
+  - "Rule scaffolder produces a pillar that passes verify + validate-self and CI contract (UTIL-001, QA-007)."
+  - "Telemetry hooks produce canonical events within limits and are snapshot-tested (TEL-001, TEL-002, TEL-003)."
+  - "Fixpack and rule alignment tests and severity-coverage checks pass (UTIL-004, QA-009)."
+  - "Forbidden overrides prevented by static analysis (QA-006)."
+  - "Cross-repo bootstrap outputs are consumable by guardsuite-specs and integration smoke tests pass (XREPO-001)."
+  - "Frontend determinism enforced in CI and SSR snapshots stable (DET-004, QA-011)."
+
+# ============================================================
+# DELIVERABLES (post-implementation)
+# ============================================================
+deliverables:
+  - repos/guardsuite-template/spec.yml (v2.1.2)
+  - repos/guardsuite-template/checklist.yml (this file)
+  - guardtemplate CLI (verify, self-test, scaffold)
+  - canonical schema fragments in schemas/core/
+  - binary core ABI manifests + signed binaries
+  - scaffolded example pillar in example_pillar/
+  - CI pipelines and job definitions
+  - snapshot datasets and telemetry snapshots
