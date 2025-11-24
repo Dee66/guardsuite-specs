@@ -51,4 +51,4 @@ Powering every GuardSuite scanner, blueprint, and dashboard.
 
 Get a quick GuardScore — /playground
 
-> Snapshot generated from guardsuite-specs at commit `unknown`.
+> Snapshot generated from guardsuite-specs at commit `ada9477f7404f20ae367f703bc304917be627e58`.

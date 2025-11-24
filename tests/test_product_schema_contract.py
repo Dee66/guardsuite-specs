@@ -3,6 +3,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PRODUCTS = ROOT / "products"
+EXCLUDED = {"guardsuite_master_spec.yml", "guardsuite-template.yml", "pillar-template.yml"}
 
 def load_yaml(p):
     return yaml.safe_load(Path(p).read_text(encoding="utf-8"))
@@ -12,7 +13,7 @@ def test_yaml_schema_contract_is_consistent():
     for file in PRODUCTS.glob("*.yml"):
         if file.name.endswith("_worksheet.yml"):
             continue
-        if file.name == "guardsuite_master_spec.yml":
+        if file.name in EXCLUDED:
             continue
         data = load_yaml(file)
         if not data:

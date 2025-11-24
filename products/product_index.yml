@@ -1,140 +1,342 @@
-# Deterministic manifest of GuardSuite product specs.
 ---
-generated_at: "2025-11-21"
+id: product-index
+name: GuardSuite Product Index
+product_type: core
+pillar: crosscut
+version: "1.0.0"
+status: production
+short_description: >
+  Deterministic manifest of every GuardSuite product spec used by bootstrap and
+  documentation pipelines.
+long_description: |
+  The GuardSuite Product Index keeps a deterministic roster of every spec, its
+  schema, and downstream linkage so Architect and GuardBoard can reference the
+  right artifacts. It powers docs exports, bootstrap planning, and release
+  coordination by giving teams a single JSON/YAML manifest that always matches
+  canonical GuardSpecs content.
+purpose_summary: >
+  Provide a canonical manifest of GuardSuite specs with deterministic ordering
+  for docs, bootstrap generation, and product governance workflows.
+marketing:
+  hero: "One manifest to coordinate all GuardSuite specs."
+  blurbs:
+    - "Deterministic roster of products and schema pins"
+    - "Feeds Architect bootstrap and GuardBoard docs"
+    - "Tracks rollout status for every pillar"
+  ctas:
+    - text: "Download the manifest"
+      href: "/docs/product-index"
+architecture:
+  core_dependency_id: "guardsuite-core@>=1.4.0,<2.0.0"
+  schema_source: "guardsuite-core/canonical_schema.json"
+  required_interfaces:
+    - "I_ProductRegistry"
+    - "I_BootstrapGenerator"
+  override_exclusion:
+    - "canonical.output_contract"
+  output_contract: "registry"
+governance_domains:
+  - registry_sourcing
+  - release_coordination
+  - bootstrap_generation
+rule_categories:
+  - "Manifest Consistency"
+  - "Schema Pinning"
+  - "Release Rollout Tracking"
+features:
+  - id: PINDEX-FEAT-001
+    title: "Deterministic Ordering"
+    summary: "Stable manifest ordering for Architect diffing."
+    included: true
+  - id: PINDEX-FEAT-002
+    title: "Schema Pin Tracking"
+    summary: "Records schema + contract references per product."
+    included: true
+fixpack:
+  included: false
+  reference_hint_format: "fixpack:<ISSUE_ID>"
+  surfaces_hints: false
+  snippet_count: 0
+compliance:
+  compliance_ledger_enabled: false
+  ledger_visibility: "none"
+cli:
+  base_command: "product-index"
+  scan_command: ""
+  supported_flags:
+    - "--json"
+    - "--output"
+  reserved_flags:
+    - "--output json"
+performance_constraints:
+  max_memory_mb: 64
+  expected_runtime_ms: 150
+  playground_runtime_ms: 300
+  quickscore_threshold_resources: 50
+  realtime_refresh_interval_ms: 60000
+ecosystem_integrations:
+  guardscore:
+    pillar_weight: 0.1
+    severity_penalties:
+      critical: 40
+      high: 25
+      medium: 10
+      low: 2
+    provided_score_inputs:
+      - manifest_drift_detected
+    badge_eligibility_signal: false
+  playground:
+    wasm_safe: true
+    max_runtime_ms: 400
+    playground_latency_target_ms: 250
+    json_sanitize: true
+    svg_sanitize: true
+    quick_score_mode: false
+  guardboard:
+    exposes_fixpack_hints: false
+    shows_compliance_ledger: false
+    badge_preview_supported: true
+testing:
+  unit_tests_required: true
+  integration_tests_required: true
+  snapshot_schema_test: true
+  test_coverage_min_percent: 80
+  ci_jobs:
+    - validate_schema
+    - unit
+    - integration
+versioning:
+  semver: true
+  spec_version: "2025.11"
+  last_reviewed: "2025-11-21"
+  stability_level: production
+  breaking_change_policy: >
+    Any manifest field changes require all GuardSuite pillars to update their
+    bootstrap tooling before rollout.
+interoperability_conflicts:
+  - "Different manifest sort rules would break Architect diffs."
+future_extensions:
+  - "Add checksum per spec"
+  - "Expose GraphQL manifest endpoint"
+security:
+  no_external_calls_at_runtime: true
+  sanitize_all_inputs: true
+  svg_sanitization: true
+  wasm_compatible: true
+  sandbox_requirement: >
+    Manifest exports must stay deterministic and offline-friendly.
+maintainers:
+  - name: "GuardSuite Platform Team"
+    role: "Registry Maintainers"
+    contact: "platform@guardsuite.internal"
+release_metadata:
+  release_channel: "beta"
+  release_notes_url: >-
+    https://shieldcraft-ai.com/guardsuite/product-index/releases/1.0.0
+  published_date: "2025-11-21"
+references:
+  master_spec: "docs/guardsuite_master_spec.md"
+  template_spec: "templates/spec_page.md.j2"
+  canonical_schema: "guardsuite-core/canonical_schema.json"
+api:
+  rest_endpoint: "https://api.shieldcraft-ai.com/product-index"
+  auth: "GuardSuite API token"
+integration_points:
+  products_consuming:
+    - guardboard
+    - guardscore
+    - guard-specs
+    - computescan
+    - pipelinescan
+    - vectorscan
+  playground:
+    quick_score_mode_supported: false
+    exposes_fixpack_hints: false
+  product_manifest:
+    generated_at: "2025-11-21"
+    entries:
+      - product_id: guard-specs
+        version: "1.0.0"
+        category: platform
+        spec_path: products/guardsuite-specs.yml
+        schema_path: guardsuite-core/canonical_schema.json
+      - product_id: computeguard
+        version: "2.0.0"
+        category: experience
+        spec_path: products/computeguard.yml
+        schema_path: guardsuite-core/canonical_schema.json
+      - product_id: computescan
+        version: "2.0.0"
+        category: scan
+        spec_path: products/computescan.yml
+        schema_path: guardsuite-core/canonical_schema.json
+      - product_id: guardboard
+        version: "2.0.0"
+        category: experience
+        spec_path: products/guardboard.yml
+        schema_path: guardsuite-core/canonical_schema.json
+      - product_id: guardscore
+        version: "2.2.0"
+        category: core
+        spec_path: products/guardscore.yml
+        schema_path: guardsuite-core/canonical_schema.json
+      - product_id: guardsuite-core
+        version: "2.4.0"
+        category: core
+        spec_path: products/guardsuite-core.yml
+        schema_path: guardsuite-core/canonical_schema.json
+      - product_id: pipelineguard
+        version: "2.4.0"
+        category: experience
+        spec_path: products/pipelineguard.yml
+        schema_path: guardsuite-core/canonical_schema.json
+      - product_id: pillar-template
+        version: "1.0.0"
+        category: experience
+        spec_path: products/pillar-template.yml
+        schema_path: products/schema/pillar-template.schema.yml
+      - product_id: pipelinescan
+        version: "2.0.0"
+        category: scan
+        spec_path: products/pipelinescan.yml
+        schema_path: guardsuite-core/canonical_schema.json
+      - product_id: playground
+        version: "2.0.0"
+        category: experience
+        spec_path: products/playground.yml
+        schema_path: products/schema/playground.schema.yml
+      - product_id: vectorguard
+        version: "2.0.0"
+        category: experience
+        spec_path: products/vectorguard.yml
+        schema_path: guardsuite-core/canonical_schema.json
+      - product_id: vectorscan
+        version: "2.0.0"
+        category: scan
+        spec_path: products/vectorscan.yml
+        schema_path: guardsuite-core/canonical_schema.json
 products:
   - product_id: computeguard
-    version: "2.0.0"
-    category: experience
     spec_path: products/computeguard.yml
+    version: "2.0.0"
+    category: experience
     schema_path: guardsuite-core/canonical_schema.json
-    contract_ref: null
     related_products:
       - computescan
-      - guardscore
       - guardboard
-      - playground
+      - guardscore
   - product_id: computescan
-    version: "2.0.0"
-    category: scan
     spec_path: products/computescan.yml
-    schema_path: guardsuite-core/canonical_schema.json
-    contract_ref: null
-    related_products:
-      - computeguard
-      - guardscore
-      - guardboard
-      - playground
-  - product_id: guardboard
-    version: "2.0.0"
-    category: experience
-    spec_path: products/guardboard.yml
-    schema_path: guardsuite-core/canonical_schema.json
-    contract_ref: null
-    related_products:
-      - guardscore
-      - vectorguard
-      - computeguard
-      - pipelineguard
-      - playground
-      - vectorscan
-      - computescan
-      - pipelinescan
-  - product_id: guardscore
-    version: "2.0.0"
-    category: core
-    spec_path: products/guardscore.yml
-    schema_path: guardsuite-core/canonical_schema.json
-    contract_ref: null
-    related_products:
-      - guardboard
-      - playground
-      - vectorscan
-      - vectorguard
-      - computescan
-      - computeguard
-      - pipelinescan
-      - pipelineguard
-  - product_id: guardsuite-core
-    version: "2.0.0"
-    category: core
-    spec_path: products/guardsuite-core.yml
-    schema_path: guardsuite-core/canonical_schema.json
-    contract_ref: null
-    related_products:
-      - vectorscan
-      - vectorguard
-      - computescan
-      - computeguard
-      - pipelinescan
-      - pipelineguard
-      - guardscore
-      - guardboard
-      - playground
-  - product_id: pipelineguard
-    version: "2.0.0"
-    category: experience
-    spec_path: products/pipelineguard.yml
-    schema_path: guardsuite-core/canonical_schema.json
-    contract_ref: null
-    related_products:
-      - pipelinescan
-      - guardscore
-      - guardboard
-      - playground
-  - product_id: pillar-template
     version: "1.0.0"
-    category: experience
-    spec_path: products/pillar-template.yml
-    schema_path: products/schema/pillar-template.schema.yml
-    contract_ref: null
-    related_products: []
-  - product_id: pipelinescan
-    version: "2.0.0"
     category: scan
-    spec_path: products/pipelinescan.yml
     schema_path: guardsuite-core/canonical_schema.json
-    contract_ref: null
     related_products:
+      - computeguard
+      - guardboard
+      - guardscore
+  - product_id: guardboard
+    spec_path: products/guardboard.yml
+    version: "1.0.1"
+    category: experience
+    schema_path: guardsuite-core/canonical_schema.json
+    related_products:
+      - computeguard
+      - computescan
+      - guardscore
+      - guardsuite-specs
+      - pipelinescan
+      - vectorscan
+  - product_id: guardscore
+    spec_path: products/guardscore.yml
+    version: "2.2.0"
+    category: core
+    schema_path: guardsuite-core/canonical_schema.json
+    related_products:
+      - computeguard
+      - computescan
       - pipelineguard
-      - guardscore
-      - guardboard
-      - playground
-  - product_id: playground
-    version: "2.0.0"
-    category: experience
-    spec_path: products/playground.yml
-    schema_path: products/schema/playground.schema.yml
-    contract_ref: contracts/playground_contract.yml
-    related_products:
+      - pipelinescan
+      - vectorguard
       - vectorscan
-      - guardscore
       - guardboard
-  - product_id: vectorguard
-    version: "2.0.0"
-    category: experience
-    spec_path: products/vectorguard.yml
+  - product_id: guard-specs
+    spec_path: products/guardsuite-specs.yml
+    version: "1.0.0"
+    category: core
     schema_path: guardsuite-core/canonical_schema.json
-    contract_ref: null
     related_products:
-      - vectorscan
+      - guardboard
+      - guardscore
+  - product_id: guardsuite-core
+    spec_path: products/guardsuite-core.yml
+    version: "2.4.0"
+    category: core
+    schema_path: guardsuite-core/canonical_schema.json
+    related_products:
       - guardscore
       - guardboard
-      - playground
-  - product_id: vectorscan
+      - computeguard
+      - computescan
+      - pipelineguard
+      - pipelinescan
+      - vectorguard
+      - vectorscan
+  - product_id: pipelineguard
+    spec_path: products/pipelineguard.yml
+    version: "2.4.0"
+    category: experience
+    schema_path: guardsuite-core/canonical_schema.json
+    related_products:
+      - pipelinescan
+      - guardscore
+      - guardboard
+      - computeguard
+      - computescan
+  - product_id: pillar-template
+    spec_path: products/guardsuite-template.yml
+    version: "1.0.0"
+    category: core
+    schema_path: products/schema/pillar-template.schema.yml
+    related_products:
+      - guardboard
+      - guardscore
+      - guardsuite-core
+  - product_id: pipelinescan
+    spec_path: products/pipelinescan.yml
     version: "2.0.0"
     category: scan
-    spec_path: products/vectorscan.yml
     schema_path: guardsuite-core/canonical_schema.json
-    contract_ref: null
     related_products:
-      - vectorguard
-      - guardscore
       - guardboard
-      - playground
-
-references:
-  canonical_schema: "guardsuite-core/canonical_schema.json"
-metadata:
-  canonical_status_embedded: true
-  canonical_status_crossmap: true
-  canonical_rollout_complete: true
+      - guardscore
+      - pipelineguard
+  - product_id: playground
+    spec_path: products/playground.yml
+    version: "2.0.0"
+    category: core
+    schema_path: products/schema/playground.schema.yml
+    related_products:
+      - computeguard
+      - computescan
+      - guardboard
+      - guardscore
+      - pipelinescan
+      - vectorscan
+  - product_id: vectorguard
+    spec_path: products/vectorguard.yml
+    version: "2.0.0"
+    category: experience
+    schema_path: guardsuite-core/canonical_schema.json
+    related_products:
+      - guardboard
+      - guardscore
+      - vectorscan
+  - product_id: vectorscan
+    spec_path: products/vectorscan.yml
+    version: "2.0.0"
+    category: scan
+    schema_path: guardsuite-core/canonical_schema.json
+    related_products:
+      - guardboard
+      - guardscore
+      - vectorguard

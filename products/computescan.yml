@@ -1,31 +1,53 @@
+---
 id: computescan
 name: ComputeScan
 product_type: free_scanner
 pillar: compute
-version: "2.0.0"
+version: "1.0.0"
 status: production
 
 short_description: >
-  Free, deterministic scanner for GPU and compute waste, cost risk, and misconfiguration.
+  Lightweight, deterministic compute resource scanner that feeds GuardSuite
+  scoring, remediation, and dashboard products.
+
 long_description: |
-  ComputeScan analyzes Terraform plans and compute-heavy deployment manifests to
-  detect GPU provisioning waste, incorrect instance sizing, idle or orphaned GPUs,
-  and cost-risk patterns. It is deterministic, offline-capable, and designed to
-  serve as the top-of-funnel scanner in the GuardSuite compute pillar.
+  ComputeScan discovers compute resources (VMs, instances, GPU attachments),
+  evaluates sizing, cost, and telemetry posture, and emits canonical findings
+  for downstream GuardSuite products. It prioritizes deterministic output,
+  fast CI-friendly runtimes, and fixpack preview hooks for higher-level guards.
 
 purpose_summary: >
-  Surface cost waste, risky GPU provisioning, and compute misconfiguration
-  that lead to excessive cloud spend or unstable ML infrastructure.
+  Provide fast CI-safe compute scanning, canonical findings, and fixpack preview
+  inputs for ComputeGuard, GuardScore, and GuardBoard.
 
 marketing:
-  hero: "Detect GPU waste and cut cloud spend before it ships."
+  hero: "Deterministic compute governance scanner for GuardSuite."
   blurbs:
-    - "Identify idle or oversized GPU instances"
-    - "Catch unbounded autoscaling and expensive spot misuse"
-    - "Perfect for quick paste-to-scan in Playground"
+    - "Low-latency compute scanning for CI and pre-deploy checks"
+    - "Canonical JSON findings + GuardBoard-ready metadata"
+    - "Built-in fixpack preview hooks for paid Guard products"
   ctas:
-    - text: "Scan your plan for waste"
+    - text: "Run ComputeScan"
       href: "/playground"
+
+metadata:
+  version: "2025.11"
+  funnel_stage: mid_funnel
+  pricing_reference: "pricing/guardsuite_pricing.yml"
+  ux_goals:
+    - "Provide CI-safe compute scans with deterministic issue ordering"
+    - "Feed paid Guard products with high-signal preview data"
+
+governance:
+  spec_version: "2025.11"
+  last_reviewed: "2025-11-24"
+  owner: "GuardSuite Platform Team"
+  stability_level: ga
+
+related_products:
+  - computeguard
+  - guardscore
+  - guardboard
 
 architecture:
   core_dependency_id: "guardsuite-core@>=1.4.0,<2.0.0"
@@ -39,45 +61,42 @@ architecture:
   output_contract: "strict"
 
 governance_domains:
-  - cost_finops
-  - gpu_provisioning
-  - instance_sizing
-  - autoscaling_risk
-  - spot_instance_policy
-  - drift_detection
-  - observability_gaps
+  - compute_resource_inventory
+  - cost_governance
+  - telemetry_gap_detection
+  - fixpack_preview_readiness
+  - deterministic_output
 
 rule_categories:
-  - "GPU Provisioning & Utilization"
-  - "Instance Sizing & Rightsizing"
-  - "Autoscaling & Scaling Policies"
-  - "Spot & Preemptible Usage"
-  - "Idle/Orphaned Resource Detection"
-  - "Cost Pattern Detection"
-  - "Observability & Telemetry Gaps"
+  - "Resource Inventory & Drift"
+  - "Cost & Sizing Controls"
+  - "Telemetry & Observability"
+  - "Fixpack Preview Hooks"
+  - "Deterministic Output Contract"
 
 features:
-  - id: CMP-FEAT-001
-    title: "Idle GPU Detection"
-    summary: "Detect GPU resources that are provisioned but show no usage indicators in config."
+  - id: CSCAN-FEAT-001
+    title: "Fast Scan Mode"
+    summary: "Low-latency deterministic scan for CI and pre-deploy checks."
     included: true
-  - id: CMP-FEAT-010
-    title: "Oversized Instance Detection"
-    summary: "Identify instances that are likely overprovisioned relative to workload hints."
+  - id: CSCAN-FEAT-002
+    title: "Full Scan Mode"
+    summary: "Expanded analysis for deep compute inventories."
     included: true
-  - id: CMP-FEAT-020
-    title: "Autoscaling Risk Detection"
-    summary: "Detect autoscaling policies that may lead to runaway costs or instability."
+  - id: CSCAN-FEAT-003
+    title: "Telemetry Coverage Checks"
+    summary: "Flags missing metrics/logging for critical nodes."
     included: true
-  - id: CMP-FEAT-030
-    title: "Spot/Preemptible Misuse"
-    summary: "Flags risky spot instance configurations or absence of fallbacks."
+  - id: CSCAN-FEAT-004
+    title: "Fixpack Preview Hooks"
+    summary: "Provides deterministic hints for paid Guard fixpacks."
     included: true
 
 fixpack:
   included: false
   reference_hint_format: "fixpack:<ISSUE_ID>"
   surfaces_hints: true
+  notes: "ComputeGuard and paid products supply remediation bundles."
 
 compliance:
   compliance_ledger_enabled: false
@@ -91,17 +110,18 @@ cli:
     - "--stdin"
     - "--quiet"
     - "--explain"
-    - "--output json"
+    - "--fast"
+    - "--full"
   reserved_flags:
-    - "--compliance-ledger"
     - "--fixpack-summary"
+    - "--telemetry-report"
 
 performance_constraints:
-  max_memory_mb: 200
-  expected_runtime_ms: 700
-  large_plan_runtime_ms: 1800
-  playground_runtime_ms: 2000
-  quickscore_threshold_resources: 800
+  max_memory_mb: 120
+  expected_runtime_ms: 300
+  large_plan_runtime_ms: 950
+  playground_runtime_ms: 1100
+  quickscore_threshold_resources: 900
 
 ecosystem_integrations:
 
@@ -113,16 +133,16 @@ ecosystem_integrations:
       medium: 10
       low: 2
     provided_score_inputs:
-      - gpu_waste_estimate
-      - cost_risk_score
-      - issue_count_by_severity
-      - resource_count
+      - resource_inventory_gaps
+      - cost_regression_risk
+      - telemetry_coverage_score
+      - fixpack_preview_count
     badge_eligibility_signal: true
 
   playground:
     wasm_safe: true
-    max_runtime_ms: 2000
-    playground_latency_target_ms: 1600
+    max_runtime_ms: 1500
+    playground_latency_target_ms: 900
     json_sanitize: true
     svg_sanitize: true
     quick_score_mode: true
@@ -142,23 +162,24 @@ testing:
     - unit
     - integration
     - snapshot_conformance
+    - perf_regression
 
 versioning:
   semver: true
   core_dependency_pin: "guardsuite-core@>=1.4.0,<2.0.0"
   schema_version_pin: "canonical_schema@1.0.0"
   breaking_change_policy: >
-    Breaking changes must include an RFC in guardsuite-core, migration guidance,
-    and coordinated release across dependent pillars.
+    Any change that alters canonical finding fields or CLI output requires a
+    coordinated release with ComputeGuard and GuardBoard consumers.
 
 interoperability_conflicts:
-  - "Cost-modeling extensions may require new GuardScore inputs."
-  - "FixPack-Pro conflict if later automated remediation writes compute resources."
+  - "New compute adapters may require GuardScore weighting refresh."
+  - "Fixpack preview schema changes impact GuardBoard overlays."
 
 future_extensions:
-  - "Lightweight cost forecasting module"
-  - "GPU utilization inference from infra hints"
-  - "Container-level GPU request/limit heuristics"
+  - "GPU utilization governance heuristics"
+  - "Deterministic capacity planning hints"
+  - "Optional sustainability scoring inputs"
 
 security:
   no_external_calls_at_runtime: true
@@ -175,7 +196,8 @@ maintainers:
 
 release_metadata:
   release_channel: "stable"
-  release_notes_url: "https://shieldcraft-ai.com/guardsuite/computescan/releases/2.0.0"
+  release_notes_url: >-
+    https://shieldcraft-ai.com/guardsuite/computescan/releases/1.0.0
   published_date: "2025-11-19"
 
 references:
@@ -183,21 +205,14 @@ references:
   template_spec: "templates/spec_page.md.j2"
   canonical_schema: "guardsuite-core/canonical_schema.json"
 
-metadata:
-  version: "2025.11"
-  funnel_stage: mid_funnel
-  pricing_reference: "pricing/guardsuite_pricing.yml"
-  ux_goals:
-    - "Provide fast compute scan coverage"
-    - "Feed GuardScore with actionable findings"
-governance:
-  spec_version: "2025.11"
-  last_reviewed: "2025-11-23"
-  owner: "GuardSuite PMO"
-  stability_level: ga
-contract_ref: null
-related_products:
-  - computeguard
-  - guardscore
-  - guardboard
-  - playground
+api:
+  rest_endpoint: "https://api.shieldcraft-ai.com/computescan"
+  auth: "GuardSuite API token"
+
+integration_points:
+  products_consuming:
+    - computeguard
+    - guardscore
+    - guardboard
+  playground:
+    quick_score_mode_supported: true

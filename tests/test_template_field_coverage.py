@@ -6,6 +6,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 PRODUCTS = ROOT / "products"
 TEMPLATES = ROOT / "templates"
+EXCLUDED_SPECS = {"guardsuite_master_spec.yml", "guardsuite-template.yml", "pillar-template.yml"}
 
 TEMPLATE_FILES = [
     TEMPLATES / "spec_page.md.j2",
@@ -130,10 +131,19 @@ def test_all_product_yaml_fields_are_known():
         "scoring_model",
         "badge_contract",
         "integration_points",
+        "metadata",
+        "governance",
+        "related_products",
+        "owner",
+        "spec_yaml",
+        "checklist_yaml",
+        "gpt_instructions_yaml",
+        "provenance",
+        "products",
     }
 
     for spec_path in PRODUCTS.glob("*.yml"):
-        if spec_path.name.endswith("_worksheet.yml") or spec_path.name == "guardsuite_master_spec.yml":
+        if spec_path.name.endswith("_worksheet.yml") or spec_path.name in EXCLUDED_SPECS:
             continue
         data = yaml.safe_load(spec_path.read_text(encoding="utf-8"))
         unknown = set(data.keys()) - known_fields

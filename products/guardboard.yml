@@ -1,149 +1,149 @@
+---
 id: guardboard
 name: GuardBoard
-product_type: paid_blueprint
-pillar: crosscut
-version: "2.0.0"
+product_type: experience
+pillar: ui
+version: "1.0.1"
 status: production
 
 short_description: >
-  Executive-grade governance dashboard aggregating GuardScore, FixPack insights,
-  remediation paths, compliance ledgers, and multi-pillar risk visibility.
+  Deterministic GuardSuite dashboard and export surface that visualizes validated
+  artifacts, GuardScore outcomes, and badge readiness for executives and auditors.
 
 long_description: |
-  GuardBoard is the executive-facing governance and reporting console for the
-  entire GuardSuite ecosystem. It consumes deterministic outputs from VectorScan,
-  ComputeScan, PipelineScan, and all paid “Guard” products to produce unified
-  scorecards, trend analysis, remediation paths, and compliance-grade reports.
-  GuardBoard includes GuardScore visualization, FixPack-Lite upgrade reminders,
-  ledger summaries (from paid products), SVG badge distribution, and cross-pillar
-  correlation for attack-path-aware insights. Designed for CISO dashboards,
-  platform leadership, and compliance teams.
+  GuardBoard ingests canonical GuardSuite artifacts (scan outputs, GuardScore summaries,
+  badge metadata, compliance ledgers) and renders deterministic dashboards,
+  investigation workflows, and export bundles. It ensures every view references
+  immutable artifact IDs, tracks provenance, and keeps signed exports ready for
+  audits. GuardBoard is how customer teams, SREs, and executives review GuardSuite
+  posture with confidence.
 
 purpose_summary: >
-  Provide a consolidated, audit-ready governance dashboard across all GuardSuite
-  products, integrating GuardScore, badge issuance, FixPack summaries, and
-  multi-pillar compliance signals.
+  Provide an auditable, deterministic UI and export layer for GuardSuite artifacts
+  with signed bundles, provenance tracking, and badge previews.
 
 marketing:
-  hero: "One dashboard. All your GuardSuite intelligence."
+  hero: "Deterministic GuardSuite dashboards for execs and auditors."
   blurbs:
-    - "Unified GuardScore across vector, compute, and pipeline pillars"
-    - "Enterprise-ready compliance reporting and ledger summaries"
-    - "SVG score badges for teams, repos, or CI pipelines"
+    - "Signed exports and immutable artifact references"
+    - "Unified view across scanners, GuardScore, and compliance ledgers"
+    - "Ready-made overlays for exec briefings and audits"
   ctas:
-    - text: "Request Enterprise Access"
-      href: "/contact"
+    - text: "Explore GuardBoard"
+      href: "/docs/guardboard"
+
+metadata:
+  version: "2025.11"
+  funnel_stage: toplevel_funnel
+  pricing_reference: "pricing/guardsuite_pricing.yml"
+  ux_goals:
+    - "Visualize GuardSuite artifacts with deterministic ordering"
+    - "Generate signed exports that pass executive and audit reviews"
+
+governance:
+  spec_version: "2025.11"
+  last_reviewed: "2025-11-24"
+  owner: "GuardSuite Platform Team"
+  stability_level: ga
+
+related_products:
+  - computeguard
+  - computescan
+  - pipelinescan
+  - vectorscan
+  - guardscore
+  - guardsuite-specs
 
 architecture:
   core_dependency_id: "guardsuite-core@>=1.4.0,<2.0.0"
   schema_source: "guardsuite-core/canonical_schema.json"
   required_interfaces:
-    - "I_BadgeRenderer"
-    - "I_GuardScoreConsumer"
-    - "I_LedgerAggregator"
+    - "I_ArtifactIngestor"
+    - "I_DashboardRenderer"
+    - "I_SignedExportService"
   override_exclusion:
     - "canonical.output_contract"
-  output_contract: "strict"
+  output_contract: "dashboard"
 
 governance_domains:
-  - compliance_reporting
-  - risk_trend_analysis
-  - remediation_path_insights
-  - severity_weight_consistency
-  - score_normalization
-  - multi_pillar_correlation
+  - artifact_provenance
+  - dashboard_determinism
+  - export_signing
+  - badge_preview_integrity
+  - role_based_access
 
 rule_categories:
-  - "Score Normalization & Visualization"
-  - "Compliance Ledger Aggregation"
-  - "FixPack Insight Surfacing"
-  - "Trend & Drift Analysis"
-  - "Pillar Cross-Correlation"
-  - "Badge Generation & Distribution"
+  - "Artifact Integrity"
+  - "Dashboard Rendering"
+  - "Export Signing"
+  - "Role-Based Access"
+  - "Badge Preview UX"
 
 features:
-  - id: GB-FEAT-001
-    title: "Unified GuardScore View"
-    summary: "Aggregates GuardScore inputs from all scanners and guards."
+  - id: GBOARD-FEAT-010
+    title: "Deterministic Artifact Views"
+    summary: "Every dashboard references immutable artifact IDs with provenance."
     included: true
-
-  - id: GB-FEAT-010
-    title: "Compliance Ledger Summaries"
-    summary: "Reads ledger data from VectorGuard / ComputeGuard / PipelineGuard."
+  - id: GBOARD-FEAT-020
+    title: "Signed Export Bundles"
+    summary: "Produces signed, tamper-evident exports for audits and exec briefings."
     included: true
-
-  - id: GB-FEAT-020
-    title: "SVG Badge Generator"
-    summary: "Generates sanitized, signed badges for CI and repo README usage."
-    included: true
-
-  - id: GB-FEAT-030
-    title: "FixPack Insights"
-    summary: "Displays FixPack-Lite hints and paid FixPack upgrade paths."
-    included: true
-
-  - id: GB-FEAT-040
-    title: "Multi-Pillar Correlation"
-    summary: "Correlates risks across vector, compute, and pipeline pillars."
+  - id: GBOARD-FEAT-030
+    title: "Badge + GuardScore Overlays"
+    summary: "Visualizes GuardScore, badge eligibility, and remediation progress."
     included: true
 
 fixpack:
   included: false
   reference_hint_format: "fixpack:<ISSUE_ID>"
-  surfaces_hints: true
+  surfaces_hints: false
 
 compliance:
   compliance_ledger_enabled: true
-  ledger_visibility: "summary_only"
+  ledger_visibility: "full"
 
 cli:
   base_command: "guardboard"
+  scan_command: "guardboard scan --plan <plan.json>"
   supported_flags:
     - "--json"
-    - "--from-file"
-    - "--stdin"
-    - "--quiet"
+    - "--output json"
   reserved_flags:
-    - "--export-ledger"
-    - "--export-scorecard"
+    - "--export-signed"
 
 api:
   rest_endpoint: "https://api.shieldcraft-ai.com/guardboard"
   auth: "GuardSuite API token"
 
 performance_constraints:
-  max_memory_mb: 400
-  expected_runtime_ms: 900
-  large_plan_runtime_ms: 1500
-  playground_runtime_ms: 1800
-  quickscore_threshold_resources: 5000
-  realtime_refresh_interval_ms: 120000
+  max_memory_mb: 256
+  expected_runtime_ms: 500
+  playground_runtime_ms: 200
+  large_plan_runtime_ms: 850
+  quickscore_threshold_resources: 50
 
 ecosystem_integrations:
-
   guardscore:
-    pillar_weight: 1.0        # GuardBoard is meta-layer; weight is conceptual
+    pillar_weight: 0.0
     severity_penalties:
       critical: 40
       high: 25
       medium: 10
       low: 2
     provided_score_inputs:
-      - aggregate_scores
-      - score_trends
-      - pillar_severity_distribution
+      - badge_metadata
+      - guardscore
+      - percentile
     badge_eligibility_signal: true
-
   playground:
     wasm_safe: true
-    max_runtime_ms: 2000
+    max_runtime_ms: 0
+    playground_latency_target_ms: 0
     json_sanitize: true
     svg_sanitize: true
-    playground_latency_target_ms: 1500
-    quick_score_mode: false     # GuardBoard is not a scanner
-
+    quick_score_mode: false
   guardboard:
-    exposes_fixpack_hints: true
+    exposes_fixpack_hints: false
     shows_compliance_ledger: true
     badge_preview_supported: true
 
@@ -156,68 +156,55 @@ testing:
     - validate_schema
     - unit
     - integration
-    - snapshot_conformance
+    - visual_regression
 
 versioning:
   semver: true
-  core_dependency_pin: "guardsuite-core@>=1.4.0,<2.0.0"
-  schema_version_pin: "canonical_schema@1.0.0"
+  spec_version: "2025.11"
+  last_reviewed: "2025-11-24"
+  stability_level: ga
   breaking_change_policy: >
-    Requires RFC + core update + regeneration of badge contract documents.
-    Must maintain backward compatibility for SVG badge schema for 12 months.
-
-interoperability_conflicts:
-  - "GuardScore v2 migration may require badge renderer updates."
-  - "Paid FixPack-Pro integration requires API stabilization."
+    Dashboard schema changes require migration guides, signed-export verifier updates,
+    and comms to GuardScore + GuardSpecs consumers.
 
 future_extensions:
-  - "Historical GuardScore trend charts"
-  - "Team-based badge leaderboard"
-  - "Enterprise policy pack ingestion"
-  - "AI-driven remediation recommendation model (2026)"
+  - "Live incident overlays"
+  - "Self-service GuardScore badge configuration"
+  - "Deeper drilldowns into FixPack adoption"
 
 security:
   no_external_calls_at_runtime: true
   sanitize_all_inputs: true
   svg_sanitization: true
-  wasm_compatible: true
-  sandbox_requirement: "Must render badges in WASM-safe sandbox"
-  safe_error_reporting: true
+  wasm_compatible: false
+  sandbox_requirement: "All exports must be signed and verified before download."
 
 maintainers:
-  - name: "Deon Prinsloo"
-    role: "AI Solutions Architect"
-    contact: "deon@shieldcraft-ai.com"
+  - name: "GuardSuite Platform Team"
+    role: "Product Owner"
+    contact: "platform@guardsuite.internal"
 
 release_metadata:
   release_channel: "stable"
-  release_notes_url: "https://shieldcraft-ai.com/guardsuite/guardboard/releases/2.0.0"
-  published_date: "2025-11-19"
+  release_notes_url: "https://shieldcraft-ai.com/guardsuite/guardboard/releases/1.0.1"
+  published_date: "2025-11-24"
 
 references:
   master_spec: "docs/guardsuite_master_spec.md"
   template_spec: "templates/spec_page.md.j2"
   canonical_schema: "guardsuite-core/canonical_schema.json"
 
-metadata:
-  version: "2025.11"
-  funnel_stage: toplevel_funnel
-  pricing_reference: "pricing/guardsuite_pricing.yml"
-  ux_goals:
-    - "Unify GuardSuite telemetry"
-    - "Visualize remediation health for execs"
-governance:
-  spec_version: "2025.11"
-  last_reviewed: "2025-11-23"
-  owner: "GuardSuite PMO"
-  stability_level: ga
-contract_ref: null
-related_products:
-  - guardscore
-  - vectorguard
-  - computeguard
-  - pipelineguard
-  - playground
-  - vectorscan
-  - computescan
-  - pipelinescan
+integration_points:
+  products_consuming:
+    - guardscore
+    - guard-specs
+  playground:
+    quick_score_mode_supported: false
+    exposes_fixpack_hints: false
+  dashboards:
+    - "exec_overview"
+    - "compliance_audit"
+    - "badge_status"
+
+provenance:
+  - "Derived from GuardSuite Platform dashboard charter"

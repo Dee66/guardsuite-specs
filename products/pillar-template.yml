@@ -1,31 +1,47 @@
-# provenance: Master Spec reference file:///mnt/data/gpt-instructions.txt
+---
 id: pillar-template
 name: GuardSuite Pillar Template
 version: "1.0.0"
 short_description: >
-  Minimal GuardSuite product scaffold that keeps doc/export pipelines satisfied
-  while teams bootstrap a new pillar repository.
+  Minimal GuardSuite spec scaffold that keeps docs, exports, and schema
+  validators satisfied while new pillar teams bootstrap content.
 long_description: |
-  The pillar-template product is intentionally sparse. It acts as a reference
-  stub that proves the documentation, export, and validation tooling can locate
-  a GuardSuite product entry even before real product content exists. Downstream
-  teams can clone this YAML as a starting point and flesh out pillars, features,
-  remediation metadata, and marketing copy as they mature their product.
-features: []
-description: "Template project for generating new GuardSuite product repositories."
+  The pillar-template blueprint acts as a deterministic starting point for any
+  new GuardSuite pillar repository. It wires up the canonical schema
+  structure, placeholder marketing content, empty governance sections, and
+  baseline ecosystem integrations so CI pipelines stay green while teams fill
+  in their details. Maintaining this template inside GuardSpecs lets Architect
+  auto-create future products with zero drift.
+description: "Deterministic bootstrap template for new GuardSuite pillars."
 marketing:
-  hero: "Bootstrap new GuardSuite pillar products from this deterministic template."
+  hero: "Bootstrap GuardSuite pillars without breaking CI."
+  blurbs:
+    - "Deterministic template that mirrors canonical product schema"
+    - "Pre-wired governance + integration stubs"
+    - "Great for enablement, docs, and CI smoke tests"
+  ctas:
+    - text: "Read the Pillar Template Guide"
+      href: "/docs/pillar-template"
 metadata:
-  version: "2025.11-pillar-template"
+  version: "template-2025.11"
   funnel_stage: toplevel_funnel
-  pricing_reference: "pricing/guardsuite_pricing.yml"
+  pricing_reference: "pricing/pillar_template.yml"
   ux_goals:
-    - "Provide a deterministic baseline for new GuardSuite pillars."
+    - "Provide a schema-complete bootstrap for new pillars"
 governance:
   spec_version: "2025.11"
   last_reviewed: "2025-11-23"
   owner: "GuardSuite PMO"
   stability_level: experimental
+features:
+  - id: TEMPLATE-FEAT-001
+    title: "Canonical Field Coverage"
+    summary: "Ships every required section so validation never regresses."
+    included: true
+  - id: TEMPLATE-FEAT-002
+    title: "Docs & Export Hookups"
+    summary: "Provides links and placeholders for docs teams."
+    included: true
 contract_ref: null
 related_products: []
 pillars: []
@@ -33,5 +49,4 @@ components: []
 semantic_assets: []
 references:
   canonical_schema: "guardsuite-core/canonical_schema.json"
-provenance:
-  - "Generated automatically by Architect Engine according to Master Spec rules."
+provenance: []

@@ -24,6 +24,7 @@ purpose_summary: >
 
 marketing:
   hero: "Secure your CI/CD pipeline before it reaches production."
+  funnel_stage: bottom_funnel
   blurbs:
     - "Detect dangerous workflow permissions and unsafe triggers"
     - "Validate artifact integrity and provenance controls"
@@ -31,6 +32,28 @@ marketing:
   ctas:
     - text: "Scan your pipeline"
       href: "/playground"
+  ux_goals:
+    - "Detect pipeline misconfigurations"
+    - "Feed GuardBoard remediation queues"
+
+metadata:
+  version: "2025.11"
+  funnel_stage: mid_funnel
+  pricing_reference: "pricing/guardsuite_pricing.yml"
+  ux_goals:
+    - "Keep CI/CD scans deterministic and CI-friendly"
+    - "Promote upgrades into PipelineGuard when remediation is needed"
+
+governance:
+  spec_version: "2025.11"
+  last_reviewed: "2025-11-24"
+  owner: "GuardSuite Platform Team"
+  stability_level: ga
+
+related_products:
+  - pipelineguard
+  - guardscore
+  - guardboard
 
 architecture:
   core_dependency_id: "guardsuite-core@>=1.4.0,<2.0.0"
@@ -161,6 +184,9 @@ versioning:
   breaking_change_policy: >
     Any breaking change requires a guardsuite-core RFC and a coordinated
     schema update across vector, compute, and pipeline pillars.
+  spec_version: "2025.11"
+  last_reviewed: "2025-11-23"
+  stability_level: ga
 
 interoperability_conflicts:
   - "Future supply-chain provenance models may require additional GuardScore inputs."
@@ -183,6 +209,9 @@ maintainers:
   - name: "Deon Prinsloo"
     role: "AI Solutions Architect"
     contact: "deon@shieldcraft-ai.com"
+  - name: "GuardSuite PMO"
+    role: "Product Owner"
+    contact: "pmo@shieldcraft-ai.com"
 
 release_metadata:
   release_channel: "stable"
@@ -193,22 +222,5 @@ references:
   master_spec: "docs/guardsuite_master_spec.md"
   template_spec: "templates/spec_page.md.j2"
   canonical_schema: "guardsuite-core/canonical_schema.json"
-
-metadata:
-  version: "2025.11"
-  funnel_stage: bottom_funnel
   pricing_reference: "pricing/guardsuite_pricing.yml"
-  ux_goals:
-    - "Detect pipeline misconfigurations"
-    - "Feed GuardBoard remediation queues"
-governance:
-  spec_version: "2025.11"
-  last_reviewed: "2025-11-23"
-  owner: "GuardSuite PMO"
-  stability_level: ga
-contract_ref: null
-related_products:
-  - pipelineguard
-  - guardscore
-  - guardboard
-  - playground
+

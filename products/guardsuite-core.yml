@@ -1,116 +1,267 @@
+---
 id: guardsuite-core
 name: GuardSuite Core
 product_type: core
 pillar: crosscut
-version: "2.0.0"
+version: "2.4.0"
 status: production
 
 short_description: >
-  Canonical libraries, schemas, and CLI glue that power every GuardSuite pillar
-  with deterministic parsing, validation, and renderer utilities.
+  Deterministic runtime, canonical schemas, ABI-backed binaries, evaluator
+  pipeline, and governance systems that power every GuardSuite pillar.
 
 long_description: |
-  GuardSuite Core is the shared runtime, schema bundle, and CLI harness that all
-  GuardSuite scanners, blueprints, and governance tooling depend on. It contains
-  canonical JSON schemas, deterministic loader utilities, registry management for
-  FixPack packs, and the GuardScore contract definitions. Every pillar consumes
-  this package to guarantee consistent plan ingestion, issue serialization, and
-  doc/template rendering. GuardSuite Core is versioned alongside the pillars and
-  enforces strict backwards compatibility windows so downstream products can
-  adopt new schema features confidently.
+  GuardSuite Core provides the canonical runtime layer used by scanners,
+  guards, scoring engines, dashboards, and governance tooling. It exposes
+  authoritative JSON schemas, fragment governance, the evaluator pipeline,
+  canonicalization contracts, provenance validation, ABI-signed binary
+  modules, FixPack registry capabilities, telemetry schemas, deterministic
+  snapshot normalization, and WASM-safe execution primitives. Every
+  GuardSuite pillar consumes this contract as the source of truth for
+  ingestion, processing, validation, rendering, and drift-free evolution.
 
 purpose_summary: >
-  Provide a single, versioned source of truth for schemas, runtimes, and CLI
-  harnesses that every GuardSuite pillar consumes for deterministic behavior.
+  Provide a single, authoritative, versioned foundation for schemas,
+  evaluator pipelines, binary-backed primitives, governance rules, and
+  deterministic behavior across all GuardSuite products.
 
 marketing:
-  hero: "Powering every GuardSuite scanner, blueprint, and dashboard."
+  hero: "Deterministic foundation for every GuardSuite workload."
   blurbs:
-    - "Canonical schemas and runtime harness shared across pillars"
-    - "Deterministic plan loader, renderer, and FixPack registry"
-    - "Versioned GuardScore contracts with long-term compatibility"
+    - "Authoritative schemas, evaluator pipeline, and canonicalization contracts."
+    - "Signed binary core that enforces parity across WASM, Python, and native."
+    - "FixPack registry plus telemetry governance for every pillar."
   ctas:
-    - text: "Explore GuardSuite Core"
-      href: "/docs/guardsuite-core"
+    - text: "Read the GuardSuite Core spec"
+      href: "/docs/products/guardsuite-core"
 
-architecture:
-  core_dependency_id: "guardsuite-core@>=2.0.0"
-  schema_source: "guardsuite-core/canonical_schema.json"
-  required_interfaces:
-    - "I_PlanLoader"
-    - "I_IssueSerializer"
-    - "I_TemplateRenderer"
-  override_exclusion:
-    - "canonical.output_contract"
-    - "engine.payload_serializer"
-  output_contract: "strict"
+metadata:
+  version: "2026.04"
+  funnel_stage: toplevel_funnel
+  pricing_reference: "pricing/guardsuite_pricing.yml"
+  documentation_entrypoint: "docs/products/guardsuite-core.md"
+  ux_goals:
+    - "Guarantee deterministic evaluator execution for all pillars."
+    - "Expose canonical schemas, fragments, and ABI contracts without drift."
+    - "Keep FixPack, telemetry, and observability tooling aligned to governance."
+
+governance:
+  spec_version: "2026.04"
+  last_reviewed: "2026-03-09"
+  owner: "GuardSuite Platform Team"
+  stability_level: ga
+  changelog_required: true
+  codeowners_required: true
+  rfc_required_for_major: true
+  breaking_change_policy: >
+    Any breaking schema, binary ABI, evaluator pipeline, or canonicalization
+    modification requires an RFC, downstream coordination, and regeneration of
+    affected pillars and the template.
+  principles:
+    - "Schema-first contracts drive every release decision."
+    - "Determinism and WASM safety override performance shortcuts."
+    - "All provenance fields must be signed and validated."
+  evaluator_pipeline_invariants:
+    - "Stages must run in exactly this order (no additions or reorderings)."
+    - "No nondeterministic IO such as randomness or local system time."
+    - "Timestamps serialize as UTC ISO-8601 with Z suffix."
+    - "Canonicalization enforces deterministic key ordering and fixed_64 math."
+    - "Outputs emit canonical_json_utf8 with stable hashing."
+
+related_products:
+  - guardscore
+  - guardboard
+  - computeguard
+  - computescan
+  - pipelineguard
+  - pipelinescan
+  - vectorguard
+  - vectorscan
 
 governance_domains:
+  - deterministic_runtime
+  - provenance_enforcement
+  - wasm_safety
   - schema_governance
-  - cli_tooling
   - fixpack_registry
-  - scoring_contracts
-  - template_rendering
-  - compliance_controls
 
 rule_categories:
-  - "Schema Evolution & Compatibility"
-  - "CLI Harness & Transport"
-  - "FixPack Lifecycle Guardrails"
-  - "GuardScore Contract Enforcement"
-  - "Template Rendering & Docs"
+  - Canonicalization & Evaluator Lifecycle
+  - ABI Integrity & Binary Governance
+  - Schema Fragment Enforcement
+  - FixPack Registry Management
+  - Telemetry & Observability Guardrails
 
 features:
-  - id: CORE-FEAT-010
-    title: "Canonical Schema Bundle"
-    summary: "Ships JSON Schema + Python contracts for every pillar."
+  - id: GSCORE-CORE-001
+    title: "Authoritative Evaluator Pipeline"
+    summary: "Ships the canonical stage ordering, invariants, and orchestration."
     included: true
-  - id: CORE-FEAT-020
-    title: "Deterministic Loader"
-    summary: "Shared plan/YAML ingestion with strict limits."
+  - id: GSCORE-CORE-002
+    title: "Signed Binary Core"
+    summary: "Provides ABI-locked WASM + native modules with deterministic parity."
     included: true
-  - id: CORE-FEAT-030
-    title: "FixPack Registry"
-    summary: "Registers remediation snippets and metadata for paid products."
+  - id: GSCORE-CORE-003
+    title: "FixPack + Schema Registry"
+    summary: "Publishes fragment governance, fixpack metadata, and drift enforcement."
     included: true
-  - id: CORE-FEAT-040
-    title: "Template + Renderer SDK"
-    summary: "Jinja + Markdown renderer utilities for docs and snapshots."
-    included: true
+
+architecture:
+  core_dependency_id: "guardsuite-core@>=2.4.0"
+  canonical_schema_source: "schemas/core/canonical_schema.json"
+  required_interfaces:
+    - I_PlanLoader
+    - I_IssueSerializer
+    - I_TemplateRenderer
+  forbidden_overrides:
+    - canonical.output_contract
+    - engine.payload_serializer
+  evaluator_pipeline:
+    stages:
+      - load_profile
+      - initialize_context
+      - discover_resources
+      - gather_metadata
+      - evaluate_rules
+      - canonicalize
+      - snapshot_normalize
+      - emit_output
+    invariants:
+      - "Stages execute strictly in the published order."
+      - "No nondeterministic IO or environment branching."
+      - "Timestamps encode as UTC ISO-8601 with Z suffix."
+      - "Arithmetic must use fixed_64 deterministic math."
+      - "Outputs serialize via canonical_json_utf8."
+  canonicalization:
+    input:
+      normalize_paths_to: "/"
+      enforce_key_ordering: true
+      timestamp_format: "UTC_ISO8601_Z"
+      unicode_normalization: NFC
+      float_handling: fixed64_or_forbidden
+    output:
+      enforce_key_ordering: true
+      serialization: canonical_json_utf8
+      strip_fields:
+        - local_paths
+        - tmp_dir
+        - debug_info
+    snapshot_normalization:
+      runs_required: 3
+      identical_hash_required: true
+      timestamp_normalization: UTC_ISO8601
+  binary_core:
+    artifacts_dir: "artifacts/binaries/"
+    required_modules:
+      - evaluator_primitives.so
+      - severity_mapping_core.so
+      - canonicalization_core.so
+      - schema_verifier_core.so
+    abi_manifest: "artifacts/abi/binary_abi_matrix.yml"
+    supported_architectures:
+      - x86_64
+      - arm64
+    signing_required: true
+    checksum_required: true
+    fallback_policy:
+      dev: python_fallback_allowed
+      ci: python_fallback_warn
+      production: python_fallback_forbidden
+  fixpack_registry:
+    registry_dir: "fixpacks/"
+    manifest: "fixpacks/registry_index.yml"
+    metadata_schema: "schemas/fixpack_schema.yml"
+    signature_required: true
+    deterministic_ordering: true
+  error_model:
+    error_codes:
+      VALIDATION_ERROR: 2
+      SCHEMA_ERROR: 3
+      RUNTIME_ERROR: 4
+      PARTIAL_INPUT_ERROR: 5
+      BINARY_INTEGRITY_ERROR: 6
+      DRIFT_ERROR: 7
+    output_contract:
+      canonical_error_schema: "schemas/cli_error.json"
+      required_fields:
+        - error_code
+        - message
+        - detail
+        - timestamp_utc
+        - error_hash
+      forbidden_fields:
+        - stacktrace
+        - local_paths
+      deterministic_error_output: true
+  schema_fragments:
+    canonical_dir: "schemas/core/"
+    pillar_extensions_dir: "schemas/pillar/"
+    mandatory_fragment_fields:
+      - id
+      - version
+      - owner
+      - rfc_link
+      - compatibility_notes
+    fragment_validation_command: "guardsuite-core verify-fragment <file>"
+    compatibility:
+      core_fragment_versions: ">=2.0.0"
+      pillar_extension_versions: ">=1.0.0"
+      incompatible_combinations:
+        - "core<2.0.0 + pillar_extension>=2.0"
+      enforcement: reject_on_load
 
 fixpack:
   included: false
-  reference_hint_format: "fixpack:<ISSUE_ID>"
-  surfaces_hints: false
+  registry_alignment: "fixpack_registry.manifest"
+  remediation_hint_format: "fixpack:<ISSUE_ID>"
+  exposes_cli_lookup: true
 
 compliance:
-  compliance_ledger_enabled: false
-  ledger_visibility: "none"
+  compliance_ledger_enabled: true
+  ledger_visibility: full
+  required_artifacts:
+    - canonical_schema.json
+    - provenance_schema.yml
+    - fixpack_registry_index.yml
+  schema_validation_required: true
 
 cli:
   base_command: "guardsuite-core"
   supported_flags:
-    - "--schema"
-    - "--plan"
-    - "--strict"
+    - "--json"
+    - "--stdin"
+    - "--quiet"
     - "--output json"
-  reserved_flags:
-    - "--experimental"
+  deterministic_output: true
 
 api:
-  rest_endpoint: "https://api.shieldcraft-ai.com/guardsuite-core"
+  base_url: "https://api.shieldcraft-ai.com/guardsuite-core"
+  rest_endpoint: "/v1/scan"
+  openapi_path: "api/openapi.yml"
   auth: "GuardSuite API token"
+  payload_limits:
+    max_request_bytes: 2000000
+    default_timeout_ms: 5000
+  validation_tests_required: true
+  error_contract: "schemas/cli_error.json"
 
 performance_constraints:
   max_memory_mb: 256
   expected_runtime_ms: 400
   large_plan_runtime_ms: 900
   playground_runtime_ms: 1000
-  quickscore_threshold_resources: 1500
+  playground_latency_target_ms: 500
+  quickscore_threshold_resources: 25
   realtime_refresh_interval_ms: 30000
+  pipeline_stage_budgets:
+    load_profile_ms: 50
+    discover_resources_ms: 150
+    gather_metadata_ms: 200
+    evaluate_rules_ms: 200
+    canonicalize_ms: 150
+    snapshot_normalize_ms: 150
 
 ecosystem_integrations:
-
   guardscore:
     pillar_weight: 0.0
     severity_penalties:
@@ -122,16 +273,13 @@ ecosystem_integrations:
       - guardscore_contract_version
       - schema_version
       - fixpack_registry_state
-    badge_eligibility_signal: false
-
   playground:
     wasm_safe: true
     max_runtime_ms: 1500
-    playground_latency_target_ms: 900
+    playground_latency_target_ms: 500
+    quick_score_mode: false
     json_sanitize: true
     svg_sanitize: true
-    quick_score_mode: false
-
   guardboard:
     exposes_fixpack_hints: true
     shows_compliance_ledger: false
@@ -141,73 +289,143 @@ testing:
   unit_tests_required: true
   integration_tests_required: true
   snapshot_schema_test: true
+  parity_tests_required: true
+  wasm_execution_required: true
   test_coverage_min_percent: 90
+  ci_matrix:
+    - ubuntu-x86_64
+    - ubuntu-arm64
+    - macos-x86_64
   ci_jobs:
     - validate_schema
     - unit
     - integration
     - snapshot_conformance
+    - parity_tests
+    - wasm_conformance
+    - binary_signature_check
 
 versioning:
   semver: true
-  core_dependency_pin: "guardsuite-core@>=2.0.0"
-  schema_version_pin: "canonical_schema@2.0.0"
-  breaking_change_policy: >
-    Requires guardsuite-core RFC, coordinated pillar updates, and template &
-    doc regeneration before release.
+  core_dependency_pin: "guardsuite-core@>=2.4.0"
+  schema_version_pin: "schemas/core@>=2.0.0"
+  compatibility_window_months: 12
+  breaking_change_process: "RFC + downstream coordination + migration plan"
+  migration_policy:
+    major_change: pillar_regeneration_required
+    minor_change: notify_downstream_and_document
 
 interoperability_conflicts:
-  - "Schema upgrades require simultaneous GuardScore recalibration."
-  - "FixPack registry format changes can break paid pillar ingestion."
+  - "Unsigned binaries or fragments"
+  - "Non-deterministic evaluator overrides"
+  - "Dynamic imports inside WASM sandboxes"
 
 future_extensions:
-  - "Rust-based WASM harness"
-  - "FixPack signature validation"
-  - "Schema diff tooling for release PRs"
+  - "Signed percentile snapshots for GuardBoard drift detection"
+  - "Deterministic quickscore helpers for Playground"
+  - "Schema fragment diff API for third-party partners"
 
 security:
   no_external_calls_at_runtime: true
   sanitize_all_inputs: true
   svg_sanitization: true
   wasm_compatible: true
-  sandbox_requirement: "Core CLI must run in WASM sandbox for Playground linting"
+  sandbox_requirement: "Core CLI must run under WASI for Playground"
   safe_error_reporting: true
+  wasm_forbidden_operations:
+    - randomness
+    - locale
+    - filesystem_write
+    - dynamic_imports
+    - system_time
+    - environment_variable_branching
+    - nondeterministic_float_ops
+    - network_access
 
 maintainers:
   - name: "Deon Prinsloo"
     role: "AI Solutions Architect"
     contact: "deon@shieldcraft-ai.com"
+  - name: "GuardSuite Platform Team"
+    role: "Product Owner"
+    contact: "platform@guardsuite.internal"
 
 release_metadata:
-  release_channel: "stable"
-  release_notes_url: "https://shieldcraft-ai.com/guardsuite/guardsuite-core/releases/2.0.0"
-  published_date: "2025-11-19"
+  release_channel: stable
+  release_notes_url: "https://shieldcraft-ai.com/guardsuite-core/releases/2.4.0"
+  published_date: "2026-03-09"
+  artifact_version_hash: "f5bf9548"
 
 references:
-  master_spec: "docs/guardsuite_master_spec.md"
-  template_spec: "templates/spec_page.md.j2"
-  canonical_schema: "guardsuite-core/canonical_schema.json"
+  canonical_schema: "schemas/core/canonical_schema.json"
+  telemetry:
+    schema: "schemas/telemetry_event_schema.yml"
+    schema_version_pin: ">=1.0,<2.0"
+    required_fields:
+      - event_type
+      - timestamp_utc
+      - component
+      - trace_id
+    limits:
+      max_event_payload_bytes: 64000
+      max_events_per_rule_execution: 10
+    redact_patterns:
+      - ".*secret.*"
+      - ".*token.*"
+  logs:
+    structured_json: true
+    redact_fields:
+      - resource_id
+      - tenant_id
+    include:
+      - component
+      - timestamp_utc
+      - trace_id
+  metrics:
+    - core_runs_total
+    - core_schema_errors_total
+    - core_parity_failures_total
+  runbooks:
+    parity_failure: "docs/runbooks/parity_failure.md"
+    schema_drift: "docs/runbooks/schema_drift.md"
+    binary_compromise: "docs/runbooks/binary_compromise.md"
+  deliverables:
+    - schemas/core/canonical_schema.json
+    - schemas/provenance_schema.yml
+    - artifacts/abi/binary_abi_matrix.yml
+    - artifacts/binaries/<arch>/*
+    - fixpacks/registry_index.yml
+    - api/openapi.yml
+    - docs/runbooks/*.md
+    - examples/*
+    - tests/parity_test_harness/
+    - ci/guardsuite-core-ci.yml
 
-metadata:
-  version: "2025.11"
-  funnel_stage: mid_funnel
-  pricing_reference: "pricing/guardsuite_pricing.yml"
-  ux_goals:
-    - "Coordinate canonical schema evolution"
-    - "Expose evaluator/runtime guarantees"
-governance:
-  spec_version: "2025.11"
-  last_reviewed: "2025-11-23"
-  owner: "GuardSuite PMO"
-  stability_level: ga
-contract_ref: null
-related_products:
-  - vectorscan
-  - vectorguard
-  - computescan
-  - computeguard
-  - pipelinescan
-  - pipelineguard
-  - guardscore
-  - guardboard
-  - playground
+integration_points:
+  guardboard:
+    uses_canonical_schema_exports: true
+    consumes_fixpack_registry: true
+  guardscore:
+    requires_canonical_output_contract: true
+    ingests_severity_penalties: true
+  playground:
+    wasm_safe_runner: true
+    requires_playground_latency_target_ms: 500
+  ci_bootstrap:
+    cli_commands:
+      - "guardsuite-core ci:validate"
+      - "guardsuite-core ci:bootstrap"
+
+owner: "GuardSuite Platform Team"
+
+spec_yaml: "products/guardsuite-core.yml"
+checklist_yaml: "checklists/guardsuite-core.yml"
+gpt_instructions_yaml: "templates/guardsuite-core_instructions.yml"
+
+provenance:
+  - "Derived from GuardSuite Core charter v2026.04"
+  - "Aligned with guardsuite-template evaluator pipeline"
+  - "ABI manifest tracked in artifacts/abi/binary_abi_matrix.yml"
+
+products:
+  - guardsuite-core

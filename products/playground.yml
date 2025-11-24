@@ -1,73 +1,187 @@
-# provenance: Master Spec reference file:///mnt/data/gpt-instructions.txt
+---
 id: playground
 name: GuardSuite Playground
-product_type: experience
+product_type: core
+pillar: crosscut
 version: "2.0.0"
+status: production
 short_description: >
-  Web-based GuardSuite sandbox that lets teams exercise canonical outputs and
-  deterministic badge checks without installing the full suite.
+  Hosted GuardSuite sandbox for deterministic evaluator demos, docs, and AI
+  showcases.
 long_description: |
-  GuardSuite Playground is the hosted evaluation environment for GuardSuite
-  products. It mirrors the evaluator pipeline, surfaces guardrails inside a
-  browser, and ships with deterministic sample plans so contributors can preview
-  badge eligibility, see FixPack snippets, and validate product metadata before
-  promoting release candidates. Playground is safe to embed in docs, demos, and
-  AI showcases because it avoids filesystem or network escapes and keeps latency
-  predictable for WASM runtimes.
-description: "Hosted GuardSuite evaluator sandbox for demos, docs, and AI showcases."
-features:
-  - id: PLAY-FEAT-010
-    title: "Deterministic GuardSuite Evaluations"
-    summary: "Runs the evaluator + canonical schema in a WASM sandbox with curated plans."
-    included: true
-  - id: PLAY-FEAT-020
-    title: "Badge Eligibility Preview"
-    summary: "Displays GuardScore signals, severity totals, and badge decisions inline."
-    included: true
-  - id: PLAY-FEAT-030
-    title: "Shareable Playground Links"
-    summary: "Generates pre-loaded URLs for documentation, customer enablement, and demos."
-    included: true
+  GuardSuite Playground is the browser-based evaluator environment that mirrors
+  canonical GuardSuite pipelines. It runs deterministic sample plans inside a
+  WASM sandbox, lets teams preview GuardScore, badge eligibility, and FixPack
+  hints, and exports copyable JSON for GuardBoard or Architect. Playground keeps
+  latency predictable, requires no local install, and provides shareable URLs
+  for enablement and product documentation.
+purpose_summary: >
+  Enable zero-install GuardSuite demos with deterministic evaluator output,
+  badge previews, and GuardScore insights.
 marketing:
   hero: "Exercise GuardSuite rules safely inside a browser sandbox."
   blurbs:
-    - "Great for solution engineers, docs teams, and AI showcases."
-    - "Pre-wired with deterministic GuardSuite sample plans."
-    - "Exports badge-ready JSON for GuardBoard and GuardScore."
+    - "Great for solutions engineers, docs teams, and AI showcases"
+    - "Pre-loaded with deterministic GuardSuite sample plans"
+    - "Exports badge-ready JSON for GuardBoard and GuardScore"
+  ctas:
+    - text: "Launch Playground"
+      href: "/playground"
+
 metadata:
   version: "2025.11"
   funnel_stage: toplevel_funnel
   pricing_reference: "pricing/guardsuite_pricing.yml"
   ux_goals:
-    - "Give teams a zero-install GuardSuite sandbox."
-    - "Expose GuardScore + badge eligibility inline for demos."
+    - "Enable zero-install GuardSuite demos with deterministic outputs"
+    - "Let teams export badge-ready JSON to GuardBoard and docs"
+
 governance:
   spec_version: "2025.11"
-  last_reviewed: "2025-11-23"
-  owner: "GuardSuite PMO"
-  stability_level: beta
-contract_ref: "contracts/playground_contract.yml"
+  last_reviewed: "2025-11-24"
+  owner: "GuardSuite Platform Team"
+  stability_level: ga
+
 related_products:
+  - computeguard
+  - computescan
+  - pipelinescan
   - vectorscan
   - guardscore
   - guardboard
-compliance:
-  matrix_snippet: "docs/playground_matrix.yml"
+
 architecture:
+  core_dependency_id: "guardsuite-core@>=1.4.0,<2.0.0"
   schema_source: "products/schema/playground.schema.yml"
   required_interfaces:
     - "I_PlaygroundRuntime"
     - "I_GuardSuiteAPI"
-  runtime_constraints:
+  override_exclusion:
+    - "canonical.output_contract"
+    - "evaluator.runtime_override"
+  output_contract: "sandbox"
+governance_domains:
+  - evaluator_accessibility
+  - wasm_runtime_safety
+  - deterministic_demo_content
+  - badge_preview_integrity
+rule_categories:
+  - "Deterministic Sample Plans"
+  - "GuardScore Preview"
+  - "Badge Eligibility"
+  - "Playground Telemetry"
+features:
+  - id: PLAY-FEAT-010
+    title: "Deterministic Evaluations"
+    summary: "Runs canonical evaluator + schema validation inside WASM."
+    included: true
+  - id: PLAY-FEAT-020
+    title: "Badge Eligibility Preview"
+    summary: "Displays badge decisions, severity totals, and GuardScore inputs."
+    included: true
+  - id: PLAY-FEAT-030
+    title: "Shareable Playground Links"
+    summary: "Generates pre-loaded URLs for docs, demos, and customers."
+    included: true
+fixpack:
+  included: false
+  reference_hint_format: "fixpack:<ISSUE_ID>"
+  surfaces_hints: true
+  snippet_count: 0
+compliance:
+  compliance_ledger_enabled: false
+  ledger_visibility: "none"
+  matrix_snippet: "docs/playground_matrix.yml"
+cli:
+  base_command: "playground"
+  scan_command: ""
+  supported_flags:
+    - "--json"
+    - "--stdin"
+    - "--quiet"
+  reserved_flags:
+    - "--export-session"
+performance_constraints:
+  max_memory_mb: 192
+  expected_runtime_ms: 600
+  playground_runtime_ms: 750
+  realtime_refresh_interval_ms: 60000
+  quickscore_threshold_resources: 200
+ecosystem_integrations:
+  guardscore:
+    pillar_weight: 0.2
+    severity_penalties:
+      critical: 40
+      high: 25
+      medium: 10
+      low: 2
+    provided_score_inputs:
+      - badge_preview_score
+      - sample_plan_issue_counts
+      - remediation_hint_count
+    badge_eligibility_signal: true
+  playground:
     wasm_safe: true
-    latency_budget_ms: 750
-    max_memory_mb: 192
+    max_runtime_ms: 900
+    playground_latency_target_ms: 750
+    json_sanitize: true
+    svg_sanitize: true
+    quick_score_mode: true
+  guardboard:
+    exposes_fixpack_hints: true
+    shows_compliance_ledger: false
+    badge_preview_supported: true
+testing:
+  unit_tests_required: true
+  integration_tests_required: true
+  snapshot_schema_test: true
+  test_coverage_min_percent: 80
+  ci_jobs:
+    - validate_schema
+    - unit
+    - integration
+    - snapshot_conformance
+versioning:
+  semver: true
+  core_dependency_pin: "guardsuite-core@>=1.4.0,<2.0.0"
+  schema_version_pin: "playground.schema@1.0.0"
+  breaking_change_policy: >
+    Any UI or API contract change requires updated documentation, Playground
+    schema bumps, and GuardBoard compatibility notes.
+interoperability_conflicts:
+  - "New evaluator stages may impact WASM bundle size."
+future_extensions:
+  - "In-browser FixPack simulation"
+  - "AI-guided walkthroughs"
+security:
+  no_external_calls_at_runtime: true
+  sanitize_all_inputs: true
+  svg_sanitization: true
+  wasm_compatible: true
+  sandbox_requirement: >
+    GuardSuite Playground must run entirely in a WASM sandbox.
+maintainers:
+  - name: "GuardSuite Platform Team"
+    role: "Playground Maintainers"
+    contact: "platform@guardsuite.internal"
+release_metadata:
+  release_channel: "stable"
+  release_notes_url: >-
+    https://shieldcraft-ai.com/guardsuite/playground/releases/2.0.0
+  published_date: "2025-11-23"
 references:
-  playground_schema: "products/schema/playground.schema.yml"
-  canonical_equivalence: "guardsuite-core/canonical_schema.json"
+  master_spec: "docs/guardsuite_master_spec.md"
   template_spec: "templates/spec_page.md.j2"
-sample_data:
-  deterministic_response:
-    issues: []
-provenance:
-  - "Generated from Architect instructions for GuardSuite Playground."
+  canonical_schema: "guardsuite-core/canonical_schema.json"
+api:
+  rest_endpoint: "https://playground.shieldcraft-ai.com/api"
+  auth: "GuardSuite session token"
+integration_points:
+  products_consuming:
+    - guardboard
+    - guardscore
+    - vectorscan
+    - computeguard
+  playground:
+    quick_score_mode_supported: true
+    exposes_fixpack_hints: true

@@ -38,9 +38,13 @@ marketing:
 
 metadata:
   version: "2026.02"
-  funnel_stage: platform_foundation
+  funnel_stage: toplevel_funnel
   pricing_reference: "pricing/guardsuite_pricing.yml"
   documentation_entrypoint: "docs/products/guardscore.md"
+  ux_goals:
+    - "Expose a single deterministic GuardScore for exec dashboards and APIs."
+    - "Provide explainability artifacts (pillars, severity math, drift signals)."
+    - "Guarantee badge readiness signals for GuardBoard and downstream products."
 
 governance:
   spec_version: "2026.02"
@@ -56,9 +60,10 @@ governance:
 related_products:
   - computeguard
   - computescan
+  - pipelineguard
+  - pipelinescan
   - vectorguard
   - vectorscan
-  - pipelineguard
   - guardboard
 
 architecture:

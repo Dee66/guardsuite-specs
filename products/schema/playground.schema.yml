@@ -112,6 +112,12 @@ properties:
     additionalProperties: true
   references:
     type: object
+    properties:
+      canonical_schema:
+        type: string
+        const: guardsuite-core/canonical_schema.json
+    required:
+      - canonical_schema
     additionalProperties:
       type: string
   provenance:

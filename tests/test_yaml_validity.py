@@ -21,13 +21,14 @@ STRICT_KEYS = {
     "release_metadata",
     "references",
 }
-ALLOWED_PRODUCT_TYPES = {"free_scanner", "paid_blueprint", "scoring_engine", "core"}
+ALLOWED_PRODUCT_TYPES = {"free_scanner", "paid_blueprint", "scoring_engine", "core", "experience", "spec_index"}
 
 def _product_spec_paths():
+    excluded = {"guardsuite_master_spec.yml", "guardsuite-template.yml", "pillar-template.yml"}
     return [
         p
         for p in PRODUCTS.glob("*.yml")
-        if not p.name.endswith("_worksheet.yml") and p.name != "guardsuite_master_spec.yml"
+        if not p.name.endswith("_worksheet.yml") and p.name not in excluded
     ]
 
 
@@ -66,7 +67,7 @@ def test_all_yaml_files_parse_and_contain_required_keys():
 
         assert data["id"], f"id missing or empty in {file}"
         assert data["name"], f"name missing or empty in {file}"
-        assert data["pillar"] in ["vector", "compute", "pipeline", "crosscut"], f"Invalid pillar value in {file}"
+        assert data["pillar"] in ["vector", "compute", "pipeline", "crosscut", "ui"], f"Invalid pillar value in {file}"
         assert data["product_type"] in ALLOWED_PRODUCT_TYPES, f"Invalid product_type in {file}"
 
         version = str(data["version"])

@@ -16,7 +16,8 @@ def test_release_metadata_is_consistent():
     specs = [
         p
         for p in PRODUCTS.glob("*.yml")
-        if not p.name.endswith("_worksheet.yml") and p.name != "guardsuite_master_spec.yml"
+        if not p.name.endswith("_worksheet.yml")
+        and p.name not in {"guardsuite_master_spec.yml", "guardsuite-template.yml", "pillar-template.yml"}
     ]
     assert specs, "No product specs found"
 

@@ -1,3 +1,4 @@
+---
 id: vectorguard
 name: VectorGuard
 product_type: paid_blueprint
@@ -32,6 +33,25 @@ marketing:
   ctas:
     - text: "Get VectorGuard"
       href: "/buy/vectorguard"
+
+metadata:
+  version: "2025.11"
+  funnel_stage: bottom_funnel
+  pricing_reference: "pricing/guardsuite_pricing.yml"
+  ux_goals:
+    - "Give vector teams deterministic remediation playbooks"
+    - "Upgrade free scans into ledger-backed governance workflows"
+
+governance:
+  spec_version: "2025.11"
+  last_reviewed: "2025-11-24"
+  owner: "GuardSuite Platform Team"
+  stability_level: ga
+
+related_products:
+  - vectorscan
+  - guardscore
+  - guardboard
 
 architecture:
   core_dependency_id: "guardsuite-core@>=1.4.0,<2.0.0"
@@ -173,6 +193,11 @@ versioning:
   breaking_change_policy: >
     Any breaking change requires a guardsuite-core RFC, a ledger CSV schema
     update, and a coordinated release with VectorScan.
+  governance_alignment:
+    spec_version: "2025.11"
+    last_reviewed: "2025-11-23"
+    owner: "GuardSuite PMO"
+    stability_level: ga
 
 interoperability_conflicts:
   - "FixPack-Lite expansion may require GuardScore v2 recalibration."
@@ -198,29 +223,24 @@ maintainers:
 
 release_metadata:
   release_channel: "stable"
-  release_notes_url: "https://shieldcraft-ai.com/guardsuite/vectorguard/releases/2.0.0"
+  release_notes_url: >-
+    https://shieldcraft-ai.com/guardsuite/vectorguard/releases/2.0.0
   published_date: "2025-11-19"
-
-references:
-  master_spec: "docs/guardsuite_master_spec.md"
-  template_spec: "templates/spec_page.md.j2"
-  canonical_schema: "guardsuite-core/canonical_schema.json"
-
-metadata:
-  version: "2025.11"
   funnel_stage: toplevel_funnel
   pricing_reference: "pricing/guardsuite_pricing.yml"
   ux_goals:
     - "Operationalize GenAI safety dashboards"
     - "Expose GuardScore-ready governance insights"
-governance:
-  spec_version: "2025.11"
-  last_reviewed: "2025-11-23"
-  owner: "GuardSuite PMO"
-  stability_level: ga
-contract_ref: null
-related_products:
-  - vectorscan
-  - guardscore
-  - guardboard
-  - playground
+
+references:
+  master_spec: "docs/guardsuite_master_spec.md"
+  template_spec: "templates/spec_page.md.j2"
+  canonical_schema: "guardsuite-core/canonical_schema.json"
+  contract_ref: null
+
+integration_points:
+  related_products:
+    - vectorscan
+    - guardscore
+    - guardboard
+    - playground

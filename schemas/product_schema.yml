@@ -1,0 +1,27 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: "GuardSuite Product Metadata Schema"
+type: object
+required:
+  - id
+  - name
+  - owner
+  - version
+  - spec_yaml
+  - checklist_yaml
+  - gpt_instructions_yaml
+properties:
+  id: { type: string }
+  name: { type: string }
+  owner: { type: string }
+  version: { type: string }
+  status: { type: string }
+  tags:
+    type: array
+    items: { type: string }
+  spec_yaml: { type: string }
+  checklist_yaml: { type: string }
+  gpt_instructions_yaml: { type: string }
+  bootstrap_version: { type: string }
+  validation_errors:
+    type: array
+    items: { type: string }

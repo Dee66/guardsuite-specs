@@ -1,0 +1,31 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: "GuardSuite Bootstrap Artifact Schema"
+type: object
+required:
+  - product
+  - timestamp
+  - version
+  - spec
+  - checklist
+  - gpt_instructions
+  - architect_session_state
+  - incomplete
+  - validation_errors
+properties:
+  product: { type: string }
+  timestamp: { type: string }
+  version: { type: string }
+  spec: { type: string }
+  checklist: { type: string }
+  gpt_instructions: { type: string }
+  architect_session_state:
+    type: object
+    required: [last_checklist_item, last_instruction_version, last_implementor_status]
+    properties:
+      last_checklist_item: { type: [string, "null"] }
+      last_instruction_version: { type: number }
+      last_implementor_status: { type: [string, "null"] }
+  incomplete: { type: boolean }
+  validation_errors:
+    type: array
+    items: { type: string }

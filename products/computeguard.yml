@@ -1,37 +1,48 @@
+---
 id: computeguard
 name: ComputeGuard
 product_type: paid_blueprint
 pillar: compute
 version: "2.0.0"
 status: production
-
 short_description: >
-  Enterprise FinOps governance, deterministic remediation, compliance ledger,
-  and premium GuardScore inputs for GPU and compute-heavy infrastructure.
-
+  Enterprise FinOps governance and deterministic remediation for GPU-heavy
+  compute estates.
 long_description: |
-  ComputeGuard is the premium compute governance and remediation blueprint for
-  organizations operating GPU-heavy or cost-sensitive ML/AI workloads. It
-  extends ComputeScan with deterministic FixPack-Lite remediation, advanced
-  FinOps rule coverage, full compliance ledger generation, and GuardBoard-ready
-  overlays. ComputeGuard is designed for teams requiring deep visibility into
-  GPU usage, instance sizing, cost anomalies, and compute governance.
-
+  ComputeGuard extends ComputeScan with enterprise-grade FinOps governance,
+  deterministic FixPack-Lite remediation, and audit-ready compliance ledgers. It
+  enforces cost controls for GPU fleets, emits GuardScore upgrades, and ships
+  GuardBoard overlays so leadership can track remediation health. The blueprint
+  emphasizes deterministic output, schema-first interfaces, and WASM-safe
+  execution for Playground demos.
 purpose_summary: >
-  Provide deterministic cost governance, remediation, and compliance-level
-  visibility across GPU and compute infrastructure.
-
+  Provide deterministic cost governance, remediation hints, and compliance-grade
+  ledgers across GPU and compute-intensive workloads.
 marketing:
-  hero: "Eliminate GPU waste with enterprise FinOps guardrails and deterministic fixes."
+  hero: "Eliminate GPU waste with deterministic compute governance."
   blurbs:
-    - "Advanced GPU and compute governance with 600+ rules"
-    - "Deterministic FixPack-Lite for cost and config remediation"
-    - "Compliance ledger for FinOps auditability"
-    - "GuardScore upgrades for executive cost reporting"
+    - "600+ advanced compute governance and FinOps rules"
+    - "Deterministic FixPack-Lite remediation and ledger outputs"
+    - "GuardScore upgrades and GuardBoard overlays for exec-ready reports"
   ctas:
     - text: "Get ComputeGuard"
       href: "/buy/computeguard"
-
+metadata:
+  version: "2025.11"
+  funnel_stage: bottom_funnel
+  pricing_reference: "pricing/guardsuite_pricing.yml"
+  ux_goals:
+    - "Deliver deterministic GPU governance packages for enterprise releases"
+    - "Surface actionable remediation bundles for GuardBoard and GuardScore consumers"
+governance:
+  spec_version: "2025.11"
+  last_reviewed: "2025-11-24"
+  owner: "GuardSuite Platform Team"
+  stability_level: ga
+related_products:
+  - computescan
+  - guardscore
+  - guardboard
 architecture:
   core_dependency_id: "guardsuite-core@>=1.4.0,<2.0.0"
   schema_source: "guardsuite-core/canonical_schema.json"
@@ -42,65 +53,52 @@ architecture:
   override_exclusion:
     - "canonical.output_contract"
     - "evaluator.runtime_override"
-    - "compliance.disable_ledger"
+    - "canonicalization_rules"
   output_contract: "strict"
-
 governance_domains:
-  - cost_finops
-  - gpu_provisioning
-  - instance_sizing
-  - autoscaling_risk
-  - spot_instance_policy
-  - drift_detection
-  - observability_gaps
-  - compliance_mapping
+  - finops_governance
+  - gpu_capacity_planning
+  - telemetry_gap_detection
+  - compliance_ledgering
   - deterministic_remediation
-
 rule_categories:
   - "GPU Provisioning & Utilization"
   - "Rightsizing & Instance Sizing"
   - "Autoscaling Safety"
-  - "Spot & Preemptible Policy"
-  - "Idle/Orphaned Resource Detection"
-  - "Cost Escalation Pattern Detection"
-  - "Observability & Telemetry"
+  - "Cost Escalation Detection"
   - "Compliance Mapping"
   - "Deterministic Remediation"
-
 features:
   - id: CMPG-FEAT-010
     title: "Full Compute Governance Coverage"
-    summary: "600+ advanced compute and GPU governance checks."
+    summary: "600+ compute governance rules spanning GPU and cost controls."
     included: true
   - id: CMPG-FEAT-020
     title: "Compliance Ledger"
-    summary: "Detailed FinOps and cost-governance ledger output."
+    summary: "Generates audit-grade JSON ledgers for FinOps reviews."
     included: true
   - id: CMPG-FEAT-030
     title: "FixPack-Lite Remediation"
-    summary: "Deterministic cost and GPU remediation snippets."
+    summary: "Deterministic HCL snippets for top misconfigurations."
     included: true
   - id: CMPG-FEAT-040
     title: "Advanced GuardScore Inputs"
-    summary: "Premium scoring metrics for compute waste and cost anomalies."
+    summary: "Feeds premium GuardScore weighting for executive reporting."
     included: true
   - id: CMPG-FEAT-050
-    title: "Pipeline-aware Compute Governance"
-    summary: "Flags risky upstream/downstream compute dependencies."
+    title: "Pipeline-aware Governance"
+    summary: "Correlates compute signals with CI/CD and telemetry adapters."
     included: true
-
 fixpack:
   included: true
   fixpack_folder: "fixpack/compute"
   reference_hint_format: "fixpack:<ISSUE_ID>"
   surfaces_hints: true
   snippet_count: 10
-
 compliance:
   compliance_ledger_enabled: true
   ledger_visibility: "full"
   ledger_schema_version: "1.0.0"
-
 cli:
   base_command: "computeguard"
   scan_command: "computeguard scan"
@@ -115,16 +113,17 @@ cli:
   reserved_flags:
     - "--ledger-only"
     - "--fixpack-diff"
-
+  output_contract:
+    json_schema: "/schemas/cli_output.json"
+  error_contract:
+    json_schema: "/schemas/cli_error.json"
 performance_constraints:
   max_memory_mb: 260
   expected_runtime_ms: 850
   large_plan_runtime_ms: 2000
   playground_runtime_ms: 2100
   quickscore_threshold_resources: 800
-
 ecosystem_integrations:
-
   guardscore:
     pillar_weight: 0.33
     severity_penalties:
@@ -140,7 +139,6 @@ ecosystem_integrations:
       - compliance_ledger_item_count
       - resource_count
     badge_eligibility_signal: true
-
   playground:
     wasm_safe: true
     max_runtime_ms: 2000
@@ -148,13 +146,10 @@ ecosystem_integrations:
     json_sanitize: true
     svg_sanitize: true
     quick_score_mode: true
-
   guardboard:
     exposes_fixpack_hints: true
     shows_compliance_ledger: true
     badge_preview_supported: true
-    advanced_score_overlays: true
-
 testing:
   unit_tests_required: true
   integration_tests_required: true
@@ -165,62 +160,48 @@ testing:
     - unit
     - integration
     - snapshot_conformance
-
+    - perf_regression
 versioning:
   semver: true
   core_dependency_pin: "guardsuite-core@>=1.4.0,<2.0.0"
   schema_version_pin: "canonical_schema@1.0.0"
   breaking_change_policy: >
-    Any breaking change requires a guardsuite-core RFC, FinOps ledger schema
-    migration note, and coordinated release with ComputeScan.
-
+    Any breaking change requires a guardsuite-core RFC, FinOps ledger migration
+    note, and coordinated release with ComputeScan and GuardBoard.
 interoperability_conflicts:
-  - "Cost-governance FixPack interactions may require GuardScore v2 recalibration."
-  - "Future GPU telemetry hooks require coordinated schema updates."
-
+  - "Ledger schema updates require GuardBoard overlay refresh."
+  - "New compute adapters may shift GuardScore weighting."
 future_extensions:
-  - "Inference cost modeling"
-  - "GPU topology governance"
-  - "Cluster autoscaler deep heuristics"
-
+  - "GPU sustainability scoring"
+  - "Automatic remediation bundle promotions"
+  - "Pipeline-to-compute correlation heatmaps"
 security:
   no_external_calls_at_runtime: true
   sanitize_all_inputs: true
   svg_sanitization: true
   wasm_compatible: true
   sandbox_requirement: "Playground runtime must be WASM sandboxed"
-  safe_error_reporting: true
-
 maintainers:
   - name: "Deon Prinsloo"
     role: "AI Solutions Architect"
     contact: "deon@shieldcraft-ai.com"
-
 release_metadata:
   release_channel: "stable"
-  release_notes_url: "https://shieldcraft-ai.com/guardsuite/computeguard/releases/2.0.0"
+  release_notes_url: >-
+    https://shieldcraft-ai.com/guardsuite/computeguard/releases/2.0.0
   published_date: "2025-11-19"
-
 references:
   master_spec: "docs/guardsuite_master_spec.md"
   template_spec: "templates/spec_page.md.j2"
   canonical_schema: "guardsuite-core/canonical_schema.json"
-
-metadata:
-  version: "2025.11"
-  funnel_stage: toplevel_funnel
-  pricing_reference: "pricing/guardsuite_pricing.yml"
-  ux_goals:
-    - "Deliver turnkey compute governance"
-    - "Expose executive-ready GuardBoard signals"
-governance:
-  spec_version: "2025.11"
-  last_reviewed: "2025-11-23"
-  owner: "GuardSuite PMO"
-  stability_level: ga
-contract_ref: null
-related_products:
-  - computescan
-  - guardscore
-  - guardboard
-  - playground
+api:
+  rest_endpoint: "https://api.shieldcraft-ai.com/computeguard"
+  auth: "GuardSuite API token"
+integration_points:
+  products_consuming:
+    - computescan
+    - guardscore
+    - guardboard
+  playground:
+    quick_score_mode_supported: true
+    exposes_fixpack_hints: true
