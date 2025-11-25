@@ -1,0 +1,285 @@
+products
+|-- computeguard
+|   |-- assets
+|   |   |-- copy
+|   |   |-- thumbnails
+|   |   `-- video
+|   |-- build
+|   |   `-- snapshots
+|   |       |-- computeguard_crossmap_20251123T105757Z.yml
+|   |       |-- computeguard_snapshot_20251119T121950Z.md
+|   |       |-- computeguard_snapshot_20251119T123225Z.md
+|   |       |-- computeguard_snapshot_20251119T140938Z.md
+|   |       |-- computeguard_snapshot_20251119T142524Z.md
+|   |       |-- computeguard_snapshot_20251119T143435Z.md
+|   |       |-- computeguard_snapshot_20251119T143905Z.md
+|   |       |-- computeguard_snapshot_20251119T144214Z.md
+|   |       |-- computeguard_snapshot_20251121T105729Z.md
+|   |       |-- computeguard_snapshot_20251121T110244Z.md
+|   |       |-- computeguard_snapshot_20251121T110314Z.md
+|   |       |-- computeguard_snapshot_20251121T112625Z.md
+|   |       |-- computeguard_snapshot_20251121T112639Z.md
+|   |       |-- computeguard_snapshot_20251123T092044Z.md
+|   |       `-- computeguard_snapshot_20251123T105757Z.md
+|   |-- checklist
+|   |   `-- checklist.yml
+|   |-- docs
+|   `-- metadata
+|       `-- product.yml
+|-- computescan
+|   |-- assets
+|   |   |-- copy
+|   |   |-- thumbnails
+|   |   `-- video
+|   |-- build
+|   |   `-- snapshots
+|   |       |-- computescan_crossmap_20251123T105757Z.yml
+|   |       |-- computescan_snapshot_20251119T121950Z.md
+|   |       |-- computescan_snapshot_20251119T123225Z.md
+|   |       |-- computescan_snapshot_20251119T140938Z.md
+|   |       |-- computescan_snapshot_20251119T142522Z.md
+|   |       |-- computescan_snapshot_20251119T143435Z.md
+|   |       |-- computescan_snapshot_20251119T143905Z.md
+|   |       |-- computescan_snapshot_20251119T144212Z.md
+|   |       |-- computescan_snapshot_20251121T105729Z.md
+|   |       |-- computescan_snapshot_20251121T110244Z.md
+|   |       |-- computescan_snapshot_20251121T110314Z.md
+|   |       |-- computescan_snapshot_20251121T112625Z.md
+|   |       |-- computescan_snapshot_20251121T112639Z.md
+|   |       |-- computescan_snapshot_20251123T092044Z.md
+|   |       `-- computescan_snapshot_20251123T105757Z.md
+|   |-- checklist
+|   |   `-- checklist.yml
+|   |-- docs
+|   `-- metadata
+|       `-- product.yml
+|-- guardboard
+|   |-- assets
+|   |   |-- copy
+|   |   |-- thumbnails
+|   |   `-- video
+|   |-- build
+|   |   `-- snapshots
+|   |       |-- guardboard_crossmap_20251123T105757Z.yml
+|   |       |-- guardboard_snapshot_20251119T140938Z.md
+|   |       |-- guardboard_snapshot_20251119T142527Z.md
+|   |       |-- guardboard_snapshot_20251119T143435Z.md
+|   |       |-- guardboard_snapshot_20251119T143905Z.md
+|   |       |-- guardboard_snapshot_20251119T144218Z.md
+|   |       |-- guardboard_snapshot_20251121T105730Z.md
+|   |       |-- guardboard_snapshot_20251121T110244Z.md
+|   |       |-- guardboard_snapshot_20251121T110314Z.md
+|   |       |-- guardboard_snapshot_20251121T112625Z.md
+|   |       |-- guardboard_snapshot_20251121T112639Z.md
+|   |       |-- guardboard_snapshot_20251123T092044Z.md
+|   |       `-- guardboard_snapshot_20251123T105757Z.md
+|   |-- checklist
+|   |   `-- checklist.yml
+|   |-- docs
+|   `-- metadata
+|       `-- product.yml
+|-- guardscore
+|   |-- assets
+|   |   |-- copy
+|   |   |-- thumbnails
+|   |   `-- video
+|   |-- build
+|   |   `-- snapshots
+|   |       |-- guardscore_crossmap_20251123T105757Z.yml
+|   |       |-- guardscore_snapshot_20251119T140938Z.md
+|   |       |-- guardscore_snapshot_20251119T142528Z.md
+|   |       |-- guardscore_snapshot_20251119T143435Z.md
+|   |       |-- guardscore_snapshot_20251119T143905Z.md
+|   |       |-- guardscore_snapshot_20251119T144219Z.md
+|   |       |-- guardscore_snapshot_20251121T105730Z.md
+|   |       |-- guardscore_snapshot_20251121T110244Z.md
+|   |       |-- guardscore_snapshot_20251121T110314Z.md
+|   |       |-- guardscore_snapshot_20251121T112625Z.md
+|   |       |-- guardscore_snapshot_20251121T112639Z.md
+|   |       |-- guardscore_snapshot_20251123T092044Z.md
+|   |       `-- guardscore_snapshot_20251123T105757Z.md
+|   |-- checklist
+|   |   `-- checklist.yml
+|   |-- docs
+|   `-- metadata
+|       `-- product.yml
+|-- guardsuite-core
+|   |-- assets
+|   |   |-- copy
+|   |   |-- thumbnails
+|   |   `-- video
+|   |-- build
+|   |   `-- snapshots
+|   |       |-- guardsuite-core_crossmap_20251123T105757Z.yml
+|   |       |-- guardsuite-core_snapshot_20251119T140938Z.md
+|   |       |-- guardsuite-core_snapshot_20251119T143435Z.md
+|   |       |-- guardsuite-core_snapshot_20251119T143905Z.md
+|   |       |-- guardsuite-core_snapshot_20251121T105730Z.md
+|   |       |-- guardsuite-core_snapshot_20251121T110244Z.md
+|   |       |-- guardsuite-core_snapshot_20251121T110314Z.md
+|   |       |-- guardsuite-core_snapshot_20251121T112625Z.md
+|   |       |-- guardsuite-core_snapshot_20251121T112639Z.md
+|   |       |-- guardsuite-core_snapshot_20251123T092044Z.md
+|   |       `-- guardsuite-core_snapshot_20251123T105757Z.md
+|   |-- checklist
+|   |   `-- checklist.yml
+|   |-- docs
+|   `-- metadata
+|       `-- product.yml
+|-- guardsuite_master_spec
+|   |-- assets
+|   |   |-- copy
+|   |   |-- thumbnails
+|   |   `-- video
+|   |-- build
+|   |   `-- snapshots
+|   |       |-- canonical_integrity_rollup.yml
+|   |       |-- canonical_schema_20251121T112640Z.yml
+|   |       |-- canonical_schema_20251123T092045Z.yml
+|   |       |-- canonical_schema_20251123T105758Z.yml
+|   |       |-- canonical_status.txt
+|   |       |-- contracts_bundle_20251121T112640Z.yml
+|   |       |-- contracts_bundle_20251123T092045Z.yml
+|   |       |-- contracts_bundle_20251123T105757Z.yml
+|   |       |-- pillar-template_crossmap_20251123T105757Z.yml
+|   |       |-- pillar-template_snapshot_20251123T105757Z.md
+|   |       |-- product_index_snapshot_20251121T112640Z.md
+|   |       |-- product_index_snapshot_20251121T112640Z.yml
+|   |       |-- product_index_snapshot_20251123T092045Z.md
+|   |       |-- product_index_snapshot_20251123T092045Z.yml
+|   |       |-- product_index_snapshot_20251123T105757Z.md
+|   |       |-- product_index_snapshot_20251123T105757Z.yml
+|   |       |-- products_bundle_20251121T112640Z.yml
+|   |       |-- products_bundle_20251123T092045Z.yml
+|   |       `-- products_bundle_20251123T105757Z.yml
+|   |-- checklist
+|   |   `-- checklist.yml
+|   |-- docs
+|   `-- metadata
+|       `-- product.yml
+|-- pipelineguard
+|   |-- assets
+|   |   |-- copy
+|   |   |-- thumbnails
+|   |   `-- video
+|   |-- build
+|   |   `-- snapshots
+|   |       |-- pipelineguard_crossmap_20251123T105757Z.yml
+|   |       |-- pipelineguard_snapshot_20251119T121950Z.md
+|   |       |-- pipelineguard_snapshot_20251119T123225Z.md
+|   |       |-- pipelineguard_snapshot_20251119T140938Z.md
+|   |       |-- pipelineguard_snapshot_20251119T142526Z.md
+|   |       |-- pipelineguard_snapshot_20251119T143435Z.md
+|   |       |-- pipelineguard_snapshot_20251119T143905Z.md
+|   |       |-- pipelineguard_snapshot_20251119T144217Z.md
+|   |       |-- pipelineguard_snapshot_20251121T105730Z.md
+|   |       |-- pipelineguard_snapshot_20251121T110244Z.md
+|   |       |-- pipelineguard_snapshot_20251121T110314Z.md
+|   |       |-- pipelineguard_snapshot_20251121T112625Z.md
+|   |       |-- pipelineguard_snapshot_20251121T112639Z.md
+|   |       |-- pipelineguard_snapshot_20251123T092044Z.md
+|   |       `-- pipelineguard_snapshot_20251123T105757Z.md
+|   |-- checklist
+|   |   `-- checklist.yml
+|   |-- docs
+|   `-- metadata
+|       `-- product.yml
+|-- pipelinescan
+|   |-- assets
+|   |   |-- copy
+|   |   |-- thumbnails
+|   |   `-- video
+|   |-- build
+|   |   `-- snapshots
+|   |       |-- pipelinescan_crossmap_20251123T105757Z.yml
+|   |       |-- pipelinescan_snapshot_20251119T121950Z.md
+|   |       |-- pipelinescan_snapshot_20251119T123225Z.md
+|   |       |-- pipelinescan_snapshot_20251119T140938Z.md
+|   |       |-- pipelinescan_snapshot_20251119T142525Z.md
+|   |       |-- pipelinescan_snapshot_20251119T143435Z.md
+|   |       |-- pipelinescan_snapshot_20251119T143905Z.md
+|   |       |-- pipelinescan_snapshot_20251119T144215Z.md
+|   |       |-- pipelinescan_snapshot_20251121T105730Z.md
+|   |       |-- pipelinescan_snapshot_20251121T110244Z.md
+|   |       |-- pipelinescan_snapshot_20251121T110314Z.md
+|   |       |-- pipelinescan_snapshot_20251121T112625Z.md
+|   |       |-- pipelinescan_snapshot_20251121T112640Z.md
+|   |       |-- pipelinescan_snapshot_20251123T092045Z.md
+|   |       `-- pipelinescan_snapshot_20251123T105757Z.md
+|   |-- checklist
+|   |   `-- checklist.yml
+|   |-- docs
+|   `-- metadata
+|       `-- product.yml
+|-- playground
+|   |-- assets
+|   |   |-- copy
+|   |   |-- thumbnails
+|   |   `-- video
+|   |-- build
+|   |   `-- snapshots
+|   |       |-- playground_crossmap_20251123T105757Z.yml
+|   |       |-- playground_snapshot_20251121T091713Z.md
+|   |       |-- playground_snapshot_20251121T105730Z.md
+|   |       |-- playground_snapshot_20251121T110244Z.md
+|   |       |-- playground_snapshot_20251121T110314Z.md
+|   |       |-- playground_snapshot_20251121T112625Z.md
+|   |       |-- playground_snapshot_20251121T112640Z.md
+|   |       |-- playground_snapshot_20251123T092045Z.md
+|   |       `-- playground_snapshot_20251123T105757Z.md
+|   |-- checklist
+|   |   `-- checklist.yml
+|   |-- docs
+|   `-- metadata
+|       `-- product.yml
+|-- vectorguard
+|   |-- assets
+|   |   |-- copy
+|   |   |-- thumbnails
+|   |   `-- video
+|   |-- build
+|   |   `-- snapshots
+|   |       |-- vectorguard_crossmap_20251123T105757Z.yml
+|   |       |-- vectorguard_snapshot_20251119T121950Z.md
+|   |       |-- vectorguard_snapshot_20251119T123225Z.md
+|   |       |-- vectorguard_snapshot_20251119T140938Z.md
+|   |       |-- vectorguard_snapshot_20251119T142521Z.md
+|   |       |-- vectorguard_snapshot_20251119T143435Z.md
+|   |       |-- vectorguard_snapshot_20251119T143905Z.md
+|   |       |-- vectorguard_snapshot_20251119T144211Z.md
+|   |       |-- vectorguard_snapshot_20251121T112640Z.md
+|   |       |-- vectorguard_snapshot_20251123T092045Z.md
+|   |       `-- vectorguard_snapshot_20251123T105757Z.md
+|   |-- checklist
+|   |   `-- checklist.yml
+|   |-- docs
+|   `-- metadata
+|       `-- product.yml
+|-- vectorscan
+|   |-- assets
+|   |   |-- copy
+|   |   |-- thumbnails
+|   |   `-- video
+|   |-- build
+|   |   `-- snapshots
+|   |       |-- vectorscan_crossmap_20251123T105758Z.yml
+|   |       |-- vectorscan_snapshot_20251119T114612Z.md
+|   |       |-- vectorscan_snapshot_20251119T114717Z.md
+|   |       |-- vectorscan_snapshot_20251119T121950Z.md
+|   |       |-- vectorscan_snapshot_20251119T123225Z.md
+|   |       |-- vectorscan_snapshot_20251119T133214Z.md
+|   |       |-- vectorscan_snapshot_20251119T140938Z.md
+|   |       |-- vectorscan_snapshot_20251119T142520Z.md
+|   |       |-- vectorscan_snapshot_20251119T143435Z.md
+|   |       |-- vectorscan_snapshot_20251119T143905Z.md
+|   |       |-- vectorscan_snapshot_20251119T144209Z.md
+|   |       |-- vectorscan_snapshot_20251121T112640Z.md
+|   |       |-- vectorscan_snapshot_20251123T092045Z.md
+|   |       `-- vectorscan_snapshot_20251123T105757Z.md
+|   |-- checklist
+|   |   `-- checklist.yml
+|   |-- docs
+|   `-- metadata
+|       `-- product.yml
+|-- list_tree.sh
+`-- product_index.yml

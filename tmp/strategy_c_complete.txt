@@ -1,0 +1,5 @@
+Strategy-C hygiene checkpoint
+timestamp_utc: 2025-11-25T09:40:32.127494+00:00
+Strategy-C cleanup recorded via helper-classification ATU.
+Artifacts cataloged: products/list_tree.sh, products/tree.txt.
+Awaiting Architect review for removal or relocation.
