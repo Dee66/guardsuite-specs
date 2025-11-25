@@ -1,6 +1,6 @@
 # AI-Dev Repository Scan Report (v29)
 
-- Generated: 2025-11-25T20:27:09.876395+00:00
+- Generated: 2025-11-25T20:35:20.542904+00:00
 - Repo clean: yes
 - Untracked files: 0
 - Ignored entries (visible): 1
@@ -773,6 +773,6 @@
 
 ## Readiness for Next Strategy-D Phase
 
-- Repo remains clean; only `.logs/ai-dev-report-latest.md` updated per v29 checklist.
-- Ignore filters now include testing caches (.ruff_cache/, coverage artifacts) to stabilize future scans.
+- Repo remains clean; only `.logs/ai-dev-report-latest.md` updated per instructions.
+- Ignore filters retain testing caches and coverage artifacts for deterministic scans.
 - Health metrics, drift indicators, and schema coverage stats refreshed for architect review.
