@@ -1,15 +1,16 @@
-# AI-Dev Repository Scan Report (v28)
+# AI-Dev Repository Scan Report (v29)
 
-- Generated: 2025-11-25T20:23:12.919777+00:00
+- Generated: 2025-11-25T20:27:09.876395+00:00
 - Repo clean: yes
 - Untracked files: 0
 - Ignored entries (visible): 1
 - Repo health score: 85
+- Repo health delta: +0
 
 ## Findings
 
-- Repo traversal honored ignore patterns (__pycache__/, *.pyc, .venv/, dist/, build/, site/, *.egg-info/, *.log, *.tmp, *.cache, .pytest_cache/, .mypy_cache/).
-- Strategy-D controlled surfaces remain untouched; tracked/untracked counts unchanged since v27.
+- Repo traversal honored ignore patterns (__pycache__/, *.pyc, .venv/, dist/, build/, site/, *.egg-info/, *.log, *.tmp, *.cache, .pytest_cache/, .mypy_cache/, .ruff_cache/, .coverage, *.coverage).
+- Strategy-D controlled surfaces remain untouched; tracked/untracked counts unchanged since v28.
 - Workspace diagnostics artifacts remain present; raw + rendered outputs verified.
 - Product demo scaffolding remains intact for every product; expected demo files present.
 - YAML validation summary plus error context/recommendations/diff provided for remediation tracking.
@@ -17,6 +18,17 @@
 ## Repository Health Score
 
 - Score: 85 / 100 (deductions: 15 from YAML issues, 0 from missing artifacts)
+- Delta vs previous: +0
+
+## Indicators of Drift
+
+- Repo health delta: +0
+- Invalid YAML count change: +0 (now 3)
+- Git status `derived` delta: +0 (now 169)
+- Git status `ignored` delta: +0 (now 1)
+- Git status `tracked` delta: +0 (now 352)
+- Ignored-visible entries delta: +0 (now 1)
+- Repo clean state: yes -> yes
 
 ## Git Status Summary
 
@@ -200,13 +212,24 @@
 
 ## YAML Error Recommendations
 
-- `products/guardsuite-specs/checklist/checklist.yml`: Fix indentation or ensure previous key-value pair closes before starting a new mapping entry. (line 129)
-- `products/pipelinescan/metadata/product.yml`: Fix indentation or ensure previous key-value pair closes before starting a new mapping entry. (line 127)
-- `products/vectorscan/checklist/checklist.yml`: Close the preceding mapping/list (compare braces/indentation) before continuing. (line 262)
+- `products/guardsuite-specs/checklist/checklist.yml`: Fix indentation or ensure previous key-value pair closes before starting a new mapping entry. (line 129, column 11)
+- `products/pipelinescan/metadata/product.yml`: Fix indentation or ensure previous key-value pair closes before starting a new mapping entry. (line 127, column 68)
+- `products/vectorscan/checklist/checklist.yml`: Close the preceding mapping/list (compare braces/indentation) before continuing. (line 262, column 9)
 
 ## YAML Validation Diff vs Previous
 
-- No YAML validation status changes since v27.
+- No YAML validation status changes since v28.
+
+## Schema Coverage Stats
+
+| Metric | Value |
+| --- | ---: |
+| Total YAML files scanned | 36 |
+| Valid YAML files | 33 |
+| Invalid YAML files | 3 |
+| Valid coverage (%) | 91.67 |
+| Product metadata present | 13 / 13 |
+| Product checklists present | 13 / 13 |
 
 ## Category Listings
 
@@ -750,6 +773,6 @@
 
 ## Readiness for Next Strategy-D Phase
 
-- Repo remains clean; only `.logs/ai-dev-report-latest.md` updated for v28 instructions.
-- Ignore filters now include *.cache plus .pytest_cache/ and .mypy_cache/ for deterministic scans.
-- YAML remediation tracking highlights context, recommendations, diff vs v27 baseline, and health deductions.
+- Repo remains clean; only `.logs/ai-dev-report-latest.md` updated per v29 checklist.
+- Ignore filters now include testing caches (.ruff_cache/, coverage artifacts) to stabilize future scans.
+- Health metrics, drift indicators, and schema coverage stats refreshed for architect review.
