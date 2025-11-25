@@ -1,17 +1,17 @@
-# AI-Dev Repository Scan Report (v26)
+# AI-Dev Repository Scan Report (v27)
 
-- Generated: 2025-11-25T20:13:44.447437+00:00
+- Generated: 2025-11-25T20:19:09.307239+00:00
 - Repo clean: yes
 - Untracked files: 0
 - Ignored entries (visible): 2
 
 ## Findings
 
-- Repo traversal honored ignore patterns (__pycache__/, *.pyc, .venv/, dist/, build/, site/, *.egg-info/, *.log, *.tmp).
-- Strategy-D controlled surfaces remain unmodified; tracked/untracked counts unchanged.
-- Workspace diagnostics artifacts stay present; latest raw + report outputs verified.
-- Product demo scaffolding remains intact; every demo set matches expected files.
-- YAML validation summary plus error context/recommendations included for remediation planning.
+- Repo traversal honored ignore patterns (__pycache__/, *.pyc, .venv/, dist/, build/, site/, *.egg-info/, *.log, *.tmp, *.cache).
+- Strategy-D controlled surfaces remain untouched; tracked/untracked counts unchanged since v26.
+- Workspace diagnostics artifacts remain present; raw + rendered outputs verified.
+- Product demo scaffolding remains intact for every product; expected demo files present.
+- YAML validation summary plus error context/recommendations/diff provided for remediation tracking.
 
 ## Git Status Summary
 
@@ -197,9 +197,13 @@
 
 ## YAML Error Recommendations
 
-- `products/guardsuite-specs/checklist/checklist.yml`: Fix indentation or ensure previous key is terminated before adding new mapping entry. (line 129)
-- `products/pipelinescan/metadata/product.yml`: Fix indentation or ensure previous key is terminated before adding new mapping entry. (line 127)
-- `products/vectorscan/checklist/checklist.yml`: Close the preceding mapping/list (add proper indentation or remove stray braces). (line 262)
+- `products/guardsuite-specs/checklist/checklist.yml`: Fix indentation or ensure previous key-value pair closes before starting a new mapping entry. (line 129)
+- `products/pipelinescan/metadata/product.yml`: Fix indentation or ensure previous key-value pair closes before starting a new mapping entry. (line 127)
+- `products/vectorscan/checklist/checklist.yml`: Close the preceding mapping/list (compare braces/indentation) before continuing. (line 262)
+
+## YAML Validation Diff vs Previous
+
+- No YAML validation status changes since v26.
 
 ## Category Listings
 
@@ -744,6 +748,6 @@
 
 ## Readiness for Next Strategy-D Phase
 
-- Repo remains clean; only `.logs/ai-dev-report-latest.md` updated for v26 instructions.
-- Ignore set expanded with *.tmp to keep scan deterministic and noise-free.
-- YAML remediation guidance now pairs context + recommendation per failing file.
+- Repo remains clean; only `.logs/ai-dev-report-latest.md` updated for v27 instructions.
+- Ignore filters now include *.cache to keep scans deterministic and quiet.
+- YAML remediation tracking now highlights context, recommendations, and diff vs v26 baseline.
