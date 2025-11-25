@@ -1,0 +1,1041 @@
+diff --git a/products/guardscore/checklist/checklist.yml b/products/guardscore/checklist/checklist.yml
+index 2f41222..b313c00 100644
+--- a/products/guardscore/checklist/checklist.yml
++++ b/products/guardscore/checklist/checklist.yml
+@@ -1,469 +1,573 @@
+-# repos/guardscore/checklist.yml
+-# GuardScore Checklist (v2.2.1) — includes additional validation tasks requested
+-# Source spec (uploaded): /mnt/data/guardscore.yml
++# products/guardscore/checklist/checklist.yml
++# Strategy-D canonical checklist for GuardScore (scoring engine blueprint)
++
++metadata:
++  product_id: guardscore
++  checklist_version: "2026.02"
++  last_updated: "2025-11-25T00:00:00Z"
++  owner: "GuardSuite Scoring Program"
++  stability: ga
++
++structure_requirements:
++  - id: STRUCT-GS-001
++    description: "Preserve every historical GuardScore phase, item id, title, and task text exactly."
++    required: true
++  - id: STRUCT-GS-002
++    description: "Follow Strategy-D canonical ordering: metadata ⇒ requirements ⇒ phases ⇒ acceptance."
++    required: true
++
++documentation_requirements:
++  readme_required: true
++  product_docs_required: true
++  api_reference_required: true
++  examples_required: true
++  changelog_required: true
++  release_notes_required: true
++
++schema_requirements:
++  canonical_schema_required: true
++  metadata_schema_required: true
++  provenance_schema_required: true
++  fragment_schemas_required: true
++  additional_schemas:
++    - schemas/guardscore/canonical_output.json
++    - schemas/guardscore/explainability.json
++    - schemas/guardscore/percentile_model.json
++    - schemas/guardscore/telemetry_event_schema.yml
++    - openapi/guardscore_openapi.yml
++
++evaluator_requirements:
++  pipeline_must_match_template: true
++  canonicalization_required: true
++  wasm_safety_required: true
++  deterministic_output_required: true
++  timestamp_normalization_required: true
++  prohibited_overrides:
++    - severity_mapping_logic
++    - canonical_schema
++    - evaluator.runtime_override
++    - telemetry_contract
++
++fixpack_requirements:
++  fixpack_catalog_required: false
++  fixpack_metadata_required: false
++  difficulty_taxonomy_required: false
++  patch_hashing_required: false
++  remediation_examples_required: false
++  wasm_safe_snippets_required: false
++
++testing_requirements:
++  unit_tests_required: true
++  integration_tests_required: true
++  snapshot_tests_required: true
++  parity_tests_required: true
++  wasm_tests_required: true
++  schema_validation_tests_required: true
++  performance_tests_required: true
++  minimum_coverage_percent: 85
++
++artifacts:
++  required_files:
++    - products/guardscore/spec.yml
++    - openapi/guardscore_openapi.yml
++    - datasets/synthetic/syn-2026.01.json
++    - wasm_conformance_test_harness/README.md
++    - parity_test_harness/README.md
++    - example_conflict_cases/README.md
++    - snapshot_tests/README.md
++  required_directories:
++    - src
++    - schemas
++    - api
++    - datasets
++    - tests
++    - docs
++    - ci
++    - wasm_conformance_test_harness
++    - parity_test_harness
++    - example_conflict_cases
++    - snapshot_tests
++  build_outputs:
++    - artifacts/guardscore.json
++    - artifacts/explainability.json
++    - artifacts/badge.svg
++
++acceptance_criteria:
++  - id: ACPT-GS-001
++    description: "All GuardScore schemas (input, output, explainability, telemetry) validate via canonical validators."
++    required: true
++  - id: ACPT-GS-002
++    description: "Deterministic hashing proven across Python, binary core, and WASM for three sequential runs."
++    required: true
++  - id: ACPT-GS-003
++    description: "Drift detection, percentile scope, and fixpack modifier behavior validated with synthetic suites."
++    required: true
++  - id: ACPT-GS-004
++    description: "API, CLI, and badge surfaces emit only canonical, WASM-safe payloads."
++    required: true
++
++cross_product_dependencies:
++  depends_on_products:
++    - computeguard
++    - computescan
++    - pipelineguard
++    - pipelinescan
++    - vectorguard
++    - vectorscan
++    - guardboard
++  depends_on_schemas:
++    - guardsuite-core/canonical_schema.json
++    - schemas/guardscore/canonical_output.json
++    - schemas/guardscore/explainability.json
++  depends_on_pipeline: true
++
++provenance:
++  - "Derived from GuardScore charter v2026.02 and Strategy-D scoring blueprint."
++  - "Aligned with GuardSuite Scoring Program governance and canonical evaluator pipeline."
+ 
+ id: guardscore_checklist
+-product: GuardScore
+-version: "2.2.1"
+-status: active
+-source_spec_path: "/mnt/data/guardscore.yml"
++version: "2026.02"
++product: guardscore
++pillar: crosscut
++spec_source: "products/guardscore/metadata/product.yml"
+ 
+ phases:
+ 
+-# ===================================================================
+-# 1. INITIALIZATION & REPO BOOTSTRAP
+-# ===================================================================
+-- id: INIT-001
+-  title: "Verify repository structure"
+-  tasks:
+-    - Ensure required directories exist: src/, schemas/, api/, datasets/, tests/, docs/, ci/
+-    - Ensure repo contains pyproject.toml, README.md, .gitignore
+-    - Verify presence of repo metadata under repos/guardscore/spec.yml
++  # ===================================================================
++  # 1. INITIALIZATION & REPO BOOTSTRAP
++  # ===================================================================
++  - phase: initialization_repo_bootstrap
++    summary: "Prepare GuardScore repository structure, dependencies, and deterministic scaffolding."
++    items:
++      - id: INIT-001
++        title: "Verify repository structure"
++        tasks:
++          - "Ensure required directories exist: src/, schemas/, api/, datasets/, tests/, docs/, ci/."
++          - "Ensure repo contains pyproject.toml, README.md, .gitignore."
++          - "Verify presence of repo metadata under repos/guardscore/spec.yml."
++      - id: INIT-002
++        title: "Install dependencies + dev shims"
++        tasks:
++          - "poetry install must succeed."
++          - "Add dev-shims/core for schema_verifier_core + severity_mapping_core."
++          - "Add dev shim for evaluator_primitives fallback."
++      - id: INIT-003
++        title: "Scaffolding sanity check"
++        tasks:
++          - "scaffolder must generate guardscore/ with deterministic file layout."
++          - "scaffolder outputs MUST NOT include timestamps or nondeterministic values."
++      - id: INIT-004
++        title: "Validate schema directories"
++        tasks:
++          - "schemas/core/ must contain canonical fragments."
++          - "schemas/pillar/ must contain pillar extensions."
++          - "schemas/output must contain canonical output schema."
++      - id: INIT-005
++        title: "Verify dataset availability"
++        tasks:
++          - "synthetic dataset must exist under datasets/synthetic/syn-2026.01.json."
++          - "dataset manifest must be signed and checksummed."
++      - id: INIT-006
++        title: "Binary module integrity verification"
++        tasks:
++          - "Validate evaluator_primitives.so signature."
++          - "Validate ABI manifest version compatibility."
++          - "Validate binary available for x86_64 and arm64."
++      - id: INIT-007
++        title: "Error codes existence & determinism (NEW)"
++        tasks:
++          - "Validate GuardScore-specific error_codes block exists in spec (PARTIAL_INPUT_ERROR, VALIDATION_ERROR, SCHEMA_ERROR, DRIFT_ERROR, etc.)."
++          - "Produce a small test harness that emits each error type and validate emitted error codes match spec constants."
++          - "Validate errors are included deterministically in canonical_output when triggered (no nondeterministic order or extra fields)."
++
++  # ===================================================================
++  # 2. SCHEMA CONTRACT IMPLEMENTATION
++  # ===================================================================
++  - phase: schema_contract_implementation
++    summary: "Implement and validate GuardScore schemas, explainability models, and telemetry contracts."
++    items:
++      - id: SCHEMA-001
++        title: "Canonical input schema validation"
++        tasks:
++          - "Validate compute, vector, pipeline, fixpack schemas from guard-specs."
++          - "Validate provenance fields required for all producers (NEW: enforce provenance presence)."
++          - "Fail CI if any producer artifact lacks provenance."
++      - id: SCHEMA-002
++        title: "Scoring output schema"
++        tasks:
++          - "Implement canonical scoring output schema (score, percentile, badge, breakdowns)."
++          - "Validate example output under tests/schemas."
++          - "Enforce no unknown fields in canonical_output: fail if output contains fields not in schema (NEW)."
++      - id: SCHEMA-003
++        title: "Explainability schema"
++        tasks:
++          - "Validate severity_weight_breakdown."
++          - "Validate pillar_weight_breakdown."
++          - "Validate rule_contribution_list."
++      - id: SCHEMA-004
++        title: "Percentile model schema"
++        tasks:
++          - "Validate percentile fields p0..p100."
++          - "Validate synthetic_dataset_reference field."
++      - id: SCHEMA-005
++        title: "SVG safety schema"
++        tasks:
++          - "Validate allowed_tags and allowed_attributes."
++          - "Validate prohibited_tags enforcement."
++      - id: SCHEMA-006
++        title: "Telemetry schema compliance"
++        tasks:
++          - "Validate telemetry events against template telemetry schema."
++          - "Validate schema_version_pin (>=1.0,<2.0)."
++
++  # ===================================================================
++  # 3. EVALUATOR PIPELINE IMPLEMENTATION
++  # ===================================================================
++  - phase: evaluator_pipeline
++    summary: "Implement deterministic evaluator stages, normalization, aggregation, and drift detection."
++    items:
++      - id: PIPE-001
++        title: "Implement evaluator pipeline stages"
++        tasks:
++          - "Must match template pipeline ordering exactly."
++          - "No nondeterministic IO allowed."
++          - "All timestamps must be canonical UTC."
++      - id: PIPE-002
++        title: "Implement canonical input normalization"
++        tasks:
++          - "Normalize missing fields → null."
++          - "Normalize timestamps → UTC ISO-8601 Z."
++          - "Enforce key ordering."
++      - id: PIPE-003
++        title: "Implement artifact deduplication"
++        tasks:
++          - "Deduplicate by producer_id + rule_id + resource_id + normalized_patch."
++      - id: PIPE-004
++        title: "Implement severity aggregation"
++        tasks:
++          - "Use severity_penalties defined in spec."
++          - "Must use severity_mapping_core."
++      - id: PIPE-005
++        title: "Apply pillar weight aggregation"
++        tasks:
++          - "Apply compute, vector, pipeline weighting."
++          - "Validate pillar_weight_policy.required_sum == 1.0."
++      - id: PIPE-006
++        title: "Apply fixpack modifier"
++        tasks:
++          - "Apply deterministic formula."
++          - "Handle missing estimated_reduction_points (treat as 0)."
++          - "Enforce negative_reduction_behavior: clamp_to_zero."
++      - id: PIPE-007
++        title: "Implement output canonicalization"
++        tasks:
++          - "Enforce stable field ordering."
++          - "Enforce canonical_json_utf8 serialization."
++      - id: PIPE-008
++        title: "Implement drift detection algorithm"
++        tasks:
++          - "Compare recent vs historical percentile windows (7d / 30d)."
++          - "Apply drift_threshold_percent."
++          - "Respect drift_scope: aggregate_only (NEW)."
++          - "Validate drift alerts are triggered only for aggregate score when drift_scope=aggregate_only (NEW test)."
++
++  # ===================================================================
++  # 4. PRODUCER PRIORITY, CONFLICT RESOLUTION, ARTIFACT COVERAGE
++  # ===================================================================
++  - phase: producer_priority_and_conflicts
++    summary: "Validate producer priority ordering, conflict resolution, and artifact coverage invariants."
++    items:
++      - id: PROD-001
++        title: "Validate producer_priority invariants"
++        tasks:
++          - "producer_priority.order must contain unique producer IDs."
++          - "Enforce ordering deterministically."
++      - id: PROD-002
++        title: "Implement conflict resolution"
++        tasks:
++          - "by_priority → max_severity → canonical_timestamp_utc → lexicographical_rule_id."
++          - "Add synthetic conflict tests asserting lexicographical_rule_id tie-breaker (NEW)."
++      - id: PROD-003
++        title: "Implement artifact coverage matrix"
++        tasks:
++          - "Validate required_fields for compute, vector, pipeline, fixpack."
++          - "Validate provenance required for all artifact types (NEW)."
++          - "Validate unknown pillar keys are ignored per unknown_pillar_behavior: ignore (NEW: test that unknown pillars do not affect weight sums or generate instability)."
++
++  # ===================================================================
++  # 5. SYNTHETIC DATASET & PERCENTILES
++  # ===================================================================
++  - phase: synthetic_datasets_and_percentiles
++    summary: "Load synthetic datasets, percentile models, and tenant fallback behavior."
++    items:
++      - id: DATA-001
++        title: "Load synthetic dataset"
++        tasks:
++          - "Validate dataset manifest signature."
++          - "Validate distribution_hash."
++      - id: DATA-002
++        title: "Implement deterministic CDF percentile model"
++        tasks:
++          - "Use deterministic_cdf algorithm."
++          - "Apply tie_breaker: upper_bound."
++      - id: DATA-003
++        title: "Implement tenant fallback behavior"
++        tasks:
++          - "If tenant sample size < min_samples_required → use_global_distribution."
++          - "Test deterministic global fallback across Python, binary_core, and WASM (NEW)."
++      - id: DATA-004
++        title: "Validate synthetic_dataset_id behavior vs scoring_version"
++        tasks:
++          - "Test that synthetic_dataset_id change WITHOUT distribution_hash change DOES NOT bump scoring_version (NEW test)."
++          - "Test that distribution_hash change DOES bump scoring_version per scoring_version_policy."
++      - id: DATA-005
++        title: "Global percentile activation contract (NEW)"
++        tasks:
++          - "Validate switching percentile_scope to global requires explicit flag in request/config."
++          - "Validate global percentile uses global_distribution and not tenant distribution."
++          - "Validate global-mode scoring artifacts include synthetic_dataset_id pinned in output."
++
++  # ===================================================================
++  # 6. FIXPACK MODIFIER IMPLEMENTATION
++  # ===================================================================
++  - phase: fixpack_modifier_implementation
++    summary: "Apply fixpack modifier formulas, normalization, and rule alignment."
++    items:
++      - id: FIX-001
++        title: "Implement fixpack modifier formula"
++        tasks:
++          - "If estimated_reduction_points missing → reduction = 0."
++          - "Apply confidence_score * estimated_reduction_points."
++          - "Apply cap_point_reduction (40%)."
++      - id: FIX-002
++        title: "Fixpack normalization"
++        tasks:
++          - "Normalize patch to unix line endings."
++          - "Validate provenance."
++          - "Enforce deterministic output."
++      - id: FIX-003
++        title: "Fixpack → rule alignment"
++        tasks:
++          - "Every fixpack preview must reference a valid rule_id."
++
++  # ===================================================================
++  # 7. BADGE ENGINE
++  # ===================================================================
++  - phase: badge_engine
++    summary: "Implement badge scoring, SVG safety, and SSR determinism."
++    items:
++      - id: BADGE-001
++        title: "Badge scoring"
++        tasks:
++          - "Implement p-based badge mapping (A–F)."
++          - "Validate deterministic SVG rendering."
++      - id: BADGE-002
++        title: "SVG safety enforcement"
++        tasks:
++          - "Enforce allowed_tags, prohibited_tags."
++          - "Block external refs."
++          - "Output deterministic SVG artifacts."
++      - id: BADGE-003
++        title: "Badge SSR determinism (NEW)"
++        tasks:
++          - "Validate deterministic SSR output for badges under pinned Node version and verify identical outputs across CI runs."
++          - "Verify SSR deterministic output across WASM-enabled rendering if applicable."
++
++  # ===================================================================
++  # 8. HASHING, NUMERIC CONTRACT, SERIALIZATION
++  # ===================================================================
++  - phase: numeric_contract_and_hashing
++    summary: "Enforce fixed precision math, encoding, and hashing rules across runtimes."
++    items:
++      - id: NUM-001
++        title: "Numeric contract enforcement"
++        tasks:
++          - "Apply fixed_64 rules in Python + binary_core + WASM."
++          - "Enforce rounding_mode: round_half_away_from_zero."
++          - "Enforce overflow_behavior: clamp_to_max."
++      - id: NUM-002
++        title: "fixed_64 encoding"
++        tasks:
++          - "Represent as signed_64bit_integer_scaled_by_1e6."
++          - "Validate cross-runtime consistency (Python vs WASM vs binary)."
++      - id: NUM-003
++        title: "Score hashing"
++        tasks:
++          - "SHA256 on canonical_json_utf8."
++          - "Include scoring_version, synthetic_dataset_id, schema_version."
++          - "Exclude debug fields."
++
++  # ===================================================================
++  # 9. TELEMETRY, LOGGING, OBSERVABILITY
++  # ===================================================================
++  - phase: telemetry_logging_observability
++    summary: "Implement telemetry contracts, rate limits, and observability metrics."
++    items:
++      - id: OBS-001
++        title: "Implement telemetry events"
++        tasks:
++          - "Validate telemetry against /schemas/telemetry_event_schema.yml."
++          - "Emit required template fields."
++      - id: OBS-002
++        title: "Telemetry rate limits"
++        tasks:
++          - "max_event_payload_bytes: 64000."
++          - "max_events_per_rule_execution: 10."
++      - id: OBS-003
++        title: "Log limits"
++        tasks:
++          - "max_log_events_per_scoring: 100."
++      - id: OBS-004
++        title: "Observability metrics"
++        tasks:
++          - "guardscore_runs_total."
++          - "guardscore_drift_alerts_total."
++          - "guardscore_badge_distribution."
++
++  # ===================================================================
++  # 10. WASM SAFETY + BINARY CORE INTEGRATION
++  # ===================================================================
++  - phase: wasm_and_binary_integration
++    summary: "Validate WASM conformance, binary core signatures, and fallback policy."
++    items:
++      - id: WASM-001
++        title: "WASM conformance tests"
++        tasks:
++          - "Execute scoring engine via wasi_snapshot_preview1."
++          - "Validate numeric contract identical to Python/binary core."
++          - "Enforce no randomness, no locale, no OS time."
++      - id: WASM-002
++        title: "Binary core integration"
++        tasks:
++          - "Load evaluator_primitives.so deterministically."
++          - "Validate binary signature."
++          - "Validate ABI manifest."
++      - id: WASM-003
++        title: "Python fallback contract"
++        tasks:
++          - "Dev: fallback allowed."
++          - "CI: fallback must warn."
++          - "Prod: fallback forbidden."
++
++  # ===================================================================
++  # 11. API SURFACE & INTEGRATION TESTS (NEW / Expanded)
++  # ===================================================================
++  - phase: api_surface_and_integrations
++    summary: "Enforce REST, batch, rate limit, and async job contracts."
++    items:
++      - id: API-001
++        title: "OpenAPI conformance"
++        tasks:
++          - "Validate REST responses match openapi/guardscore_openapi.yml."
++          - "Ensure help & error payloads match defined schemas."
++      - id: API-002
++        title: "Batch scoring behavior"
++        tasks:
++          - "Validate POST /score/batch rejects > max_batch_size."
++          - "Validate streaming / async job pattern returns job_id and job completion semantics."
++      - id: API-003
++        title: "Rate limit tests"
++        tasks:
++          - "Validate per_api_key rate limits enforced as defined."
++      - id: API-004
++        title: "Async job correctness"
++        tasks:
++          - "Validate job_id lifecycle: queued → running → succeeded/failed."
++          - "Validate job result schema and provenance inclusion."
++
++  # ===================================================================
++  # 12. GOVERNANCE & COMPLIANCE
++  # ===================================================================
++  - phase: governance_and_compliance
++    summary: "Ensure governance metadata, RFC policy, and changelog/codeowners compliance."
++    items:
++      - id: GOV-001
++        title: "Spec governance metadata"
++        tasks:
++          - "Validate spec.yml governance fields."
++          - "Validate scoring_version_policy consistency."
++      - id: GOV-002
++        title: "RFC compliance checks"
++        tasks:
++          - "Required for major scoring semantics changes."
++          - "Required for pillar_weight changes."
++          - "Required for dataset distribution change."
++      - id: GOV-003
++        title: "Changelog + codeowners"
++        tasks:
++          - "Validate changelog entry per release."
++          - "Validate codeowners file exists."
++
++  # ===================================================================
++  # 13. SELF TEST, VERIFY, SNAPSHOTS & SPECIAL CASES
++  # ===================================================================
++  - phase: self_test_and_snapshots
++    summary: "Run self-validation commands, snapshots, and front-end determinism suites."
++    items:
++      - id: TEST-001
++        title: "validate-self"
++        tasks:
++          - "Verify schemas."
++          - "Verify fixpack alignment."
++          - "Verify output contract invariants."
++          - "Verify numeric contract."
++          - "Validate that canonical_output contains NO unrecognized fields (NEW)."
++      - id: TEST-002
++        title: "verify command"
++        tasks:
++          - "Validate schema fragments."
++          - "Validate output schema."
++          - "Validate producer matrix."
++          - "Validate pipeline invariants."
++          - "Validate producer schema_version compatibility; reject artifacts outside supported_range (NEW)."
++      - id: TEST-003
++        title: "Snapshot determinism"
++        tasks:
++          - "Run 3 identical score computations."
++          - "Hash values must match exactly."
++          - "Run under python, binary, wasm."
++          - "Validate deterministic fallback behavior for sparse tenants across runtimes (NEW)."
++      - id: TEST-004
++        title: "Front-end determinism (GuardBoard dependency)"
++        tasks:
++          - "Validate consistent score.json for same inputs."
++          - "Validate SSR normalization rules."
++          - "Validate badge SSR determinism (NEW)."
++
++  # ===================================================================
++  # 14. ACCEPTANCE GATES
++  # ===================================================================
++  - phase: acceptance_gates
++    summary: "Finalize GuardScore readiness with schema, drift, fixpack, API, and resilience checks."
++    items:
++      - id: ACPT-001
++        title: "Schema validation must pass"
++        tasks:
++          - "All input + output schemas validated."
++      - id: ACPT-002
++        title: "Deterministic scoring contract"
++        tasks:
++          - "3-run deterministic hashing across OS/arch/WASM."
++      - id: ACPT-003
++        title: "Drift detection correctness"
++        tasks:
++          - "Drift algorithm validated with synthetic test cases."
++          - "Verify drift_scope: aggregate_only enforced (NEW)."
++      - id: ACPT-004
++        title: "Fixpack modifier correctness"
++        tasks:
++          - "Modifier formula validated (incl. missing est. reduction points)."
++      - id: ACPT-005
++        title: "Producer compatibility & provenance"
++        tasks:
++          - "All producers must have provenance; artifacts out-of-range by schema_version must be rejected (NEW)."
++      - id: ACPT-006
++        title: "API conformance"
++        tasks:
++          - "REST & async job patterns validated."
++          - "Batch limits enforced."
++      - id: ACPT-007
++        title: "Unknown pillar resilience (NEW)"
++        tasks:
++          - "New/unexpected pillar keys are ignored; weight sum remains constant; no instability introduced."
+ 
+-- id: INIT-002
+-  title: "Install dependencies + dev shims"
+-  tasks:
+-    - poetry install must succeed
+-    - Add dev-shims/core for schema_verifier_core + severity_mapping_core
+-    - Add dev shim for evaluator_primitives fallback
+-
+-- id: INIT-003
+-  title: "Scaffolding sanity check"
+-  tasks:
+-    - scaffolder must generate guardscore/ with deterministic file layout
+-    - scaffolder outputs MUST NOT include timestamps or nondeterministic values
+-
+-- id: INIT-004
+-  title: "Validate schema directories"
+-  tasks:
+-    - schemas/core/ must contain canonical fragments
+-    - schemas/pillar/ must contain pillar extensions
+-    - schemas/output must contain canonical output schema
+-
+-- id: INIT-005
+-  title: "Verify dataset availability"
+-  tasks:
+-    - synthetic dataset must exist under datasets/synthetic/syn-2026.01.json
+-    - dataset manifest must be signed and checksummed
+-
+-- id: INIT-006
+-  title: "Binary module integrity verification"
+-  tasks:
+-    - Validate evaluator_primitives.so signature
+-    - Validate ABI manifest version compatibility
+-    - Validate binary available for x86_64 and arm64
+-
+-- id: INIT-007
+-  title: "Error codes existence & determinism (NEW)"
+-  tasks:
+-    - Validate GuardScore-specific error_codes block exists in spec (PARTIAL_INPUT_ERROR, VALIDATION_ERROR, SCHEMA_ERROR, DRIFT_ERROR, etc.)
+-    - Produce a small test harness that emits each error type and validate emitted error codes match spec constants
+-    - Validate errors are included deterministically in canonical_output when triggered (no nondeterministic order or extra fields)
+-
+-# ===================================================================
+-# 2. SCHEMA CONTRACT IMPLEMENTATION
+-# ===================================================================
+-- id: SCHEMA-001
+-  title: "Canonical input schema validation"
+-  tasks:
+-    - Validate compute, vector, pipeline, fixpack schemas from guard-specs
+-    - Validate provenance fields required for all producers (NEW: enforce provenance presence)
+-    - Fail CI if any producer artifact lacks provenance
+-
+-- id: SCHEMA-002
+-  title: "Scoring output schema"
+-  tasks:
+-    - Implement canonical scoring output schema (score, percentile, badge, breakdowns)
+-    - Validate example output under tests/schemas
+-    - Enforce no unknown fields in canonical_output: fail if output contains fields not in schema (NEW)
+-
+-- id: SCHEMA-003
+-  title: "Explainability schema"
+-  tasks:
+-    - Validate severity_weight_breakdown
+-    - Validate pillar_weight_breakdown
+-    - Validate rule_contribution_list
+-
+-- id: SCHEMA-004
+-  title: "Percentile model schema"
+-  tasks:
+-    - Validate percentile fields p0..p100
+-    - Validate synthetic_dataset_reference field
+-
+-- id: SCHEMA-005
+-  title: "SVG safety schema"
+-  tasks:
+-    - Validate allowed_tags and allowed_attributes
+-    - Validate prohibited_tags enforcement
+-
+-- id: SCHEMA-006
+-  title: "Telemetry schema compliance"
+-  tasks:
+-    - Validate telemetry events against template telemetry schema
+-    - Validate schema_version_pin (>=1.0,<2.0)
+-
+-# ===================================================================
+-# 3. EVALUATOR PIPELINE IMPLEMENTATION
+-# ===================================================================
+-- id: PIPE-001
+-  title: "Implement evaluator pipeline stages"
+-  tasks:
+-    - Must match template pipeline ordering exactly
+-    - No nondeterministic IO allowed
+-    - All timestamps must be canonical UTC
+-
+-- id: PIPE-002
+-  title: "Implement canonical input normalization"
+-  tasks:
+-    - Normalize missing fields → null
+-    - Normalize timestamps → UTC ISO-8601 Z
+-    - Enforce key ordering
+-
+-- id: PIPE-003
+-  title: "Implement artifact deduplication"
+-  tasks:
+-    - Deduplicate by producer_id + rule_id + resource_id + normalized_patch
+-
+-- id: PIPE-004
+-  title: "Implement severity aggregation"
+-  tasks:
+-    - Use severity_penalties defined in spec
+-    - Must use severity_mapping_core
+-
+-- id: PIPE-005
+-  title: "Apply pillar weight aggregation"
+-  tasks:
+-    - Apply compute, vector, pipeline weighting
+-    - Validate pillar_weight_policy.required_sum == 1.0
+-
+-- id: PIPE-006
+-  title: "Apply fixpack modifier"
+-  tasks:
+-    - Apply deterministic formula
+-    - Handle missing estimated_reduction_points (treat as 0)
+-    - Enforce negative_reduction_behavior: clamp_to_zero
+-
+-- id: PIPE-007
+-  title: "Implement output canonicalization"
+-  tasks:
+-    - Enforce stable field ordering
+-    - Enforce canonical_json_utf8 serialization
+-
+-- id: PIPE-008
+-  title: "Implement drift detection algorithm"
+-  tasks:
+-    - Compare recent vs historical percentile windows (7d / 30d)
+-    - Apply drift_threshold_percent
+-    - Respect drift_scope: aggregate_only (NEW)
+-    - Validate drift alerts are triggered only for aggregate score when drift_scope=aggregate_only (NEW test)
+-
+-# ===================================================================
+-# 4. PRODUCER PRIORITY, CONFLICT RESOLUTION, ARTIFACT COVERAGE
+-# ===================================================================
+-- id: PROD-001
+-  title: "Validate producer_priority invariants"
+-  tasks:
+-    - producer_priority.order must contain unique producer IDs
+-    - Enforce ordering deterministically
+-
+-- id: PROD-002
+-  title: "Implement conflict resolution"
+-  tasks:
+-    - by_priority → max_severity → canonical_timestamp_utc → lexicographical_rule_id
+-    - Add synthetic conflict tests asserting lexicographical_rule_id tie-breaker (NEW)
+-
+-- id: PROD-003
+-  title: "Implement artifact coverage matrix"
+-  tasks:
+-    - Validate required_fields for compute, vector, pipeline, fixpack
+-    - Validate provenance required for all artifact types (NEW)
+-    - Validate unknown pillar keys are ignored per unknown_pillar_behavior: ignore (NEW: test that unknown pillars do not affect weight sums or generate instability)
+-
+-# ===================================================================
+-# 5. SYNTHETIC DATASET & PERCENTILES
+-# ===================================================================
+-- id: DATA-001
+-  title: "Load synthetic dataset"
+-  tasks:
+-    - Validate dataset manifest signature
+-    - Validate distribution_hash
+-
+-- id: DATA-002
+-  title: "Implement deterministic CDF percentile model"
+-  tasks:
+-    - Use deterministic_cdf algorithm
+-    - Apply tie_breaker: upper_bound
+-
+-- id: DATA-003
+-  title: "Implement tenant fallback behavior"
+-  tasks:
+-    - If tenant sample size < min_samples_required → use_global_distribution
+-    - Test deterministic global fallback across Python, binary_core, and WASM (NEW)
+-
+-- id: DATA-004
+-  title: "Validate synthetic_dataset_id behavior vs scoring_version"
+-  tasks:
+-    - Test that synthetic_dataset_id change WITHOUT distribution_hash change DOES NOT bump scoring_version (NEW test)
+-    - Test that distribution_hash change DOES bump scoring_version per scoring_version_policy
+-
+-- id: DATA-005
+-  title: "Global percentile activation contract (NEW)"
+-  tasks:
+-    - Validate switching percentile_scope to global requires explicit flag in request/config
+-    - Validate global percentile uses global_distribution and not tenant distribution
+-    - Validate global-mode scoring artifacts include synthetic_dataset_id pinned in output
+-
+-# ===================================================================
+-# 6. FIXPACK MODIFIER IMPLEMENTATION
+-# ===================================================================
+-- id: FIX-001
+-  title: "Implement fixpack modifier formula"
+-  tasks:
+-    - If estimated_reduction_points missing → reduction = 0
+-    - Apply confidence_score * estimated_reduction_points
+-    - Apply cap_point_reduction (40%)
+-
+-- id: FIX-002
+-  title: "Fixpack normalization"
+-  tasks:
+-    - Normalize patch to unix line endings
+-    - Validate provenance
+-    - Enforce deterministic output
+-
+-- id: FIX-003
+-  title: "Fixpack → rule alignment"
+-  tasks:
+-    - Every fixpack preview must reference a valid rule_id
+-
+-# ===================================================================
+-# 7. BADGE ENGINE
+-# ===================================================================
+-- id: BADGE-001
+-  title: "Badge scoring"
+-  tasks:
+-    - Implement p-based badge mapping (A–F)
+-    - Validate deterministic SVG rendering
+-
+-- id: BADGE-002
+-  title: "SVG safety enforcement"
+-  tasks:
+-    - Enforce allowed_tags, prohibited_tags
+-    - Block external refs
+-    - Output deterministic SVG artifacts
+-
+-- id: BADGE-003
+-  title: "Badge SSR determinism (NEW)"
+-  tasks:
+-    - Validate deterministic SSR output for badges under pinned Node version and verify identical outputs across CI runs
+-    - Verify SSR deterministic output across WASM-enabled rendering if applicable
+-
+-# ===================================================================
+-# 8. HASHING, NUMERIC CONTRACT, SERIALIZATION
+-# ===================================================================
+-- id: NUM-001
+-  title: "Numeric contract enforcement"
+-  tasks:
+-    - Apply fixed_64 rules in Python + binary_core + WASM
+-    - Enforce rounding_mode: round_half_away_from_zero
+-    - Enforce overflow_behavior: clamp_to_max
+-
+-- id: NUM-002
+-  title: "fixed_64 encoding"
+-  tasks:
+-    - Represent as signed_64bit_integer_scaled_by_1e6
+-    - Validate cross-runtime consistency (Python vs WASM vs binary)
+-
+-- id: NUM-003
+-  title: "Score hashing"
+-  tasks:
+-    - SHA256 on canonical_json_utf8
+-    - Include scoring_version, synthetic_dataset_id, schema_version
+-    - Exclude debug fields
+-
+-# ===================================================================
+-# 9. TELEMETRY, LOGGING, OBSERVABILITY
+-# ===================================================================
+-- id: OBS-001
+-  title: "Implement telemetry events"
+-  tasks:
+-    - Validate telemetry against /schemas/telemetry_event_schema.yml
+-    - Emit required template fields
+-
+-- id: OBS-002
+-  title: "Telemetry rate limits"
+-  tasks:
+-    - max_event_payload_bytes: 64000
+-    - max_events_per_rule_execution: 10
+-
+-- id: OBS-003
+-  title: "Log limits"
+-  tasks:
+-    - max_log_events_per_scoring: 100
+-
+-- id: OBS-004
+-  title: "Observability metrics"
+-  tasks:
+-    - guardscore_runs_total
+-    - guardscore_drift_alerts_total
+-    - guardscore_badge_distribution
+-
+-# ===================================================================
+-# 10. WASM SAFETY + BINARY CORE INTEGRATION
+-# ===================================================================
+-- id: WASM-001
+-  title: "WASM conformance tests"
+-  tasks:
+-    - Execute scoring engine via wasi_snapshot_preview1
+-    - Validate numeric contract identical to Python/binary core
+-    - Enforce no randomness, no locale, no OS time
+-
+-- id: WASM-002
+-  title: "Binary core integration"
+-  tasks:
+-    - Load evaluator_primitives.so deterministically
+-    - Validate binary signature
+-    - Validate ABI manifest
+-
+-- id: WASM-003
+-  title: "Python fallback contract"
+-  tasks:
+-    - Dev: fallback allowed
+-    - CI: fallback must warn
+-    - Prod: fallback forbidden
+-
+-# ===================================================================
+-# 11. API SURFACE & INTEGRATION TESTS (NEW / Expanded)
+-# ===================================================================
+-- id: API-001
+-  title: "OpenAPI conformance"
+-  tasks:
+-    - Validate REST responses match openapi/guardscore_openapi.yml
+-    - Ensure help & error payloads match defined schemas
+-
+-- id: API-002
+-  title: "Batch scoring behavior"
+-  tasks:
+-    - Validate POST /score/batch rejects > max_batch_size
+-    - Validate streaming / async job pattern returns job_id and job completion semantics
+-
+-- id: API-003
+-  title: "Rate limit tests"
+-  tasks:
+-    - Validate per_api_key rate limits enforced as defined
+-
+-- id: API-004
+-  title: "Async job correctness"
+-  tasks:
+-    - Validate job_id lifecycle: queued → running → succeeded/failed
+-    - Validate job result schema and provenance inclusion
+-
+-# ===================================================================
+-# 12. GOVERNANCE & COMPLIANCE
+-# ===================================================================
+-- id: GOV-001
+-  title: "Spec governance metadata"
+-  tasks:
+-    - Validate spec.yml governance fields
+-    - Validate scoring_version_policy consistency
+-
+-- id: GOV-002
+-  title: "RFC compliance checks"
+-  tasks:
+-    - Required for major scoring semantics changes
+-    - Required for pillar_weight changes
+-    - Required for dataset distribution change
+-
+-- id: GOV-003
+-  title: "Changelog + codeowners"
+-  tasks:
+-    - Validate changelog entry per release
+-    - Validate codeowners file exists
+-
+-# ===================================================================
+-# 13. SELF TEST, VERIFY, SNAPSHOTS & SPECIAL CASES
+-# ===================================================================
+-- id: TEST-001
+-  title: "validate-self"
+-  tasks:
+-    - Verify schemas
+-    - Verify fixpack alignment
+-    - Verify output contract invariants
+-    - Verify numeric contract
+-    - Validate that canonical_output contains NO unrecognized fields (NEW)
+-
+-- id: TEST-002
+-  title: "verify command"
+-  tasks:
+-    - Validate schema fragments
+-    - Validate output schema
+-    - Validate producer matrix
+-    - Validate pipeline invariants
+-    - Validate producer schema_version compatibility; reject artifacts outside supported_range (NEW)
+-
+-- id: TEST-003
+-  title: "Snapshot determinism"
+-  tasks:
+-    - Run 3 identical score computations
+-    - Hash values must match exactly
+-    - Run under python, binary, wasm
+-    - Validate deterministic fallback behavior for sparse tenants across runtimes (NEW)
+-
+-- id: TEST-004
+-  title: "Front-end determinism (GuardBoard dependency)"
+-  tasks:
+-    - Validate consistent score.json for same inputs
+-    - Validate SSR normalization rules
+-    - Validate badge SSR determinism (NEW)
+-
+-# ===================================================================
+-# 14. ACCEPTANCE GATES
+-# ===================================================================
+-- id: ACPT-001
+-  title: "Schema validation must pass"
+-  tasks:
+-    - All input + output schemas validated
+-
+-- id: ACPT-002
+-  title: "Deterministic scoring contract"
+-  tasks:
+-    - 3-run deterministic hashing across OS/arch/WASM
+-
+-- id: ACPT-003
+-  title: "Drift detection correctness"
+-  tasks:
+-    - Drift algorithm validated with synthetic test cases
+-    - Verify drift_scope: aggregate_only enforced (NEW)
+-
+-- id: ACPT-004
+-  title: "Fixpack modifier correctness"
+-  tasks:
+-    - Modifier formula validated (incl. missing est. reduction points)
+-
+-- id: ACPT-005
+-  title: "Producer compatibility & provenance"
+-  tasks:
+-    - All producers must have provenance; artifacts out-of-range by schema_version must be rejected (NEW)
+-
+-- id: ACPT-006
+-  title: "API conformance"
+-  tasks:
+-    - REST & async job patterns validated
+-    - Batch limits enforced
+-
+-- id: ACPT-007
+-  title: "Unknown pillar resilience (NEW)"
+-  tasks:
+-    - New/unexpected pillar keys are ignored; weight sum remains constant; no instability introduced
+-
+-# ===================================================================
+-# DELIVERABLES (post-implementation)
+-# ===================================================================
+-deliverables:
+-  - repos/guardscore/spec.yml (v2.2.0)
+-  - repos/guardscore/checklist.yml (this file, v2.2.1)
+-  - openapi/guardscore_openapi.yml
+-  - datasets/synthetic/syn-2026.01.json + manifest
+-  - wasm_conformance_test_harness/
+-  - parity_test_harness/
+-  - example_conflict_cases/ (for lexicographic tie-break tests)
+-  - snapshot_tests/ (determinism fixtures)
