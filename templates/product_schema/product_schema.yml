@@ -1,12 +1,12 @@
-# Canonical Product Schema (Template)
-# Strategy-D will expand and finalize this structure.
+# Canonical Product Schema (Expanded)
+# This schema defines the authoritative structure for ALL GuardSuite products.
 
-id: ""
-name: ""
-product_type: ""     # free_scanner | paid_blueprint | guard | engine | governance
-pillar: ""
-version: ""
-status: ""           # incubating | beta | production
+id: ""                     # unique product ID, lowercase, dash-separated
+name: ""                   # human-readable product name
+product_type: ""           # free_scanner | paid_blueprint | guard | engine | governance | tool
+pillar: ""                 # vector | compute | pipeline | security | crosscut
+version: ""                # semver
+status: ""                 # incubating | beta | production
 
 short_description: ""
 long_description: ""
@@ -14,20 +14,70 @@ long_description: ""
 marketing:
   hero: ""
   blurbs: []
-  ctas: []
+  ctas:
+    - text: ""
+      href: ""
 
 metadata:
-  funnel_stage: ""
-  ux_goals: []
+  version: ""               # marketing / funnel version (not product version)
+  funnel_stage: ""          # toplevel_funnel | mid_funnel | lite | playground
+  pricing_reference: ""     # path to pricing model or pricing reference file
   documentation_entrypoint: ""
+  ux_goals: []
 
-features: []
-architecture: {}
-governance: {}
-related_products: []
+governance:
+  spec_version: ""          # version of this spec file format
+  last_reviewed: ""
+  owner: ""
+  stability_level: ""       # ga | beta | incubating
+  changelog_required: false
+  codeowners_required: false
+  rfc_required_for_major: false
+  breaking_change_policy: ""
+  principles: []
+  evaluator_pipeline_invariants: []
 
-release_metadata: {}
-maintainers: []
-provenance: []
+features:                   # list of feature objects
+  - id: ""
+    title: ""
+    summary: ""
+    included: true
 
-# Strategy-D: This template will be expanded with fields from the master spec.
+architecture:
+  core_dependency_id: ""
+  canonical_schema_source: ""
+  required_interfaces: []
+  forbidden_overrides: []
+  evaluator_pipeline:
+    stages: []
+    invariants: []
+  canonicalization: {}
+  binary_core: {}
+  fixpack_registry: {}
+  error_model: {}
+  schema_fragments: {}
+  fixpack: {}
+  compliance: {}
+  cli: {}
+  api: {}
+  performance_constraints: {}
+  ecosystem_integrations: {}
+  testing: {}
+  versioning: {}
+  interoperability_conflicts: []
+  future_extensions: []
+  security: {}
+  maintainers: []
+  release_metadata: {}
+  references: {}
+  integration_points: {}
+
+related_products: []         # related product IDs
+
+provenance: []               # lineage metadata
+
+products: []                 # subproduct references (optional)
+
+spec_yaml: ""                # path in specs repo
+checklist_yaml: ""           # path in specs repo
+gpt_instructions_yaml: ""    # path in specs repo or templates
