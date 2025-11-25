@@ -1,6 +1,6 @@
-# AI-Dev Repository Scan Report (v29)
+# AI-Dev Repository Scan Report (v30)
 
-- Generated: 2025-11-25T20:40:45.431591+00:00
+- Generated: 2025-11-25T20:52:59.033966+00:00
 - Repo clean: yes
 - Untracked files: 0
 - Ignored entries (visible): 1
@@ -10,7 +10,7 @@
 ## Findings
 
 - Repo traversal honored ignore patterns (__pycache__/, *.pyc, .venv/, dist/, build/, site/, *.egg-info/, *.log, *.tmp, *.cache, .pytest_cache/, .mypy_cache/, .ruff_cache/, .coverage, *.coverage).
-- Strategy-D controlled surfaces remain untouched; tracked/untracked counts unchanged since v28.
+- Strategy-D controlled surfaces remain untouched; tracked/untracked counts unchanged since v29.
 - Workspace diagnostics artifacts remain present; raw + rendered outputs verified.
 - Product demo scaffolding remains intact for every product; expected demo files present.
 - YAML validation summary plus error context/recommendations/diff provided for remediation tracking.
@@ -218,7 +218,7 @@
 
 ## YAML Validation Diff vs Previous
 
-- No YAML validation status changes since v28.
+- No YAML validation status changes since v29.
 
 ## Schema Coverage Stats
 
