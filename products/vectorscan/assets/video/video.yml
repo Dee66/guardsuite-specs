@@ -1,0 +1,15 @@
+product: VectorScan
+pillar: vector
+
+micro_benefit_hook: "Detect vector DB misconfigs instantly."
+
+iconic_finding: |
+  Public endpoint detected: 0.0.0.0/0
+
+summary_line: "Scan complete: 4 issues detected ✔"
+
+micro_cta: "→ Fixable in VectorGuard"
+
+outro:
+  title: "GuardSuite — VectorScan"
+  url: "Shieldcraft-AI.com"

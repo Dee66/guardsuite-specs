@@ -1,0 +1,15 @@
+product: ComputeGuard
+pillar: compute
+
+micro_benefit_hook: "Enforce FinOps-grade compute governance."
+
+iconic_finding: |
+  Over-provisioned endpoint: concurrency=1 on 4-GPU node
+
+summary_line: "Zero Waste Score: 58/100 ⚠️"
+
+micro_cta: "→ Full remediation in GuardSuite"
+
+outro:
+  title: "GuardSuite — ComputeGuard"
+  url: "Shieldcraft-AI.com"

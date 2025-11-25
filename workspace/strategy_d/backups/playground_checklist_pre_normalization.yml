@@ -1,0 +1,308 @@
+checklist:
+  id: playground-checklist
+  version: "2026.04"
+  product: playground
+  pillar: crosscut
+
+  phases:
+
+  # ============================================================
+  # 1. INITIALIZATION & SPEC VALIDATION
+  # ============================================================
+  - phase: initialization
+    items:
+
+      - INIT-001: load_spec_and_validate_yaml_structure
+      - INIT-002: validate_required_spec_sections_present
+      - INIT-003: verify_spec_version_and_metadata
+      - INIT-004: validate_core_dependency_pin(guardsuite-core>=2.3.0)
+      - INIT-005: validate_template_dependency_pin(guardsuite-template>=2.3.0)
+      - INIT-006: validate_schema_version_pin(playground.schema>=1.1.0)
+      - INIT-007: enforce_compatibility_window(12_months)
+      - INIT-008: validate_provenance_required_false
+      - INIT-009: ensure_examples_and_docs_present
+      - INIT-010: detect_template_core_drift
+      - INIT-011: ensure_release_metadata_valid
+      - INIT-012: verify_evaluator_pipeline_defined_and_complete
+
+  # ============================================================
+  # 2. SCHEMA & SAMPLE PLAN VALIDATION
+  # ============================================================
+  - phase: schema_validation
+    items:
+
+      - SCHEMA-001: validate_canonical_schema_json
+      - SCHEMA-002: validate_playground_schema_extends_core
+      - SCHEMA-003: ensure_no_duplicate_field_definitions
+      - SCHEMA-004: validate_stable_schema_bundle_ordering
+      - SCHEMA-005: compute_and_record_schema_bundle_hash
+      - SCHEMA-006: validate_schema_version_pin_resolution
+      - SCHEMA-007: validate_canonical_json_utf8_rules
+      - SCHEMA-008: ensure_fixed64_numeric_contract_supported
+      - SCHEMA-009: validate_timestamp_normalization_contract
+      - SCHEMA-010: validate_sample_plan_schema_exists
+      - SCHEMA-011: enforce_sample_plan_required_fields
+      - SCHEMA-012: snapshot_schema_test_for_sample_plans
+
+  # ============================================================
+  # 3. EVALUATOR PIPELINE CONTRACT & PARITY
+  # ============================================================
+  - phase: evaluator_pipeline
+    items:
+
+      - PIPE-001: load_authoritative_pipeline_from_core
+      - PIPE-002: enforce_stage_order_matches_core
+      - PIPE-003: validate_pipeline_stage_presence:
+          stages:
+            - load_profile
+            - initialize_context
+            - discover_resources
+            - gather_metadata
+            - evaluate_rules
+            - canonicalize
+            - snapshot_normalize
+            - emit_output
+
+      - PIPE-004: verify_no_randomness_or_local_time
+      - PIPE-005: validate_no_env_based_branching
+      - PIPE-006: validate_fixed64_applied_in_all_numeric_paths
+      - PIPE-007: enforce_canonical_json_utf8_output
+      - PIPE-008: enforce_snapshot_normalization_rules
+      - PIPE-009: evaluator_determinism_across_3_runs
+      - PIPE-010: python_vs_wasm_parity_test
+      - PIPE-011: evaluator_pipeline_drift_detection_against_template
+
+      # NEW BLOCK — evaluator parity with allowed deviations
+      - PIPE-012: evaluator_parity_contract:
+          matches_core_evaluator_pipeline: true
+          exceptions:
+            - provenance_optional
+            - ui_driven_sample_plan_loading
+            - fixpack_disabled_but_hints_allowed
+
+  # ============================================================
+  # 4. WASM SAFETY & FORBIDDEN OPERATIONS
+  # ============================================================
+  - phase: wasm_safety
+    items:
+
+      - WASM-001: run_wasm_conformance_tests
+      - WASM-002: validate_forbidden_operations_prohibited:
+          forbidden:
+            - randomness
+            - system_time
+            - locale
+            - filesystem_write
+            - environment_variable_access
+            - network_access
+            - dynamic_imports
+
+      - WASM-003: ensure_wasm_runtime_is_wasi_snapshot_preview1
+      - WASM-004: validate_no_direct_fs_access
+      - WASM-005: enforce_browser_sandbox_requirement
+      - WASM-006: validate_deterministic_wasm_runtime_behavior
+      - WASM-007: wasm_safe_json_and_svg_sanitization
+
+  # ============================================================
+  # 5. HASHING & NORMALIZATION (DET-001 ALIGNMENT)
+  # ============================================================
+  - phase: hashing_and_normalization
+    items:
+
+      - HASH-001: validate_hashing_contract_alignment_with_DET001
+      - HASH-002: enforce_SHA256_hex_lowercase
+      - HASH-003: ensure_normalized_payload_used_for_hashing
+      - HASH-004: strip_diagnostics_only_for_hashing
+      - HASH-005: enforce_fixed64_numeric_contract
+      - HASH-006: enforce_recursive_key_ordering
+      - HASH-007: enforce_UTC_Z_timestamp_normalization
+      - HASH-008: prohibit_noncanonical_fields_in_hashing:
+          fields:
+            - diagnostics
+            - pipeline_trace
+            - lifecycle_state
+            - debug*
+            - ephemeral_*
+
+      - HASH-009: canonical_json_utf8_hash_view_tests
+      - HASH-010: python_wasm_binary_hash_parity_test
+
+  # ============================================================
+  # 6. PROVENANCE RULES
+  # ============================================================
+  - phase: provenance
+    items:
+
+      - PROV-001: validate_provenance_optional
+      - PROV-002: normalize_provenance_if_present
+      - PROV-003: enforce_deterministic_timestamps_if_present
+      - PROV-004: provenance_included_in_export_bundle
+      - PROV-005: malformed_provenance_warn_and_normalize
+      - PROV-006: verify_no_strict_provenance_requirements_apply
+
+  # ============================================================
+  # 7. EXPORT BUNDLE CONTRACT
+  # ============================================================
+  - phase: export_bundle
+    items:
+
+      - EXPORT-001: enforce_export_bundle_required_fields:
+          required:
+            - metadata
+            - issues
+            - guardscore_inputs
+            - badge_preview
+
+      - EXPORT-002: allow_optional_provenance
+      - EXPORT-003: enforce_canonical_serialization
+      - EXPORT-004: prohibit_noncanonical_fields
+      - EXPORT-005: ensure_wasm_safe_export_bundle
+      - EXPORT-006: export_bundle_snapshot_determinism_test
+      - EXPORT-007: guardboard_and_guardscore_compatibility_validation
+
+  # ============================================================
+  # 8. UI FLAG CONSTRAINTS
+  # ============================================================
+  - phase: ui_flags
+    items:
+
+      - UI-001: validate_ui_flags_allow_list:
+          allow:
+            - canonical_json
+            - badge_preview
+            - guardscore_preview
+
+      - UI-002: validate_ui_flags_forbidden_list:
+          forbid:
+            - custom_plugins
+            - network_calls
+            - user_uploaded_binaries
+            - arbitrary_javascript
+
+      - UI-003: enforce_ui_cli_flag_parity
+      - UI-004: validate_quickscore_flag_behavior
+
+  # ============================================================
+  # 9. READ-ONLY API GUARANTEE
+  # ============================================================
+  - phase: api_readonly
+    items:
+
+      - API-001: validate_rest_endpoint_defined
+      - API-002: validate_auth_token_requirement
+      - API-003: enforce_read_only_api_guarantee
+      - API-004: prohibit_write_operations
+      - API-005: validate_rate_limits
+      - API-006: ensure_deterministic_responses
+      - API-007: validate_export_bundle_api_endpoint
+
+  # ============================================================
+  # 10. CANONICAL ERROR CONTRACT (SANDBOX)
+  # ============================================================
+  - phase: error_contract
+    items:
+
+      - ERR-001: validate_canonical_error_schema_matches_core(
+          schema="guardsuite-core/schemas/cli_error.json"
+        )
+      - ERR-002: enforce_sandbox_safe_error_output
+      - ERR-003: enforce_deterministic_error_output
+      - ERR-004: enforce_error_field_redaction:
+          redacted_fields:
+            - local_paths
+            - host_env
+
+      - ERR-005: ensure_canonical_error_contract_in_wasm
+
+  # ============================================================
+  # 11. TELEMETRY & REDACTION
+  # ============================================================
+  - phase: telemetry
+    items:
+
+      - TEL-001: validate_telemetry_redaction_enabled
+      - TEL-002: enforce_redaction_rules:
+          redact:
+            - resource_id
+            - tenant_id
+            - secrets
+            - tokens
+            - code_snippets_raw
+
+      - TEL-003: validate_minimized_payloads
+      - TEL-004: prohibit_paste_content_upload
+      - TEL-005: prohibit_environment_leakage
+      - TEL-006: wasm_safe_telemetry_test
+      - TEL-007: telemetry_snapshot_obfuscation_test
+
+  # ============================================================
+  # 12. PERFORMANCE & LATENCY
+  # ============================================================
+  - phase: performance
+    items:
+
+      - PERF-001: enforce_max_memory_mb(192)
+      - PERF-002: validate_expected_runtime(<=600ms)
+      - PERF-003: validate_wasm_runtime(<=750ms)
+      - PERF-004: validate_quickscore_threshold(200_resources)
+      - PERF-005: enforce_stage_budgets:
+          sample_plan_load_ms: 80
+          evaluator_init_ms: 100
+          rule_eval_ms: 250
+          badge_calc_ms: 120
+          canonicalize_output_ms: 80
+          export_payload_ms: 50
+
+      - PERF-006: validate_realtime_refresh_interval(60000ms)
+
+  # ============================================================
+  # 13. SECURITY & SANDBOXING
+  # ============================================================
+  - phase: security
+    items:
+
+      - SEC-001: enforce_no_external_calls_at_runtime
+      - SEC-002: enforce_input_sanitization
+      - SEC-003: enforce_svg_sanitization
+      - SEC-004: validate_wasm_compatibility
+      - SEC-005: enforce_mandatory_sandbox_execution
+      - SEC-006: validate_safe_error_reporting
+      - SEC-007: ensure_no_identity_spoofing_paths
+      - SEC-008: validate_browser_local_storage_contract:
+          deterministic_cache_allowed: false
+          session_storage_allowed: true
+          sensitive_data_prohibited: true
+
+  # ============================================================
+  # 14. TESTING & CI
+  # ============================================================
+  - phase: testing
+    items:
+
+      - TEST-001: run_unit_tests
+      - TEST-002: run_integration_tests
+      - TEST-003: run_snapshot_schema_tests
+      - TEST-004: run_wasm_conformance_tests
+      - TEST-005: run_snapshot_determinism_tests
+      - TEST-006: python_vs_wasm_comparison_tests
+      - TEST-007: enforce_test_coverage(>=80)
+      - TEST-008: validate_ci_jobs_match_spec
+      - TEST-009: enforce_ci_matrix(x86_64,arm64)
+      - TEST-010: validate_checklist_schema_valid
+      - TEST-011: detect_checklist_drift_against_spec
+
+  # ============================================================
+  # 15. ACCEPTANCE CRITERIA
+  # ============================================================
+  - phase: acceptance
+    items:
+
+      - ACPT-001: verify_all_schemas_pass_validation
+      - ACPT-002: verify_pipeline_parity_with_core
+      - ACPT-003: verify_hashing_contract_parity(python, wasm)
+      - ACPT-004: verify_export_bundle_contract_passes
+      - ACPT-005: verify_deterministic_output(3_run_hash_match)
+      - ACPT-006: verify_ui_and_api_output_contracts
+      - ACPT-007: verify_wasm_forbidden_operations_enforced
+      - ACPT-008: ensure_all_deliverables_exist
+      - ACPT-009: verify_no_security_or_sandbox_violations

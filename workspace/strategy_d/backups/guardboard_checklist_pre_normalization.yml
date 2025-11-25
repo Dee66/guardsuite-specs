@@ -1,0 +1,387 @@
+id: guardboard_checklist
+product: GuardBoard
+version: "2025.11"
+status: active
+
+phases:
+
+# ======================================================================
+# 1. INITIALIZATION & REPO BOOTSTRAP
+# ======================================================================
+- id: INIT-001
+  title: "Verify repository structure"
+  tasks:
+    - Ensure directories exist: src/, api/, web/, services/, schemas/, tests/, docs/, ci/
+    - Verify pyproject or package.json (UI) in place
+    - Ensure dev-shims for schema validation (if applicable)
+
+- id: INIT-002
+  title: "Add spec + manifest"
+  tasks:
+    - Add repos/guardboard/spec.yml
+    - Add product manifest (API version, artifact versions supported)
+
+- id: INIT-003
+  title: "Validate directory conventions"
+  tasks:
+    - schemas/: only schema files (dashboard, export_bundle, inspector, etc.)
+    - api/: OpenAPI specs + handlers
+    - web/: UI code
+    - services/: ingest worker, renderer, export service
+    - tests/: unit, integration, snapshot, e2e
+
+# ======================================================================
+# 2. SCHEMAS (PAYLOAD + ARTIFACTS)
+# ======================================================================
+- id: SCHEMA-001
+  title: "Implement dashboard payload schema"
+  tasks:
+    - Define canonical dashboard payload format
+    - Validate example payloads against schema
+
+- id: SCHEMA-002
+  title: "Implement export bundle schema"
+  tasks:
+    - Include artifacts, provenance, schema versions, audit slice
+
+- id: SCHEMA-003
+  title: "Implement inspector + preview schemas"
+  tasks:
+    - resource_inspector_schema.yml
+    - preview_viewer_schema.yml
+
+- id: SCHEMA-004
+  title: "Validate producer artifacts"
+  tasks:
+    - Compliance ledger schema
+    - Preview schema
+    - GuardScore input schema
+    - CLI JSON schema
+    - Enforce schema validation for sample artifacts
+
+# ======================================================================
+# 3. INGESTION PIPELINE
+# ======================================================================
+- id: INGEST-001
+  title: "Implement webhook ingestion"
+  tasks:
+    - HMAC/JWS signature verification
+    - Replay protection window enforcement
+    - Error handling & structured logs
+
+- id: INGEST-002
+  title: "Implement artifact validation pipeline"
+  tasks:
+    - schema_validation
+    - provenance_check
+    - deduplication rules
+    - timestamp normalization
+    - cache invalidation triggers
+
+- id: INGEST-003
+  title: "Implement pull mode"
+  tasks:
+    - periodic polling (configurable)
+    - handle backfill logic
+    - poison queue routing
+
+# ======================================================================
+# 4. ARTIFACT CACHE
+# ======================================================================
+- id: CACHE-001
+  title: "Implement cache storage"
+  tasks:
+    - in-memory + distributed cache support
+    - TTL + stale_while_revalidate
+
+- id: CACHE-002
+  title: "Implement cache invalidation contract"
+  tasks:
+    - invalidate on artifact_ingested
+    - invalidate on schema_version change
+    - invalidate on RBAC policy change
+    - test distributed invalidation propagation
+
+# ======================================================================
+# 5. ARTIFACT MERGE & AGGREGATION
+# ======================================================================
+- id: MERGE-001
+  title: "Implement artifact merge strategy"
+  tasks:
+    - merge_by resource_id
+    - conflict resolution: latest_timestamp_utc
+    - retain superseded artifacts for audit
+
+- id: MERGE-002
+  title: "Implement timeline merge"
+  tasks:
+    - combine ledger events, previews, scores
+    - deterministic ordering (timestamp_utc asc, then artifact_id)
+
+# ======================================================================
+# 6. RBAC IMPLEMENTATION
+# ======================================================================
+- id: RBAC-001
+  title: "Implement role → capability matrix"
+  tasks:
+    - viewer, analyst, operator, approver, admin
+    - permission checks per endpoint/action
+
+- id: RBAC-002
+  title: "Add attribute-based filtering"
+  tasks:
+    - redact sensitive fields per role
+    - enforce tenant_id boundaries
+
+- id: RBAC-003
+  title: "RBAC test suite"
+  tasks:
+    - positive + negative authorization tests
+    - full coverage for each endpoint
+
+# ======================================================================
+# 7. API SURFACE (REST + OPTIONAL GRAPHQL)
+# ======================================================================
+- id: API-001
+  title: "Implement REST endpoints"
+  tasks:
+    - GET /artifacts/ledger
+    - GET /artifacts/preview
+    - GET /scores/{resource_id}
+    - GET /dashboards/{dashboard_id}
+    - POST /exports
+    - POST /webhooks/ingest (signed)
+
+- id: API-002
+  title: "Implement pagination, caching, filtering"
+  tasks:
+    - page/per_page rules
+    - severity/rule_id filters
+    - caching headers + ETags
+
+- id: API-003
+  title: "Generate OpenAPI spec"
+  tasks:
+    - api/openapi.yml
+    - match implementation via contract tests
+
+- id: API-004
+  title: "GraphQL gateway (optional)"
+  tasks:
+    - auto-generate schema from artifact schemas
+    - authorization wiring
+
+# ======================================================================
+# 8. DASHBOARD RENDERER
+# ======================================================================
+- id: RENDER-001
+  title: "Implement dashboard registry"
+  tasks:
+    - versioned dashboard definitions
+    - stored under config/dashboards/
+    - schema validation
+
+- id: RENDER-002
+  title: "Implement deterministic dashboard payload builder"
+  tasks:
+    - input = canonical artifact set
+    - output = snapshot tested payload
+    - ensure timezone = UTC
+
+- id: RENDER-003
+  title: "Implement resource inspector"
+  tasks:
+    - artifact timeline
+    - preview viewer
+    - GuardScore overlay
+
+# ======================================================================
+# 9. FRONT-END (WEB)
+# ======================================================================
+- id: WEB-001
+  title: "UI skeleton"
+  tasks:
+    - executive dashboard
+    - engineering dashboard
+    - compliance dashboard
+
+- id: WEB-002
+  title: "Preview viewer"
+  tasks:
+    - normalized diff
+    - confidence score
+    - apply hints
+
+- id: WEB-003
+  title: "Frontend determinism"
+  tasks:
+    - pinned node version
+    - pinned dependencies
+    - normalized SSR snapshots
+
+# ======================================================================
+# 10. EXPORTS & AUDIT BUNDLES
+# ======================================================================
+- id: EXPORT-001
+  title: "Implement export job service"
+  tasks:
+    - json, csv, pdf
+    - PDF must be deterministic & signed
+
+- id: EXPORT-002
+  title: "Bundle signing"
+  tasks:
+    - use platform KMS
+    - rotate signing keys
+    - include key_id for verification
+
+- id: EXPORT-003
+  title: "Snapshot tests for export payloads"
+  tasks:
+    - 3-run determinism
+    - CI cross-image test
+
+# ======================================================================
+# 11. DETRMINISM & SNAPSHOTS
+# ======================================================================
+- id: DET-001
+  title: "Dashboard payload determinism"
+  tasks:
+    - 3-run identical hash
+    - cross-platform normalization
+
+- id: DET-002
+  title: "Export determinism"
+  tasks:
+    - deterministic layout, fonts, metadata
+    - no local timezone use
+
+# ======================================================================
+# 12. PERFORMANCE & SCALABILITY
+# ======================================================================
+- id: PERF-001
+  title: "Load tests"
+  tasks:
+    - page_load_time_ms ≤ 600 (95th)
+    - api_99th ≤ 1200ms
+
+- id: PERF-002
+  title: "Concurrent load scaling"
+  tasks:
+    - simulate 5000 users
+    - measure cache hit ratio
+
+- id: PERF-003
+  title: "Telemetry backpressure"
+  tasks:
+    - return 429 when ingest rate too high
+    - validate retry/backoff behavior
+
+# ======================================================================
+# 13. OBSERVABILITY
+# ======================================================================
+- id: OBS-001
+  title: "Metrics"
+  tasks:
+    - dashboards_rendered_total
+    - api_requests_total
+    - ingest_total{status}
+    - cache_hit_ratio
+
+- id: OBS-002
+  title: "Tracing"
+  tasks:
+    - ingest → validation → cache → render → export
+
+- id: OBS-003
+  title: "Structured logs"
+  tasks:
+    - request_id, user_id, artifact_id, action
+
+# ======================================================================
+# 14. SECURITY CONTROLS
+# ======================================================================
+- id: SEC-001
+  title: "Transport security"
+  tasks:
+    - enforce TLS 1.2+
+    - enable HSTS
+
+- id: SEC-002
+  title: "Sandbox preview execution"
+  tasks:
+    - WASM or equivalent sandbox
+    - block network egress
+
+- id: SEC-003
+  title: "Redaction mechanisms"
+  tasks:
+    - redact sensitive fields per role & export type
+
+# ======================================================================
+# 15. CI/CD & QUALITY GATES
+# ======================================================================
+- id: CI-001
+  title: "CI pipeline"
+  tasks:
+    - validate_schema
+    - unit
+    - integration
+    - e2e
+    - snapshot_conformance
+    - perf_regression
+
+- id: CI-002
+  title: "Forbidden overrides"
+  tasks:
+    - static check for schema/output contract drift
+
+# ======================================================================
+# 16. DOCUMENTATION
+# ======================================================================
+- id: DOC-001
+  title: "API docs"
+  tasks:
+    - OpenAPI validated & published
+    - examples for each endpoint
+
+- id: DOC-002
+  title: "Dashboard authoring guide"
+  tasks:
+    - schema
+    - versioning rules
+
+- id: DOC-003
+  title: "Ingest pipeline runbook"
+  tasks:
+    - schema drift
+    - replay attacks
+    - poison queue handling
+
+# ======================================================================
+# 17. ACCEPTANCE GATES
+# ======================================================================
+- id: ACPT-001
+  title: "Schema validation"
+  tasks:
+    - all consumed artifacts validate at ingest
+
+- id: ACPT-002
+  title: "RBAC enforcement"
+  tasks:
+    - automated tests verifying all roles
+
+- id: ACPT-003
+  title: "Determinism"
+  tasks:
+    - dashboard + export determinism proven in CI
+
+- id: ACPT-004
+  title: "Performance"
+  tasks:
+    - meets page_load + api latency targets
+
+- id: ACPT-005
+  title: "Security"
+  tasks:
+    - sandbox, TLS, redaction validated

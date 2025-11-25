@@ -1,0 +1,15 @@
+product: VectorGuard
+pillar: vector
+
+micro_benefit_hook: "Enforce zero-trust vector infrastructure."
+
+iconic_finding: |
+  IAM drift detected: role inconsistency in policy attachment
+
+summary_line: "Zero Trust Score: 63/100 ⚠️"
+
+micro_cta: "→ Full remediation in GuardSuite"
+
+outro:
+  title: "GuardSuite — VectorGuard"
+  url: "Shieldcraft-AI.com"

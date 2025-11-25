@@ -1,0 +1,15 @@
+product: PipelineGuard
+pillar: pipeline
+
+micro_benefit_hook: "Zero-trust CI/CD enforcement."
+
+iconic_finding: |
+  Unbounded workflow token permissions detected
+
+summary_line: "Pipeline Trust Score: 61/100 ⚠️"
+
+micro_cta: "→ Full remediation in GuardSuite"
+
+outro:
+  title: "GuardSuite — PipelineGuard"
+  url: "Shieldcraft-AI.com"

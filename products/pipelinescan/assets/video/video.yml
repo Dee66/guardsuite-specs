@@ -1,0 +1,15 @@
+product: PipelineScan
+pillar: pipeline
+
+micro_benefit_hook: "Catch CI/CD misconfigs before deploy."
+
+iconic_finding: |
+  GitHub Actions permission too broad: write-all
+
+summary_line: "Scan complete: 2 issues detected ✔"
+
+micro_cta: "→ Fixable in PipelineGuard"
+
+outro:
+  title: "GuardSuite — PipelineScan"
+  url: "Shieldcraft-AI.com"

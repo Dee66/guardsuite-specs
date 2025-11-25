@@ -1,0 +1,15 @@
+product: ComputeScan
+pillar: compute
+
+micro_benefit_hook: "Spot GPU and inference waste instantly."
+
+iconic_finding: |
+  Idle GPU detected: p3.2xlarge
+
+summary_line: "Scan complete: 3 issues detected ✔"
+
+micro_cta: "→ Fixable in ComputeGuard"
+
+outro:
+  title: "GuardSuite — ComputeScan"
+  url: "Shieldcraft-AI.com"
