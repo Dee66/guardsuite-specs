@@ -1,37 +1,37 @@
-# AI-Dev Repository Scan Report
+# AI-Dev Repository Scan Report (v23)
 
-- Generated: 2025-11-25T19:48:31.044596+00:00
+- Generated: 2025-11-25T19:54:49.353036+00:00
 - Repo clean: yes
 - Untracked files: 0
-- Ignored entries (visible): 23
+- Ignored entries (visible): 16
 
 ## Findings
 
-- Scan traversed entire repo root with ignored directories recorded but not expanded.
-- No tracked or untracked modifications were detected inside `products/`, satisfying sealed Strategy-D requirements.
-- Workspace scaffolding artifacts enumerated below are present and unchanged.
+- Scan traversed entire repo root with ignore patterns applied (site/, dist/, *.pyc, __pycache__/).
+- No tracked or untracked modifications detected under `products/`, satisfying sealed Strategy-D constraints.
+- Workspace scaffolding artifacts remain in place with no drift.
 - Demo scaffolding directories exist for every product; see verification table for per-product status.
-- Unexpected/orphaned paths are unchanged from previous diagnostics and remain documented for traceability.
+- Unexpected/orphaned paths mirror previous diagnostics; nothing new surfaced.
 
 ## Git Status Summary
 
 | Status | Count |
 | --- | ---: |
 | derived | 169 |
-| ignored | 23 |
+| ignored | 16 |
 | tracked | 352 |
 
 ## Category Breakdown
 
 | Category | Count |
 | --- | ---: |
-| docs | 57 |
+| docs | 56 |
 | orphaned | 2 |
 | product_tree | 244 |
 | schema | 13 |
-| scripts | 13 |
+| scripts | 12 |
 | unexpected | 19 |
-| utilities | 111 |
+| utilities | 106 |
 | workspace | 85 |
 
 ## Anomalies
@@ -61,8 +61,6 @@
 - `.pytest_cache`
 - `.venv`
 - `.vscode`
-- `api/__pycache__`
-- `guardsuite_plugins/__pycache__`
 - `products/computeguard/build`
 - `products/computescan/build`
 - `products/guardboard/build`
@@ -76,11 +74,6 @@
 - `products/playground/build`
 - `products/vectorguard/build`
 - `products/vectorscan/build`
-- `scheduler/__pycache__`
-- `scripts/__pycache__`
-- `site`
-- `tests/__pycache__`
-- `validation/__pycache__`
 
 ## Missing Items
 
@@ -98,6 +91,17 @@
 | `workspace/diagnostics` | yes | ok |
 | `workspace/diagnostics/repo_scan_raw.json` | yes | ok |
 | `workspace/diagnostics/repo_scan_report.md` | yes | ok |
+| `workspace/strategy_d/backups` | yes | ok |
+| `workspace/strategy_d/checklist_gaps` | yes | ok |
+| `workspace/strategy_d/checklist_gap_report.md` | yes | ok |
+| `workspace/strategy_d/checklist_gap_summary.yaml` | yes | ok |
+| `workspace/strategy_d/diffs` | yes | ok |
+| `workspace/strategy_d/bootstrap_notes.md` | yes | ok |
+
+## Strategy-D Workspace Status
+
+| Artifact | Present | Notes |
+| --- | :---: | --- |
 | `workspace/strategy_d/backups` | yes | ok |
 | `workspace/strategy_d/checklist_gaps` | yes | ok |
 | `workspace/strategy_d/checklist_gap_report.md` | yes | ok |
@@ -123,7 +127,7 @@
 | vectorguard | yes | yes | none |
 | vectorscan | yes | yes | none |
 
-## Demo Scaffolding Verification
+## Demo Scaffolding Status
 
 - computeguard: missing=none; extra=none
 - computescan: missing=none; extra=none
@@ -139,20 +143,9 @@
 - vectorguard: missing=none; extra=none
 - vectorscan: missing=none; extra=none
 
-## Workspace Layout Check
-
-- All Strategy-D backup, gap, and diagnostic directories exist.
-- No duplicate ATU artifacts detected in `workspace/strategy_d`.
-- `workspace/diagnostics` retains prior repo scan artifacts for traceability.
-
-## Products Tree Check
-
-- All product directories listed under `products/` are present.
-- No forbidden changes detected (git status clean for `products/`).
-
 ## Category Listings
 
-### docs (57)
+### docs (56)
 - `.github/copilot-instructions.md`
 - `.logs/ai-dev-latest.md`
 - `.logs/ai-dev-report-latest.md`
@@ -185,7 +178,6 @@
 - `docs/products/vectorguard.md`
 - `docs/products/vectorscan.md`
 - `mkdocs.yml`
-- `site/`
 - `snippets/`
 - `snippets/marketing.yml`
 - `snippets/playground_compliance_matrix.yml`
@@ -476,7 +468,7 @@
 - `schemas/product.schema.json`
 - `schemas/product_schema.yml`
 
-### scripts (13)
+### scripts (12)
 - `bootstrap/`
 - `bootstrap/.gitkeep`
 - `bootstrap/guardsuite-specs.bootstrap.json`
@@ -484,7 +476,6 @@
 - `cli/__init__.py`
 - `cli/guardspecs_cli.py`
 - `scripts/`
-- `scripts/__pycache__/`
 - `scripts/export_for_ai.py`
 - `scripts/gen_docs.py`
 - `scripts/sync_to_repo.py`
@@ -512,11 +503,10 @@
 - `tmp/strategy_c_complete.txt`
 - `workspace/`
 
-### utilities (111)
+### utilities (106)
 - `api/`
 - `api/__init__.py`
 - `api/__main__.py`
-- `api/__pycache__/`
 - `api/app.py`
 - `api/bootstrap_api.py`
 - `api/bootstrap_generator.py`
@@ -538,7 +528,6 @@
 - `governance/.gitkeep`
 - `guardsuite_plugins/`
 - `guardsuite_plugins/__init__.py`
-- `guardsuite_plugins/__pycache__/`
 - `guardsuite_plugins/admonition.py`
 - `pricing/`
 - `pricing/guardsuite_pricing.yml`
@@ -547,7 +536,6 @@
 - `scheduler/`
 - `scheduler/__init__.py`
 - `scheduler/__main__.py`
-- `scheduler/__pycache__/`
 - `scheduler/job.py`
 - `semantic/`
 - `semantic/semantic_categories.schema.yml`
@@ -608,7 +596,6 @@
 - `semantic/semantic_surface_matrix.yml`
 - `tests/`
 - `tests/__init__.py`
-- `tests/__pycache__/`
 - `tests/test_bootstrap_generator.py`
 - `tests/test_product_metadata_contract_v2.py`
 - `tests/test_product_runtime_contracts.py`
@@ -620,7 +607,6 @@
 - `tests/utils.py`
 - `validation/`
 - `validation/__init__.py`
-- `validation/__pycache__/`
 - `validation/validator.py`
 - `webhooks/`
 - `webhooks/__init__.py`
@@ -714,6 +700,6 @@
 
 ## Readiness for Next Strategy-D Phase
 
-- Repo is clean with demo scaffolding verified.
-- Workspace artifacts required for the next Strategy-D checkpoint are present.
-- No missing or duplicate ATU outputs detected; diagnostics remain deterministic.
+- Repo remains clean with deterministic scaffolding; ignores applied per v23 instructions.
+- Strategy-D workspace artifacts verified; no duplicates or missing items detected.
+- Diagnostics remain reproducible; only `.logs/ai-dev-report-latest.md` updated.
