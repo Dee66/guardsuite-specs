@@ -1,6 +1,6 @@
 # AI-Dev Repository Scan Report
 
-- Generated: 2025-11-25T19:17:37.576992+00:00
+- Generated: 2025-11-25T19:24:15.508548+00:00
 - Repo clean: yes
 - Untracked files: 0
 - Ignored entries (visible): 23
@@ -143,7 +143,7 @@
 
 - All Strategy-D backup, gap, and diagnostic directories exist.
 - No duplicate ATU artifacts detected in `workspace/strategy_d`.
-- `workspace/diagnostics` retains the previous repo scan artifacts for traceability.
+- `workspace/diagnostics` retains prior repo scan artifacts for traceability.
 
 ## Products Tree Check
 
