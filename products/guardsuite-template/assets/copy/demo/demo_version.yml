@@ -1,0 +1,11 @@
+demo_version: 1
+expected_output_hash: "TBD"
+plan_hash: "TBD"
+notes: |
+  This file controls deterministic video reproduction.
+  Update only when:
+   - demo plan changes
+   - CLI output changes
+   - terminal preset changes
+   - a new video is recorded
+
