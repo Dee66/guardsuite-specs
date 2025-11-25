@@ -1,17 +1,83 @@
-# Canonical Checklist Schema (Template)
-# Strategy-D will expand and finalize this structure.
+# Canonical Checklist Schema (Expanded)
+# Strategy-D unified checklist contract for all GuardSuite products.
 
 metadata:
-  product_id: ""
-  checklist_version: "1.0"
-  last_updated: ""
-  owner: ""
+  product_id: ""              # product this checklist belongs to
+  checklist_version: "1.0"    # semantic version of checklist contract
+  last_updated: ""            # ISO-8601 timestamp
+  owner: ""                   # responsible team or individual
+  stability: ""               # ga | beta | incubating
 
-build_requirements: []
-evaluator_requirements: []
-schema_requirements: []
-documentation_requirements: []
-fixpack_requirements: []
-testing_requirements: []
-artifacts: []
-acceptance_criteria: []
+# 1. Structural Requirements
+structure_requirements:
+  - id: ""
+    description: ""
+    required: true
+
+# 2. Documentation Requirements
+documentation_requirements:
+  readme_required: false
+  product_docs_required: false
+  api_reference_required: false
+  examples_required: false
+  changelog_required: false
+  release_notes_required: false
+
+# 3. Schema Requirements
+schema_requirements:
+  canonical_schema_required: false
+  metadata_schema_required: false
+  provenance_schema_required: false
+  fragment_schemas_required: false
+  additional_schemas: []
+
+# 4. Evaluator Requirements
+evaluator_requirements:
+  pipeline_must_match_template: false
+  canonicalization_required: false
+  wasm_safety_required: false
+  deterministic_output_required: false
+  timestamp_normalization_required: false
+  prohibited_overrides: []
+
+# 5. Fixpack Requirements
+fixpack_requirements:
+  fixpack_catalog_required: false
+  fixpack_metadata_required: false
+  difficulty_taxonomy_required: false
+  patch_hashing_required: false
+  remediation_examples_required: false
+
+# 6. Testing Requirements
+testing_requirements:
+  unit_tests_required: false
+  integration_tests_required: false
+  snapshot_tests_required: false
+  parity_tests_required: false
+  wasm_tests_required: false
+  schema_validation_tests_required: false
+  performance_tests_required: false
+  minimum_coverage_percent: 0
+
+# 7. Artifact Requirements
+artifacts:
+  required_files: []
+  required_directories: []
+  build_outputs: []
+
+# 8. Acceptance Criteria
+acceptance_criteria:
+  - id: ""
+    description: ""
+    required: true
+
+# 9. Cross-Product Linkage
+cross_product_dependencies:
+  depends_on_products: []        # e.g., 'guardsuite-core'
+  depends_on_schemas: []         # canonical schema refs
+  depends_on_pipeline: false
+
+# 10. Provenance
+provenance:
+  - "Checklist format derived from Strategy-D canonical model."
+  - "Aligned with GuardSuite Master Spec."
