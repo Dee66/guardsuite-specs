@@ -1,24 +1,29 @@
-# AI-Dev Repository Scan Report (v27)
+# AI-Dev Repository Scan Report (v28)
 
-- Generated: 2025-11-25T20:19:09.307239+00:00
+- Generated: 2025-11-25T20:23:12.919777+00:00
 - Repo clean: yes
 - Untracked files: 0
-- Ignored entries (visible): 2
+- Ignored entries (visible): 1
+- Repo health score: 85
 
 ## Findings
 
-- Repo traversal honored ignore patterns (__pycache__/, *.pyc, .venv/, dist/, build/, site/, *.egg-info/, *.log, *.tmp, *.cache).
-- Strategy-D controlled surfaces remain untouched; tracked/untracked counts unchanged since v26.
+- Repo traversal honored ignore patterns (__pycache__/, *.pyc, .venv/, dist/, build/, site/, *.egg-info/, *.log, *.tmp, *.cache, .pytest_cache/, .mypy_cache/).
+- Strategy-D controlled surfaces remain untouched; tracked/untracked counts unchanged since v27.
 - Workspace diagnostics artifacts remain present; raw + rendered outputs verified.
 - Product demo scaffolding remains intact for every product; expected demo files present.
 - YAML validation summary plus error context/recommendations/diff provided for remediation tracking.
+
+## Repository Health Score
+
+- Score: 85 / 100 (deductions: 15 from YAML issues, 0 from missing artifacts)
 
 ## Git Status Summary
 
 | Status | Count |
 | --- | ---: |
 | derived | 169 |
-| ignored | 2 |
+| ignored | 1 |
 | tracked | 352 |
 
 ## Category Breakdown
@@ -30,7 +35,7 @@
 | product_tree | 231 |
 | schema | 13 |
 | scripts | 12 |
-| unexpected | 18 |
+| unexpected | 17 |
 | utilities | 106 |
 | workspace | 85 |
 
@@ -44,7 +49,6 @@
 - `.gitignore`
 - `.logs/`
 - `.pre-commit-config.yaml`
-- `.pytest_cache/`
 - `.vscode/`
 - `poetry.lock`
 - `products/`
@@ -57,7 +61,6 @@
 - `workspace/`
 
 **Ignored-but-Relevant Entries**
-- `.pytest_cache`
 - `.vscode`
 
 ## Missing Items
@@ -203,7 +206,7 @@
 
 ## YAML Validation Diff vs Previous
 
-- No YAML validation status changes since v26.
+- No YAML validation status changes since v27.
 
 ## Category Listings
 
@@ -531,7 +534,7 @@
 - `scripts/validate_products.py`
 - `scripts/validate_yaml_schema.py`
 
-### unexpected (18)
+### unexpected (17)
 - `.github/`
 - `.github/workflows/`
 - `.github/workflows/generate_docs.yml`
@@ -539,7 +542,6 @@
 - `.gitignore`
 - `.logs/`
 - `.pre-commit-config.yaml`
-- `.pytest_cache/`
 - `.vscode/`
 - `poetry.lock`
 - `products/`
@@ -748,6 +750,6 @@
 
 ## Readiness for Next Strategy-D Phase
 
-- Repo remains clean; only `.logs/ai-dev-report-latest.md` updated for v27 instructions.
-- Ignore filters now include *.cache to keep scans deterministic and quiet.
-- YAML remediation tracking now highlights context, recommendations, and diff vs v26 baseline.
+- Repo remains clean; only `.logs/ai-dev-report-latest.md` updated for v28 instructions.
+- Ignore filters now include *.cache plus .pytest_cache/ and .mypy_cache/ for deterministic scans.
+- YAML remediation tracking highlights context, recommendations, diff vs v27 baseline, and health deductions.
