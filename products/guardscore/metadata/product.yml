@@ -1,0 +1,341 @@
+---
+id: guardscore
+name: GuardScore
+product_type: scoring_engine
+pillar: crosscut
+version: "2.2.0"
+status: production
+
+short_description: >
+  Deterministic GuardSuite scoring engine that converts multi-pillar findings
+  into a single GuardScore, percentile, and badge signal with audit-grade
+  explainability.
+
+long_description: |
+  GuardScore consumes canonical outputs from ComputeGuard, ComputeScan,
+  VectorGuard, PipelineGuard, and future pillars to produce a single,
+  deterministic GuardScore per tenant or workload. It enforces
+  WASM-compatible math, fixed precision, provenance tracking, and
+  reproducible explainability artifacts so downstream experiences (GuardBoard,
+  GuardScore API, ScoreBadge publisher) can trust the results. The engine
+  guards against drift, validates fixpack modifiers, and emits canonical
+  JSON/CBOR ready for immutable storage.
+
+purpose_summary: >
+  Provide a deterministic, auditable scoring model governing how GuardSuite
+  aggregates issues, weights pillars, applies fixpack modifiers, and signals
+  eligibility for GuardScore-powered products.
+
+marketing:
+  hero: "One deterministic GuardScore across every pillar."
+  blurbs:
+    - "Deterministic scoring and percentile math across OS/arch/runtime."
+    - "Explainable outputs with pillar weights, severity penalties, and drift data."
+    - "Badge-ready scoring contract trusted by GuardBoard and ScoreBadge."
+  ctas:
+    - text: "Understand GuardScore"
+      href: "/docs/guardscore"
+
+metadata:
+  version: "2026.02"
+  funnel_stage: toplevel_funnel
+  pricing_reference: "pricing/guardsuite_pricing.yml"
+  documentation_entrypoint: "docs/products/guardscore.md"
+  ux_goals:
+    - "Expose a single deterministic GuardScore for exec dashboards and APIs."
+    - "Provide explainability artifacts (pillars, severity math, drift signals)."
+    - "Guarantee badge readiness signals for GuardBoard and downstream products."
+
+governance:
+  spec_version: "2026.02"
+  last_reviewed: "2026-02-05"
+  owner: "GuardSuite Scoring Program"
+  stability_level: ga
+  invariants:
+    - "Scoring pipeline order must match guardsuite-template evaluator pipeline."
+    - "No nondeterministic IO (clock, randomness, locale, filesystem)."
+    - "All timestamps encoded as UTC ISO-8601 with Z suffix."
+    - "Hashing uses canonical_json_utf8 with sorted keys."
+
+related_products:
+  - computeguard
+  - computescan
+  - pipelineguard
+  - pipelinescan
+  - vectorguard
+  - vectorscan
+  - guardboard
+
+architecture:
+  core_dependency_id: "guardsuite-core@>=1.4.0,<2.0.0"
+  schema_source: "guardsuite-core/canonical_schema.json"
+  required_interfaces:
+    - "I_ScoringModel"
+    - "I_PercentileEngine"
+    - "I_BadgeEmitter"
+  boundary:
+    provided_by_template:
+      - evaluator_pipeline
+      - canonicalization
+      - canonical_schema_validation
+    provided_by_core:
+      - evaluator_primitives.so
+      - severity_mapping_core
+      - wasm_numeric_runtime
+    provided_by_guardscore:
+      - scoring_model
+      - percentile_engine
+      - drift_engine
+      - explainability_artifacts
+      - badge_engine
+  forbidden_overrides:
+    - severity_mapping_logic
+    - canonical_schema
+    - CLI core flags
+    - telemetry_contract
+
+governance_domains:
+  - deterministic_scoring
+  - artifact_provenance
+  - wasm_safety
+  - explainability
+  - drift_detection
+
+rule_categories:
+  - "Severity Normalization"
+  - "Pillar Weight Governance"
+  - "Fixpack Modifiers"
+  - "Percentile Modeling"
+  - "Badge Eligibility"
+
+features:
+  - id: GSC-010
+    title: "Deterministic Scoring Contract"
+    summary: "Fixed precision math, canonical hashing, and no nondeterministic IO."
+    included: true
+  - id: GSC-020
+    title: "Explainable Outputs"
+    summary: "Provides severity weight breakdowns, pillar contributions, and rule traces."
+    included: true
+  - id: GSC-030
+    title: "Drift + Percentile Engine"
+    summary: "Synthetic dataset + drift thresholds ensure percentile stability."
+    included: true
+
+fixpack:
+  included: false
+  reference_hint_format: "fixpack:<ISSUE_ID>"
+  surfaces_hints: true
+  modifier_contract:
+    cap_point_reduction: 0.40
+    numeric_contract: fixed_64
+    stage: post_aggregation
+    deterministic: true
+
+compliance:
+  compliance_ledger_enabled: true
+  ledger_visibility: "full"
+  required_artifacts:
+    - guardscore.json
+    - explainability.json
+    - badge.json
+  schema_validation_required: true
+
+cli:
+  base_command: "guardscore"
+  supported_flags:
+    - "--json"
+    - "--output json"
+    - "--quiet"
+  reserved_flags:
+    - "--stdin"
+
+api:
+  rest_endpoint: "https://api.shieldcraft-ai.com/guardscore"
+  auth: "GuardSuite API token"
+  response_contract: "guardscore/canonical_output.json"
+
+performance_constraints:
+  max_memory_mb: 256
+  expected_runtime_ms: 600
+  large_plan_runtime_ms: 1100
+  playground_runtime_ms: 220
+  quickscore_threshold_resources: 75
+  realtime_refresh_interval_ms: 60000
+
+ecosystem_integrations:
+  computeguard:
+    pillar_weight: 0.33
+    ingest_contract: "compute_guard_output.json"
+  vectorguard:
+    pillar_weight: 0.33
+    ingest_contract: "vector_guard_output.json"
+  pipelineguard:
+    pillar_weight: 0.34
+    ingest_contract: "pipeline_guard_output.json"
+  guardscore:
+    pillar_weight: 1.0
+    severity_penalties:
+      critical: 8
+      high: 5
+      medium: 3
+      low: 1
+      info: 0
+    produces_guardscore_artifacts: true
+    exposes_fixpack_hints: true
+  guardboard:
+    consumes_guardscore: true
+    exposes_percentile: true
+    exposes_fixpack_hints: false
+    shows_compliance_ledger: true
+    badge_preview_supported: true
+  playground:
+    wasm_safe: true
+    max_runtime_ms: 250
+    playground_latency_target_ms: 150
+    quick_score_mode: true
+    json_sanitize: true
+    svg_sanitize: true
+
+testing:
+  unit_tests_required: true
+  integration_tests_required: true
+  snapshot_schema_test: true
+  wasm_execution_required: true
+  deterministic_replay_tests: true
+  ci_jobs:
+    - validate_schema
+    - unit
+    - integration
+    - wasm
+
+versioning:
+  semver: true
+  spec_version: "2026.02"
+  scoring_version_policy:
+    severity_changes: minor
+    pillar_weight_changes: minor
+    scoring_semantics_changes: major
+    schema_changes: minor_or_major
+    synthetic_dataset_distribution_change: patch
+  abi:
+    supported_versions: [v1]
+    wasm_abi: "wasi_snapshot_preview1"
+    supported_arch: [x86_64, arm64]
+  compatibility_window_months: 12
+
+interoperability_conflicts:
+  - "Non-deterministic scoring plugins"
+  - "Unsigned synthetic datasets"
+
+future_extensions:
+  - "Additional pillar weight slots for DataGuard"
+  - "Signed percentile snapshots per tenant"
+  - "GuardScore-derived SLA alerts"
+
+security:
+  no_external_calls_at_runtime: true
+  sanitize_all_inputs: true
+  svg_sanitization: true
+  svg_sanitization_required: true
+  wasm_safe: true
+  wasm_compatible: true
+  deterministic_math: true
+  sandbox_requirement: "All GuardScore executions must run inside signed WASM evaluator sandboxes."
+  telemetry_redaction: ["tenant_id", "resource_id"]
+
+maintainers:
+  - name: "Deon Prinsloo"
+    role: "AI Solutions Architect"
+    contact: "deon@shieldcraft-ai.com"
+  - name: "GuardSuite Scoring Team"
+    role: "Product Owner"
+    contact: "guardscore@guardsuite.internal"
+
+release_metadata:
+  release_channel: "stable"
+  release_notes_url: "https://shieldcraft-ai.com/guardsuite/guardscore/releases/2.2.0"
+  published_date: "2026-02-05"
+
+references:
+  canonical_schema: "guardsuite-core/canonical_schema.json"
+  scoring_runbook: "docs/runbooks/guardscore.md"
+  template_spec: "templates/spec_page.md.j2"
+
+scoring_model:
+  severity_penalties:
+    critical: 8
+    high: 5
+    medium: 3
+    low: 1
+    info: 0
+  pillar_weights:
+    compute: 0.33
+    vector: 0.33
+    pipeline: 0.34
+  aggregation_formula: "sum(pillar_score * pillar_weight) + fixpack_modifier"
+  synthetic_dataset:
+    id: "syn-2026.01"
+    samples: 10000
+    distribution_hash: "sha256:abc123"
+    min_samples_per_tenant: 200
+  percentile_model:
+    algorithm: deterministic_cdf
+    tie_breaker: upper_bound
+    sparse_tenant_behavior: use_global_percentile
+  drift_detection:
+    threshold_percent: 0.15
+    windows: ["7d", "30d"]
+    deterministic: true
+  explainability:
+    required_fields:
+      - severity_weight_breakdown
+      - pillar_weight_breakdown
+      - rule_contribution_list_top_n
+      - normalization_steps
+      - synthetic_dataset_reference
+    rule_contribution_list_top_n: 10
+  numeric_contract:
+    precision: fixed_64
+    rounding_mode: round_half_away_from_zero
+    overflow_behavior: clamp_to_max
+
+badge_contract:
+  badges:
+    A: "p >= 0.90"
+    B: "0.75 <= p < 0.90"
+    C: "0.50 <= p < 0.75"
+    D: "0.25 <= p < 0.50"
+    E: "0.10 <= p < 0.25"
+    F: "p < 0.10"
+  svg_safety:
+    allowed_tags: [svg, g, path, rect, circle, text]
+    prohibited_tags: [script, foreignObject, iframe]
+    allowed_attributes: [d, fill, stroke, width, height, viewBox]
+    external_refs_prohibited: true
+    deterministic_rendering: true
+
+integration_points:
+  products_consuming:
+    - guardboard
+    - guardscore-api
+    - scorebadge
+  playground:
+    quick_score_mode_supported: true
+    exposes_fixpack_hints: true
+  dashboards:
+    - "exec_overview"
+    - "governance_review"
+
+owner: "GuardSuite Scoring Team"
+
+spec_yaml: "products/guardscore.yml"
+checklist_yaml: "docs/checklists/guardscore_checklist.yml"
+gpt_instructions_yaml: "templates/guardscore_instructions.yml"
+
+provenance:
+  - "Derived from GuardSuite scoring charter"
+  - "Aligned with guardsuite-template evaluator pipeline"
+
+products:
+  - guardscore
