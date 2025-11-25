@@ -1,0 +1,17 @@
+# Canonical Checklist Schema (Template)
+# Strategy-D will expand and finalize this structure.
+
+metadata:
+  product_id: ""
+  checklist_version: "1.0"
+  last_updated: ""
+  owner: ""
+
+build_requirements: []
+evaluator_requirements: []
+schema_requirements: []
+documentation_requirements: []
+fixpack_requirements: []
+testing_requirements: []
+artifacts: []
+acceptance_criteria: []

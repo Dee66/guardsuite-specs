@@ -1,0 +1,33 @@
+# Canonical Product Schema (Template)
+# Strategy-D will expand and finalize this structure.
+
+id: ""
+name: ""
+product_type: ""     # free_scanner | paid_blueprint | guard | engine | governance
+pillar: ""
+version: ""
+status: ""           # incubating | beta | production
+
+short_description: ""
+long_description: ""
+
+marketing:
+  hero: ""
+  blurbs: []
+  ctas: []
+
+metadata:
+  funnel_stage: ""
+  ux_goals: []
+  documentation_entrypoint: ""
+
+features: []
+architecture: {}
+governance: {}
+related_products: []
+
+release_metadata: {}
+maintainers: []
+provenance: []
+
+# Strategy-D: This template will be expanded with fields from the master spec.
