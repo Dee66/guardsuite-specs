@@ -1,17 +1,17 @@
-# AI-Dev Repository Scan Report (v25)
+# AI-Dev Repository Scan Report (v26)
 
-- Generated: 2025-11-25T20:09:49.595199+00:00
+- Generated: 2025-11-25T20:13:44.447437+00:00
 - Repo clean: yes
 - Untracked files: 0
 - Ignored entries (visible): 2
 
 ## Findings
 
-- Repo traversal honored ignore patterns (__pycache__/, *.pyc, .venv/, dist/, build/, site/, *.egg-info/, *.log).
-- Strategy-D controlled areas remain unchanged; no tracked or untracked drift detected.
-- Workspace diagnostics artifacts remain present; raw + rendered outputs verified.
-- Product demo scaffolding remains intact for every product; no missing files detected.
-- YAML validation summary plus error context provided below for rapid remediation.
+- Repo traversal honored ignore patterns (__pycache__/, *.pyc, .venv/, dist/, build/, site/, *.egg-info/, *.log, *.tmp).
+- Strategy-D controlled surfaces remain unmodified; tracked/untracked counts unchanged.
+- Workspace diagnostics artifacts stay present; latest raw + report outputs verified.
+- Product demo scaffolding remains intact; every demo set matches expected files.
+- YAML validation summary plus error context/recommendations included for remediation planning.
 
 ## Git Status Summary
 
@@ -194,6 +194,12 @@
     0263: 
     0264:   # ============================================================
       column: 9
+
+## YAML Error Recommendations
+
+- `products/guardsuite-specs/checklist/checklist.yml`: Fix indentation or ensure previous key is terminated before adding new mapping entry. (line 129)
+- `products/pipelinescan/metadata/product.yml`: Fix indentation or ensure previous key is terminated before adding new mapping entry. (line 127)
+- `products/vectorscan/checklist/checklist.yml`: Close the preceding mapping/list (add proper indentation or remove stray braces). (line 262)
 
 ## Category Listings
 
@@ -738,6 +744,6 @@
 
 ## Readiness for Next Strategy-D Phase
 
-- Repo remains clean; only `.logs/ai-dev-report-latest.md` updated for v25 instructions.
-- Ignore filters now include egg-info + log artifacts, keeping scan deterministic.
-- YAML error snippets attached for rapid repairs ahead of next validation cycle.
+- Repo remains clean; only `.logs/ai-dev-report-latest.md` updated for v26 instructions.
+- Ignore set expanded with *.tmp to keep scan deterministic and noise-free.
+- YAML remediation guidance now pairs context + recommendation per failing file.
