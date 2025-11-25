@@ -1,17 +1,17 @@
-# AI-Dev Repository Scan Report (v24)
+# AI-Dev Repository Scan Report (v25)
 
-- Generated: 2025-11-25T20:03:06.323248+00:00
+- Generated: 2025-11-25T20:09:49.595199+00:00
 - Repo clean: yes
 - Untracked files: 0
 - Ignored entries (visible): 2
 
 ## Findings
 
-- Repo traversal honored ignore patterns (__pycache__/, *.pyc, dist/, build/, site/, .venv/).
-- No tracked or untracked modifications detected in Strategy-D controlled surfaces.
-- Workspace diagnostics artifacts remain present; raw + report outputs verified.
-- Product demo scaffolding still complete for every product; no drift detected.
-- YAML validation summary included below for schema + product assets.
+- Repo traversal honored ignore patterns (__pycache__/, *.pyc, .venv/, dist/, build/, site/, *.egg-info/, *.log).
+- Strategy-D controlled areas remain unchanged; no tracked or untracked drift detected.
+- Workspace diagnostics artifacts remain present; raw + rendered outputs verified.
+- Product demo scaffolding remains intact for every product; no missing files detected.
+- YAML validation summary plus error context provided below for rapid remediation.
 
 ## Git Status Summary
 
@@ -144,7 +144,7 @@
 | `products/guardscore/metadata/product.yml` | yes | valid |
 | `products/guardsuite-core/checklist/checklist.yml` | yes | valid |
 | `products/guardsuite-core/metadata/product.yml` | yes | valid |
-| `products/guardsuite-specs/checklist/checklist.yml` | no | mapping values are not allowed here   in "/home/dee/workspace/AI/GuardSuite/guardsuite-specs/products/guardsuite-specs/checklist/checklist.yml", line 129, column 11 |
+| `products/guardsuite-specs/checklist/checklist.yml` | no | mapping values are not allowed here   in "<unicode string>", line 129, column 11:           desc: list products (paginated)               ^ |
 | `products/guardsuite-specs/metadata/product.yml` | yes | valid |
 | `products/guardsuite-template/checklist/checklist.yml` | yes | valid |
 | `products/guardsuite-template/metadata/product.yml` | yes | valid |
@@ -153,12 +153,12 @@
 | `products/pipelineguard/checklist/checklist.yml` | yes | valid |
 | `products/pipelineguard/metadata/product.yml` | yes | valid |
 | `products/pipelinescan/checklist/checklist.yml` | yes | valid |
-| `products/pipelinescan/metadata/product.yml` | no | mapping values are not allowed here   in "/home/dee/workspace/AI/GuardSuite/guardsuite-specs/products/pipelinescan/metadata/product.yml", line 127, column 68 |
+| `products/pipelinescan/metadata/product.yml` | no | mapping values are not allowed here   in "<unicode string>", line 127, column 68:      ...  (scanner sets provenance_source: "scanner_unverified")                                          ^ |
 | `products/playground/checklist/checklist.yml` | yes | valid |
 | `products/playground/metadata/product.yml` | yes | valid |
 | `products/vectorguard/checklist/checklist.yml` | yes | valid |
 | `products/vectorguard/metadata/product.yml` | yes | valid |
-| `products/vectorscan/checklist/checklist.yml` | no | while parsing a block mapping   in "/home/dee/workspace/AI/GuardSuite/guardsuite-specs/products/vectorscan/checklist/checklist.yml", line 257, column 9 expected <block end>, but found '}'   in "/home/dee/workspace/AI/GuardSuite/guardsuite-specs/products/vectorscan/checklist/checklist.yml", line 262, column 9 |
+| `products/vectorscan/checklist/checklist.yml` | no | while parsing a block mapping   in "<unicode string>", line 257, column 9:           - CLI-006: exit_code_mapping_valid({             ^ expected <block end>, but found '}'   in "<unicode string>", line 262, column 9:             })             ^ |
 | `products/vectorscan/metadata/product.yml` | yes | valid |
 | `schemas/bootstrap_schema.yml` | yes | valid |
 | `schemas/checklist_schema.yml` | yes | valid |
@@ -168,6 +168,32 @@
 | `templates/checklist_schema/checklist_schema.yml` | yes | valid |
 | `templates/product_schema/product_schema.yml` | yes | valid |
 | `workspace/strategy_d/checklist_gap_summary.yaml` | yes | valid |
+
+## YAML Error Context
+
+- `products/guardsuite-specs/checklist/checklist.yml`
+    0127:   endpoints:
+    0128:     - GET  /products
+  > 0129:       desc: list products (paginated)
+    0130:       auth: reader
+    0131:     - POST /products
+      column: 11
+
+- `products/pipelinescan/metadata/product.yml`
+    0125:     rules:
+    0126:       - if_provenance_present: validate_signature_if_present
+  > 0127:       - missing_provenance: allowed (scanner sets provenance_source: "scanner_unverified")
+    0128:   export_bundle_contract:
+    0129:     required_fields:
+      column: 68
+
+- `products/vectorscan/checklist/checklist.yml`
+    0260:           SCHEMA_ERROR:4,
+    0261:           PARTIAL_INPUT_ERROR:5
+  > 0262:         })
+    0263: 
+    0264:   # ============================================================
+      column: 9
 
 ## Category Listings
 
@@ -712,6 +738,6 @@
 
 ## Readiness for Next Strategy-D Phase
 
-- Repo remains clean; only this report changed for v24 instructions.
-- Ignore filters eliminated build artifacts while preserving required visibility into repo state.
-- YAML validation confirms schemas + product metadata/checklists parse cleanly under safe loader.
+- Repo remains clean; only `.logs/ai-dev-report-latest.md` updated for v25 instructions.
+- Ignore filters now include egg-info + log artifacts, keeping scan deterministic.
+- YAML error snippets attached for rapid repairs ahead of next validation cycle.
