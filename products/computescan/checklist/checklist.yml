@@ -1,517 +1,452 @@
-# products/computescan/checklist/checklist.yml
-# Strategy-D canonical checklist for ComputeScan
-
 metadata:
   product_id: computescan
-  checklist_version: "2025.11"
-  last_updated: "2025-11-25T00:00:00Z"
-  owner: "GuardSuite Platform Team"
+  checklist_version: '2025.11'
+  last_updated: '2025-11-25T00:00:00Z'
+  owner: GuardSuite Platform Team
   stability: ga
+states: {}
+phases:
+- phase: initialization_repo_bootstrap
+  items:
+  - id: INIT-001
+    title: Verify repository structure
+    tasks:
+    - 'Ensure required directories exist: src/, schemas/, adapters/, config/scan_profiles/,
+      tests/, docs/, ci/'
+    - Verify repo contains required metadata files (pyproject, README, etc.)
+  - id: INIT-002
+    title: Install dependencies
+    tasks:
+    - poetry install must succeed without errors
+    - Add local dev-shim for guardsuite-core under dev-shims/core (mock issue model,
+      serializer, error helpers)
+  - id: INIT-003
+    title: Add spec + manifest
+    tasks:
+    - Add repos/computescan/spec.yml
+    - Add product manifest artifact (compute metadata, version pinning)
+  - id: INIT-004
+    title: Validate directory conventions
+    tasks:
+    - schemas/ only has schema files
+    - adapters/ contains only adapter implementations
+    - config/scan_profiles/ contains fast.yml + full.yml
+    - tests/snapshots/{fast,full}/ structure validated
+    - preview output under artifacts/previews allowed only
+- phase: schema_implementation
+  items:
+  - id: SCHEMA-001
+    title: Implement scanner_output_schema
+    tasks:
+    - Define canonical finding structure
+    - Add metadata fields (resource_id, rule_id, severity, message, metadata)
+    - Validate against schema with representative sample
+  - id: SCHEMA-002
+    title: Implement cli_output.json
+    tasks:
+    - Define canonical CLI JSON response contract
+    - Include explain-mode field mapping
+  - id: SCHEMA-003
+    title: Implement cli_error.json + exit-code mapping
+    tasks:
+    - Implement JSON schema for errors
+    - 'Add deterministic mapping:
 
-structure_requirements:
-  - id: STRUCT-CS-001
-    description: "Maintain all 15 phases defined in the ComputeScan master checklist in canonical order."
+      VALIDATION_ERROR=2, RUNTIME_ERROR=3, SCHEMA_ERROR=4, FILESYSTEM_ERROR=5
+
+      '
+  - id: SCHEMA-004
+    title: Implement scan_profile_schema.yml
+    tasks:
+    - 'Required fields: id, runtime_target_ms, memory_cap_mb, resource_limit, checks[]'
+    - Validate fast.yml + full.yml against this schema
+  - id: SCHEMA-005
+    title: Implement snapshot_normalization_schema
+    tasks:
+    - Define path-stripping, timestamp removal, OS-normalization rules
+- phase: pipeline_contract
+  items:
+  - id: PIPE-001
+    title: 'Implement stage: load_profile'
+    tasks:
+    - Load YAML from config/scan_profiles/<profile>.yml
+    - Validate against scan_profile_schema.yml
+  - id: PIPE-002
+    title: 'Implement stage: initialize_context'
+    tasks:
+    - Init metric counters
+    - Init timing, memory profiler
+    - Init canonical context
+  - id: PIPE-003
+    title: 'Implement stage: discover_resources'
+    tasks:
+    - Use adapter discover() implementation
+    - Respect profile.resource_limit
+  - id: PIPE-004
+    title: 'Implement stage: gather_metadata'
+    tasks:
+    - Pull instance sizing, GPU details, telemetry, tags
+    - Apply adapter capability manifest validation
+  - id: PIPE-005
+    title: 'Implement stage: evaluate_rules'
+    tasks:
+    - Evaluate rules via evaluate(resource) -> Finding|None
+    - Apply rule_evaluation_contract invariants
+    - Ensure deterministic traversal ordering
+  - id: PIPE-006
+    title: 'Implement stage: canonicalize'
+    tasks:
+    - Apply canonical sorting (resource_type, resource_id, severity, rule_id)
+    - Ensure stable field ordering
+  - id: PIPE-007
+    title: 'Implement stage: snapshot_normalize'
+    tasks:
+    - Strip timestamps, paths, OS-specific fields
+    - Normalize separators
+  - id: PIPE-008
+    title: 'Implement stage: emit_output'
+    tasks:
+    - Render JSON via cli_output.json schema
+    - Output explain-mode content
+    - Write preview artifacts (if requested)
+- phase: adapter_implementation
+  items:
+  - id: ADAPT-001
+    title: Implement adapter interface
+    tasks:
+    - discover()
+    - fetch_metadata()
+    - capability_manifest()
+  - id: ADAPT-002
+    title: Implement AWS adapter
+    tasks:
+    - Discover EC2 instances
+    - Fetch CPU, memory, GPU, telemetry fields
+    - Provide capability_manifest
+  - id: ADAPT-003
+    title: Implement GCP adapter
+    tasks:
+    - Discover GCE instances
+    - Fetch CPU, memory, GPU, telemetry fields
+    - Provide capability_manifest
+  - id: ADAPT-004
+    title: Adapter capability tests
+    tasks:
+    - Verify required capabilities exist (cpu_info, memory_info)
+    - GPU and telemetry optional
+    - Fail CI if adapters do not match capability matrix
+- phase: rule_engine
+  items:
+  - id: RULE-001
+    title: Implement rule evaluation contract
+    tasks:
+    - rule_id, severity, title, description
+    - evaluate(resource) -> Finding | None
+    - telemetry_required, gpu_required fields supported
+  - id: RULE-002
+    title: Implement base rule bundle
+    tasks:
+    - Seed rule-category coverage
+    - Add fixture tests
+  - id: RULE-003
+    title: Implement severity coverage test
+    tasks:
+    - Ensure rules emit >= 4 severities for snapshot breadth
+  - id: RULE-004
+    title: Rule to profile check alignment
+    tasks:
+    - Verify profile.checks list includes rules used in those stages
+- phase: profiles
+  items:
+  - id: PROF-001
+    title: Create fast.yml profile
+    tasks:
+    - Implement fast profile YAML
+    - Validate via schema
+    - Add snapshot baseline
+  - id: PROF-002
+    title: Create full.yml profile
+    tasks:
+    - Add deep checks list
+    - Add permitted side-effects (preview_dry_run)
+    - Add snapshot baseline
+  - id: PROF-003
+    title: Profile determinism tests
+    tasks:
+    - Run 3x snapshot runs
+    - Hash equality required
+- phase: cli_implementation
+  items:
+  - id: CLI-001
+    title: Implement base command
+    tasks:
+    - computescan
+    - computescan scan
+  - id: CLI-002
+    title: Implement flags
+    tasks:
+    - --profile <name>
+    - --json
+    - --quiet
+    - --stdin
+    - --explain
+  - id: CLI-003
+    title: Implement error-code mapping
+    tasks:
+    - Map errors to exit codes from error_code_mapping
+  - id: CLI-004
+    title: CLI help contract test
+    tasks:
+    - Validate canonical ordered output
+    - Validate machine parsability
+- phase: fixpack_preview
+  items:
+  - id: PREV-001
+    title: Implement preview generator
+    tasks:
+    - diff generation
+    - confidence scoring
+    - normalized_patch formatting
+  - id: PREV-002
+    title: Implement preview dry-run mode
+    tasks:
+    - No side-effects allowed
+    - Must obey preview_schema.yml
+  - id: PREV-003
+    title: Snapshot tests for preview output
+    tasks:
+    - Validate determinism normalization
+    - Store snapshots under tests/snapshots/profile
+- phase: determinism_normalization
+  items:
+  - id: DET-001
+    title: Implement canonical sorting
+    tasks:
+    - Sort by resource_type, resource_id, severity, rule_id
+  - id: DET-002
+    title: Implement cross-machine normalization
+    tasks:
+    - Strip absolute paths
+    - Normalize separators
+    - Remove platform metadata
+  - id: DET-003
+    title: Implement 3-run determinism test
+    tasks:
+    - Fast profile (3 runs)
+    - Full profile (3 runs)
+    - Hash equality required
+- phase: performance_pipeline
+  items:
+  - id: PERF-001
+    title: Implement perf dataset
+    tasks:
+    - Add representative dataset under tests/data/perf/
+  - id: PERF-002
+    title: Perf regression tests
+    tasks:
+    - fast <= 300ms
+    - full <= 1200ms
+  - id: PERF-003
+    title: Memory consumption tests
+    tasks:
+    - fast <= 120MB
+    - full <= 180MB
+- phase: observability
+  items:
+  - id: OBS-001
+    title: Implement metrics
+    tasks:
+    - scan_runs_total{profile}
+    - scan_duration_seconds{profile}
+    - resources_discovered_total{profile}
+    - scan_errors_total{profile,error_type}
+  - id: OBS-002
+    title: Implement logs
+    tasks:
+    - structured JSON logs
+    - redact sensitive fields
+  - id: OBS-003
+    title: Tracing hooks
+    tasks:
+    - trace preview and bootstrap stages
+- phase: security_controls
+  items:
+  - id: SEC-001
+    title: Sandbox compatibility
+    tasks:
+    - WASM-friendly code path
+    - No forbidden imports
+  - id: SEC-002
+    title: Input sanitization
+    tasks:
+    - Sanitize rule metadata
+    - Sanitize preview patches
+  - id: SEC-003
+    title: Safe error reporting
+    tasks:
+    - No host paths, tokens, account IDs leaked
+- phase: ci_cd_quality
+  items:
+  - id: CI-001
+    title: CI pipeline scaffolding
+    tasks:
+    - validate_schema
+    - unit
+    - integration
+    - snapshot_conformance
+    - perf_regression
+  - id: CI-002
+    title: Forbidden overrides enforcement
+    tasks:
+    - Add static check preventing forbidden overrides
+  - id: CI-003
+    title: Spec to checklist to instructions alignment
+    tasks:
+    - Ensure three-way consistency per guard-specs
+- phase: documentation
+  items:
+  - id: DOC-001
+    title: Create getting_started.md
+    tasks:
+    - Installation
+    - Basic usage
+    - Profile selection
+  - id: DOC-002
+    title: Create scan_profiles.md
+    tasks:
+    - fast vs full
+    - creating new profiles
+    - determinism rules
+  - id: DOC-003
+    title: Create adapter_guide.md
+    tasks:
+    - Adapter interface
+    - capability_manifest rules
+    - example walk-through
+  - id: DOC-004
+    title: Create determinism_runbook.md
+    tasks:
+    - Running snapshot tests
+    - Debugging normalization
+- phase: acceptance_gates
+  items:
+  - id: ACPT-001
+    title: Schema validation must pass
+    tasks:
+    - All schemas validate against local schema validator
+  - id: ACPT-002
+    title: All tests must pass
+    tasks:
+    - Unit, integration, snapshot, perf
+  - id: ACPT-003
+    title: Snapshot determinism
+    tasks:
+    - All profiles must pass 3-run snapshot tests
+  - id: ACPT-004
+    title: CI performance gates
+    tasks:
+    - fast and full profiles within budget
+  - id: ACPT-005
+    title: Documentation completeness
+    tasks:
+    - All docs present and reviewed
+items: []
+x_legacy:
+  acceptance_criteria:
+  - id: ACPT-CS-001
+    description: All schemas validate against local schema validator.
     required: true
-  - id: STRUCT-CS-002
-    description: "Each checklist item must retain its id, title, and task list as authored in the spec."
+  - id: ACPT-CS-002
+    description: All tests (unit, integration, snapshot, perf) must pass.
     required: true
-
-documentation_requirements:
-  readme_required: true
-  product_docs_required: true
-  api_reference_required: true
-  examples_required: true
-  changelog_required: true
-  release_notes_required: true
-
-schema_requirements:
-  canonical_schema_required: true
-  metadata_schema_required: true
-  provenance_schema_required: false
-  fragment_schemas_required: true
-  additional_schemas:
+  - id: ACPT-CS-003
+    description: All profiles pass the 3-run snapshot determinism suite.
+    required: true
+  - id: ACPT-CS-004
+    description: CI performance gates for fast and full profiles remain within budget.
+    required: true
+  - id: ACPT-CS-005
+    description: Documentation set (getting started, profiles, adapter guide, determinism
+      runbook) is complete and reviewed.
+    required: true
+  artifacts:
+    required_files:
     - schemas/scanner_output_schema.json
     - schemas/cli_output.json
     - schemas/cli_error.json
     - schemas/scan_profile_schema.yml
     - schemas/snapshot_normalization_schema.yml
-
-evaluator_requirements:
-  pipeline_must_match_template: true
-  canonicalization_required: true
-  wasm_safety_required: true
-  deterministic_output_required: true
-  timestamp_normalization_required: true
-  prohibited_overrides:
-    - canonical.output_contract
-    - evaluator.runtime_override
-
-fixpack_requirements:
-  fixpack_catalog_required: false
-  fixpack_metadata_required: false
-  difficulty_taxonomy_required: false
-  patch_hashing_required: false
-  remediation_examples_required: false
-
-testing_requirements:
-  unit_tests_required: true
-  integration_tests_required: true
-  snapshot_tests_required: true
-  parity_tests_required: true
-  wasm_tests_required: true
-  schema_validation_tests_required: true
-  performance_tests_required: true
-  minimum_coverage_percent: 80
-
-artifacts:
-  required_files:
-    - schemas/scanner_output_schema.json
-    - schemas/cli_output.json
-    - schemas/cli_error.json
-    - schemas/scan_profile_schema.yml
-    - schemas/snapshot_normalization_schema.yml
-  required_directories:
+    required_directories:
     - adapters
     - config/scan_profiles
     - tests/snapshots
     - docs
-  build_outputs:
+    build_outputs:
     - artifacts/previews
-
-acceptance_criteria:
-  - id: ACPT-CS-001
-    description: "All schemas validate against local schema validator."
-    required: true
-  - id: ACPT-CS-002
-    description: "All tests (unit, integration, snapshot, perf) must pass."
-    required: true
-  - id: ACPT-CS-003
-    description: "All profiles pass the 3-run snapshot determinism suite."
-    required: true
-  - id: ACPT-CS-004
-    description: "CI performance gates for fast and full profiles remain within budget."
-    required: true
-  - id: ACPT-CS-005
-    description: "Documentation set (getting started, profiles, adapter guide, determinism runbook) is complete and reviewed."
-    required: true
-
-cross_product_dependencies:
-  depends_on_products:
+  cross_product_dependencies:
+    depends_on_products:
     - computeguard
     - guardscore
     - guardboard
-  depends_on_schemas:
+    depends_on_schemas:
     - guardsuite-core/canonical_schema.json
-  depends_on_pipeline: true
-
-provenance:
-  - "Checklist derived from Strategy-D canonical model for GuardSuite scanners."
-  - "Aligned with ComputeScan master spec requirements."
-
-id: computescan_checklist
-version: "2025.11"
-product: computescan
-pillar: compute
-spec_source: "products/computescan/metadata/product.yml"
-
-phases:
-
-  # ======================================================================
-  # 1. INITIALIZATION & REPO BOOTSTRAP
-  # ======================================================================
-  - phase: initialization_repo_bootstrap
-    items:
-      - id: INIT-001
-        title: "Verify repository structure"
-        tasks:
-          - "Ensure required directories exist: src/, schemas/, adapters/, config/scan_profiles/, tests/, docs/, ci/"
-          - "Verify repo contains required metadata files (pyproject, README, etc.)"
-      - id: INIT-002
-        title: "Install dependencies"
-        tasks:
-          - "poetry install must succeed without errors"
-          - "Add local dev-shim for guardsuite-core under dev-shims/core (mock issue model, serializer, error helpers)"
-      - id: INIT-003
-        title: "Add spec + manifest"
-        tasks:
-          - "Add repos/computescan/spec.yml"
-          - "Add product manifest artifact (compute metadata, version pinning)"
-      - id: INIT-004
-        title: "Validate directory conventions"
-        tasks:
-          - "schemas/ only has schema files"
-          - "adapters/ contains only adapter implementations"
-          - "config/scan_profiles/ contains fast.yml + full.yml"
-          - "tests/snapshots/{fast,full}/ structure validated"
-          - "preview output under artifacts/previews allowed only"
-
-  # ======================================================================
-  # 2. SCHEMA IMPLEMENTATION
-  # ======================================================================
-  - phase: schema_implementation
-    items:
-      - id: SCHEMA-001
-        title: "Implement scanner_output_schema"
-        tasks:
-          - "Define canonical finding structure"
-          - "Add metadata fields (resource_id, rule_id, severity, message, metadata)"
-          - "Validate against schema with representative sample"
-      - id: SCHEMA-002
-        title: "Implement cli_output.json"
-        tasks:
-          - "Define canonical CLI JSON response contract"
-          - "Include explain-mode field mapping"
-      - id: SCHEMA-003
-        title: "Implement cli_error.json + exit-code mapping"
-        tasks:
-          - "Implement JSON schema for errors"
-          - |
-            Add deterministic mapping:
-            VALIDATION_ERROR=2, RUNTIME_ERROR=3, SCHEMA_ERROR=4, FILESYSTEM_ERROR=5
-      - id: SCHEMA-004
-        title: "Implement scan_profile_schema.yml"
-        tasks:
-          - "Required fields: id, runtime_target_ms, memory_cap_mb, resource_limit, checks[]"
-          - "Validate fast.yml + full.yml against this schema"
-      - id: SCHEMA-005
-        title: "Implement snapshot_normalization_schema"
-        tasks:
-          - "Define path-stripping, timestamp removal, OS-normalization rules"
-
-  # ======================================================================
-  # 3. PIPELINE CONTRACT IMPLEMENTATION
-  # ======================================================================
-  - phase: pipeline_contract
-    items:
-      - id: PIPE-001
-        title: "Implement stage: load_profile"
-        tasks:
-          - "Load YAML from config/scan_profiles/<profile>.yml"
-          - "Validate against scan_profile_schema.yml"
-      - id: PIPE-002
-        title: "Implement stage: initialize_context"
-        tasks:
-          - "Init metric counters"
-          - "Init timing, memory profiler"
-          - "Init canonical context"
-      - id: PIPE-003
-        title: "Implement stage: discover_resources"
-        tasks:
-          - "Use adapter discover() implementation"
-          - "Respect profile.resource_limit"
-      - id: PIPE-004
-        title: "Implement stage: gather_metadata"
-        tasks:
-          - "Pull instance sizing, GPU details, telemetry, tags"
-          - "Apply adapter capability manifest validation"
-      - id: PIPE-005
-        title: "Implement stage: evaluate_rules"
-        tasks:
-          - "Evaluate rules via evaluate(resource) -> Finding|None"
-          - "Apply rule_evaluation_contract invariants"
-          - "Ensure deterministic traversal ordering"
-      - id: PIPE-006
-        title: "Implement stage: canonicalize"
-        tasks:
-          - "Apply canonical sorting (resource_type, resource_id, severity, rule_id)"
-          - "Ensure stable field ordering"
-      - id: PIPE-007
-        title: "Implement stage: snapshot_normalize"
-        tasks:
-          - "Strip timestamps, paths, OS-specific fields"
-          - "Normalize separators"
-      - id: PIPE-008
-        title: "Implement stage: emit_output"
-        tasks:
-          - "Render JSON via cli_output.json schema"
-          - "Output explain-mode content"
-          - "Write preview artifacts (if requested)"
-
-  # ======================================================================
-  # 4. ADAPTER IMPLEMENTATION (AWS, GCP)
-  # ======================================================================
-  - phase: adapter_implementation
-    items:
-      - id: ADAPT-001
-        title: "Implement adapter interface"
-        tasks:
-          - "discover()"
-          - "fetch_metadata()"
-          - "capability_manifest()"
-      - id: ADAPT-002
-        title: "Implement AWS adapter"
-        tasks:
-          - "Discover EC2 instances"
-          - "Fetch CPU, memory, GPU, telemetry fields"
-          - "Provide capability_manifest"
-      - id: ADAPT-003
-        title: "Implement GCP adapter"
-        tasks:
-          - "Discover GCE instances"
-          - "Fetch CPU, memory, GPU, telemetry fields"
-          - "Provide capability_manifest"
-      - id: ADAPT-004
-        title: "Adapter capability tests"
-        tasks:
-          - "Verify required capabilities exist (cpu_info, memory_info)"
-          - "GPU and telemetry optional"
-          - "Fail CI if adapters do not match capability matrix"
-
-  # ======================================================================
-  # 5. RULE ENGINE IMPLEMENTATION
-  # ======================================================================
-  - phase: rule_engine
-    items:
-      - id: RULE-001
-        title: "Implement rule evaluation contract"
-        tasks:
-          - "rule_id, severity, title, description"
-          - "evaluate(resource) -> Finding | None"
-          - "telemetry_required, gpu_required fields supported"
-      - id: RULE-002
-        title: "Implement base rule bundle"
-        tasks:
-          - "Seed rule-category coverage"
-          - "Add fixture tests"
-      - id: RULE-003
-        title: "Implement severity coverage test"
-        tasks:
-          - "Ensure rules emit >= 4 severities for snapshot breadth"
-      - id: RULE-004
-        title: "Rule to profile check alignment"
-        tasks:
-          - "Verify profile.checks list includes rules used in those stages"
-
-  # ======================================================================
-  # 6. PROFILES (FAST + FULL)
-  # ======================================================================
-  - phase: profiles
-    items:
-      - id: PROF-001
-        title: "Create fast.yml profile"
-        tasks:
-          - "Implement fast profile YAML"
-          - "Validate via schema"
-          - "Add snapshot baseline"
-      - id: PROF-002
-        title: "Create full.yml profile"
-        tasks:
-          - "Add deep checks list"
-          - "Add permitted side-effects (preview_dry_run)"
-          - "Add snapshot baseline"
-      - id: PROF-003
-        title: "Profile determinism tests"
-        tasks:
-          - "Run 3x snapshot runs"
-          - "Hash equality required"
-
-  # ======================================================================
-  # 7. CLI IMPLEMENTATION
-  # ======================================================================
-  - phase: cli_implementation
-    items:
-      - id: CLI-001
-        title: "Implement base command"
-        tasks:
-          - "computescan"
-          - "computescan scan"
-      - id: CLI-002
-        title: "Implement flags"
-        tasks:
-          - "--profile <name>"
-          - "--json"
-          - "--quiet"
-          - "--stdin"
-          - "--explain"
-      - id: CLI-003
-        title: "Implement error-code mapping"
-        tasks:
-          - "Map errors to exit codes from error_code_mapping"
-      - id: CLI-004
-        title: "CLI help contract test"
-        tasks:
-          - "Validate canonical ordered output"
-          - "Validate machine parsability"
-
-  # ======================================================================
-  # 8. FIXPACK PREVIEW (DRY-RUN)
-  # ======================================================================
-  - phase: fixpack_preview
-    items:
-      - id: PREV-001
-        title: "Implement preview generator"
-        tasks:
-          - "diff generation"
-          - "confidence scoring"
-          - "normalized_patch formatting"
-      - id: PREV-002
-        title: "Implement preview dry-run mode"
-        tasks:
-          - "No side-effects allowed"
-          - "Must obey preview_schema.yml"
-      - id: PREV-003
-        title: "Snapshot tests for preview output"
-        tasks:
-          - "Validate determinism normalization"
-          - "Store snapshots under tests/snapshots/profile"
-
-  # ======================================================================
-  # 9. DETERMINISM, SNAPSHOTS AND NORMALIZATION
-  # ======================================================================
-  - phase: determinism_normalization
-    items:
-      - id: DET-001
-        title: "Implement canonical sorting"
-        tasks:
-          - "Sort by resource_type, resource_id, severity, rule_id"
-      - id: DET-002
-        title: "Implement cross-machine normalization"
-        tasks:
-          - "Strip absolute paths"
-          - "Normalize separators"
-          - "Remove platform metadata"
-      - id: DET-003
-        title: "Implement 3-run determinism test"
-        tasks:
-          - "Fast profile (3 runs)"
-          - "Full profile (3 runs)"
-          - "Hash equality required"
-
-  # ======================================================================
-  # 10. PERFORMANCE PIPELINE
-  # ======================================================================
-  - phase: performance_pipeline
-    items:
-      - id: PERF-001
-        title: "Implement perf dataset"
-        tasks:
-          - "Add representative dataset under tests/data/perf/"
-      - id: PERF-002
-        title: "Perf regression tests"
-        tasks:
-          - "fast <= 300ms"
-          - "full <= 1200ms"
-      - id: PERF-003
-        title: "Memory consumption tests"
-        tasks:
-          - "fast <= 120MB"
-          - "full <= 180MB"
-
-  # ======================================================================
-  # 11. OBSERVABILITY
-  # ======================================================================
-  - phase: observability
-    items:
-      - id: OBS-001
-        title: "Implement metrics"
-        tasks:
-          - "scan_runs_total{profile}"
-          - "scan_duration_seconds{profile}"
-          - "resources_discovered_total{profile}"
-          - "scan_errors_total{profile,error_type}"
-      - id: OBS-002
-        title: "Implement logs"
-        tasks:
-          - "structured JSON logs"
-          - "redact sensitive fields"
-      - id: OBS-003
-        title: "Tracing hooks"
-        tasks:
-          - "trace preview and bootstrap stages"
-
-  # ======================================================================
-  # 12. SECURITY CONTROLS
-  # ======================================================================
-  - phase: security_controls
-    items:
-      - id: SEC-001
-        title: "Sandbox compatibility"
-        tasks:
-          - "WASM-friendly code path"
-          - "No forbidden imports"
-      - id: SEC-002
-        title: "Input sanitization"
-        tasks:
-          - "Sanitize rule metadata"
-          - "Sanitize preview patches"
-      - id: SEC-003
-        title: "Safe error reporting"
-        tasks:
-          - "No host paths, tokens, account IDs leaked"
-
-  # ======================================================================
-  # 13. CI/CD AND QUALITY GATES
-  # ======================================================================
-  - phase: ci_cd_quality
-    items:
-      - id: CI-001
-        title: "CI pipeline scaffolding"
-        tasks:
-          - "validate_schema"
-          - "unit"
-          - "integration"
-          - "snapshot_conformance"
-          - "perf_regression"
-      - id: CI-002
-        title: "Forbidden overrides enforcement"
-        tasks:
-          - "Add static check preventing forbidden overrides"
-      - id: CI-003
-        title: "Spec to checklist to instructions alignment"
-        tasks:
-          - "Ensure three-way consistency per guard-specs"
-
-  # ======================================================================
-  # 14. DOCUMENTATION
-  # ======================================================================
-  - phase: documentation
-    items:
-      - id: DOC-001
-        title: "Create getting_started.md"
-        tasks:
-          - "Installation"
-          - "Basic usage"
-          - "Profile selection"
-      - id: DOC-002
-        title: "Create scan_profiles.md"
-        tasks:
-          - "fast vs full"
-          - "creating new profiles"
-          - "determinism rules"
-      - id: DOC-003
-        title: "Create adapter_guide.md"
-        tasks:
-          - "Adapter interface"
-          - "capability_manifest rules"
-          - "example walk-through"
-      - id: DOC-004
-        title: "Create determinism_runbook.md"
-        tasks:
-          - "Running snapshot tests"
-          - "Debugging normalization"
-
-  # ======================================================================
-  # 15. ACCEPTANCE GATES
-  # ======================================================================
-  - phase: acceptance_gates
-    items:
-      - id: ACPT-001
-        title: "Schema validation must pass"
-        tasks:
-          - "All schemas validate against local schema validator"
-      - id: ACPT-002
-        title: "All tests must pass"
-        tasks:
-          - "Unit, integration, snapshot, perf"
-      - id: ACPT-003
-        title: "Snapshot determinism"
-        tasks:
-          - "All profiles must pass 3-run snapshot tests"
-      - id: ACPT-004
-        title: "CI performance gates"
-        tasks:
-          - "fast and full profiles within budget"
-      - id: ACPT-005
-        title: "Documentation completeness"
-        tasks:
-          - "All docs present and reviewed"
+    depends_on_pipeline: true
+  documentation_requirements:
+    readme_required: true
+    product_docs_required: true
+    api_reference_required: true
+    examples_required: true
+    changelog_required: true
+    release_notes_required: true
+  evaluator_requirements:
+    pipeline_must_match_template: true
+    canonicalization_required: true
+    wasm_safety_required: true
+    deterministic_output_required: true
+    timestamp_normalization_required: true
+    prohibited_overrides:
+    - canonical.output_contract
+    - evaluator.runtime_override
+  fixpack_requirements:
+    fixpack_catalog_required: false
+    fixpack_metadata_required: false
+    difficulty_taxonomy_required: false
+    patch_hashing_required: false
+    remediation_examples_required: false
+  id: computescan_checklist
+  pillar: compute
+  product: computescan
+  provenance:
+  - Checklist derived from Strategy-D canonical model for GuardSuite scanners.
+  - Aligned with ComputeScan master spec requirements.
+  schema_requirements:
+    canonical_schema_required: true
+    metadata_schema_required: true
+    provenance_schema_required: false
+    fragment_schemas_required: true
+    additional_schemas:
+    - schemas/scanner_output_schema.json
+    - schemas/cli_output.json
+    - schemas/cli_error.json
+    - schemas/scan_profile_schema.yml
+    - schemas/snapshot_normalization_schema.yml
+  spec_source: products/computescan/metadata/product.yml
+  structure_requirements:
+  - id: STRUCT-CS-001
+    description: Maintain all 15 phases defined in the ComputeScan master checklist
+      in canonical order.
+    required: true
+  - id: STRUCT-CS-002
+    description: Each checklist item must retain its id, title, and task list as authored
+      in the spec.
+    required: true
+  testing_requirements:
+    unit_tests_required: true
+    integration_tests_required: true
+    snapshot_tests_required: true
+    parity_tests_required: true
+    wasm_tests_required: true
+    schema_validation_tests_required: true
+    performance_tests_required: true
+    minimum_coverage_percent: 80
+  version: '2025.11'

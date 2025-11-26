@@ -1,0 +1,788 @@
+--- products/computeguard/checklist/checklist.yml.orig+++ products/computeguard/checklist/checklist.yml@@ -1,424 +1,372 @@-# products/computeguard/checklist/checklist.yml
+-# Strategy-D canonical checklist for ComputeGuard (paid blueprint)
+-
+ metadata:
+   product_id: computeguard
+-  checklist_version: "2025.11"
+-  last_updated: "2025-11-25T00:00:00Z"
+-  owner: "GuardSuite Platform Team"
++  checklist_version: '2025.11'
++  last_updated: '2025-11-25T00:00:00Z'
++  owner: GuardSuite Platform Team
+   stability: ga
+-
+-structure_requirements:
+-  - id: STRUCT-CG-001
+-    description: "Retain all ComputeGuard phases in canonical Strategy-D order with summaries and items intact."
+-    required: true
+-  - id: STRUCT-CG-002
+-    description: "Each item must keep its original id, description text, and deterministic intent."
+-    required: true
+-
+-documentation_requirements:
+-  readme_required: true
+-  product_docs_required: true
+-  api_reference_required: true
+-  examples_required: true
+-  changelog_required: true
+-  release_notes_required: true
+-
+-schema_requirements:
+-  canonical_schema_required: true
+-  metadata_schema_required: true
+-  provenance_schema_required: true
+-  fragment_schemas_required: true
+-  additional_schemas:
++states: {}
++phases:
++- phase: initialization
++  summary: Prepare repo, validate initial structure, and ensure toolchain readiness.
++  items:
++  - id: INIT-001
++    description: Ensure poetry install succeeds with no flags.
++  - id: INIT-002
++    description: 'Verify presence of required directory layout: src/, schemas/, fixpack/,
++      catalog/, examples/rules/, tests/, docs/.'
++  - id: INIT-003
++    description: 'Validate example rule bundle directory: examples/rules/* exists
++      and contains at least one example file.'
++  - id: INIT-004
++    description: Validate existence of catalog directory and index file catalog/index.yml.
++  - id: INIT-005
++    description: Validate presence of at least 3 example fixpacks under catalog/.
++  - id: INIT-006
++    description: Ensure all schema files declared in spec exist under /schemas.
++  - id: INIT-007
++    description: Run schema validator to ensure all YAML/JSON schemas are syntactically
++      valid.
++  - id: INIT-008
++    description: Verify presence of dev-shim for guardsuite-core (issue model + serializer
++      stubs).
++  - id: INIT-009
++    description: Ensure sample dataset exists for snapshot and perf tests (tests/data).
++  - id: INIT-010
++    description: Validate spec.yml and checklist.yml conform to guard-specs schema.
++- phase: directory_conventions
++  summary: Confirm structure, naming, and required resource layout.
++  items:
++  - id: DIR-001
++    description: Enforce required folder structure and naming conventions exactly
++      as in spec.
++  - id: DIR-002
++    description: 'Validate schema directory: /schemas/*.yml and *.json follow naming
++      rules.'
++  - id: DIR-003
++    description: 'Validate fixpack directory: fixpack/compute contains only template-defined
++      content.'
++  - id: DIR-004
++    description: Validate catalog directory structure and file extensions.
++  - id: DIR-005
++    description: Validate examples/rules bundle directory and file naming.
++- phase: evaluator_implementation
++  summary: Implement evaluator pipeline using template-provided orchestration and
++    pillar-specific rule bundles.
++  items:
++  - id: EVAL-001
++    description: Integrate pillar rule bundles into evaluator pipeline.
++  - id: EVAL-002
++    description: Implement compute-specific transformations and metadata enrichment.
++  - id: EVAL-003
++    description: Ensure evaluator output conforms to /schemas/evaluator_output_schema.yml.
++  - id: EVAL-004
++    description: Register all rule categories defined in spec.
++  - id: EVAL-005
++    description: Enforce deterministic sorting of results by severity then rule_id.
++  - id: EVAL-006
++    description: Ensure evaluator uses canonical serializer from dev-shim or core
++      when available.
++  - id: EVAL-007
++    description: Add evaluator-level resource metrics (checks_executed_total, plan_size,
++      etc.).
++  - id: EVAL-008
++    description: Implement environment normalization hook before output serialization.
++- phase: rule_bundle
++  summary: Create and verify ComputeGuard rule bundles.
++  items:
++  - id: RULE-001
++    description: Implement example rule bundle in examples/rules/.
++  - id: RULE-002
++    description: Ensure example bundle emits at least 4 severities (critical, high,
++      medium, low).
++  - id: RULE-003
++    description: Validate rule IDs follow canonical naming pattern.
++  - id: RULE-004
++    description: Confirm example rules align with example fixpacks.
++  - id: RULE-005
++    description: Ensure rule metadata (severity, category, title, description) matches
++      schema.
++- phase: fixpack_system
++  summary: Implement FixPack-Lite system with normalized previews and deterministic
++    outputs.
++  items:
++  - id: FP-001
++    description: Implement fixpack catalog loader using template fixpack loader.
++  - id: FP-002
++    description: Create ≥3 example fixpacks under catalog/ with valid metadata.
++  - id: FP-003
++    description: Ensure fixpack references valid rule IDs from example rule bundle.
++  - id: FP-004
++    description: Implement snippet_count requirement (≥10 remediation snippets).
++  - id: FP-005
++    description: Implement preview engine (dry-run, normalized).
++  - id: FP-006
++    description: Normalize preview diffs for snapshot safety (strip paths, timestamps).
++  - id: FP-007
++    description: Implement fixpack hint exposure for GuardBoard.
++- phase: compliance_ledger
++  summary: Implement audit-grade FinOps ledger system based on schema.
++  items:
++  - id: LEDGER-001
++    description: Implement compliance ledger generator.
++  - id: LEDGER-002
++    description: Ensure ledger conforms to /schemas/compliance_ledger_schema.yml.
++  - id: LEDGER-003
++    description: 'Ensure ledger items include required fields: timestamp_utc, product_id,
++      rule_id, severity, fixpack_ref, applied_flag, notes.'
++  - id: LEDGER-004
++    description: Implement deterministic ledger ordering (rule_id asc).
++  - id: LEDGER-005
++    description: Expose ledger for GuardBoard consumption via CLI.
++- phase: cli
++  summary: Implement ComputeGuard CLI with full contract compliance.
++  items:
++  - id: CLI-001
++    description: Implement base command computeguard.
++  - id: CLI-002
++    description: Implement scan command computeguard scan.
++  - id: CLI-003
++    description: Add support for flags listed in spec (json, stdin, quiet, explain,
++      etc.).
++  - id: CLI-004
++    description: Implement reserved flags (--ledger-only, --fixpack-diff) with stubs
++      or restrictions.
++  - id: CLI-005
++    description: Ensure --json output conforms to /schemas/cli_output.json.
++  - id: CLI-006
++    description: Ensure error payloads conform to /schemas/cli_error.json.
++  - id: CLI-007
++    description: Implement strict-mode exit code policy.
++  - id: CLI-008
++    description: Ensure explain mode supports both human and machine-readable output.
++  - id: CLI-009
++    description: Validate CLI help output lists all verbs/flags in canonical order.
++  - id: CLI-010
++    description: Implement fixpack-summary and compliance-ledger flags.
++- phase: integrations
++  summary: Integrate ComputeGuard with GuardScore, GuardBoard, Playground.
++  items:
++  - id: INT-001
++    description: Expose GuardScore input metrics as per spec.
++  - id: INT-002
++    description: Validate GuardBoard fixpack hints integration contract.
++  - id: INT-003
++    description: Validate that Compliance Ledger artifacts are consumable by GuardBoard.
++  - id: INT-004
++    description: Ensure WASM-safe execution for Playground (json/svg sanitization).
++  - id: INT-005
++    description: Validate quick-score mode behavior.
++- phase: determinism_and_normalization
++  summary: Enforce cross-machine deterministic behavior.
++  items:
++  - id: DET-001
++    description: Implement canonical key ordering and lexicographic result sorting.
++  - id: DET-002
++    description: Strip absolute paths from all outputs.
++  - id: DET-003
++    description: Normalize path separators for cross-OS compatibility.
++  - id: DET-004
++    description: Remove platform-specific metadata (python version, OS).
++  - id: DET-005
++    description: Ensure snapshot tests produce identical output across 3 runs.
++  - id: DET-006
++    description: Validate deterministic fixpack previews across 3 runs.
++  - id: DET-007
++    description: Ensure ledger artifacts are deterministic.
++- phase: performance
++  summary: Validate product performance under expected constraints.
++  items:
++  - id: PERF-001
++    description: Ensure max memory usage ≤ 260 MB.
++  - id: PERF-002
++    description: Ensure typical runtime ≤ 850 ms on representative dataset.
++  - id: PERF-003
++    description: Ensure large plan runtime ≤ 2000 ms.
++  - id: PERF-004
++    description: Validate Playground runtime ≤ 2100 ms.
++  - id: PERF-005
++    description: Implement CI perf regression tests.
++- phase: security
++  summary: Implement sandboxing, safe errors, sanitization.
++  items:
++  - id: SEC-001
++    description: Remove secrets from product code (use placeholders only).
++  - id: SEC-002
++    description: Sanitize all user inputs (JSON, CLI).
++  - id: SEC-003
++    description: Sanitize SVG outputs for GuardBoard/Playground.
++  - id: SEC-004
++    description: Implement WASM sandbox contract for Playground.
++  - id: SEC-005
++    description: Ensure safe error reporting (no stack-leaks, no paths).
++- phase: testing
++  summary: Complete unit, integration, snapshot, and schema testing.
++  items:
++  - id: TEST-001
++    description: Achieve ≥85% unit test coverage.
++  - id: TEST-002
++    description: Implement integration tests covering evaluator, fixpack, CLI.
++  - id: TEST-003
++    description: Run snapshot tests using normalization rules.
++  - id: TEST-004
++    description: Ensure snapshot tests pass on multiple CI images.
++  - id: TEST-005
++    description: Ensure schema validation tests exist for all schemas.
++  - id: TEST-006
++    description: Add example rule-bundle severity coverage test.
++  - id: TEST-007
++    description: Test CLI help output formatting and semantics.
++  - id: TEST-008
++    description: Add test preventing forbidden overrides.
++- phase: ci_cd
++  summary: Configure CI contract and quality gates.
++  items:
++  - id: CI-001
++    description: 'Ensure CI runs: validate_schema, unit, integration, snapshot_conformance,
++      perf_regression.'
++  - id: CI-002
++    description: Add forbidden override enforcement test to CI.
++  - id: CI-003
++    description: Add schema drift detection.
++  - id: CI-004
++    description: Add spec/checklist alignment validation.
++  - id: CI-005
++    description: Ensure CI uses dev-shim until guardsuite-core is released.
++- phase: documentation
++  summary: Produce developer docs, architecture notes, API docs, ledger guides.
++  items:
++  - id: DOC-001
++    description: Document evaluator architecture and extension points.
++  - id: DOC-002
++    description: Document fixpack system and snippet schema.
++  - id: DOC-003
++    description: Document compliance ledger schema and consumption.
++  - id: DOC-004
++    description: Document CLI contract and usage examples.
++  - id: DOC-005
++    description: Document determinism rules and snapshot process.
++  - id: DOC-006
++    description: Document integration surfaces for GuardScore and GuardBoard.
++  - id: DOC-007
++    description: Document migration paths and versioning.
++- phase: acceptance
++  summary: Acceptance checks before release.
++  items:
++  - id: ACC-001
++    description: Evaluator output MUST validate against evaluator schema.
++  - id: ACC-002
++    description: CLI output MUST validate against cli_output.json.
++  - id: ACC-003
++    description: Fixpack preview MUST be deterministic across 3 runs.
++  - id: ACC-004
++    description: Compliance ledger MUST validate schema.
++  - id: ACC-005
++    description: All unit, integration, snapshot tests MUST pass.
++  - id: ACC-006
++    description: Performance thresholds MUST be met.
++  - id: ACC-007
++    description: Forbidden overrides MUST not exist.
++  - id: ACC-008
++    description: Developer docs MUST be complete and accurate.
++  - id: ACC-009
++    description: Checklist MUST be fully complete.
++items: []
++x_legacy:
++  acceptance_criteria:
++  - id: ACPT-CG-001
++    description: Evaluator, CLI, ledger, and fixpack schemas all validate with canonical
++      validator.
++    required: true
++  - id: ACPT-CG-002
++    description: Determinism suites (snapshot + fixpack) achieve 3-run parity.
++    required: true
++  - id: ACPT-CG-003
++    description: Performance budgets satisfied for CI, Playground, and ledger generation.
++    required: true
++  - id: ACPT-CG-004
++    description: Documentation set (architecture, fixpack, ledger) reviewed and complete.
++    required: true
++  artifacts:
++    required_files:
++    - schemas/evaluator_output_schema.yml
++    - schemas/cli_output.json
++    - schemas/cli_error.json
++    - schemas/compliance_ledger_schema.yml
++    - catalog/index.yml
++    required_directories:
++    - fixpack
++    - catalog
++    - examples/rules
++    - tests
++    - docs
++    build_outputs:
++    - artifacts/ledgers
++    - artifacts/fixpack_previews
++  cross_product_dependencies:
++    depends_on_products:
++    - computescan
++    - guardscore
++    - guardboard
++    depends_on_schemas:
++    - guardsuite-core/canonical_schema.json
++    depends_on_pipeline: true
++  documentation_requirements:
++    readme_required: true
++    product_docs_required: true
++    api_reference_required: true
++    examples_required: true
++    changelog_required: true
++    release_notes_required: true
++  evaluator_requirements:
++    pipeline_must_match_template: true
++    canonicalization_required: true
++    wasm_safety_required: true
++    deterministic_output_required: true
++    timestamp_normalization_required: true
++    prohibited_overrides:
++    - canonical.output_contract
++    - evaluator.runtime_override
++    - canonicalization_rules
++  fixpack_requirements:
++    fixpack_catalog_required: true
++    fixpack_metadata_required: true
++    difficulty_taxonomy_required: true
++    patch_hashing_required: true
++    remediation_examples_required: true
++  id: computeguard_checklist
++  pillar: compute
++  product: computeguard
++  provenance:
++  - Checklist derived from Strategy-D canonical paid-blueprint pattern.
++  - Aligned with ComputeGuard master spec and GuardSuite governance rules.
++  schema_requirements:
++    canonical_schema_required: true
++    metadata_schema_required: true
++    provenance_schema_required: true
++    fragment_schemas_required: true
++    additional_schemas:
+     - schemas/evaluator_output_schema.yml
+     - schemas/cli_output.json
+     - schemas/cli_error.json
+     - schemas/compliance_ledger_schema.yml
+     - schemas/fixpack_metadata_schema.yml
+-
+-evaluator_requirements:
+-  pipeline_must_match_template: true
+-  canonicalization_required: true
+-  wasm_safety_required: true
+-  deterministic_output_required: true
+-  timestamp_normalization_required: true
+-  prohibited_overrides:
+-    - canonical.output_contract
+-    - evaluator.runtime_override
+-    - canonicalization_rules
+-
+-fixpack_requirements:
+-  fixpack_catalog_required: true
+-  fixpack_metadata_required: true
+-  difficulty_taxonomy_required: true
+-  patch_hashing_required: true
+-  remediation_examples_required: true
+-
+-testing_requirements:
+-  unit_tests_required: true
+-  integration_tests_required: true
+-  snapshot_tests_required: true
+-  parity_tests_required: true
+-  wasm_tests_required: true
+-  schema_validation_tests_required: true
+-  performance_tests_required: true
+-  minimum_coverage_percent: 85
+-
+-artifacts:
+-  required_files:
+-    - schemas/evaluator_output_schema.yml
+-    - schemas/cli_output.json
+-    - schemas/cli_error.json
+-    - schemas/compliance_ledger_schema.yml
+-    - catalog/index.yml
+-  required_directories:
+-    - fixpack
+-    - catalog
+-    - examples/rules
+-    - tests
+-    - docs
+-  build_outputs:
+-    - artifacts/ledgers
+-    - artifacts/fixpack_previews
+-
+-acceptance_criteria:
+-  - id: ACPT-CG-001
+-    description: "Evaluator, CLI, ledger, and fixpack schemas all validate with canonical validator."
+-    required: true
+-  - id: ACPT-CG-002
+-    description: "Determinism suites (snapshot + fixpack) achieve 3-run parity."
+-    required: true
+-  - id: ACPT-CG-003
+-    description: "Performance budgets satisfied for CI, Playground, and ledger generation."
+-    required: true
+-  - id: ACPT-CG-004
+-    description: "Documentation set (architecture, fixpack, ledger) reviewed and complete."
+-    required: true
+-
+-cross_product_dependencies:
+-  depends_on_products:
+-    - computescan
+-    - guardscore
+-    - guardboard
+-  depends_on_schemas:
+-    - guardsuite-core/canonical_schema.json
+-  depends_on_pipeline: true
+-
+-provenance:
+-  - "Checklist derived from Strategy-D canonical paid-blueprint pattern."
+-  - "Aligned with ComputeGuard master spec and GuardSuite governance rules."
+-
+-id: computeguard_checklist
+-version: "2025.11"
+-product: computeguard
+-pillar: compute
+-spec_source: "products/computeguard/metadata/product.yml"
+-
+-phases:
+-
+-  # ============================================================
+-  # INITIALIZATION
+-  # ============================================================
+-  - phase: initialization
+-    summary: "Prepare repo, validate initial structure, and ensure toolchain readiness."
+-    items:
+-      - id: INIT-001
+-        description: "Ensure poetry install succeeds with no flags."
+-      - id: INIT-002
+-        description: "Verify presence of required directory layout: src/, schemas/, fixpack/, catalog/, examples/rules/, tests/, docs/."
+-      - id: INIT-003
+-        description: "Validate example rule bundle directory: examples/rules/* exists and contains at least one example file."
+-      - id: INIT-004
+-        description: "Validate existence of catalog directory and index file catalog/index.yml."
+-      - id: INIT-005
+-        description: "Validate presence of at least 3 example fixpacks under catalog/."
+-      - id: INIT-006
+-        description: "Ensure all schema files declared in spec exist under /schemas."
+-      - id: INIT-007
+-        description: "Run schema validator to ensure all YAML/JSON schemas are syntactically valid."
+-      - id: INIT-008
+-        description: "Verify presence of dev-shim for guardsuite-core (issue model + serializer stubs)."
+-      - id: INIT-009
+-        description: "Ensure sample dataset exists for snapshot and perf tests (tests/data)."
+-      - id: INIT-010
+-        description: "Validate spec.yml and checklist.yml conform to guard-specs schema."
+-
+-  # ============================================================
+-  # DIRECTORY CONVENTIONS
+-  # ============================================================
+-  - phase: directory_conventions
+-    summary: "Confirm structure, naming, and required resource layout."
+-    items:
+-      - id: DIR-001
+-        description: "Enforce required folder structure and naming conventions exactly as in spec."
+-      - id: DIR-002
+-        description: "Validate schema directory: /schemas/*.yml and *.json follow naming rules."
+-      - id: DIR-003
+-        description: "Validate fixpack directory: fixpack/compute contains only template-defined content."
+-      - id: DIR-004
+-        description: "Validate catalog directory structure and file extensions."
+-      - id: DIR-005
+-        description: "Validate examples/rules bundle directory and file naming."
+-
+-  # ============================================================
+-  # EVALUATOR IMPLEMENTATION
+-  # ============================================================
+-  - phase: evaluator_implementation
+-    summary: "Implement evaluator pipeline using template-provided orchestration and pillar-specific rule bundles."
+-    items:
+-      - id: EVAL-001
+-        description: "Integrate pillar rule bundles into evaluator pipeline."
+-      - id: EVAL-002
+-        description: "Implement compute-specific transformations and metadata enrichment."
+-      - id: EVAL-003
+-        description: "Ensure evaluator output conforms to /schemas/evaluator_output_schema.yml."
+-      - id: EVAL-004
+-        description: "Register all rule categories defined in spec."
+-      - id: EVAL-005
+-        description: "Enforce deterministic sorting of results by severity then rule_id."
+-      - id: EVAL-006
+-        description: "Ensure evaluator uses canonical serializer from dev-shim or core when available."
+-      - id: EVAL-007
+-        description: "Add evaluator-level resource metrics (checks_executed_total, plan_size, etc.)."
+-      - id: EVAL-008
+-        description: "Implement environment normalization hook before output serialization."
+-
+-  # ============================================================
+-  # RULE BUNDLE
+-  # ============================================================
+-  - phase: rule_bundle
+-    summary: "Create and verify ComputeGuard rule bundles."
+-    items:
+-      - id: RULE-001
+-        description: "Implement example rule bundle in examples/rules/."
+-      - id: RULE-002
+-        description: "Ensure example bundle emits at least 4 severities (critical, high, medium, low)."
+-      - id: RULE-003
+-        description: "Validate rule IDs follow canonical naming pattern."
+-      - id: RULE-004
+-        description: "Confirm example rules align with example fixpacks."
+-      - id: RULE-005
+-        description: "Ensure rule metadata (severity, category, title, description) matches schema."
+-
+-  # ============================================================
+-  # FIXPACK SYSTEM
+-  # ============================================================
+-  - phase: fixpack_system
+-    summary: "Implement FixPack-Lite system with normalized previews and deterministic outputs."
+-    items:
+-      - id: FP-001
+-        description: "Implement fixpack catalog loader using template fixpack loader."
+-      - id: FP-002
+-        description: "Create ≥3 example fixpacks under catalog/ with valid metadata."
+-      - id: FP-003
+-        description: "Ensure fixpack references valid rule IDs from example rule bundle."
+-      - id: FP-004
+-        description: "Implement snippet_count requirement (≥10 remediation snippets)."
+-      - id: FP-005
+-        description: "Implement preview engine (dry-run, normalized)."
+-      - id: FP-006
+-        description: "Normalize preview diffs for snapshot safety (strip paths, timestamps)."
+-      - id: FP-007
+-        description: "Implement fixpack hint exposure for GuardBoard."
+-
+-  # ============================================================
+-  # COMPLIANCE LEDGER
+-  # ============================================================
+-  - phase: compliance_ledger
+-    summary: "Implement audit-grade FinOps ledger system based on schema."
+-    items:
+-      - id: LEDGER-001
+-        description: "Implement compliance ledger generator."
+-      - id: LEDGER-002
+-        description: "Ensure ledger conforms to /schemas/compliance_ledger_schema.yml."
+-      - id: LEDGER-003
+-        description: "Ensure ledger items include required fields: timestamp_utc, product_id, rule_id, severity, fixpack_ref, applied_flag, notes."
+-      - id: LEDGER-004
+-        description: "Implement deterministic ledger ordering (rule_id asc)."
+-      - id: LEDGER-005
+-        description: "Expose ledger for GuardBoard consumption via CLI."
+-
+-  # ============================================================
+-  # CLI
+-  # ============================================================
+-  - phase: cli
+-    summary: "Implement ComputeGuard CLI with full contract compliance."
+-    items:
+-      - id: CLI-001
+-        description: "Implement base command computeguard."
+-      - id: CLI-002
+-        description: "Implement scan command computeguard scan."
+-      - id: CLI-003
+-        description: "Add support for flags listed in spec (json, stdin, quiet, explain, etc.)."
+-      - id: CLI-004
+-        description: "Implement reserved flags (--ledger-only, --fixpack-diff) with stubs or restrictions."
+-      - id: CLI-005
+-        description: "Ensure --json output conforms to /schemas/cli_output.json."
+-      - id: CLI-006
+-        description: "Ensure error payloads conform to /schemas/cli_error.json."
+-      - id: CLI-007
+-        description: "Implement strict-mode exit code policy."
+-      - id: CLI-008
+-        description: "Ensure explain mode supports both human and machine-readable output."
+-      - id: CLI-009
+-        description: "Validate CLI help output lists all verbs/flags in canonical order."
+-      - id: CLI-010
+-        description: "Implement fixpack-summary and compliance-ledger flags."
+-
+-  # ============================================================
+-  # INTEGRATIONS
+-  # ============================================================
+-  - phase: integrations
+-    summary: "Integrate ComputeGuard with GuardScore, GuardBoard, Playground."
+-    items:
+-      - id: INT-001
+-        description: "Expose GuardScore input metrics as per spec."
+-      - id: INT-002
+-        description: "Validate GuardBoard fixpack hints integration contract."
+-      - id: INT-003
+-        description: "Validate that Compliance Ledger artifacts are consumable by GuardBoard."
+-      - id: INT-004
+-        description: "Ensure WASM-safe execution for Playground (json/svg sanitization)."
+-      - id: INT-005
+-        description: "Validate quick-score mode behavior."
+-
+-  # ============================================================
+-  # DETERMINISM AND NORMALIZATION
+-  # ============================================================
+-  - phase: determinism_and_normalization
+-    summary: "Enforce cross-machine deterministic behavior."
+-    items:
+-      - id: DET-001
+-        description: "Implement canonical key ordering and lexicographic result sorting."
+-      - id: DET-002
+-        description: "Strip absolute paths from all outputs."
+-      - id: DET-003
+-        description: "Normalize path separators for cross-OS compatibility."
+-      - id: DET-004
+-        description: "Remove platform-specific metadata (python version, OS)."
+-      - id: DET-005
+-        description: "Ensure snapshot tests produce identical output across 3 runs."
+-      - id: DET-006
+-        description: "Validate deterministic fixpack previews across 3 runs."
+-      - id: DET-007
+-        description: "Ensure ledger artifacts are deterministic."
+-
+-  # ============================================================
+-  # PERFORMANCE
+-  # ============================================================
+-  - phase: performance
+-    summary: "Validate product performance under expected constraints."
+-    items:
+-      - id: PERF-001
+-        description: "Ensure max memory usage ≤ 260 MB."
+-      - id: PERF-002
+-        description: "Ensure typical runtime ≤ 850 ms on representative dataset."
+-      - id: PERF-003
+-        description: "Ensure large plan runtime ≤ 2000 ms."
+-      - id: PERF-004
+-        description: "Validate Playground runtime ≤ 2100 ms."
+-      - id: PERF-005
+-        description: "Implement CI perf regression tests."
+-
+-  # ============================================================
+-  # SECURITY
+-  # ============================================================
+-  - phase: security
+-    summary: "Implement sandboxing, safe errors, sanitization."
+-    items:
+-      - id: SEC-001
+-        description: "Remove secrets from product code (use placeholders only)."
+-      - id: SEC-002
+-        description: "Sanitize all user inputs (JSON, CLI)."
+-      - id: SEC-003
+-        description: "Sanitize SVG outputs for GuardBoard/Playground."
+-      - id: SEC-004
+-        description: "Implement WASM sandbox contract for Playground."
+-      - id: SEC-005
+-        description: "Ensure safe error reporting (no stack-leaks, no paths)."
+-
+-  # ============================================================
+-  # TESTING
+-  # ============================================================
+-  - phase: testing
+-    summary: "Complete unit, integration, snapshot, and schema testing."
+-    items:
+-      - id: TEST-001
+-        description: "Achieve ≥85% unit test coverage."
+-      - id: TEST-002
+-        description: "Implement integration tests covering evaluator, fixpack, CLI."
+-      - id: TEST-003
+-        description: "Run snapshot tests using normalization rules."
+-      - id: TEST-004
+-        description: "Ensure snapshot tests pass on multiple CI images."
+-      - id: TEST-005
+-        description: "Ensure schema validation tests exist for all schemas."
+-      - id: TEST-006
+-        description: "Add example rule-bundle severity coverage test."
+-      - id: TEST-007
+-        description: "Test CLI help output formatting and semantics."
+-      - id: TEST-008
+-        description: "Add test preventing forbidden overrides."
+-
+-  # ============================================================
+-  # CI/CD
+-  # ============================================================
+-  - phase: ci_cd
+-    summary: "Configure CI contract and quality gates."
+-    items:
+-      - id: CI-001
+-        description: "Ensure CI runs: validate_schema, unit, integration, snapshot_conformance, perf_regression."
+-      - id: CI-002
+-        description: "Add forbidden override enforcement test to CI."
+-      - id: CI-003
+-        description: "Add schema drift detection."
+-      - id: CI-004
+-        description: "Add spec/checklist alignment validation."
+-      - id: CI-005
+-        description: "Ensure CI uses dev-shim until guardsuite-core is released."
+-
+-  # ============================================================
+-  # DOCUMENTATION
+-  # ============================================================
+-  - phase: documentation
+-    summary: "Produce developer docs, architecture notes, API docs, ledger guides."
+-    items:
+-      - id: DOC-001
+-        description: "Document evaluator architecture and extension points."
+-      - id: DOC-002
+-        description: "Document fixpack system and snippet schema."
+-      - id: DOC-003
+-        description: "Document compliance ledger schema and consumption."
+-      - id: DOC-004
+-        description: "Document CLI contract and usage examples."
+-      - id: DOC-005
+-        description: "Document determinism rules and snapshot process."
+-      - id: DOC-006
+-        description: "Document integration surfaces for GuardScore and GuardBoard."
+-      - id: DOC-007
+-        description: "Document migration paths and versioning."
+-
+-  # ============================================================
+-  # ACCEPTANCE
+-  # ============================================================
+-  - phase: acceptance
+-    summary: "Acceptance checks before release."
+-    items:
+-      - id: ACC-001
+-        description: "Evaluator output MUST validate against evaluator schema."
+-      - id: ACC-002
+-        description: "CLI output MUST validate against cli_output.json."
+-      - id: ACC-003
+-        description: "Fixpack preview MUST be deterministic across 3 runs."
+-      - id: ACC-004
+-        description: "Compliance ledger MUST validate schema."
+-      - id: ACC-005
+-        description: "All unit, integration, snapshot tests MUST pass."
+-      - id: ACC-006
+-        description: "Performance thresholds MUST be met."
+-      - id: ACC-007
+-        description: "Forbidden overrides MUST not exist."
+-      - id: ACC-008
+-        description: "Developer docs MUST be complete and accurate."
+-      - id: ACC-009
+-        description: "Checklist MUST be fully complete."
++  spec_source: products/computeguard/metadata/product.yml
++  structure_requirements:
++  - id: STRUCT-CG-001
++    description: Retain all ComputeGuard phases in canonical Strategy-D order with
++      summaries and items intact.
++    required: true
++  - id: STRUCT-CG-002
++    description: Each item must keep its original id, description text, and deterministic
++      intent.
++    required: true
++  testing_requirements:
++    unit_tests_required: true
++    integration_tests_required: true
++    snapshot_tests_required: true
++    parity_tests_required: true
++    wasm_tests_required: true
++    schema_validation_tests_required: true
++    performance_tests_required: true
++    minimum_coverage_percent: 85
++  version: '2025.11'
