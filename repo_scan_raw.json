@@ -1,0 +1,156 @@
+{
+  "report_version": "v33",
+  "generated": "2025-11-26T07:22:58+00:00",
+  "repo_clean": false,
+  "git": {
+    "tracked_files": 418,
+    "modified_tracked_files": 2,
+    "untracked_files": 23,
+    "ignored_visible_entries": 2805
+  },
+  "repo_health": {
+    "score": 96,
+    "delta_vs_previous": -4,
+    "deductions": {
+      "modified_tracked_files": 2,
+      "untracked_file_delta": 2
+    }
+  },
+  "drift_indicators": {
+    "invalid_yaml_count_change": 0,
+    "invalid_yaml_count": 0,
+    "modified_tracked_files": 2,
+    "untracked_files": 23,
+    "ignored_visible_entries": 2805
+  },
+  "git_status_summary": {
+    "tracked": 418,
+    "modified": 2,
+    "untracked": 23
+  },
+  "category_breakdown": {
+    "docs": 56,
+    "orphaned": 2,
+    "product_tree": 231,
+    "schema": 13,
+    "scripts": 12,
+    "unexpected": 17,
+    "utilities": 106,
+    "workspace": 86
+  },
+  "anomalies": {
+    "modified_tracked_files": [
+      "workspace/strategy_d/phase11/cross_product_semantic_validation_report.md",
+      "workspace/strategy_d/phase6/metadata_validation_report.md"
+    ],
+    "untracked_paths_sample": [
+      "products/computeguard/assets/copy/hook.txt",
+      "products/computeguard/assets/copy/micro_cta.txt",
+      "products/computeguard/metadata/iconic_findings.txt",
+      "products/computescan/assets/copy/hook.txt",
+      "products/computescan/assets/copy/micro_cta.txt",
+      "products/computescan/metadata/iconic_findings.txt",
+      "products/pipelineguard/assets/copy/hook.txt",
+      "products/pipelineguard/assets/copy/micro_cta.txt",
+      "products/pipelineguard/metadata/iconic_findings.txt",
+      "products/pipelinescan/metadata/iconic_findings.txt",
+      "products/vectorguard/assets/copy/hook.txt",
+      "products/vectorguard/assets/copy/micro_cta.txt",
+      "products/vectorguard/metadata/iconic_findings.txt",
+      "products/vectorscan/assets/copy/hook.txt",
+      "products/vectorscan/assets/copy/micro_cta.txt",
+      "products/vectorscan/metadata/iconic_findings.txt",
+      "workspace/strategy_d/phase10/metadata_validation_post.md",
+      "workspace/strategy_d/phase10/repair_phase10.py",
+      "workspace/strategy_d/phase11/validate_phase11.py",
+      "workspace/strategy_d/phase13/run_phase13.py",
+      "workspace/strategy_d/phase6/validate_phase6.py",
+      "workspace/strategy_d/phase7/repair_phase7.py",
+      "workspace/strategy_d/phase8/repair_phase8.py"
+    ],
+    "untracked_count": 23
+  },
+  "workspace_summary": {
+    "workspace/diagnostics": true,
+    "workspace/diagnostics/repo_scan_raw.json": true,
+    "workspace/diagnostics/repo_scan_report.md": true,
+    "workspace/strategy_d/backups": true,
+    "workspace/strategy_d/checklist_gaps": true,
+    "workspace/strategy_d/checklist_gap_report.md": true,
+    "workspace/strategy_d/checklist_gap_summary.yaml": true,
+    "workspace/strategy_d/diffs": true,
+    "workspace/strategy_d/bootstrap_notes.md": true
+  },
+  "strategy_d_status": {
+    "backups_present": true,
+    "checklist_gaps_present": true,
+    "checklist_gap_report_present": true,
+    "checklist_gap_summary_present": true,
+    "diffs_present": true,
+    "bootstrap_notes_present": true
+  },
+  "products_summary": {
+    "computeguard": {"checklist": true, "metadata": true, "demo_issues": "none"},
+    "computescan": {"checklist": true, "metadata": true, "demo_issues": "none"},
+    "guardboard": {"checklist": true, "metadata": true, "demo_issues": "none"},
+    "guardscore": {"checklist": true, "metadata": true, "demo_issues": "none"},
+    "guardsuite-core": {"checklist": true, "metadata": true, "demo_issues": "none"},
+    "guardsuite-specs": {"checklist": true, "metadata": true, "demo_issues": "none"},
+    "guardsuite-template": {"checklist": true, "metadata": true, "demo_issues": "none"},
+    "guardsuite_master_spec": {"checklist": true, "metadata": true, "demo_issues": "none"},
+    "pipelineguard": {"checklist": true, "metadata": true, "demo_issues": "none"},
+    "pipelinescan": {"checklist": true, "metadata": true, "demo_issues": "none"},
+    "playground": {"checklist": true, "metadata": true, "demo_issues": "none"},
+    "vectorguard": {"checklist": true, "metadata": true, "demo_issues": "none"},
+    "vectorscan": {"checklist": true, "metadata": true, "demo_issues": "none"}
+  },
+  "yaml_validation": {
+    "total_yaml_files_scanned": 36,
+    "valid_yaml_files": 36,
+    "invalid_yaml_files": 0,
+    "valid_coverage_percent": 100.0,
+    "product_metadata_present": "13/13",
+    "product_checklists_present": "13/13",
+    "validated_files": [
+      "product_specs/pillar-template.schema.yml",
+      "product_specs/pillar-template.yml",
+      "products/computeguard/checklist/checklist.yml",
+      "products/computeguard/metadata/product.yml",
+      "products/computescan/checklist/checklist.yml",
+      "products/computescan/metadata/product.yml",
+      "products/guardboard/checklist/checklist.yml",
+      "products/guardboard/metadata/product.yml",
+      "products/guardscore/checklist/checklist.yml",
+      "products/guardscore/metadata/product.yml",
+      "products/guardsuite-core/checklist/checklist.yml",
+      "products/guardsuite-core/metadata/product.yml",
+      "products/guardsuite-specs/checklist/checklist.yml",
+      "products/guardsuite-specs/metadata/product.yml",
+      "products/guardsuite-template/checklist/checklist.yml",
+      "products/guardsuite-template/metadata/product.yml",
+      "products/guardsuite_master_spec/checklist/checklist.yml",
+      "products/guardsuite_master_spec/metadata/product.yml",
+      "products/pipelineguard/checklist/checklist.yml",
+      "products/pipelineguard/metadata/product.yml",
+      "products/pipelinescan/checklist/checklist.yml",
+      "products/pipelinescan/metadata/product.yml",
+      "products/playground/checklist/checklist.yml",
+      "products/playground/metadata/product.yml",
+      "products/vectorguard/checklist/checklist.yml",
+      "products/vectorguard/metadata/product.yml",
+      "products/vectorscan/checklist/checklist.yml",
+      "products/vectorscan/metadata/product.yml",
+      "schemas/bootstrap_schema.yml",
+      "schemas/checklist_schema.yml",
+      "schemas/pillar-template.schema.yml",
+      "schemas/playground.schema.yml",
+      "schemas/product_schema.yml",
+      "templates/checklist_schema/checklist_schema.yml",
+      "templates/product_schema/product_schema.yml",
+      "workspace/strategy_d/checklist_gap_summary.yaml"
+    ]
+  },
+  "yaml_validation_diff_vs_previous": {
+    "resolved_failures_since_v32": []
+  }
+}
