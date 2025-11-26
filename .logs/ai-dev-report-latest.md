@@ -1,42 +1,42 @@
-# AI-Dev Repository Scan Report (v31)
+# AI-Dev Repository Scan Report (v32)
 
-- Generated: 2025-11-25T20:56:23.128909+00:00
-- Repo clean: yes
-- Untracked files: 0
-- Ignored entries (visible): 1
-- Repo health score: 85
-- Repo health delta: +0
+- Generated: 2025-11-26T05:56:59.826925+00:00
+- Repo clean: no
+- Untracked files: 3
+- Ignored entries (visible): 5
+- Repo health score: 100
+- Repo health delta: +15
 
 ## Findings
 
 - Repo traversal honored ignore patterns (__pycache__/, *.pyc, .venv/, dist/, build/, site/, *.egg-info/, *.log, *.tmp, *.cache, .pytest_cache/, .mypy_cache/, .ruff_cache/, .coverage, *.coverage).
-- Strategy-D controlled surfaces remain untouched; tracked/untracked counts unchanged since v30.
+- Strategy-D controlled surfaces remain untouched; tracked/untracked counts unchanged since v31.
 - Workspace diagnostics artifacts remain present; raw + rendered outputs verified.
 - Product demo scaffolding remains intact for every product; expected demo files present.
 - YAML validation summary plus error context/recommendations/diff provided for remediation tracking.
 
 ## Repository Health Score
 
-- Score: 85 / 100 (deductions: 15 from YAML issues, 0 from missing artifacts)
-- Delta vs previous: +0
+- Score: 100 / 100 (deductions: 0 from YAML issues, 0 from missing artifacts)
+- Delta vs previous: +15
 
 ## Indicators of Drift
 
-- Repo health delta: +0
-- Invalid YAML count change: +0 (now 3)
+- Repo health delta: +15
+- Invalid YAML count change: -3 (now 0)
 - Git status `derived` delta: +0 (now 169)
-- Git status `ignored` delta: +0 (now 1)
-- Git status `tracked` delta: +0 (now 352)
-- Ignored-visible entries delta: +0 (now 1)
-- Repo clean state: yes -> yes
+- Git status `ignored` delta: +4 (now 5)
+- Git status `tracked` delta: -3 (now 349)
+- Ignored-visible entries delta: +4 (now 5)
+- Repo clean state: yes -> no
 
 ## Git Status Summary
 
 | Status | Count |
 | --- | ---: |
 | derived | 169 |
-| ignored | 1 |
-| tracked | 352 |
+| ignored | 5 |
+| tracked | 349 |
 
 ## Category Breakdown
 
@@ -49,7 +49,7 @@
 | scripts | 12 |
 | unexpected | 17 |
 | utilities | 106 |
-| workspace | 85 |
+| workspace | 86 |
 
 ## Anomalies
 
@@ -74,6 +74,10 @@
 
 **Ignored-but-Relevant Entries**
 - `.vscode`
+- `products/guardsuite-specs/checklist/checklist.yml`
+- `products/pipelinescan/metadata/product.yml`
+- `products/vectorscan/checklist/checklist.yml`
+- `workspace/strategy_d/yaml_fixes`
 
 ## Missing Items
 
@@ -159,7 +163,7 @@
 | `products/guardscore/metadata/product.yml` | yes | valid |
 | `products/guardsuite-core/checklist/checklist.yml` | yes | valid |
 | `products/guardsuite-core/metadata/product.yml` | yes | valid |
-| `products/guardsuite-specs/checklist/checklist.yml` | no | mapping values are not allowed here   in "<unicode string>", line 129, column 11:           desc: list products (paginated)               ^ |
+| `products/guardsuite-specs/checklist/checklist.yml` | yes | valid |
 | `products/guardsuite-specs/metadata/product.yml` | yes | valid |
 | `products/guardsuite-template/checklist/checklist.yml` | yes | valid |
 | `products/guardsuite-template/metadata/product.yml` | yes | valid |
@@ -168,12 +172,12 @@
 | `products/pipelineguard/checklist/checklist.yml` | yes | valid |
 | `products/pipelineguard/metadata/product.yml` | yes | valid |
 | `products/pipelinescan/checklist/checklist.yml` | yes | valid |
-| `products/pipelinescan/metadata/product.yml` | no | mapping values are not allowed here   in "<unicode string>", line 127, column 68:      ...  (scanner sets provenance_source: "scanner_unverified")                                          ^ |
+| `products/pipelinescan/metadata/product.yml` | yes | valid |
 | `products/playground/checklist/checklist.yml` | yes | valid |
 | `products/playground/metadata/product.yml` | yes | valid |
 | `products/vectorguard/checklist/checklist.yml` | yes | valid |
 | `products/vectorguard/metadata/product.yml` | yes | valid |
-| `products/vectorscan/checklist/checklist.yml` | no | while parsing a block mapping   in "<unicode string>", line 257, column 9:           - CLI-006: exit_code_mapping_valid({             ^ expected <block end>, but found '}'   in "<unicode string>", line 262, column 9:             })             ^ |
+| `products/vectorscan/checklist/checklist.yml` | yes | valid |
 | `products/vectorscan/metadata/product.yml` | yes | valid |
 | `schemas/bootstrap_schema.yml` | yes | valid |
 | `schemas/checklist_schema.yml` | yes | valid |
@@ -184,50 +188,18 @@
 | `templates/product_schema/product_schema.yml` | yes | valid |
 | `workspace/strategy_d/checklist_gap_summary.yaml` | yes | valid |
 
-## YAML Error Context
-
-- `products/guardsuite-specs/checklist/checklist.yml`
-    0127:   endpoints:
-    0128:     - GET  /products
-  > 0129:       desc: list products (paginated)
-    0130:       auth: reader
-    0131:     - POST /products
-      column: 11
-
-- `products/pipelinescan/metadata/product.yml`
-    0125:     rules:
-    0126:       - if_provenance_present: validate_signature_if_present
-  > 0127:       - missing_provenance: allowed (scanner sets provenance_source: "scanner_unverified")
-    0128:   export_bundle_contract:
-    0129:     required_fields:
-      column: 68
-
-- `products/vectorscan/checklist/checklist.yml`
-    0260:           SCHEMA_ERROR:4,
-    0261:           PARTIAL_INPUT_ERROR:5
-  > 0262:         })
-    0263: 
-    0264:   # ============================================================
-      column: 9
-
-## YAML Error Recommendations
-
-- `products/guardsuite-specs/checklist/checklist.yml`: Fix indentation or ensure previous key-value pair closes before starting a new mapping entry. (line 129, column 11)
-- `products/pipelinescan/metadata/product.yml`: Fix indentation or ensure previous key-value pair closes before starting a new mapping entry. (line 127, column 68)
-- `products/vectorscan/checklist/checklist.yml`: Close the preceding mapping/list (compare braces/indentation) before continuing. (line 262, column 9)
-
 ## YAML Validation Diff vs Previous
 
-- No YAML validation status changes since v30.
+- Resolved failures: `products/guardsuite-specs/checklist/checklist.yml`, `products/pipelinescan/metadata/product.yml`, `products/vectorscan/checklist/checklist.yml`
 
 ## Schema Coverage Stats
 
 | Metric | Value |
 | --- | ---: |
 | Total YAML files scanned | 36 |
-| Valid YAML files | 33 |
-| Invalid YAML files | 3 |
-| Valid coverage (%) | 91.67 |
+| Valid YAML files | 36 |
+| Invalid YAML files | 0 |
+| Valid coverage (%) | 100.0 |
 | Product metadata present | 13 / 13 |
 | Product checklists present | 13 / 13 |
 
@@ -684,7 +656,7 @@
 - `webhooks/`
 - `webhooks/__init__.py`
 
-### workspace (85)
+### workspace (86)
 - `workspace/diagnostics/`
 - `workspace/diagnostics/repo_scan_raw.json`
 - `workspace/diagnostics/repo_scan_report.md`
@@ -766,6 +738,7 @@
 - `workspace/strategy_d/scaffolding_phase3/scaffolding_phase3_complete.md`
 - `workspace/strategy_d/scaffolding_phase4/`
 - `workspace/strategy_d/scaffolding_phase4/scaffolding_phase4_complete.md`
+- `workspace/strategy_d/yaml_fixes/`
 - `workspace/utilities/`
 - `workspace/utilities/README.md`
 - `workspace/utilities/list_tree.sh`
