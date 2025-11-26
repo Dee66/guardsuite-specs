@@ -46,6 +46,8 @@ def load_rules(rule_dir: str = "tools/repair_rules") -> List[Callable[[str], str
         return rules
     # load .py files in sorted order
     files = sorted(glob.glob(str(base / "*.py")))
+    # Return list of rule dicts with deterministic ordering and type classification
+    loaded = []
     for f in files:
         name = Path(f).stem
         spec = importlib.util.spec_from_file_location(name, f)
@@ -53,14 +55,17 @@ def load_rules(rule_dir: str = "tools/repair_rules") -> List[Callable[[str], str
             mod = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(mod)
             if hasattr(mod, "normalize") and callable(getattr(mod, "normalize")):
-                rules.append(getattr(mod, "normalize"))
-    return rules
+                # classify rule type: markdown if filename contains 'markdown', else yaml
+                rtype = "markdown" if "markdown" in name.lower() else "yaml"
+                loaded.append({"name": name, "normalize": getattr(mod, "normalize"), "type": rtype})
+    return loaded
 
 
-def apply_rules(text: str, rules: List[Callable[[str], str]]) -> str:
+def apply_rules(text: str, rules: List[dict], file_type: str) -> str:
     out = text
     for r in rules:
-        out = r(out)
+        if r.get("type") == file_type:
+            out = r["normalize"](out)
     return out
 
 
@@ -82,8 +87,17 @@ def run_once(path: str, apply: bool = False, rules: List[Callable[[str], str]] |
     original = p.read_text(encoding="utf-8")
     # apply incremental rules when available, otherwise fallback to base normalizer
     rules = rules if rules is not None else load_rules()
-    if rules:
-        normalized = apply_rules(original, rules)
+    # determine file type by suffix
+    suffix = p.suffix.lower()
+    if suffix in (".yml", ".yaml"):
+        file_type = "yaml"
+    elif suffix == ".md":
+        file_type = "markdown"
+    else:
+        file_type = "other"
+
+    if rules and file_type in ("yaml", "markdown"):
+        normalized = apply_rules(original, rules, file_type=file_type)
     else:
         normalized = normalize_text(original)
     diff = unified_diff(original, normalized, fromfile=str(p), tofile=str(p) + ".normalized")
