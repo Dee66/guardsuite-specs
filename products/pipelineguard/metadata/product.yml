@@ -103,13 +103,12 @@ x_legacy:
   - id: PIPEG-FEAT-030
     title: FixPack-Lite Remediation
     summary: Deterministic, CI-safe remediation snippets.
-  related_products:
-  - computeguard
-  - computescan
-  - guardboard
-  - guardscore
-  - guardsuite-core
-  - pipelinescan
+    included: true
+  - id: PIPEG-FEAT-040
+    title: Premium GuardScore Inputs
+    summary: Supply-chain and workflow risk signals for scoring.
+    included: true
+  - id: PIPEG-FEAT-050
     title: Artifact Lifecycle Governance
     summary: End-to-end artifact signature & provenance validation.
     included: true

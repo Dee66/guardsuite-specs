@@ -1,0 +1,17 @@
+--- products/vectorscan/metadata/product.yml
++++ products/vectorscan/metadata/product.yml
+@@ -153,10 +153,10 @@
+     canonical_schema: guardsuite-core/canonical_schema.json
+     pricing_reference: pricing/guardsuite_pricing.yml
+   related_products:
+-    - guardboard
+-    - guardscore
+-    - guardsuite-core
+-    - vectorguard
++  - guardboard
++  - guardscore
++  - guardsuite-core
++  - vectorguard
+   release_metadata:
+     release_channel: stable
+     release_notes_url: https://shieldcraft-ai.com/guardsuite/vectorscan/releases/2.0.0
