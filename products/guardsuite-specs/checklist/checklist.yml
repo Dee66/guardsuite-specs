@@ -125,35 +125,35 @@ api:
     - admin
   openapi: openapi.yaml
   endpoints:
-    - GET  /products
+    - path: "GET  /products"
       desc: list products (paginated)
       auth: reader
-    - POST /products
+    - path: "POST /products"
       desc: create product (require spec + checklist + gpt-instructions)
       auth: writer
       body: { id, spec_yaml, checklist_yaml, gpt_instructions_yaml, maintainers }
-    - GET  /products/{id}
+    - path: "GET  /products/{id}"
       desc: fetch full product record
       auth: reader
-    - PATCH /products/{id}
+    - path: "PATCH /products/{id}"
       desc: partial update (replace YAMLs or metadata)
       auth: writer
-    - DELETE /products/{id}
+    - path: "DELETE /products/{id}"
       desc: deprecate product (status change) — admin confirmation
       auth: admin
-    - POST /products/{id}/validate
+    - path: "POST /products/{id}/validate"
       desc: run schema + master-spec validations
       auth: ci
-    - POST /products/{id}/bootstrap/generate
+    - path: "POST /products/{id}/bootstrap/generate"
       desc: trigger synchronous bootstrap regen; returns metadata
       auth: ci
-    - GET  /products/{id}/bootstrap
+    - path: "GET  /products/{id}/bootstrap"
       desc: return latest bootstrap artifact JSON
       auth: reader
-    - POST /products/{id}/audit
+    - path: "POST /products/{id}/audit"
       desc: enqueue audit (used by /ai-dev-report flows)
       auth: writer
-    - POST /webhooks/scan-result
+    - path: "POST /webhooks/scan-result"
       desc: receive Implementor #FEEDBACK_CONTRACT and persist/update product state
       security: webhook_secret
 
@@ -227,7 +227,7 @@ storage:
 
 webhooks:
   endpoints:
-    - POST /webhooks/scan-result
+    - path: "POST /webhooks/scan-result"
       desc: ingest Implementor #FEEDBACK_CONTRACT
       security: HMAC signature using webhook_secret
       on_receive:

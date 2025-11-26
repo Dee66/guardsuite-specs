@@ -124,7 +124,7 @@ artifact_contract:
     recommended_for_high_confidence_checks: true
     rules:
       - if_provenance_present: validate_signature_if_present
-      - missing_provenance: allowed (scanner sets provenance_source: "scanner_unverified")
+      - missing_provenance: 'allowed (scanner sets provenance_source: "scanner_unverified")'
   export_bundle_contract:
     required_fields:
       - metadata

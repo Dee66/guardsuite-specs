@@ -1,0 +1,7 @@
+Before (excerpt from products/pipelinescan/metadata/product.yml):
+  - missing_provenance: allowed (scanner sets provenance_source: "scanner_unverified")
+
+After (same excerpt after fix):
+  - missing_provenance: 'allowed (scanner sets provenance_source: "scanner_unverified")'
+
+Note: Quoted the RHS string to avoid an unquoted scalar containing an embedded double-quoted substring which caused a YAML scanner error.

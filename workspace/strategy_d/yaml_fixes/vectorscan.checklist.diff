@@ -1,0 +1,18 @@
+Before (excerpt from products/vectorscan/checklist/checklist.yml):
+  - CLI-001: validate_cli_entrypoint_exists("vectorscan")
+  - CLI-002: validate_supported_flags_present(["--json","--stdin","--quiet","--explain","--output json"])
+  - CLI-005: canonical_error_output_matches_schema(schemas/cli_error.json)
+  - CLI-006: exit_code_mapping_valid({
+      VALIDATION_ERROR:2,
+      RUNTIME_ERROR:3,
+      SCHEMA_ERROR:4,
+      PARTIAL_INPUT_ERROR:5
+    })
+
+After (same excerpt after fix):
+  - CLI-001: 'validate_cli_entrypoint_exists("vectorscan")'
+  - CLI-002: 'validate_supported_flags_present(["--json","--stdin","--quiet","--explain","--output json"])'
+  - CLI-005: 'canonical_error_output_matches_schema(schemas/cli_error.json)'
+  - CLI-006: 'exit_code_mapping_valid({VALIDATION_ERROR:2, RUNTIME_ERROR:3, SCHEMA_ERROR:4, PARTIAL_INPUT_ERROR:5})'
+
+Note: Quoted function-like checklist entries so parentheses, brackets, braces and embedded quotes are treated as plain string scalars.
