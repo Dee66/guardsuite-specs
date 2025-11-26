@@ -1,0 +1,19 @@
+{
+  "budgets": {
+    "confidence_regression_drop": 0.15,
+    "drift_spike_threshold": 2,
+    "per_file": 3,
+    "per_product": 5
+  },
+  "confidence_regressions": [],
+  "file_alerts": [],
+  "generated": "2025-11-26T13:23:34.254807+00:00",
+  "product_alerts": [],
+  "spike_alerts": [],
+  "summary": {
+    "confidence_regressions": 0,
+    "file_alerts": 0,
+    "product_alerts": 0,
+    "spike_alerts": 0
+  }
+}
