@@ -1,0 +1,1420 @@
+{
+  "files": {
+    "canonical_state/guard_suite_state.json": {
+      "explanation": "Path: canonical_state/guard_suite_state.json; Owner products: unknown; Type: canonical_state; Last phase commit: Strategy-E - 54dc29c187ac0cb4f1a756f759c4107a7d4e8faa - Strategy-E Phase 18: Generate Canonical Cross-Product State Manifest",
+      "last_phase_commit": {
+        "commit": "54dc29c187ac0cb4f1a756f759c4107a7d4e8faa",
+        "message": "Strategy-E Phase 18: Generate Canonical Cross-Product State Manifest",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [],
+      "path": "canonical_state/guard_suite_state.json",
+      "type": "canonical_state"
+    },
+    "products/computeguard/assets/copy/demo/demo_version.yml": {
+      "explanation": "Path: products/computeguard/assets/copy/demo/demo_version.yml; Owner products: computeguard; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "computeguard"
+      ],
+      "path": "products/computeguard/assets/copy/demo/demo_version.yml",
+      "type": "other"
+    },
+    "products/computeguard/assets/copy/demo/plan_bad.json": {
+      "explanation": "Path: products/computeguard/assets/copy/demo/plan_bad.json; Owner products: computeguard; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "computeguard"
+      ],
+      "path": "products/computeguard/assets/copy/demo/plan_bad.json",
+      "type": "other"
+    },
+    "products/computeguard/assets/copy/demo/plan_guard.json": {
+      "explanation": "Path: products/computeguard/assets/copy/demo/plan_guard.json; Owner products: computeguard; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "computeguard"
+      ],
+      "path": "products/computeguard/assets/copy/demo/plan_guard.json",
+      "type": "other"
+    },
+    "products/computeguard/checklist/checklist.yml": {
+      "explanation": "Path: products/computeguard/checklist/checklist.yml; Owner products: computeguard; Type: checklist; Last phase commit: Strategy-D - 9c8be07f19a9d3fefda0d76962cf39f98cf1a28a - Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+      "last_phase_commit": {
+        "commit": "9c8be07f19a9d3fefda0d76962cf39f98cf1a28a",
+        "message": "Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "computeguard"
+      ],
+      "path": "products/computeguard/checklist/checklist.yml",
+      "sections": [
+        "items",
+        "metadata",
+        "phases",
+        "states",
+        "x_legacy"
+      ],
+      "type": "checklist"
+    },
+    "products/computeguard/metadata/product.yml": {
+      "explanation": "Path: products/computeguard/metadata/product.yml; Owner products: computeguard; Type: metadata; Last phase commit: Strategy-D - 29dfeeb2842048af98f0ede4213950b8af2628ac - Strategy-D Phase 12: Apply semantic cross-product fixes",
+      "last_phase_commit": {
+        "commit": "29dfeeb2842048af98f0ede4213950b8af2628ac",
+        "message": "Strategy-D Phase 12: Apply semantic cross-product fixes",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "computeguard"
+      ],
+      "path": "products/computeguard/metadata/product.yml",
+      "sections": [
+        "checklist_yaml",
+        "gpt_instructions_yaml",
+        "id",
+        "name",
+        "owner",
+        "spec_yaml",
+        "status",
+        "version",
+        "x_legacy"
+      ],
+      "type": "metadata"
+    },
+    "products/computescan/assets/copy/demo/demo_version.yml": {
+      "explanation": "Path: products/computescan/assets/copy/demo/demo_version.yml; Owner products: computescan; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "computescan"
+      ],
+      "path": "products/computescan/assets/copy/demo/demo_version.yml",
+      "type": "other"
+    },
+    "products/computescan/assets/copy/demo/plan_bad.json": {
+      "explanation": "Path: products/computescan/assets/copy/demo/plan_bad.json; Owner products: computescan; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "computescan"
+      ],
+      "path": "products/computescan/assets/copy/demo/plan_bad.json",
+      "type": "other"
+    },
+    "products/computescan/assets/copy/demo/plan_guard.json": {
+      "explanation": "Path: products/computescan/assets/copy/demo/plan_guard.json; Owner products: computescan; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "computescan"
+      ],
+      "path": "products/computescan/assets/copy/demo/plan_guard.json",
+      "type": "other"
+    },
+    "products/computescan/checklist/checklist.yml": {
+      "explanation": "Path: products/computescan/checklist/checklist.yml; Owner products: computescan; Type: checklist; Last phase commit: Strategy-D - 9c8be07f19a9d3fefda0d76962cf39f98cf1a28a - Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+      "last_phase_commit": {
+        "commit": "9c8be07f19a9d3fefda0d76962cf39f98cf1a28a",
+        "message": "Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "computescan"
+      ],
+      "path": "products/computescan/checklist/checklist.yml",
+      "sections": [
+        "items",
+        "metadata",
+        "phases",
+        "states",
+        "x_legacy"
+      ],
+      "type": "checklist"
+    },
+    "products/computescan/metadata/product.yml": {
+      "explanation": "Path: products/computescan/metadata/product.yml; Owner products: computescan; Type: metadata; Last phase commit: Strategy-D - 29dfeeb2842048af98f0ede4213950b8af2628ac - Strategy-D Phase 12: Apply semantic cross-product fixes",
+      "last_phase_commit": {
+        "commit": "29dfeeb2842048af98f0ede4213950b8af2628ac",
+        "message": "Strategy-D Phase 12: Apply semantic cross-product fixes",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "computescan"
+      ],
+      "path": "products/computescan/metadata/product.yml",
+      "sections": [
+        "checklist_yaml",
+        "gpt_instructions_yaml",
+        "id",
+        "name",
+        "owner",
+        "spec_yaml",
+        "status",
+        "version",
+        "x_legacy"
+      ],
+      "type": "metadata"
+    },
+    "products/guardboard/assets/copy/demo/demo_version.yml": {
+      "explanation": "Path: products/guardboard/assets/copy/demo/demo_version.yml; Owner products: guardboard; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "guardboard"
+      ],
+      "path": "products/guardboard/assets/copy/demo/demo_version.yml",
+      "type": "other"
+    },
+    "products/guardboard/assets/copy/demo/plan_bad.json": {
+      "explanation": "Path: products/guardboard/assets/copy/demo/plan_bad.json; Owner products: guardboard; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "guardboard"
+      ],
+      "path": "products/guardboard/assets/copy/demo/plan_bad.json",
+      "type": "other"
+    },
+    "products/guardboard/assets/copy/demo/plan_guard.json": {
+      "explanation": "Path: products/guardboard/assets/copy/demo/plan_guard.json; Owner products: guardboard; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "guardboard"
+      ],
+      "path": "products/guardboard/assets/copy/demo/plan_guard.json",
+      "type": "other"
+    },
+    "products/guardboard/checklist/checklist.yml": {
+      "explanation": "Path: products/guardboard/checklist/checklist.yml; Owner products: guardboard; Type: checklist; Last phase commit: Strategy-D - 9c8be07f19a9d3fefda0d76962cf39f98cf1a28a - Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+      "last_phase_commit": {
+        "commit": "9c8be07f19a9d3fefda0d76962cf39f98cf1a28a",
+        "message": "Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "guardboard"
+      ],
+      "path": "products/guardboard/checklist/checklist.yml",
+      "sections": [
+        "items",
+        "metadata",
+        "phases",
+        "states",
+        "x_legacy"
+      ],
+      "type": "checklist"
+    },
+    "products/guardboard/metadata/product.yml": {
+      "explanation": "Path: products/guardboard/metadata/product.yml; Owner products: guardboard; Type: metadata; Last phase commit: Strategy-D - 29dfeeb2842048af98f0ede4213950b8af2628ac - Strategy-D Phase 12: Apply semantic cross-product fixes",
+      "last_phase_commit": {
+        "commit": "29dfeeb2842048af98f0ede4213950b8af2628ac",
+        "message": "Strategy-D Phase 12: Apply semantic cross-product fixes",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "guardboard"
+      ],
+      "path": "products/guardboard/metadata/product.yml",
+      "sections": [
+        "checklist_yaml",
+        "gpt_instructions_yaml",
+        "id",
+        "name",
+        "owner",
+        "spec_yaml",
+        "status",
+        "version",
+        "x_legacy"
+      ],
+      "type": "metadata"
+    },
+    "products/guardscore/assets/copy/demo/demo_version.yml": {
+      "explanation": "Path: products/guardscore/assets/copy/demo/demo_version.yml; Owner products: guardscore; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "guardscore"
+      ],
+      "path": "products/guardscore/assets/copy/demo/demo_version.yml",
+      "type": "other"
+    },
+    "products/guardscore/assets/copy/demo/plan_bad.json": {
+      "explanation": "Path: products/guardscore/assets/copy/demo/plan_bad.json; Owner products: guardscore; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "guardscore"
+      ],
+      "path": "products/guardscore/assets/copy/demo/plan_bad.json",
+      "type": "other"
+    },
+    "products/guardscore/assets/copy/demo/plan_guard.json": {
+      "explanation": "Path: products/guardscore/assets/copy/demo/plan_guard.json; Owner products: guardscore; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "guardscore"
+      ],
+      "path": "products/guardscore/assets/copy/demo/plan_guard.json",
+      "type": "other"
+    },
+    "products/guardscore/checklist/checklist.yml": {
+      "explanation": "Path: products/guardscore/checklist/checklist.yml; Owner products: guardscore; Type: checklist; Last phase commit: Strategy-D - 9c8be07f19a9d3fefda0d76962cf39f98cf1a28a - Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+      "last_phase_commit": {
+        "commit": "9c8be07f19a9d3fefda0d76962cf39f98cf1a28a",
+        "message": "Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "guardscore"
+      ],
+      "path": "products/guardscore/checklist/checklist.yml",
+      "sections": [
+        "items",
+        "metadata",
+        "phases",
+        "states",
+        "x_legacy"
+      ],
+      "type": "checklist"
+    },
+    "products/guardscore/metadata/product.yml": {
+      "explanation": "Path: products/guardscore/metadata/product.yml; Owner products: guardscore; Type: metadata; Last phase commit: Strategy-D - 29dfeeb2842048af98f0ede4213950b8af2628ac - Strategy-D Phase 12: Apply semantic cross-product fixes",
+      "last_phase_commit": {
+        "commit": "29dfeeb2842048af98f0ede4213950b8af2628ac",
+        "message": "Strategy-D Phase 12: Apply semantic cross-product fixes",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "guardscore"
+      ],
+      "path": "products/guardscore/metadata/product.yml",
+      "sections": [
+        "checklist_yaml",
+        "gpt_instructions_yaml",
+        "id",
+        "name",
+        "owner",
+        "spec_yaml",
+        "status",
+        "version",
+        "x_legacy"
+      ],
+      "type": "metadata"
+    },
+    "products/guardsuite-core/assets/copy/demo/demo_version.yml": {
+      "explanation": "Path: products/guardsuite-core/assets/copy/demo/demo_version.yml; Owner products: guardsuite-core; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "guardsuite-core"
+      ],
+      "path": "products/guardsuite-core/assets/copy/demo/demo_version.yml",
+      "type": "other"
+    },
+    "products/guardsuite-core/assets/copy/demo/plan_bad.json": {
+      "explanation": "Path: products/guardsuite-core/assets/copy/demo/plan_bad.json; Owner products: guardsuite-core; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "guardsuite-core"
+      ],
+      "path": "products/guardsuite-core/assets/copy/demo/plan_bad.json",
+      "type": "other"
+    },
+    "products/guardsuite-core/assets/copy/demo/plan_guard.json": {
+      "explanation": "Path: products/guardsuite-core/assets/copy/demo/plan_guard.json; Owner products: guardsuite-core; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "guardsuite-core"
+      ],
+      "path": "products/guardsuite-core/assets/copy/demo/plan_guard.json",
+      "type": "other"
+    },
+    "products/guardsuite-core/checklist/checklist.yml": {
+      "explanation": "Path: products/guardsuite-core/checklist/checklist.yml; Owner products: guardsuite-core; Type: checklist; Last phase commit: Strategy-D - 9c8be07f19a9d3fefda0d76962cf39f98cf1a28a - Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+      "last_phase_commit": {
+        "commit": "9c8be07f19a9d3fefda0d76962cf39f98cf1a28a",
+        "message": "Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "guardsuite-core"
+      ],
+      "path": "products/guardsuite-core/checklist/checklist.yml",
+      "sections": [
+        "items",
+        "metadata",
+        "phases",
+        "states",
+        "x_legacy"
+      ],
+      "type": "checklist"
+    },
+    "products/guardsuite-core/metadata/product.yml": {
+      "explanation": "Path: products/guardsuite-core/metadata/product.yml; Owner products: guardsuite-core; Type: metadata; Last phase commit: Strategy-D - e3d27d8053917cccbf8a62ba6a0da3872298fde9 - Strategy-D Phase 7: Auto-repair product metadata to match canonical schema",
+      "last_phase_commit": {
+        "commit": "e3d27d8053917cccbf8a62ba6a0da3872298fde9",
+        "message": "Strategy-D Phase 7: Auto-repair product metadata to match canonical schema",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "guardsuite-core"
+      ],
+      "path": "products/guardsuite-core/metadata/product.yml",
+      "sections": [
+        "checklist_yaml",
+        "gpt_instructions_yaml",
+        "id",
+        "name",
+        "owner",
+        "spec_yaml",
+        "status",
+        "version",
+        "x_legacy"
+      ],
+      "type": "metadata"
+    },
+    "products/guardsuite-specs/assets/copy/demo/demo_version.yml": {
+      "explanation": "Path: products/guardsuite-specs/assets/copy/demo/demo_version.yml; Owner products: guardsuite-specs; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "guardsuite-specs"
+      ],
+      "path": "products/guardsuite-specs/assets/copy/demo/demo_version.yml",
+      "type": "other"
+    },
+    "products/guardsuite-specs/assets/copy/demo/plan_bad.json": {
+      "explanation": "Path: products/guardsuite-specs/assets/copy/demo/plan_bad.json; Owner products: guardsuite-specs; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "guardsuite-specs"
+      ],
+      "path": "products/guardsuite-specs/assets/copy/demo/plan_bad.json",
+      "type": "other"
+    },
+    "products/guardsuite-specs/assets/copy/demo/plan_guard.json": {
+      "explanation": "Path: products/guardsuite-specs/assets/copy/demo/plan_guard.json; Owner products: guardsuite-specs; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "guardsuite-specs"
+      ],
+      "path": "products/guardsuite-specs/assets/copy/demo/plan_guard.json",
+      "type": "other"
+    },
+    "products/guardsuite-specs/checklist/checklist.yml": {
+      "explanation": "Path: products/guardsuite-specs/checklist/checklist.yml; Owner products: guardsuite-specs; Type: checklist; Last phase commit: Strategy-D - 9c8be07f19a9d3fefda0d76962cf39f98cf1a28a - Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+      "last_phase_commit": {
+        "commit": "9c8be07f19a9d3fefda0d76962cf39f98cf1a28a",
+        "message": "Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "guardsuite-specs"
+      ],
+      "path": "products/guardsuite-specs/checklist/checklist.yml",
+      "sections": [
+        "items",
+        "metadata",
+        "phases",
+        "states",
+        "x_legacy"
+      ],
+      "type": "checklist"
+    },
+    "products/guardsuite-specs/metadata/product.yml": {
+      "explanation": "Path: products/guardsuite-specs/metadata/product.yml; Owner products: guardsuite-specs; Type: metadata; Last phase commit: Strategy-D - 29dfeeb2842048af98f0ede4213950b8af2628ac - Strategy-D Phase 12: Apply semantic cross-product fixes",
+      "last_phase_commit": {
+        "commit": "29dfeeb2842048af98f0ede4213950b8af2628ac",
+        "message": "Strategy-D Phase 12: Apply semantic cross-product fixes",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "guardsuite-specs"
+      ],
+      "path": "products/guardsuite-specs/metadata/product.yml",
+      "sections": [
+        "checklist_yaml",
+        "gpt_instructions_yaml",
+        "id",
+        "name",
+        "owner",
+        "spec_yaml",
+        "status",
+        "version",
+        "x_legacy"
+      ],
+      "type": "metadata"
+    },
+    "products/guardsuite-template/assets/copy/demo/demo_version.yml": {
+      "explanation": "Path: products/guardsuite-template/assets/copy/demo/demo_version.yml; Owner products: guardsuite-template; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "guardsuite-template"
+      ],
+      "path": "products/guardsuite-template/assets/copy/demo/demo_version.yml",
+      "type": "other"
+    },
+    "products/guardsuite-template/assets/copy/demo/plan_bad.json": {
+      "explanation": "Path: products/guardsuite-template/assets/copy/demo/plan_bad.json; Owner products: guardsuite-template; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "guardsuite-template"
+      ],
+      "path": "products/guardsuite-template/assets/copy/demo/plan_bad.json",
+      "type": "other"
+    },
+    "products/guardsuite-template/assets/copy/demo/plan_guard.json": {
+      "explanation": "Path: products/guardsuite-template/assets/copy/demo/plan_guard.json; Owner products: guardsuite-template; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "guardsuite-template"
+      ],
+      "path": "products/guardsuite-template/assets/copy/demo/plan_guard.json",
+      "type": "other"
+    },
+    "products/guardsuite-template/checklist/checklist.yml": {
+      "explanation": "Path: products/guardsuite-template/checklist/checklist.yml; Owner products: guardsuite-template; Type: checklist; Last phase commit: Strategy-D - 9c8be07f19a9d3fefda0d76962cf39f98cf1a28a - Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+      "last_phase_commit": {
+        "commit": "9c8be07f19a9d3fefda0d76962cf39f98cf1a28a",
+        "message": "Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "guardsuite-template"
+      ],
+      "path": "products/guardsuite-template/checklist/checklist.yml",
+      "sections": [
+        "items",
+        "metadata",
+        "phases",
+        "states",
+        "x_legacy"
+      ],
+      "type": "checklist"
+    },
+    "products/guardsuite-template/metadata/product.yml": {
+      "explanation": "Path: products/guardsuite-template/metadata/product.yml; Owner products: guardsuite-template; Type: metadata; Last phase commit: Strategy-D - 29dfeeb2842048af98f0ede4213950b8af2628ac - Strategy-D Phase 12: Apply semantic cross-product fixes",
+      "last_phase_commit": {
+        "commit": "29dfeeb2842048af98f0ede4213950b8af2628ac",
+        "message": "Strategy-D Phase 12: Apply semantic cross-product fixes",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "guardsuite-template"
+      ],
+      "path": "products/guardsuite-template/metadata/product.yml",
+      "sections": [
+        "checklist_yaml",
+        "gpt_instructions_yaml",
+        "id",
+        "name",
+        "owner",
+        "spec_yaml",
+        "version",
+        "x_legacy"
+      ],
+      "type": "metadata"
+    },
+    "products/guardsuite_master_spec/assets/copy/demo/demo_version.yml": {
+      "explanation": "Path: products/guardsuite_master_spec/assets/copy/demo/demo_version.yml; Owner products: guardsuite_master_spec; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "guardsuite_master_spec"
+      ],
+      "path": "products/guardsuite_master_spec/assets/copy/demo/demo_version.yml",
+      "type": "other"
+    },
+    "products/guardsuite_master_spec/assets/copy/demo/plan_bad.json": {
+      "explanation": "Path: products/guardsuite_master_spec/assets/copy/demo/plan_bad.json; Owner products: guardsuite_master_spec; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "guardsuite_master_spec"
+      ],
+      "path": "products/guardsuite_master_spec/assets/copy/demo/plan_bad.json",
+      "type": "other"
+    },
+    "products/guardsuite_master_spec/assets/copy/demo/plan_guard.json": {
+      "explanation": "Path: products/guardsuite_master_spec/assets/copy/demo/plan_guard.json; Owner products: guardsuite_master_spec; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "guardsuite_master_spec"
+      ],
+      "path": "products/guardsuite_master_spec/assets/copy/demo/plan_guard.json",
+      "type": "other"
+    },
+    "products/guardsuite_master_spec/checklist/checklist.yml": {
+      "explanation": "Path: products/guardsuite_master_spec/checklist/checklist.yml; Owner products: guardsuite_master_spec; Type: checklist; Last phase commit: Strategy-D - 9c8be07f19a9d3fefda0d76962cf39f98cf1a28a - Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+      "last_phase_commit": {
+        "commit": "9c8be07f19a9d3fefda0d76962cf39f98cf1a28a",
+        "message": "Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "guardsuite_master_spec"
+      ],
+      "path": "products/guardsuite_master_spec/checklist/checklist.yml",
+      "sections": [
+        "items",
+        "metadata",
+        "phases",
+        "states",
+        "x_legacy"
+      ],
+      "type": "checklist"
+    },
+    "products/guardsuite_master_spec/metadata/product.yml": {
+      "explanation": "Path: products/guardsuite_master_spec/metadata/product.yml; Owner products: guardsuite_master_spec; Type: metadata; Last phase commit: Strategy-D - 29dfeeb2842048af98f0ede4213950b8af2628ac - Strategy-D Phase 12: Apply semantic cross-product fixes",
+      "last_phase_commit": {
+        "commit": "29dfeeb2842048af98f0ede4213950b8af2628ac",
+        "message": "Strategy-D Phase 12: Apply semantic cross-product fixes",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "guardsuite_master_spec"
+      ],
+      "path": "products/guardsuite_master_spec/metadata/product.yml",
+      "sections": [
+        "checklist_yaml",
+        "gpt_instructions_yaml",
+        "id",
+        "name",
+        "owner",
+        "spec_yaml",
+        "status",
+        "version",
+        "x_legacy"
+      ],
+      "type": "metadata"
+    },
+    "products/pipelineguard/assets/copy/demo/demo_version.yml": {
+      "explanation": "Path: products/pipelineguard/assets/copy/demo/demo_version.yml; Owner products: pipelineguard; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "pipelineguard"
+      ],
+      "path": "products/pipelineguard/assets/copy/demo/demo_version.yml",
+      "type": "other"
+    },
+    "products/pipelineguard/assets/copy/demo/plan_bad.json": {
+      "explanation": "Path: products/pipelineguard/assets/copy/demo/plan_bad.json; Owner products: pipelineguard; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "pipelineguard"
+      ],
+      "path": "products/pipelineguard/assets/copy/demo/plan_bad.json",
+      "type": "other"
+    },
+    "products/pipelineguard/assets/copy/demo/plan_guard.json": {
+      "explanation": "Path: products/pipelineguard/assets/copy/demo/plan_guard.json; Owner products: pipelineguard; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "pipelineguard"
+      ],
+      "path": "products/pipelineguard/assets/copy/demo/plan_guard.json",
+      "type": "other"
+    },
+    "products/pipelineguard/checklist/checklist.yml": {
+      "explanation": "Path: products/pipelineguard/checklist/checklist.yml; Owner products: pipelineguard; Type: checklist; Last phase commit: Strategy-D - 9c8be07f19a9d3fefda0d76962cf39f98cf1a28a - Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+      "last_phase_commit": {
+        "commit": "9c8be07f19a9d3fefda0d76962cf39f98cf1a28a",
+        "message": "Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "pipelineguard"
+      ],
+      "path": "products/pipelineguard/checklist/checklist.yml",
+      "sections": [
+        "items",
+        "metadata",
+        "phases",
+        "states",
+        "x_legacy"
+      ],
+      "type": "checklist"
+    },
+    "products/pipelineguard/metadata/product.yml": {
+      "explanation": "Path: products/pipelineguard/metadata/product.yml; Owner products: pipelineguard; Type: metadata; Last phase commit: Strategy-D - 4b5a9b0a0a3cf946448a11a7ebfccaf5d9273998 - Strategy-D Phase 13: Final canonical alignment & drift resolution",
+      "last_phase_commit": {
+        "commit": "4b5a9b0a0a3cf946448a11a7ebfccaf5d9273998",
+        "message": "Strategy-D Phase 13: Final canonical alignment & drift resolution",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "pipelineguard"
+      ],
+      "path": "products/pipelineguard/metadata/product.yml",
+      "sections": [
+        "checklist_yaml",
+        "gpt_instructions_yaml",
+        "id",
+        "name",
+        "owner",
+        "spec_yaml",
+        "status",
+        "version",
+        "x_legacy"
+      ],
+      "type": "metadata"
+    },
+    "products/pipelinescan/assets/copy/demo/demo_version.yml": {
+      "explanation": "Path: products/pipelinescan/assets/copy/demo/demo_version.yml; Owner products: pipelinescan; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "pipelinescan"
+      ],
+      "path": "products/pipelinescan/assets/copy/demo/demo_version.yml",
+      "type": "other"
+    },
+    "products/pipelinescan/assets/copy/demo/plan_bad.json": {
+      "explanation": "Path: products/pipelinescan/assets/copy/demo/plan_bad.json; Owner products: pipelinescan; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "pipelinescan"
+      ],
+      "path": "products/pipelinescan/assets/copy/demo/plan_bad.json",
+      "type": "other"
+    },
+    "products/pipelinescan/assets/copy/demo/plan_guard.json": {
+      "explanation": "Path: products/pipelinescan/assets/copy/demo/plan_guard.json; Owner products: pipelinescan; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "pipelinescan"
+      ],
+      "path": "products/pipelinescan/assets/copy/demo/plan_guard.json",
+      "type": "other"
+    },
+    "products/pipelinescan/checklist/checklist.yml": {
+      "explanation": "Path: products/pipelinescan/checklist/checklist.yml; Owner products: pipelinescan; Type: checklist; Last phase commit: Strategy-D - 9c8be07f19a9d3fefda0d76962cf39f98cf1a28a - Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+      "last_phase_commit": {
+        "commit": "9c8be07f19a9d3fefda0d76962cf39f98cf1a28a",
+        "message": "Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "pipelinescan"
+      ],
+      "path": "products/pipelinescan/checklist/checklist.yml",
+      "sections": [
+        "items",
+        "metadata",
+        "phases",
+        "states",
+        "x_legacy"
+      ],
+      "type": "checklist"
+    },
+    "products/pipelinescan/metadata/product.yml": {
+      "explanation": "Path: products/pipelinescan/metadata/product.yml; Owner products: pipelinescan; Type: metadata; Last phase commit: Strategy-D - 4b5a9b0a0a3cf946448a11a7ebfccaf5d9273998 - Strategy-D Phase 13: Final canonical alignment & drift resolution",
+      "last_phase_commit": {
+        "commit": "4b5a9b0a0a3cf946448a11a7ebfccaf5d9273998",
+        "message": "Strategy-D Phase 13: Final canonical alignment & drift resolution",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "pipelinescan"
+      ],
+      "path": "products/pipelinescan/metadata/product.yml",
+      "sections": [
+        "checklist_yaml",
+        "gpt_instructions_yaml",
+        "id",
+        "name",
+        "owner",
+        "spec_yaml",
+        "version",
+        "x_legacy"
+      ],
+      "type": "metadata"
+    },
+    "products/playground/assets/copy/demo/demo_version.yml": {
+      "explanation": "Path: products/playground/assets/copy/demo/demo_version.yml; Owner products: playground; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "playground"
+      ],
+      "path": "products/playground/assets/copy/demo/demo_version.yml",
+      "type": "other"
+    },
+    "products/playground/assets/copy/demo/plan_bad.json": {
+      "explanation": "Path: products/playground/assets/copy/demo/plan_bad.json; Owner products: playground; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "playground"
+      ],
+      "path": "products/playground/assets/copy/demo/plan_bad.json",
+      "type": "other"
+    },
+    "products/playground/assets/copy/demo/plan_guard.json": {
+      "explanation": "Path: products/playground/assets/copy/demo/plan_guard.json; Owner products: playground; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "playground"
+      ],
+      "path": "products/playground/assets/copy/demo/plan_guard.json",
+      "type": "other"
+    },
+    "products/playground/checklist/checklist.yml": {
+      "explanation": "Path: products/playground/checklist/checklist.yml; Owner products: playground; Type: checklist; Last phase commit: Strategy-D - 9c8be07f19a9d3fefda0d76962cf39f98cf1a28a - Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+      "last_phase_commit": {
+        "commit": "9c8be07f19a9d3fefda0d76962cf39f98cf1a28a",
+        "message": "Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "playground"
+      ],
+      "path": "products/playground/checklist/checklist.yml",
+      "sections": [
+        "items",
+        "metadata",
+        "phases",
+        "states",
+        "x_legacy"
+      ],
+      "type": "checklist"
+    },
+    "products/playground/metadata/product.yml": {
+      "explanation": "Path: products/playground/metadata/product.yml; Owner products: playground; Type: metadata; Last phase commit: Strategy-D - 29dfeeb2842048af98f0ede4213950b8af2628ac - Strategy-D Phase 12: Apply semantic cross-product fixes",
+      "last_phase_commit": {
+        "commit": "29dfeeb2842048af98f0ede4213950b8af2628ac",
+        "message": "Strategy-D Phase 12: Apply semantic cross-product fixes",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "playground"
+      ],
+      "path": "products/playground/metadata/product.yml",
+      "sections": [
+        "checklist_yaml",
+        "gpt_instructions_yaml",
+        "id",
+        "name",
+        "owner",
+        "spec_yaml",
+        "status",
+        "version",
+        "x_legacy"
+      ],
+      "type": "metadata"
+    },
+    "products/vectorguard/assets/copy/demo/demo_version.yml": {
+      "explanation": "Path: products/vectorguard/assets/copy/demo/demo_version.yml; Owner products: vectorguard; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "vectorguard"
+      ],
+      "path": "products/vectorguard/assets/copy/demo/demo_version.yml",
+      "type": "other"
+    },
+    "products/vectorguard/assets/copy/demo/plan_bad.json": {
+      "explanation": "Path: products/vectorguard/assets/copy/demo/plan_bad.json; Owner products: vectorguard; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "vectorguard"
+      ],
+      "path": "products/vectorguard/assets/copy/demo/plan_bad.json",
+      "type": "other"
+    },
+    "products/vectorguard/assets/copy/demo/plan_guard.json": {
+      "explanation": "Path: products/vectorguard/assets/copy/demo/plan_guard.json; Owner products: vectorguard; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "vectorguard"
+      ],
+      "path": "products/vectorguard/assets/copy/demo/plan_guard.json",
+      "type": "other"
+    },
+    "products/vectorguard/checklist/checklist.yml": {
+      "explanation": "Path: products/vectorguard/checklist/checklist.yml; Owner products: vectorguard; Type: checklist; Last phase commit: Strategy-D - 9c8be07f19a9d3fefda0d76962cf39f98cf1a28a - Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+      "last_phase_commit": {
+        "commit": "9c8be07f19a9d3fefda0d76962cf39f98cf1a28a",
+        "message": "Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "vectorguard"
+      ],
+      "path": "products/vectorguard/checklist/checklist.yml",
+      "sections": [
+        "items",
+        "metadata",
+        "phases",
+        "states",
+        "x_legacy"
+      ],
+      "type": "checklist"
+    },
+    "products/vectorguard/metadata/product.yml": {
+      "explanation": "Path: products/vectorguard/metadata/product.yml; Owner products: vectorguard; Type: metadata; Last phase commit: Strategy-D - 29dfeeb2842048af98f0ede4213950b8af2628ac - Strategy-D Phase 12: Apply semantic cross-product fixes",
+      "last_phase_commit": {
+        "commit": "29dfeeb2842048af98f0ede4213950b8af2628ac",
+        "message": "Strategy-D Phase 12: Apply semantic cross-product fixes",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "vectorguard"
+      ],
+      "path": "products/vectorguard/metadata/product.yml",
+      "sections": [
+        "checklist_yaml",
+        "gpt_instructions_yaml",
+        "id",
+        "name",
+        "owner",
+        "spec_yaml",
+        "version",
+        "x_legacy"
+      ],
+      "type": "metadata"
+    },
+    "products/vectorscan/assets/copy/demo/demo_version.yml": {
+      "explanation": "Path: products/vectorscan/assets/copy/demo/demo_version.yml; Owner products: vectorscan; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "vectorscan"
+      ],
+      "path": "products/vectorscan/assets/copy/demo/demo_version.yml",
+      "type": "other"
+    },
+    "products/vectorscan/assets/copy/demo/plan_bad.json": {
+      "explanation": "Path: products/vectorscan/assets/copy/demo/plan_bad.json; Owner products: vectorscan; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "vectorscan"
+      ],
+      "path": "products/vectorscan/assets/copy/demo/plan_bad.json",
+      "type": "other"
+    },
+    "products/vectorscan/assets/copy/demo/plan_guard.json": {
+      "explanation": "Path: products/vectorscan/assets/copy/demo/plan_guard.json; Owner products: vectorscan; Type: other; No phase-specific commit message found (fallback: unknown)",
+      "last_phase_commit": null,
+      "lineage_confidence": 0.0,
+      "owners": [
+        "vectorscan"
+      ],
+      "path": "products/vectorscan/assets/copy/demo/plan_guard.json",
+      "type": "other"
+    },
+    "products/vectorscan/checklist/checklist.yml": {
+      "explanation": "Path: products/vectorscan/checklist/checklist.yml; Owner products: vectorscan; Type: checklist; Last phase commit: Strategy-D - 9c8be07f19a9d3fefda0d76962cf39f98cf1a28a - Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+      "last_phase_commit": {
+        "commit": "9c8be07f19a9d3fefda0d76962cf39f98cf1a28a",
+        "message": "Strategy-D Phase 8: Auto-repair checklist files to match canonical schema",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "vectorscan"
+      ],
+      "path": "products/vectorscan/checklist/checklist.yml",
+      "sections": [
+        "items",
+        "metadata",
+        "phases",
+        "states",
+        "x_legacy"
+      ],
+      "type": "checklist"
+    },
+    "products/vectorscan/metadata/product.yml": {
+      "explanation": "Path: products/vectorscan/metadata/product.yml; Owner products: vectorscan; Type: metadata; Last phase commit: Strategy-D - 4b5a9b0a0a3cf946448a11a7ebfccaf5d9273998 - Strategy-D Phase 13: Final canonical alignment & drift resolution",
+      "last_phase_commit": {
+        "commit": "4b5a9b0a0a3cf946448a11a7ebfccaf5d9273998",
+        "message": "Strategy-D Phase 13: Final canonical alignment & drift resolution",
+        "phase": "Strategy-D"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "vectorscan"
+      ],
+      "path": "products/vectorscan/metadata/product.yml",
+      "sections": [
+        "checklist_yaml",
+        "gpt_instructions_yaml",
+        "id",
+        "name",
+        "owner",
+        "spec_yaml",
+        "status",
+        "version",
+        "x_legacy"
+      ],
+      "type": "metadata"
+    },
+    "rule_specs/computeguard/00_base_rule.yml": {
+      "explanation": "Path: rule_specs/computeguard/00_base_rule.yml; Owner products: computeguard; Type: rule_spec; Last phase commit: Strategy-E - 96c0d4692213448e6e3ad442c26cd2ed7b477c70 - Strategy-E Phase 4: Rule-spec scaffolding creation",
+      "last_phase_commit": {
+        "commit": "96c0d4692213448e6e3ad442c26cd2ed7b477c70",
+        "message": "Strategy-E Phase 4: Rule-spec scaffolding creation",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "computeguard"
+      ],
+      "path": "rule_specs/computeguard/00_base_rule.yml",
+      "rule_spec": {
+        "applies_to": "computeguard",
+        "rule_id": "computeguard-base-00"
+      },
+      "type": "rule_spec"
+    },
+    "rule_specs/computescan/00_base_rule.yml": {
+      "explanation": "Path: rule_specs/computescan/00_base_rule.yml; Owner products: computescan; Type: rule_spec; Last phase commit: Strategy-E - 96c0d4692213448e6e3ad442c26cd2ed7b477c70 - Strategy-E Phase 4: Rule-spec scaffolding creation",
+      "last_phase_commit": {
+        "commit": "96c0d4692213448e6e3ad442c26cd2ed7b477c70",
+        "message": "Strategy-E Phase 4: Rule-spec scaffolding creation",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "computescan"
+      ],
+      "path": "rule_specs/computescan/00_base_rule.yml",
+      "rule_spec": {
+        "applies_to": "computescan",
+        "rule_id": "computescan-base-00"
+      },
+      "type": "rule_spec"
+    },
+    "rule_specs/guardboard/00_base_rule.yml": {
+      "explanation": "Path: rule_specs/guardboard/00_base_rule.yml; Owner products: guardboard; Type: rule_spec; Last phase commit: Strategy-E - 96c0d4692213448e6e3ad442c26cd2ed7b477c70 - Strategy-E Phase 4: Rule-spec scaffolding creation",
+      "last_phase_commit": {
+        "commit": "96c0d4692213448e6e3ad442c26cd2ed7b477c70",
+        "message": "Strategy-E Phase 4: Rule-spec scaffolding creation",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "guardboard"
+      ],
+      "path": "rule_specs/guardboard/00_base_rule.yml",
+      "rule_spec": {
+        "applies_to": "guardboard",
+        "rule_id": "guardboard-base-00"
+      },
+      "type": "rule_spec"
+    },
+    "rule_specs/guardscore/00_base_rule.yml": {
+      "explanation": "Path: rule_specs/guardscore/00_base_rule.yml; Owner products: guardscore; Type: rule_spec; Last phase commit: Strategy-E - 96c0d4692213448e6e3ad442c26cd2ed7b477c70 - Strategy-E Phase 4: Rule-spec scaffolding creation",
+      "last_phase_commit": {
+        "commit": "96c0d4692213448e6e3ad442c26cd2ed7b477c70",
+        "message": "Strategy-E Phase 4: Rule-spec scaffolding creation",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "guardscore"
+      ],
+      "path": "rule_specs/guardscore/00_base_rule.yml",
+      "rule_spec": {
+        "applies_to": "guardscore",
+        "rule_id": "guardscore-base-00"
+      },
+      "type": "rule_spec"
+    },
+    "rule_specs/guardsuite-core/00_base_rule.yml": {
+      "explanation": "Path: rule_specs/guardsuite-core/00_base_rule.yml; Owner products: guardsuite-core; Type: rule_spec; Last phase commit: Strategy-E - 96c0d4692213448e6e3ad442c26cd2ed7b477c70 - Strategy-E Phase 4: Rule-spec scaffolding creation",
+      "last_phase_commit": {
+        "commit": "96c0d4692213448e6e3ad442c26cd2ed7b477c70",
+        "message": "Strategy-E Phase 4: Rule-spec scaffolding creation",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "guardsuite-core"
+      ],
+      "path": "rule_specs/guardsuite-core/00_base_rule.yml",
+      "rule_spec": {
+        "applies_to": "guardsuite-core",
+        "rule_id": "guardsuite-core-base-00"
+      },
+      "type": "rule_spec"
+    },
+    "rule_specs/guardsuite-specs/00_base_rule.yml": {
+      "explanation": "Path: rule_specs/guardsuite-specs/00_base_rule.yml; Owner products: guardsuite-specs; Type: rule_spec; Last phase commit: Strategy-E - 96c0d4692213448e6e3ad442c26cd2ed7b477c70 - Strategy-E Phase 4: Rule-spec scaffolding creation",
+      "last_phase_commit": {
+        "commit": "96c0d4692213448e6e3ad442c26cd2ed7b477c70",
+        "message": "Strategy-E Phase 4: Rule-spec scaffolding creation",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "guardsuite-specs"
+      ],
+      "path": "rule_specs/guardsuite-specs/00_base_rule.yml",
+      "rule_spec": {
+        "applies_to": "guardsuite-specs",
+        "rule_id": "guardsuite-specs-base-00"
+      },
+      "type": "rule_spec"
+    },
+    "rule_specs/guardsuite-template/00_base_rule.yml": {
+      "explanation": "Path: rule_specs/guardsuite-template/00_base_rule.yml; Owner products: guardsuite-template; Type: rule_spec; Last phase commit: Strategy-E - 96c0d4692213448e6e3ad442c26cd2ed7b477c70 - Strategy-E Phase 4: Rule-spec scaffolding creation",
+      "last_phase_commit": {
+        "commit": "96c0d4692213448e6e3ad442c26cd2ed7b477c70",
+        "message": "Strategy-E Phase 4: Rule-spec scaffolding creation",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "guardsuite-template"
+      ],
+      "path": "rule_specs/guardsuite-template/00_base_rule.yml",
+      "rule_spec": {
+        "applies_to": "guardsuite-template",
+        "rule_id": "guardsuite-template-base-00"
+      },
+      "type": "rule_spec"
+    },
+    "rule_specs/guardsuite_master_spec/00_base_rule.yml": {
+      "explanation": "Path: rule_specs/guardsuite_master_spec/00_base_rule.yml; Owner products: guardsuite_master_spec; Type: rule_spec; Last phase commit: Strategy-E - 96c0d4692213448e6e3ad442c26cd2ed7b477c70 - Strategy-E Phase 4: Rule-spec scaffolding creation",
+      "last_phase_commit": {
+        "commit": "96c0d4692213448e6e3ad442c26cd2ed7b477c70",
+        "message": "Strategy-E Phase 4: Rule-spec scaffolding creation",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "guardsuite_master_spec"
+      ],
+      "path": "rule_specs/guardsuite_master_spec/00_base_rule.yml",
+      "rule_spec": {
+        "applies_to": "guardsuite_master_spec",
+        "rule_id": "guardsuite_master_spec-base-00"
+      },
+      "type": "rule_spec"
+    },
+    "rule_specs/pipelineguard/00_base_rule.yml": {
+      "explanation": "Path: rule_specs/pipelineguard/00_base_rule.yml; Owner products: pipelineguard; Type: rule_spec; Last phase commit: Strategy-E - 96c0d4692213448e6e3ad442c26cd2ed7b477c70 - Strategy-E Phase 4: Rule-spec scaffolding creation",
+      "last_phase_commit": {
+        "commit": "96c0d4692213448e6e3ad442c26cd2ed7b477c70",
+        "message": "Strategy-E Phase 4: Rule-spec scaffolding creation",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "pipelineguard"
+      ],
+      "path": "rule_specs/pipelineguard/00_base_rule.yml",
+      "rule_spec": {
+        "applies_to": "pipelineguard",
+        "rule_id": "pipelineguard-base-00"
+      },
+      "type": "rule_spec"
+    },
+    "rule_specs/pipelinescan/00_base_rule.yml": {
+      "explanation": "Path: rule_specs/pipelinescan/00_base_rule.yml; Owner products: pipelinescan; Type: rule_spec; Last phase commit: Strategy-E - 96c0d4692213448e6e3ad442c26cd2ed7b477c70 - Strategy-E Phase 4: Rule-spec scaffolding creation",
+      "last_phase_commit": {
+        "commit": "96c0d4692213448e6e3ad442c26cd2ed7b477c70",
+        "message": "Strategy-E Phase 4: Rule-spec scaffolding creation",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "pipelinescan"
+      ],
+      "path": "rule_specs/pipelinescan/00_base_rule.yml",
+      "rule_spec": {
+        "applies_to": "pipelinescan",
+        "rule_id": "pipelinescan-base-00"
+      },
+      "type": "rule_spec"
+    },
+    "rule_specs/playground/00_base_rule.yml": {
+      "explanation": "Path: rule_specs/playground/00_base_rule.yml; Owner products: playground; Type: rule_spec; Last phase commit: Strategy-E - 96c0d4692213448e6e3ad442c26cd2ed7b477c70 - Strategy-E Phase 4: Rule-spec scaffolding creation",
+      "last_phase_commit": {
+        "commit": "96c0d4692213448e6e3ad442c26cd2ed7b477c70",
+        "message": "Strategy-E Phase 4: Rule-spec scaffolding creation",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "playground"
+      ],
+      "path": "rule_specs/playground/00_base_rule.yml",
+      "rule_spec": {
+        "applies_to": "playground",
+        "rule_id": "playground-base-00"
+      },
+      "type": "rule_spec"
+    },
+    "rule_specs/rule_spec_template.yml": {
+      "explanation": "Path: rule_specs/rule_spec_template.yml; Owner products: unknown; Type: rule_spec; Last phase commit: Strategy-E - 96c0d4692213448e6e3ad442c26cd2ed7b477c70 - Strategy-E Phase 4: Rule-spec scaffolding creation",
+      "last_phase_commit": {
+        "commit": "96c0d4692213448e6e3ad442c26cd2ed7b477c70",
+        "message": "Strategy-E Phase 4: Rule-spec scaffolding creation",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [],
+      "path": "rule_specs/rule_spec_template.yml",
+      "rule_spec": {
+        "applies_to": "<product>",
+        "rule_id": "RULE-ID-TBD"
+      },
+      "type": "rule_spec"
+    },
+    "rule_specs/vectorguard/00_base_rule.yml": {
+      "explanation": "Path: rule_specs/vectorguard/00_base_rule.yml; Owner products: vectorguard; Type: rule_spec; Last phase commit: Strategy-E - 96c0d4692213448e6e3ad442c26cd2ed7b477c70 - Strategy-E Phase 4: Rule-spec scaffolding creation",
+      "last_phase_commit": {
+        "commit": "96c0d4692213448e6e3ad442c26cd2ed7b477c70",
+        "message": "Strategy-E Phase 4: Rule-spec scaffolding creation",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "vectorguard"
+      ],
+      "path": "rule_specs/vectorguard/00_base_rule.yml",
+      "rule_spec": {
+        "applies_to": "vectorguard",
+        "rule_id": "vectorguard-base-00"
+      },
+      "type": "rule_spec"
+    },
+    "rule_specs/vectorscan/00_base_rule.yml": {
+      "explanation": "Path: rule_specs/vectorscan/00_base_rule.yml; Owner products: vectorscan; Type: rule_spec; Last phase commit: Strategy-E - 96c0d4692213448e6e3ad442c26cd2ed7b477c70 - Strategy-E Phase 4: Rule-spec scaffolding creation",
+      "last_phase_commit": {
+        "commit": "96c0d4692213448e6e3ad442c26cd2ed7b477c70",
+        "message": "Strategy-E Phase 4: Rule-spec scaffolding creation",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [
+        "vectorscan"
+      ],
+      "path": "rule_specs/vectorscan/00_base_rule.yml",
+      "rule_spec": {
+        "applies_to": "vectorscan",
+        "rule_id": "vectorscan-base-00"
+      },
+      "type": "rule_spec"
+    },
+    "validation_integrity_snapshot/checklists.json": {
+      "explanation": "Path: validation_integrity_snapshot/checklists.json; Owner products: unknown; Type: validation_snapshot; Last phase commit: Strategy-E - a4ee4eb35ca0504685f57cfac64cf8a832e78df9 - Strategy-E Phase 17b: Validation Integrity Snapshot",
+      "last_phase_commit": {
+        "commit": "a4ee4eb35ca0504685f57cfac64cf8a832e78df9",
+        "message": "Strategy-E Phase 17b: Validation Integrity Snapshot",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [],
+      "path": "validation_integrity_snapshot/checklists.json",
+      "type": "validation_snapshot"
+    },
+    "validation_integrity_snapshot/master_validation_report.md": {
+      "explanation": "Path: validation_integrity_snapshot/master_validation_report.md; Owner products: unknown; Type: validation_snapshot; Last phase commit: Strategy-E - a4ee4eb35ca0504685f57cfac64cf8a832e78df9 - Strategy-E Phase 17b: Validation Integrity Snapshot",
+      "last_phase_commit": {
+        "commit": "a4ee4eb35ca0504685f57cfac64cf8a832e78df9",
+        "message": "Strategy-E Phase 17b: Validation Integrity Snapshot",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [],
+      "path": "validation_integrity_snapshot/master_validation_report.md",
+      "type": "validation_snapshot"
+    },
+    "validation_integrity_snapshot/metadata.json": {
+      "explanation": "Path: validation_integrity_snapshot/metadata.json; Owner products: unknown; Type: validation_snapshot; Last phase commit: Strategy-E - a4ee4eb35ca0504685f57cfac64cf8a832e78df9 - Strategy-E Phase 17b: Validation Integrity Snapshot",
+      "last_phase_commit": {
+        "commit": "a4ee4eb35ca0504685f57cfac64cf8a832e78df9",
+        "message": "Strategy-E Phase 17b: Validation Integrity Snapshot",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [],
+      "path": "validation_integrity_snapshot/metadata.json",
+      "type": "validation_snapshot"
+    },
+    "validation_integrity_snapshot/repair_runner.json": {
+      "explanation": "Path: validation_integrity_snapshot/repair_runner.json; Owner products: unknown; Type: validation_snapshot; Last phase commit: Strategy-E - a4ee4eb35ca0504685f57cfac64cf8a832e78df9 - Strategy-E Phase 17b: Validation Integrity Snapshot",
+      "last_phase_commit": {
+        "commit": "a4ee4eb35ca0504685f57cfac64cf8a832e78df9",
+        "message": "Strategy-E Phase 17b: Validation Integrity Snapshot",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [],
+      "path": "validation_integrity_snapshot/repair_runner.json",
+      "type": "validation_snapshot"
+    },
+    "validation_integrity_snapshot/repo_scan.json": {
+      "explanation": "Path: validation_integrity_snapshot/repo_scan.json; Owner products: unknown; Type: validation_snapshot; Last phase commit: Strategy-E - a4ee4eb35ca0504685f57cfac64cf8a832e78df9 - Strategy-E Phase 17b: Validation Integrity Snapshot",
+      "last_phase_commit": {
+        "commit": "a4ee4eb35ca0504685f57cfac64cf8a832e78df9",
+        "message": "Strategy-E Phase 17b: Validation Integrity Snapshot",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [],
+      "path": "validation_integrity_snapshot/repo_scan.json",
+      "type": "validation_snapshot"
+    },
+    "validation_integrity_snapshot/rule_specs.json": {
+      "explanation": "Path: validation_integrity_snapshot/rule_specs.json; Owner products: unknown; Type: validation_snapshot; Last phase commit: Strategy-E - a4ee4eb35ca0504685f57cfac64cf8a832e78df9 - Strategy-E Phase 17b: Validation Integrity Snapshot",
+      "last_phase_commit": {
+        "commit": "a4ee4eb35ca0504685f57cfac64cf8a832e78df9",
+        "message": "Strategy-E Phase 17b: Validation Integrity Snapshot",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [],
+      "path": "validation_integrity_snapshot/rule_specs.json",
+      "type": "validation_snapshot"
+    },
+    "validation_integrity_snapshot/semantic.json": {
+      "explanation": "Path: validation_integrity_snapshot/semantic.json; Owner products: unknown; Type: validation_snapshot; Last phase commit: Strategy-E - a4ee4eb35ca0504685f57cfac64cf8a832e78df9 - Strategy-E Phase 17b: Validation Integrity Snapshot",
+      "last_phase_commit": {
+        "commit": "a4ee4eb35ca0504685f57cfac64cf8a832e78df9",
+        "message": "Strategy-E Phase 17b: Validation Integrity Snapshot",
+        "phase": "Strategy-E"
+      },
+      "lineage_confidence": 1.0,
+      "owners": [],
+      "path": "validation_integrity_snapshot/semantic.json",
+      "type": "validation_snapshot"
+    }
+  },
+  "per_product": {
+    "computeguard": {
+      "added_files": [],
+      "changed_files": [],
+      "removed_files": []
+    },
+    "computescan": {
+      "added_files": [],
+      "changed_files": [],
+      "removed_files": []
+    },
+    "guardboard": {
+      "added_files": [],
+      "changed_files": [],
+      "removed_files": []
+    },
+    "guardscore": {
+      "added_files": [],
+      "changed_files": [],
+      "removed_files": []
+    },
+    "guardsuite-core": {
+      "added_files": [],
+      "changed_files": [],
+      "removed_files": []
+    },
+    "guardsuite-specs": {
+      "added_files": [],
+      "changed_files": [],
+      "removed_files": []
+    },
+    "guardsuite-template": {
+      "added_files": [],
+      "changed_files": [],
+      "removed_files": []
+    },
+    "guardsuite_master_spec": {
+      "added_files": [],
+      "changed_files": [],
+      "removed_files": []
+    },
+    "pipelineguard": {
+      "added_files": [],
+      "changed_files": [],
+      "removed_files": []
+    },
+    "pipelinescan": {
+      "added_files": [],
+      "changed_files": [],
+      "removed_files": []
+    },
+    "playground": {
+      "added_files": [],
+      "changed_files": [],
+      "removed_files": []
+    },
+    "vectorguard": {
+      "added_files": [],
+      "changed_files": [],
+      "removed_files": []
+    },
+    "vectorscan": {
+      "added_files": [],
+      "changed_files": [],
+      "removed_files": []
+    }
+  },
+  "summary": {
+    "average_confidence": 0.5517241379310345,
+    "products_affected": 0,
+    "total_paths": 87,
+    "unresolved_paths": 9
+  },
+  "timestamp": "2025-11-26T13:11:46.983467+00:00",
+  "unresolved": [
+    "canonical_state/guard_suite_state.json",
+    "rule_specs/rule_spec_template.yml",
+    "validation_integrity_snapshot/checklists.json",
+    "validation_integrity_snapshot/master_validation_report.md",
+    "validation_integrity_snapshot/metadata.json",
+    "validation_integrity_snapshot/repair_runner.json",
+    "validation_integrity_snapshot/repo_scan.json",
+    "validation_integrity_snapshot/rule_specs.json",
+    "validation_integrity_snapshot/semantic.json"
+  ]
+}
