@@ -14,7 +14,9 @@ import argparse
 import difflib
 import os
 from pathlib import Path
-from typing import List
+from typing import List, Callable
+import importlib.util
+import glob
 
 
 def normalize_text(text: str) -> str:
@@ -31,6 +33,37 @@ def normalize_text(text: str) -> str:
     return text + "\n" + marker
 
 
+def load_rules(rule_dir: str = "tools/repair_rules") -> List[Callable[[str], str]]:
+    """Load incremental normalization rules from `tools/repair_rules/`.
+
+    Each rule is a module exposing a `normalize(text)` function that returns
+    the normalized text. Rules are applied in file-name sorted order to
+    guarantee deterministic behavior.
+    """
+    rules: List[Callable[[str], str]] = []
+    base = Path(rule_dir)
+    if not base.exists():
+        return rules
+    # load .py files in sorted order
+    files = sorted(glob.glob(str(base / "*.py")))
+    for f in files:
+        name = Path(f).stem
+        spec = importlib.util.spec_from_file_location(name, f)
+        if spec and spec.loader:
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            if hasattr(mod, "normalize") and callable(getattr(mod, "normalize")):
+                rules.append(getattr(mod, "normalize"))
+    return rules
+
+
+def apply_rules(text: str, rules: List[Callable[[str], str]]) -> str:
+    out = text
+    for r in rules:
+        out = r(out)
+    return out
+
+
 def unified_diff(a: str, b: str, fromfile: str = "a", tofile: str = "b") -> str:
     a_lines = a.splitlines(keepends=True)
     b_lines = b.splitlines(keepends=True)
@@ -42,12 +75,17 @@ def safe_filename(path: str) -> str:
     return path.replace(os.sep, "__").lstrip(".")
 
 
-def run_once(path: str, apply: bool = False) -> str:
+def run_once(path: str, apply: bool = False, rules: List[Callable[[str], str]] | None = None) -> str:
     p = Path(path)
     if not p.exists():
         raise FileNotFoundError(path)
     original = p.read_text(encoding="utf-8")
-    normalized = normalize_text(original)
+    # apply incremental rules when available, otherwise fallback to base normalizer
+    rules = rules if rules is not None else load_rules()
+    if rules:
+        normalized = apply_rules(original, rules)
+    else:
+        normalized = normalize_text(original)
     diff = unified_diff(original, normalized, fromfile=str(p), tofile=str(p) + ".normalized")
 
     if apply:
@@ -68,22 +106,56 @@ def run_once(path: str, apply: bool = False) -> str:
     return diff
 
 
+def run_directory(path: str, apply: bool = False, extensions: List[str] | None = None) -> dict:
+    """Process files under `path` (recursively) and return mapping of file -> diff.
+
+    `extensions` is a list like ['.yml', '.yaml', '.md', '.txt'] to limit processed files.
+    """
+    p = Path(path)
+    if not p.exists():
+        raise FileNotFoundError(path)
+    if extensions is None:
+        extensions = [".yml", ".yaml", ".md", ".txt"]
+    rules = load_rules()
+    results = {}
+    for f in sorted(p.rglob("*")):
+        if f.is_file() and f.suffix.lower() in extensions:
+            try:
+                diff = run_once(str(f), apply=apply, rules=rules)
+                results[str(f)] = diff
+            except Exception as e:
+                results[str(f)] = f"ERROR: {e}"
+    return results
+
+
 def main(argv: List[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Repair runner (minimal scaffold)")
-    parser.add_argument("path", help="Path to file to normalize")
+    parser.add_argument("path", help="Path to file or directory to normalize")
     parser.add_argument("--apply", action="store_true", help="Write backups and diffs (default: dry-run)")
+    parser.add_argument("--extensions", help="Comma-separated file extensions to process (e.g. .yml,.yaml,.md)")
     args = parser.parse_args(argv)
 
+    exts = None
+    if args.extensions:
+        exts = [x.strip() for x in args.extensions.split(",") if x.strip()]
+
+    target = Path(args.path)
     try:
-        diff = run_once(args.path, apply=args.apply)
+        if target.is_dir():
+            results = run_directory(args.path, apply=args.apply, extensions=exts)
+            # Print deterministic summary: files with diffs first
+            for k in sorted(results.keys()):
+                print(f"--- {k} ---")
+                print(results[k])
+        else:
+            diff = run_once(args.path, apply=args.apply)
+            if diff:
+                print(diff)
+            else:
+                print("No changes needed; input already normalized.")
     except FileNotFoundError:
         print(f"ERROR: file not found: {args.path}")
         return 2
-
-    if diff:
-        print(diff)
-    else:
-        print("No changes needed; input already normalized.")
     return 0
 
 

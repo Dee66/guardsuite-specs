@@ -1,10 +1,19 @@
+import importlib.util
 import tempfile
 from pathlib import Path
 
-from tools import repair_runner
+
+def load_repair_runner_module():
+    repo_root = Path(__file__).resolve().parents[1]
+    target = repo_root / "tools" / "repair_runner.py"
+    spec = importlib.util.spec_from_file_location("repair_runner", str(target))
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def test_normalize_and_diff():
+    repair_runner = load_repair_runner_module()
     with tempfile.TemporaryDirectory() as td:
         p = Path(td) / "sample.txt"
         p.write_text("line: 1\n")
