@@ -1,8 +1,9 @@
 from typing import List, Dict, Any
 from pathlib import Path
 from strategy_e.pipeline.results.diff_utils import generate_unified_diff
+from strategy_e.pipeline.results.backup_utils import write_backup
 
-def run_pipeline_on_text(text: str, rules: List[Dict[str, Any]]):
+def run_pipeline_on_text(text: str, rules: List[Dict[str, Any]], path: str = None):
     """
     Executes normalization, validation, and repair instructions in-order.
     - Normalization is optional.
@@ -34,15 +35,34 @@ def run_pipeline_on_text(text: str, rules: List[Dict[str, Any]]):
                     if len(line) > max_len:
                         errors.append(f"Line {idx}: exceeds {max_len} characters")
 
-    # REPAIR (dummy structural example)
+    # APPLY REPAIR STEPS (placeholder: identity transform)
     repaired = normalized
+
+    # WRITE BACKUP BEFORE REPAIR
+    backup_path = None
+    if path is not None:
+        try:
+            backup_path = write_backup(path, text)
+        except Exception:
+            # Non-fatal: record but continue
+            backup_path = None
 
     # DIFF GENERATION
     diff_output = generate_unified_diff(text, repaired, before_label="original", after_label="repaired")
+
+    # WRITE REPAIRED TEXT BACK TO FILE IF path PROVIDED
+    if path is not None:
+        try:
+            with open(path, "w", encoding="utf-8", newline="\n") as f:
+                f.write(repaired)
+        except Exception:
+            # Non-fatal: continue
+            pass
 
     return {
         "normalized_text": normalized,
         "validation_errors": errors,
         "repaired_text": repaired,
-        "diff": diff_output
+        "diff": diff_output,
+        "backup_path": backup_path
     }

@@ -17,7 +17,7 @@ def main():
     with target_path.open("r", encoding="utf-8") as f:
         original = f.read()
 
-    result = run_pipeline_on_text(original, rules)
+    result = run_pipeline_on_text(original, rules, str(target_path))
 
     print("=== NORMALIZED ===")
     print(result["normalized_text"])
@@ -26,6 +26,8 @@ def main():
         print(f"- {e}")
     print("=== DIFF ===")
     print(result["diff"])
+    print("=== BACKUP CREATED ===")
+    print(result.get("backup_path", "(none)"))
     print("=== END ===")
 
 
