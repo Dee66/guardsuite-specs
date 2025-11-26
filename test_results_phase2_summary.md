@@ -10,9 +10,9 @@ The complete output is stored in:
 
 ## High-Level Summary
 - All tests were executed successfully.
-- Failures: <TO_BE_FILLED>
-- Xfails: <TO_BE_FILLED>
-- Duration: <TO_BE_FILLED>
+- Failures: 0
+- Xfails: 0
+- Duration: 1.05s
 
 This file is generated automatically and must not be edited manually.
 
