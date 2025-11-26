@@ -1,3 +1,4 @@
+![Rule-Spec Validation](https://github.com/Dee66/guardsuite-specs/actions/workflows/validate_rule_specs.yml/badge.svg)
 <!-- COPILOT: Maintain README clarity; never overload with technical debt. -->
 
 # guardsuite-specs — GuardSuite Source of Truth (SoT)
@@ -28,9 +29,6 @@ scripts/sync_to_repo.py --dry-run --product <id> --target ../product-repo --ensu
 ```
 
 ### Key References
-- Master contract: [`docs/guardsuite_master_spec.md`](docs/guardsuite_master_spec.md)
-- MkDocs site navigation: `mkdocs.yml`
-- Canonical schema: `products/schema/product.schema.json`
 
 ## Canonical Rollout
 Canonical enforcement is complete across validators, docs, exports, snapshots, registry, and cross-map surfaces. Each export directory now includes `canonical_integrity_rollup.yml`, a single-file health indicator referencing the validator’s one-line status for downstream automation (see Architect guidance: `file:///mnt/data/gpt-instructions.txt`).
@@ -43,9 +41,6 @@ python scripts/validate_products.py && python scripts/validate_yaml_schema.py
 ```
 
 ## Notes
-- The YAML files in `products/` are the authoritative source for product copy and structured spec data.
-- Do not edit generated docs in downstream repos directly; CI-driven PRs and `scripts/sync_to_repo.py` keep them in sync. The helper can bootstrap downstream READMEs with `--ensure-readme` to keep the GuardSuite notice consistent.
-- Everything in this repo favors deterministic, idempotent automation.
 
 See `CONTRIBUTING.md` for contribution and release policies.
 
