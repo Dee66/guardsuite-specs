@@ -1,0 +1,927 @@
+{
+  "generated": "2025-11-26T13:15:00.758557+00:00",
+  "per_file": {
+    "canonical_state/guard_suite_state.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/computeguard/assets/copy/demo/demo_version.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/computeguard/assets/copy/demo/plan_bad.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/computeguard/assets/copy/demo/plan_guard.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/computeguard/checklist/checklist.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/computeguard/metadata/product.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/computescan/assets/copy/demo/demo_version.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/computescan/assets/copy/demo/plan_bad.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/computescan/assets/copy/demo/plan_guard.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/computescan/checklist/checklist.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/computescan/metadata/product.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardboard/assets/copy/demo/demo_version.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardboard/assets/copy/demo/plan_bad.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardboard/assets/copy/demo/plan_guard.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardboard/checklist/checklist.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardboard/metadata/product.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardscore/assets/copy/demo/demo_version.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardscore/assets/copy/demo/plan_bad.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardscore/assets/copy/demo/plan_guard.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardscore/checklist/checklist.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardscore/metadata/product.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardsuite-core/assets/copy/demo/demo_version.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardsuite-core/assets/copy/demo/plan_bad.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardsuite-core/assets/copy/demo/plan_guard.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardsuite-core/checklist/checklist.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardsuite-core/metadata/product.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardsuite-specs/assets/copy/demo/demo_version.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardsuite-specs/assets/copy/demo/plan_bad.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardsuite-specs/assets/copy/demo/plan_guard.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardsuite-specs/checklist/checklist.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardsuite-specs/metadata/product.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardsuite-template/assets/copy/demo/demo_version.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardsuite-template/assets/copy/demo/plan_bad.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardsuite-template/assets/copy/demo/plan_guard.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardsuite-template/checklist/checklist.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardsuite-template/metadata/product.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardsuite_master_spec/assets/copy/demo/demo_version.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardsuite_master_spec/assets/copy/demo/plan_bad.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardsuite_master_spec/assets/copy/demo/plan_guard.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardsuite_master_spec/checklist/checklist.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/guardsuite_master_spec/metadata/product.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/pipelineguard/assets/copy/demo/demo_version.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/pipelineguard/assets/copy/demo/plan_bad.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/pipelineguard/assets/copy/demo/plan_guard.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/pipelineguard/checklist/checklist.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/pipelineguard/metadata/product.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/pipelinescan/assets/copy/demo/demo_version.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/pipelinescan/assets/copy/demo/plan_bad.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/pipelinescan/assets/copy/demo/plan_guard.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/pipelinescan/checklist/checklist.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/pipelinescan/metadata/product.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/playground/assets/copy/demo/demo_version.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/playground/assets/copy/demo/plan_bad.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/playground/assets/copy/demo/plan_guard.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/playground/checklist/checklist.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/playground/metadata/product.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/vectorguard/assets/copy/demo/demo_version.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/vectorguard/assets/copy/demo/plan_bad.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/vectorguard/assets/copy/demo/plan_guard.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/vectorguard/checklist/checklist.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/vectorguard/metadata/product.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/vectorscan/assets/copy/demo/demo_version.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/vectorscan/assets/copy/demo/plan_bad.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/vectorscan/assets/copy/demo/plan_guard.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/vectorscan/checklist/checklist.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "products/vectorscan/metadata/product.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "rule_specs/computeguard/00_base_rule.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "rule_specs/computescan/00_base_rule.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "rule_specs/guardboard/00_base_rule.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "rule_specs/guardscore/00_base_rule.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "rule_specs/guardsuite-core/00_base_rule.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "rule_specs/guardsuite-specs/00_base_rule.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "rule_specs/guardsuite-template/00_base_rule.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "rule_specs/guardsuite_master_spec/00_base_rule.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "rule_specs/pipelineguard/00_base_rule.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "rule_specs/pipelinescan/00_base_rule.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "rule_specs/playground/00_base_rule.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "rule_specs/rule_spec_template.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "rule_specs/vectorguard/00_base_rule.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "rule_specs/vectorscan/00_base_rule.yml": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "validation_integrity_snapshot/checklists.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "validation_integrity_snapshot/master_validation_report.md": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "validation_integrity_snapshot/metadata.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "validation_integrity_snapshot/repair_runner.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "validation_integrity_snapshot/repo_scan.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "validation_integrity_snapshot/rule_specs.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "validation_integrity_snapshot/semantic.json": {
+      "timeline": [
+        {
+          "lineage_confidence": null,
+          "state": "unchanged",
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    }
+  },
+  "per_product": {
+    "computeguard": {
+      "timeline": [
+        {
+          "added": 0,
+          "changed": 0,
+          "removed": 0,
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "computescan": {
+      "timeline": [
+        {
+          "added": 0,
+          "changed": 0,
+          "removed": 0,
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "guardboard": {
+      "timeline": [
+        {
+          "added": 0,
+          "changed": 0,
+          "removed": 0,
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "guardscore": {
+      "timeline": [
+        {
+          "added": 0,
+          "changed": 0,
+          "removed": 0,
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "guardsuite-core": {
+      "timeline": [
+        {
+          "added": 0,
+          "changed": 0,
+          "removed": 0,
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "guardsuite-specs": {
+      "timeline": [
+        {
+          "added": 0,
+          "changed": 0,
+          "removed": 0,
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "guardsuite-template": {
+      "timeline": [
+        {
+          "added": 0,
+          "changed": 0,
+          "removed": 0,
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "guardsuite_master_spec": {
+      "timeline": [
+        {
+          "added": 0,
+          "changed": 0,
+          "removed": 0,
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "pipelineguard": {
+      "timeline": [
+        {
+          "added": 0,
+          "changed": 0,
+          "removed": 0,
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "pipelinescan": {
+      "timeline": [
+        {
+          "added": 0,
+          "changed": 0,
+          "removed": 0,
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "playground": {
+      "timeline": [
+        {
+          "added": 0,
+          "changed": 0,
+          "removed": 0,
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "vectorguard": {
+      "timeline": [
+        {
+          "added": 0,
+          "changed": 0,
+          "removed": 0,
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    },
+    "vectorscan": {
+      "timeline": [
+        {
+          "added": 0,
+          "changed": 0,
+          "removed": 0,
+          "timestamp": "2025-11-26T13:04:01.877795+00:00"
+        }
+      ]
+    }
+  },
+  "timepoints": [
+    {
+      "lineage_path": null,
+      "report_path": "canonical_state/drift_report.json",
+      "timestamp": "2025-11-26T13:04:01.877795+00:00"
+    }
+  ]
+}
