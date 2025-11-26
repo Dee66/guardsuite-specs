@@ -159,6 +159,7 @@ x_legacy:
   related_products:
   - guardboard
   - guardscore
+  - guardsuite-core
   release_metadata:
     release_channel: beta
     release_notes_url: https://shieldcraft-ai.com/guardsuite/guard-specs/releases/1.0.0

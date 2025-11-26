@@ -212,6 +212,8 @@ x_legacy:
     summary: 'Authoritative template for creating GuardSuite pillars: deterministic,
       WASM-safe, binary-backed core utilities, standardized lifecycle, and cross-repo
       integration.'
+  related_products:
+  - guardsuite-core
   mission:
   - Provide a complete, deterministic, WASM-safe baseline for building GuardSuite
     pillars.

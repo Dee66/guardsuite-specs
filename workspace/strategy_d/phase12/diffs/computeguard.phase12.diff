@@ -1,0 +1,12 @@
+--- a/products/computeguard/metadata/product.yml
++++ b/products/computeguard/metadata/product.yml
+@@
+- related_products:
+- - computescan
+- - guardscore
+- - guardboard
++ related_products:
++ - computescan
++ - guardboard
++ - guardscore
++ - guardsuite-core

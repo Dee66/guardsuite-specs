@@ -132,6 +132,8 @@ x_legacy:
     products_folder: products/
     docs_folder: docs/products/
     canonical_schema: guardsuite-core/canonical_schema.json
+  related_products:
+  - guardsuite-core
   release:
     cadence:
     - product_release: monthly

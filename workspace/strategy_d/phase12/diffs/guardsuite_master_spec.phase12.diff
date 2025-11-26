@@ -1,0 +1,10 @@
+--- a/products/guardsuite_master_spec/metadata/product.yml
++++ b/products/guardsuite_master_spec/metadata/product.yml
+@@
+   references:
+     templates: templates/
+     products_folder: products/
+     docs_folder: docs/products/
+     canonical_schema: guardsuite-core/canonical_schema.json
+  related_products:
+  - guardsuite-core

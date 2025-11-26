@@ -240,11 +240,12 @@ x_legacy:
   related_products:
   - computeguard
   - computescan
+  - guardboard
+  - guardsuite-core
   - pipelineguard
   - pipelinescan
   - vectorguard
   - vectorscan
-  - guardboard
   release_metadata:
     release_channel: stable
     release_notes_url: https://shieldcraft-ai.com/guardsuite/guardscore/releases/2.2.0

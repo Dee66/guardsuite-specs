@@ -1,0 +1,12 @@
+--- a/products/vectorscan/metadata/product.yml
++++ b/products/vectorscan/metadata/product.yml
+@@
+- related_products:
+- - vectorguard
+- - guardscore
+- - guardboard
++ related_products:
++ - guardboard
++ - guardscore
++ - guardsuite-core
++ - vectorguard

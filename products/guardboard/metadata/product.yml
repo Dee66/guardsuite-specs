@@ -153,10 +153,11 @@ x_legacy:
   related_products:
   - computeguard
   - computescan
+  - guardscore
+  - guardsuite-core
+  - guardsuite-specs
   - pipelinescan
   - vectorscan
-  - guardscore
-  - guardsuite-specs
   release_metadata:
     release_channel: stable
     release_notes_url: https://shieldcraft-ai.com/guardsuite/guardboard/releases/1.0.1

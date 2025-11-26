@@ -1,0 +1,8 @@
+--- a/products/guardsuite-template/metadata/product.yml
++++ b/products/guardsuite-template/metadata/product.yml
+@@
+   metadata:
+     id: guardsuite-template
+@@
+   related_products:
+   - guardsuite-core

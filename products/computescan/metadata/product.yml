@@ -156,8 +156,9 @@ x_legacy:
     canonical_schema: guardsuite-core/canonical_schema.json
   related_products:
   - computeguard
-  - guardscore
   - guardboard
+  - guardscore
+  - guardsuite-core
   release_metadata:
     release_channel: stable
     release_notes_url: https://shieldcraft-ai.com/guardsuite/computescan/releases/1.0.0

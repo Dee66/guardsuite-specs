@@ -157,6 +157,8 @@ x_legacy:
         must_define_nullable_fields: true
         versioning: schema_first
         wasm_safe: true
+    related_products:
+    - guardsuite-core
     implementation_requirements:
       canonical_utils:
         required_functions:
