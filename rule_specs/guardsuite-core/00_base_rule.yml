@@ -1,0 +1,30 @@
+rule_id: "guardsuite-core-base-00"
+applies_to: "guardsuite-core"
+version: 1
+
+description: |
+  Base placeholder rule-spec for guardsuite-core. Replace in later phases.
+
+input_type: "yaml"
+file_patterns:
+  - "*.yml"
+  - "*.yaml"
+
+normalization:
+  required: false
+  steps: []
+
+validation:
+  required: false
+  checks: []
+
+repair:
+  required: false
+  steps: []
+
+outputs:
+  produces_diff: true
+  produces_log: true
+
+x_notes: |
+  Placeholder rule-spec created during Strategy-E Phase 4.

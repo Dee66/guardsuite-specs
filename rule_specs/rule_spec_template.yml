@@ -1,0 +1,41 @@
+# Strategy-E Rule Specification Template
+# Do not modify existing rule-specs automatically; this is a template only.
+
+rule_id: "RULE-ID-TBD"
+applies_to: "<product>"
+version: 1
+
+description: |
+  Describe what this rule does and why it exists.
+
+input_type: "yaml"
+file_patterns:
+  - "*.yml"
+  - "*.yaml"
+
+normalization:
+  required: false
+  steps:
+    - id: example_step
+      description: "Describe the normalization step."
+      operation: "noop"
+
+validation:
+  required: false
+  checks:
+    - id: example_check
+      description: "Describe the validation check."
+
+repair:
+  required: false
+  steps:
+    - id: example_repair
+      description: "Describe repair logic."
+      operation: "noop"
+
+outputs:
+  produces_diff: true
+  produces_log: true
+
+x_notes: |
+  Additional instructions or comments.
