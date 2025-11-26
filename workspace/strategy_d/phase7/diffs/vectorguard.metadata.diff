@@ -1,0 +1,330 @@
+--- products/vectorguard/metadata/product.yml.orig+++ products/vectorguard/metadata/product.yml@@ -1,25 +1,31 @@-deterministic_normalization_layer:
+-  id: DET-001
+-  version: "2026.04"
+-  status: required
++id: ''
++name: ''
++owner: ''
++version: ''
++spec_yaml: ''
++checklist_yaml: ''
++gpt_instructions_yaml: ''
++x_legacy:
++  deterministic_normalization_layer:
++    id: DET-001
++    version: '2026.04'
++    status: required
++    description: 'Authoritative, cross-pillar normalization and hashing layer used
++      by all GuardSuite evaluators. Ensures perfect parity across Python, WASM, and
++      native-ABI runtimes by enforcing deterministic key ordering, timestamp normalization,
++      numeric fixed_64 contracts, canonical list ordering rules, and canonical_json_utf8
++      serialization. This layer eliminates nondeterministic drift and provides a stable
++      hashing substrate for provenance, snapshot tests, evaluator parity, and GuardScore
++      integration.
+ 
+-  description: >
+-    Authoritative, cross-pillar normalization and hashing layer used by all
+-    GuardSuite evaluators. Ensures perfect parity across Python, WASM, and
+-    native-ABI runtimes by enforcing deterministic key ordering, timestamp
+-    normalization, numeric fixed_64 contracts, canonical list ordering rules,
+-    and canonical_json_utf8 serialization. This layer eliminates
+-    nondeterministic drift and provides a stable hashing substrate for
+-    provenance, snapshot tests, evaluator parity, and GuardScore integration.
+-
+-  objectives:
++      '
++    objectives:
+     - eliminate all nondeterministic execution paths
+     - guarantee evaluator-level determinism across all runtimes
+     - unify hashing behavior across scanners, blueprints, and core engines
+     - ensure zero drift in pipeline snapshot views
+     - preserve human-facing output fidelity while enforcing strict hash-view rules
+-
+-  responsibilities:
++    responsibilities:
+     - enforce_canonical_key_ordering
+     - normalize_paths
+     - normalize_timestamps
+@@ -30,8 +36,7 @@     - produce_canonical_json_utf8_for_hashing
+     - preserve_full_diagnostics_in_human_output
+     - maintain cross-runtime parity (python ⇄ wasm ⇄ native)
+-
+-  prohibitions:
++    prohibitions:
+     - no_runtime_clock_access
+     - no_randomness_or_randomized_algorithms
+     - no_env_based_branching
+@@ -41,138 +46,105 @@     - no_reordering_lists_except_schema-defined canonical lists
+     - no_tz_inference (UTC only)
+     - no_nan_or_infinite_values
+-
+-  # ----------------------------------------------------------
+-  # TIMESTAMP NORMALIZATION
+-  # ----------------------------------------------------------
+-  timestamp_contract:
+-    normalize_timestamp:
+-      input_formats: ["ANY"]
+-      output_format: "UTC ISO-8601 with Z suffix"
+-      malformed_behavior: "fallback_to_epoch_zero"
+-      deterministic_epoch_zero: "1970-01-01T00:00:00.000Z"
+-      tz_behavior: "force_utc"
+-      nanosecond_truncation: "truncate_to_milliseconds"
+-
+-    canonical_timestamp_injection:
+-      location: metadata.canonical_timestamp
+-      overwrite_existing: true
+-      included_in_human_output: true
+-      added_prior_to_hashing: true
+-      deterministic: true
+-
+-  # ----------------------------------------------------------
+-  # PATH NORMALIZATION
+-  # ----------------------------------------------------------
+-  path_normalization:
+-    rules:
++    timestamp_contract:
++      normalize_timestamp:
++        input_formats:
++        - ANY
++        output_format: UTC ISO-8601 with Z suffix
++        malformed_behavior: fallback_to_epoch_zero
++        deterministic_epoch_zero: '1970-01-01T00:00:00.000Z'
++        tz_behavior: force_utc
++        nanosecond_truncation: truncate_to_milliseconds
++      canonical_timestamp_injection:
++        location: metadata.canonical_timestamp
++        overwrite_existing: true
++        included_in_human_output: true
++        added_prior_to_hashing: true
++        deterministic: true
++    path_normalization:
++      rules:
+       - convert_backslashes_to_slashes
+       - collapse_redundant_segments
+       - resolve_to_rooted_absolute_form
+       - enforce_leading_slash
+       - stable_across_os: true
+       - invalid_paths: return_empty_string
+-    wasm_notes:
++      wasm_notes:
+       - no_access_to_real_fs
+       - path normalization must not depend on OS separators
+       - memory-safe canonicalization only
++    numeric_normalization:
++      contract: fixed_64
++      description: 'Converts floating-point values to fixed_64 integer-scaled form
++        to avoid platform differences (CPython vs WASM vs native). Prevents nondeterministic
++        rounding behavior across architectures.
+ 
+-  # ----------------------------------------------------------
+-  # NUMERIC NORMALIZATION (FIXED64)
+-  # ----------------------------------------------------------
+-  numeric_normalization:
+-    contract: fixed_64
+-    description: >
+-      Converts floating-point values to fixed_64 integer-scaled form to avoid
+-      platform differences (CPython vs WASM vs native). Prevents nondeterministic
+-      rounding behavior across architectures.
+-
+-    rules:
+-      scale_factor: 1e6
+-      rounding_mode: round_half_away_from_zero
+-      non_finite_values: 0
+-      wasm_safe: true
+-      deterministic: true
+-
+-  # ----------------------------------------------------------
+-  # ISSUE SORTING (CANONICAL ORDER)
+-  # ----------------------------------------------------------
+-  issue_sorting:
+-    canonical_sort:
+-      required: true
+-      applies_to: issues[]
+-      sorting_keys:
++        '
++      rules:
++        scale_factor: 1e6
++        rounding_mode: round_half_away_from_zero
++        non_finite_values: 0
++        wasm_safe: true
++        deterministic: true
++    issue_sorting:
++      canonical_sort:
++        required: true
++        applies_to: issues[]
++        sorting_keys:
+         - rule_id
+         - resource_id
+         - severity
+         - timestamp_utc
+-      fallback_keys:
+-        - id # for rule_id
+-        - resource_address # for resource_id
+-        - "" # stable empty fallback
+-      deterministic: true
+-      stable_across_runtimes: true
+-      prohibits:
++        fallback_keys:
++        - id
++        - resource_address
++        - ''
++        deterministic: true
++        stable_across_runtimes: true
++        prohibits:
+         - unstable custom comparators
+         - locale-sort
+         - nondeterministic hash-ordering
+-
+-  # ----------------------------------------------------------
+-  # PAYLOAD NORMALIZATION
+-  # ----------------------------------------------------------
+-  payload_normalization:
+-    function: normalize_payload
+-
+-    behavior:
+-      strip_diagnostics_for_hash: true
+-      preserve_diagnostics_for_output: true
+-      recursive_key_ordering: true
+-      recursive_unicode_normalization: NFC
+-      missing_fields: set_to_null
+-      apply_list_sorting_only_where_specified: true
+-
+-      exclude_noncanonical_fields_from_hashing:
++    payload_normalization:
++      function: normalize_payload
++      behavior:
++        strip_diagnostics_for_hash: true
++        preserve_diagnostics_for_output: true
++        recursive_key_ordering: true
++        recursive_unicode_normalization: NFC
++        missing_fields: set_to_null
++        apply_list_sorting_only_where_specified: true
++        exclude_noncanonical_fields_from_hashing:
+         - diagnostics
+         - pipeline_trace
+         - lifecycle_state
+         - debug*
+         - ephemeral_*
+-
+-    hash_payload_view:
+-      serialization_format: canonical_json_utf8
+-      stable_across_os: true
+-      prohibits:
++      hash_payload_view:
++        serialization_format: canonical_json_utf8
++        stable_across_os: true
++        prohibits:
+         - BOM_headers
+         - locale-specific whitespace
+         - indentation differences
+-
+-  # ----------------------------------------------------------
+-  # HASHING CONTRACT
+-  # ----------------------------------------------------------
+-  hashing_contract:
+-    algorithm: SHA256
+-    input: normalized_payload(strip_diagnostics_for_hash=true)
+-    output_encoding: hex_lowercase
+-
+-    prohibits:
++    hashing_contract:
++      algorithm: SHA256
++      input: normalized_payload(strip_diagnostics_for_hash=true)
++      output_encoding: hex_lowercase
++      prohibits:
+       - timestamps_other_than_metadata.canonical_timestamp
+       - nondeterministic_metadata
+       - evaluator_diagnostics
+       - runtime_specific_fields
+       - ordering_not_canonical
+-
+-    guarantees:
++      guarantees:
+       - cross_runtime_consistency: true
+       - architecture_independent: true
+       - byte_for_byte_identical: true
+-
+-  # ----------------------------------------------------------
+-  # SCHEMA REQUIREMENTS
+-  # ----------------------------------------------------------
+-  schema_requirements:
+-    canonical_output_schema:
+-      path: templates/guard_pillar/schemas/output/canonical_output.json
+-      required_fields:
++    schema_requirements:
++      canonical_output_schema:
++        path: templates/guard_pillar/schemas/output/canonical_output.json
++        required_fields:
+         - metadata
+         - metadata.canonical_timestamp
+         - issues[]
+@@ -180,54 +152,43 @@         - issues[].resource_id or issues[].resource_address
+         - issues[].severity
+         - provenance
+-        - fixpack # optional stub
+-      must_define_sorting_semantics: true
+-      must_define_nullable_fields: true
+-      versioning: schema_first
+-      wasm_safe: true
+-
+-  # ----------------------------------------------------------
+-  # IMPLEMENTATION REQUIREMENTS
+-  # ----------------------------------------------------------
+-  implementation_requirements:
+-    canonical_utils:
+-      required_functions:
++        - fixpack
++        must_define_sorting_semantics: true
++        must_define_nullable_fields: true
++        versioning: schema_first
++        wasm_safe: true
++    implementation_requirements:
++      canonical_utils:
++        required_functions:
+         - normalize_path
+         - normalize_timestamp
+         - normalize_float
+         - canonical_sort
+         - normalize_payload
+-      deterministic: true
+-      wasm_safe: true
+-      binary_abi_mappings_required: true
+-
+-    evaluator_requirements:
++        deterministic: true
++        wasm_safe: true
++        binary_abi_mappings_required: true
++      evaluator_requirements:
+       - replace_sort_issues_with_canonical_sort
+       - call_normalize_payload_prior_to_hashing
+       - inject_canonical_timestamp_before_hashing
+       - preserve_diagnostics unless hashing
+       - lifecycle_state and pipeline_trace excluded from hash
+       - prohibit_runtime_clock
+-
+-  # ----------------------------------------------------------
+-  # TESTING REQUIREMENTS
+-  # ----------------------------------------------------------
+-  testing_requirements:
+-    snapshot_tests:
++    testing_requirements:
++      snapshot_tests:
+       - 3_runs_identical_hash_required
+       - python_vs_wasm_parity_required
+       - python_vs_binary_parity_required
+       - canonical_output_snapshot_stability_required
+-
+-    unit_tests:
++      unit_tests:
+       - test_normalize_payload
+       - test_issue_sorting
+       - test_hash_vs_output_view
+       - test_fixed64_rounding
+       - test_path_normalization_edge_cases
+       - test_timestamp_malformed_to_epoch_zero
+-
+-    regression_prevention:
++      regression_prevention:
+       - forbid_new_nondeterministic_fields
+       - forbid_clock_access
+       - forbid_randomness

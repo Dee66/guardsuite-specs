@@ -1,0 +1,370 @@
+--- products/guardsuite-specs/metadata/product.yml.orig+++ products/guardsuite-specs/metadata/product.yml@@ -1,182 +1,99 @@----
+ id: guard-specs
+ name: GuardSpecs
+-product_type: core
+-pillar: crosscut
+-version: "1.0.0"
++owner: GuardSuite Platform Team
++version: 1.0.0
+ status: draft
+-owner: GuardSuite Platform Team
+ spec_yaml: products/guardsuite-specs.yml
+ checklist_yaml: db/products.json#guardsuite-specs.checklist_yaml
+ gpt_instructions_yaml: db/products.json#guardsuite-specs.gpt_instructions_yaml
+-short_description: >
+-  Canonical product spec + checklist registry with deterministic bootstrap
+-  generation for GuardSuite.
+-long_description: |
+-  GuardSpecs stores every canonical GuardSuite product spec, checklist, and GPT
+-  instruction set. It validates content against the schema registry, produces
+-  deterministic bootstrap artifacts for Architect sessions, and exposes API/CLI
+-  tooling so pillars can automate validation. GuardSpecs is the control plane
+-  for governance rules, migration guides, and deterministic hashing policies.
+-purpose_summary: >
+-  Provide a single source of truth for GuardSuite specs, checklists, and
+-  bootstraps with strict schema validation and deterministic hashing.
+-marketing:
+-  hero: "Deterministic GuardSuite metadata control plane."
+-  blurbs:
+-    - "Schema-first registry for specs, checklists, and GPT instructions"
+-    - "Bootstrap generator for Architect and Implementor workflows"
+-    - "Deterministic validation CLI for CI/CD"
+-  ctas:
+-    - text: "Use guard-specs-cli"
+-      href: "/docs/guard-specs-cli"
+-metadata:
+-  version: "2025.11"
+-  funnel_stage: toplevel_funnel
+-  pricing_reference: "pricing/guardsuite_pricing.yml"
+-  ux_goals:
+-    - "Keep every GuardSuite spec schema-compliant"
+-    - "Provide deterministic bootstrap artifacts for Architect"
+-architecture:
+-  core_dependency_id: "guardsuite-core@>=1.4.0,<2.0.0"
+-  schema_source: "guardsuite-core/canonical_schema.json"
+-  required_interfaces:
+-    - "I_GuardSpecsAPI"
+-    - "I_BootstrapGenerator"
+-    - "I_ChecklistRegistry"
+-  override_exclusion:
+-    - "canonical.output_contract"
+-    - "deterministic_hashing"
+-  output_contract: "registry"
+-governance_domains:
++x_legacy:
++  api:
++    rest_endpoint: https://api.shieldcraft-ai.com/guard-specs
++    auth: GuardSuite API token
++  architecture:
++    core_dependency_id: guardsuite-core@>=1.4.0,<2.0.0
++    schema_source: guardsuite-core/canonical_schema.json
++    required_interfaces:
++    - I_GuardSpecsAPI
++    - I_BootstrapGenerator
++    - I_ChecklistRegistry
++    override_exclusion:
++    - canonical.output_contract
++    - deterministic_hashing
++    output_contract: registry
++  cli:
++    base_command: guard-specs-cli
++    scan_command: ''
++    supported_flags:
++    - --product-list
++    - --product-create
++    - --product-validate
++    - --bootstrap-generate
++    reserved_flags:
++    - --output json
++  compliance:
++    compliance_ledger_enabled: false
++    ledger_visibility: none
++  ecosystem_integrations:
++    guardscore:
++      pillar_weight: 0.25
++      severity_penalties:
++        critical: 40
++        high: 25
++        medium: 10
++        low: 2
++      provided_score_inputs:
++      - bootstrap_version_hash
++      - validation_failure_count
++      - schema_change_frequency
++      badge_eligibility_signal: true
++    playground:
++      wasm_safe: true
++      max_runtime_ms: 1200
++      playground_latency_target_ms: 900
++      json_sanitize: true
++      svg_sanitize: true
++      quick_score_mode: false
++    guardboard:
++      exposes_fixpack_hints: false
++      shows_compliance_ledger: false
++      badge_preview_supported: true
++  features:
++  - id: GSPEC-FEAT-001
++    title: Canonical Product Registry
++    summary: 'Stores specs, checklists, and GPT instructions with schema validation.
++
++      '
++    included: true
++  - id: GSPEC-FEAT-002
++    title: Deterministic Bootstrap Generator
++    summary: Produces Architect-ready JSON with canonical hashing.
++    included: true
++  - id: GSPEC-FEAT-003
++    title: Audit & Feedback Automation
++    summary: 'Ingests #FEEDBACK_CONTRACT payloads and tracks migrations.'
++    included: true
++  fixpack:
++    included: false
++    reference_hint_format: fixpack:<ISSUE_ID>
++    surfaces_hints: false
++    snippet_count: 0
++  future_extensions:
++  - Scheduler-driven bootstrap regeneration
++  - Automated migration guide publishing
++  - Additional audit webhooks
++  governance:
++    spec_version: '2025.11'
++    last_reviewed: '2025-11-24'
++    owner: GuardSuite Platform Team
++    stability_level: experimental
++  governance_domains:
+   - schema_registry
+   - deterministic_bootstrap
+   - governance_lifecycle
+   - migration_guidance
+-rule_categories:
+-  - "Schema Validation"
+-  - "Bootstrap Composition"
+-  - "Feedback Contract Processing"
+-  - "Deterministic Hashing"
+-features:
+-  - id: GSPEC-FEAT-001
+-    title: "Canonical Product Registry"
+-    summary: >
+-      Stores specs, checklists, and GPT instructions with schema validation.
+-    included: true
+-  - id: GSPEC-FEAT-002
+-    title: "Deterministic Bootstrap Generator"
+-    summary: "Produces Architect-ready JSON with canonical hashing."
+-    included: true
+-  - id: GSPEC-FEAT-003
+-    title: "Audit & Feedback Automation"
+-    summary: "Ingests #FEEDBACK_CONTRACT payloads and tracks migrations."
+-    included: true
+-governance:
+-  spec_version: "2025.11"
+-  last_reviewed: "2025-11-24"
+-  owner: "GuardSuite Platform Team"
+-  stability_level: experimental
+-related_products:
+-  - guardboard
+-  - guardscore
+-fixpack:
+-  included: false
+-  reference_hint_format: "fixpack:<ISSUE_ID>"
+-  surfaces_hints: false
+-  snippet_count: 0
+-compliance:
+-  compliance_ledger_enabled: false
+-  ledger_visibility: "none"
+-cli:
+-  base_command: "guard-specs-cli"
+-  scan_command: ""
+-  supported_flags:
+-    - "--product-list"
+-    - "--product-create"
+-    - "--product-validate"
+-    - "--bootstrap-generate"
+-  reserved_flags:
+-    - "--output json"
+-performance_constraints:
+-  max_memory_mb: 128
+-  expected_runtime_ms: 400
+-  playground_runtime_ms: 900
+-  realtime_refresh_interval_ms: 45000
+-  quickscore_threshold_resources: 500
+-ecosystem_integrations:
+-  guardscore:
+-    pillar_weight: 0.25
+-    severity_penalties:
+-      critical: 40
+-      high: 25
+-      medium: 10
+-      low: 2
+-    provided_score_inputs:
+-      - bootstrap_version_hash
+-      - validation_failure_count
+-      - schema_change_frequency
+-    badge_eligibility_signal: true
+-  playground:
+-    wasm_safe: true
+-    max_runtime_ms: 1200
+-    playground_latency_target_ms: 900
+-    json_sanitize: true
+-    svg_sanitize: true
+-    quick_score_mode: false
+-  guardboard:
+-    exposes_fixpack_hints: false
+-    shows_compliance_ledger: false
+-    badge_preview_supported: true
+-testing:
+-  unit_tests_required: true
+-  integration_tests_required: true
+-  snapshot_schema_test: true
+-  test_coverage_min_percent: 85
+-  ci_jobs:
+-    - validate_schema
+-    - unit
+-    - integration
+-    - snapshot_conformance
+-versioning:
+-  semver: true
+-  core_dependency_pin: "guardsuite-core@>=1.4.0,<2.0.0"
+-  schema_version_pin: "canonical_schema@1.0.0"
+-  breaking_change_policy: >
+-    Breaking schema or bootstrap changes require migration guides and
+-    downstream coordination with every GuardSuite pillar.
+-interoperability_conflicts:
+-  - "Schema format updates require pillar pin bumps."
+-  - "Bootstrap hash length changes impact Architect clients."
+-future_extensions:
+-  - "Scheduler-driven bootstrap regeneration"
+-  - "Automated migration guide publishing"
+-  - "Additional audit webhooks"
+-security:
+-  no_external_calls_at_runtime: true
+-  sanitize_all_inputs: true
+-  svg_sanitization: true
+-  wasm_compatible: true
+-  sandbox_requirement: >
+-    Bootstrap generation must remain deterministic and offline.
+-maintainers:
+-  - name: "GuardSuite Platform Team"
+-    role: "Registry Maintainers"
+-    contact: "platform@guardsuite.internal"
+-release_metadata:
+-  release_channel: "beta"
+-  release_notes_url: >-
+-    https://shieldcraft-ai.com/guardsuite/guard-specs/releases/1.0.0
+-  published_date: "2025-11-24"
+-references:
+-  master_spec: "docs/guardsuite_master_spec.md"
+-  template_spec: "templates/spec_page.md.j2"
+-  canonical_schema: "guardsuite-core/canonical_schema.json"
+-api:
+-  rest_endpoint: "https://api.shieldcraft-ai.com/guard-specs"
+-  auth: "GuardSuite API token"
+-integration_points:
+-  products_consuming:
++  integration_points:
++    products_consuming:
+     - computeguard
+     - computescan
+     - guardboard
+@@ -185,6 +102,99 @@     - pipelinescan
+     - vectorguard
+     - vectorscan
+-  playground:
+-    quick_score_mode_supported: false
+-    exposes_fixpack_hints: false
++    playground:
++      quick_score_mode_supported: false
++      exposes_fixpack_hints: false
++  interoperability_conflicts:
++  - Schema format updates require pillar pin bumps.
++  - Bootstrap hash length changes impact Architect clients.
++  long_description: 'GuardSpecs stores every canonical GuardSuite product spec, checklist,
++    and GPT
++
++    instruction set. It validates content against the schema registry, produces
++
++    deterministic bootstrap artifacts for Architect sessions, and exposes API/CLI
++
++    tooling so pillars can automate validation. GuardSpecs is the control plane
++
++    for governance rules, migration guides, and deterministic hashing policies.
++
++    '
++  maintainers:
++  - name: GuardSuite Platform Team
++    role: Registry Maintainers
++    contact: platform@guardsuite.internal
++  marketing:
++    hero: Deterministic GuardSuite metadata control plane.
++    blurbs:
++    - Schema-first registry for specs, checklists, and GPT instructions
++    - Bootstrap generator for Architect and Implementor workflows
++    - Deterministic validation CLI for CI/CD
++    ctas:
++    - text: Use guard-specs-cli
++      href: /docs/guard-specs-cli
++  metadata:
++    version: '2025.11'
++    funnel_stage: toplevel_funnel
++    pricing_reference: pricing/guardsuite_pricing.yml
++    ux_goals:
++    - Keep every GuardSuite spec schema-compliant
++    - Provide deterministic bootstrap artifacts for Architect
++  performance_constraints:
++    max_memory_mb: 128
++    expected_runtime_ms: 400
++    playground_runtime_ms: 900
++    realtime_refresh_interval_ms: 45000
++    quickscore_threshold_resources: 500
++  pillar: crosscut
++  product_type: core
++  purpose_summary: 'Provide a single source of truth for GuardSuite specs, checklists,
++    and bootstraps with strict schema validation and deterministic hashing.
++
++    '
++  references:
++    master_spec: docs/guardsuite_master_spec.md
++    template_spec: templates/spec_page.md.j2
++    canonical_schema: guardsuite-core/canonical_schema.json
++  related_products:
++  - guardboard
++  - guardscore
++  release_metadata:
++    release_channel: beta
++    release_notes_url: https://shieldcraft-ai.com/guardsuite/guard-specs/releases/1.0.0
++    published_date: '2025-11-24'
++  rule_categories:
++  - Schema Validation
++  - Bootstrap Composition
++  - Feedback Contract Processing
++  - Deterministic Hashing
++  security:
++    no_external_calls_at_runtime: true
++    sanitize_all_inputs: true
++    svg_sanitization: true
++    wasm_compatible: true
++    sandbox_requirement: 'Bootstrap generation must remain deterministic and offline.
++
++      '
++  short_description: 'Canonical product spec + checklist registry with deterministic
++    bootstrap generation for GuardSuite.
++
++    '
++  testing:
++    unit_tests_required: true
++    integration_tests_required: true
++    snapshot_schema_test: true
++    test_coverage_min_percent: 85
++    ci_jobs:
++    - validate_schema
++    - unit
++    - integration
++    - snapshot_conformance
++  versioning:
++    semver: true
++    core_dependency_pin: guardsuite-core@>=1.4.0,<2.0.0
++    schema_version_pin: canonical_schema@1.0.0
++    breaking_change_policy: 'Breaking schema or bootstrap changes require migration
++      guides and downstream coordination with every GuardSuite pillar.
++
++      '

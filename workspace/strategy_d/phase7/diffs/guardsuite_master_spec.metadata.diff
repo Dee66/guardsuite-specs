@@ -1,0 +1,346 @@
+--- products/guardsuite_master_spec/metadata/product.yml.orig+++ products/guardsuite_master_spec/metadata/product.yml@@ -1,180 +1,177 @@ id: guardsuite_master_spec
+ name: GuardSuite Master Spec
+-product_type: spec_index
+-pillar: crosscut
+-version: "1.0.0"
++owner: ''
++version: 1.0.0
+ status: production
+-
+-short_description: >
+-  Canonical Source of Truth (SoT) for GuardSuite product specs, templates,
+-  schemas, integrations, and launch plans.
+-
+-long_description: |
+-  The GuardSuite Master Spec consolidates canonical schema links, product
+-  indices, template contracts, CI/validation rules, release cadence policies,
+-  and ecosystem-level integration requirements. It is the single authoritative
+-  reference consumed by the guardsuite-specs generator, CI workflows, and
+-  product repositories to ensure consistent outputs, deterministic remediation
+-  flows, and coordinated releases across pillars.
+-
+-purpose_summary: >
+-  Act as the authoritative index and governance contract for the entire
+-  GuardSuite ecosystem, covering product definitions, schema evolution,
+-  CI requirements, and cross-pillar integrations.
+-
+-marketing:
+-  hero: "Single Source of Truth for GuardSuite product and schema governance."
+-  blurbs:
+-    - "A canonical index for products, templates, and schema versions"
+-    - "Machine-readable rules for doc generation and CI validation"
+-    - "Defines cross-pillar contracts and release policies"
+-  ctas:
+-    - text: "Open Spec Repo"
+-      href: "/specs"
+-
+-architecture:
+-  core_dependency_id: "guardsuite-core@>=1.4.0,<2.0.0"
+-  schema_source: "guardsuite-core/canonical_schema.json"
+-  required_interfaces:
+-    - "I_SpecGenerator"
+-    - "I_SchemaValidator"
+-    - "I_CIOrchestrator"
+-  override_exclusion:
+-    - "canonical.output_contract"
+-  output_contract: "lenient"
+-
+-index:
+-  products:
+-    - id: vectorscan
+-      path: "products/vectorscan.yml"
+-      doc: "docs/products/vectorscan.md"
+-      type: "free_scanner"
+-    - id: vectorguard
+-      path: "products/vectorguard.yml"
+-      doc: "docs/products/vectorguard.md"
+-      type: "paid_blueprint"
+-    - id: computescan
+-      path: "products/computescan.yml"
+-      doc: "docs/products/computescan.md"
+-      type: "free_scanner"
+-    - id: computeguard
+-      path: "products/computeguard.yml"
+-      doc: "docs/products/computeguard.md"
+-      type: "paid_blueprint"
+-    - id: pipelinescan
+-      path: "products/pipelinescan.yml"
+-      doc: "docs/products/pipelinescan.md"
+-      type: "free_scanner"
+-    - id: pipelineguard
+-      path: "products/pipelineguard.yml"
+-      doc: "docs/products/pipelineguard.md"
+-      type: "paid_blueprint"
+-    - id: guardboard
+-      path: "products/guardboard.yml"
+-      doc: "docs/products/guardboard.md"
+-      type: "paid_blueprint"
+-    - id: guardscore
+-      path: "products/guardscore.yml"
+-      doc: "docs/products/guardscore.md"
+-      type: "scoring_engine"
+-    - id: guardsuite-core
+-      path: "products/guardsuite-core.yml"
+-      doc: "docs/products/guardsuite-core.md"
+-      type: "core"
+-
+-templates:
+-  spec_template: "templates/spec_page.md.j2"
+-  snapshot_template: "templates/spec_snapshot.md.j2"
+-  partials_folder: "templates/partials"
+-  product_template_version: "1.0.0"
+-
+-schemas:
+-  canonical_schema: "guardsuite-core/canonical_schema.json"
+-  product_schema: "products/schema/product.schema.json"
+-  schema_release_policy:
+-    cadence: "semver"
+-    migration_docs_required: true
+-    rfc_required_for_breaking: true
+-
+-ci:
+-  required_jobs:
++spec_yaml: ''
++checklist_yaml: ''
++gpt_instructions_yaml: ''
++x_legacy:
++  architecture:
++    core_dependency_id: guardsuite-core@>=1.4.0,<2.0.0
++    schema_source: guardsuite-core/canonical_schema.json
++    required_interfaces:
++    - I_SpecGenerator
++    - I_SchemaValidator
++    - I_CIOrchestrator
++    override_exclusion:
++    - canonical.output_contract
++    output_contract: lenient
++  ci:
++    required_jobs:
+     - validate_schema
+     - unit
+     - integration
+     - snapshot_conformance
+-  doc_generation_job: "generate_docs"
+-  test_runner: "pytest"
+-  lint_runner: "ruff"
+-  artifact_publish_policy:
+-    generate_docs_artifact: true
+-    open_sync_pr_workflow: "open_sync_pr.yml"
+-    require_manual_approval_for_publish: true
++    doc_generation_job: generate_docs
++    test_runner: pytest
++    lint_runner: ruff
++    artifact_publish_policy:
++      generate_docs_artifact: true
++      open_sync_pr_workflow: open_sync_pr.yml
++      require_manual_approval_for_publish: true
++  governance:
++    maintainers_change_policy: PR + 2 approvers
++    security_disclosure: security@shieldcraft-ai.com
++    secrets_handling: use GitHub Secrets, rotate quarterly
++    policy_docs:
++    - docs/release_policy.md
++    - docs/ci_policy.md
++    - docs/security_policy.md
++  index:
++    products:
++    - id: vectorscan
++      path: products/vectorscan.yml
++      doc: docs/products/vectorscan.md
++      type: free_scanner
++    - id: vectorguard
++      path: products/vectorguard.yml
++      doc: docs/products/vectorguard.md
++      type: paid_blueprint
++    - id: computescan
++      path: products/computescan.yml
++      doc: docs/products/computescan.md
++      type: free_scanner
++    - id: computeguard
++      path: products/computeguard.yml
++      doc: docs/products/computeguard.md
++      type: paid_blueprint
++    - id: pipelinescan
++      path: products/pipelinescan.yml
++      doc: docs/products/pipelinescan.md
++      type: free_scanner
++    - id: pipelineguard
++      path: products/pipelineguard.yml
++      doc: docs/products/pipelineguard.md
++      type: paid_blueprint
++    - id: guardboard
++      path: products/guardboard.yml
++      doc: docs/products/guardboard.md
++      type: paid_blueprint
++    - id: guardscore
++      path: products/guardscore.yml
++      doc: docs/products/guardscore.md
++      type: scoring_engine
++    - id: guardsuite-core
++      path: products/guardsuite-core.yml
++      doc: docs/products/guardsuite-core.md
++      type: core
++  integrations:
++    guardscore_engine:
++      repo: guardsuite-core
++      expected_api: GuardScoreEngine.v1
++      versioning: semver
++    playground:
++      wasm_constraints:
++        max_runtime_ms: 2000
++        quick_score_threshold_resources: 1000
++    guardboard:
++      badge_contract:
++        svg_sanitize_required: true
++        badge_metadata_keys:
++        - score
++        - percentile
++        - pillar_weights
++        - issued_at
++  long_description: 'The GuardSuite Master Spec consolidates canonical schema links,
++    product
+ 
+-release:
+-  cadence:
+-    - product_release: "monthly"
+-    - core_release: "quarterly"
+-  channel_policy:
+-    - stable: "general availability"
+-    - beta: "early access"
+-    - incubating: "internal preview"
+-  notification_policy:
++    indices, template contracts, CI/validation rules, release cadence policies,
++
++    and ecosystem-level integration requirements. It is the single authoritative
++
++    reference consumed by the guardsuite-specs generator, CI workflows, and
++
++    product repositories to ensure consistent outputs, deterministic remediation
++
++    flows, and coordinated releases across pillars.
++
++    '
++  maintainers:
++  - name: Deon Prinsloo
++    role: AI Solutions Architect
++    contact: deon@shieldcraft-ai.com
++  marketing:
++    hero: Single Source of Truth for GuardSuite product and schema governance.
++    blurbs:
++    - A canonical index for products, templates, and schema versions
++    - Machine-readable rules for doc generation and CI validation
++    - Defines cross-pillar contracts and release policies
++    ctas:
++    - text: Open Spec Repo
++      href: /specs
++  pillar: crosscut
++  product_type: spec_index
++  purpose_summary: 'Act as the authoritative index and governance contract for the
++    entire GuardSuite ecosystem, covering product definitions, schema evolution, CI
++    requirements, and cross-pillar integrations.
++
++    '
++  references:
++    templates: templates/
++    products_folder: products/
++    docs_folder: docs/products/
++    canonical_schema: guardsuite-core/canonical_schema.json
++  release:
++    cadence:
++    - product_release: monthly
++    - core_release: quarterly
++    channel_policy:
++    - stable: general availability
++    - beta: early access
++    - incubating: internal preview
++    notification_policy:
+     - notify_slack: true
+     - notify_email: true
++  release_metadata:
++    published_date: '2025-11-19'
++    repo_url: https://github.com/shieldcraft-ai/guardsuite-specs
++    contact: deon@shieldcraft-ai.com
++  schemas:
++    canonical_schema: guardsuite-core/canonical_schema.json
++    product_schema: products/schema/product.schema.json
++    schema_release_policy:
++      cadence: semver
++      migration_docs_required: true
++      rfc_required_for_breaking: true
++  security:
++    allowed_domains:
++    - shieldcraft-ai.com
++    - guardsuite-core.s3.amazonaws.com
++    forbidden_patterns:
++    - example.com
++    wasm_sandbox_required: true
++  short_description: 'Canonical Source of Truth (SoT) for GuardSuite product specs,
++    templates, schemas, integrations, and launch plans.
+ 
+-governance:
+-  maintainers_change_policy: "PR + 2 approvers"
+-  security_disclosure: "security@shieldcraft-ai.com"
+-  secrets_handling: "use GitHub Secrets, rotate quarterly"
+-  policy_docs:
+-    - "docs/release_policy.md"
+-    - "docs/ci_policy.md"
+-    - "docs/security_policy.md"
+-
+-integrations:
+-  guardscore_engine:
+-    repo: "guardsuite-core"
+-    expected_api: "GuardScoreEngine.v1"
+-    versioning: "semver"
+-  playground:
+-    wasm_constraints:
+-      max_runtime_ms: 2000
+-      quick_score_threshold_resources: 1000
+-  guardboard:
+-    badge_contract:
+-      svg_sanitize_required: true
+-      badge_metadata_keys:
+-        - "score"
+-        - "percentile"
+-        - "pillar_weights"
+-        - "issued_at"
+-
+-testing:
+-  product_tests_required: true
+-  yaml_contract_tests: true
+-  snapshot_generation_required: true
+-  minimum_coverage_percent: 80
+-
+-security:
+-  allowed_domains:
+-    - "shieldcraft-ai.com"
+-    - "guardsuite-core.s3.amazonaws.com"
+-  forbidden_patterns:
+-    - "example.com"
+-  wasm_sandbox_required: true
+-
+-maintainers:
+-  - name: "Deon Prinsloo"
+-    role: "AI Solutions Architect"
+-    contact: "deon@shieldcraft-ai.com"
+-
+-release_metadata:
+-  published_date: "2025-11-19"
+-  repo_url: "https://github.com/shieldcraft-ai/guardsuite-specs"
+-  contact: "deon@shieldcraft-ai.com"
+-
+-references:
+-  templates: "templates/"
+-  products_folder: "products/"
+-  docs_folder: "docs/products/"
+-  canonical_schema: "guardsuite-core/canonical_schema.json"
++    '
++  templates:
++    spec_template: templates/spec_page.md.j2
++    snapshot_template: templates/spec_snapshot.md.j2
++    partials_folder: templates/partials
++    product_template_version: 1.0.0
++  testing:
++    product_tests_required: true
++    yaml_contract_tests: true
++    snapshot_generation_required: true
++    minimum_coverage_percent: 80
