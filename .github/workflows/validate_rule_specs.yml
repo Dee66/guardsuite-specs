@@ -1,0 +1,29 @@
+name: Rule-Spec Validator
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate-rule-specs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m venv .venv
+          . .venv/bin/activate
+          pip install pyyaml
+
+      - name: Run rule-spec validator
+        run: |
+          . .venv/bin/activate
+          python strategy_e/validators/validate_specs.py
