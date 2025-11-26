@@ -1,5 +1,6 @@
 from typing import List, Dict, Any
 from pathlib import Path
+from strategy_e.pipeline.results.diff_utils import generate_unified_diff
 
 def run_pipeline_on_text(text: str, rules: List[Dict[str, Any]]):
     """
@@ -36,9 +37,12 @@ def run_pipeline_on_text(text: str, rules: List[Dict[str, Any]]):
     # REPAIR (dummy structural example)
     repaired = normalized
 
+    # DIFF GENERATION
+    diff_output = generate_unified_diff(text, repaired, before_label="original", after_label="repaired")
+
     return {
         "normalized_text": normalized,
         "validation_errors": errors,
         "repaired_text": repaired,
-        "diff": "<pending>"
+        "diff": diff_output
     }

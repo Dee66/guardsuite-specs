@@ -24,6 +24,8 @@ def main():
     print("=== VALIDATION ERRORS ===")
     for e in result["validation_errors"]:
         print(f"- {e}")
+    print("=== DIFF ===")
+    print(result["diff"])
     print("=== END ===")
 
 
