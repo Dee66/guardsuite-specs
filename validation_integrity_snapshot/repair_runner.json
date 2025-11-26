@@ -1,0 +1,11 @@
+{
+  "generated": "2025-11-26T11:48:22.269802+00:00",
+  "result": {
+    "normalized_text": "key: value  \n",
+    "validation_errors": [],
+    "repaired_text": "key: value  \n",
+    "diff": "",
+    "backup_path": null,
+    "dry_run": true
+  }
+}

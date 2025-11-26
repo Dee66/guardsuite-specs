@@ -1,0 +1,4422 @@
+{
+  "generated": "2025-11-26T11:48:22.227167+00:00",
+  "results": {
+    "computeguard": {
+      "product": "computeguard",
+      "exists": true,
+      "parsed": {
+        "id": "computeguard",
+        "name": "ComputeGuard",
+        "owner": "",
+        "version": "2.0.0",
+        "status": "production",
+        "spec_yaml": "",
+        "checklist_yaml": "",
+        "gpt_instructions_yaml": "",
+        "x_legacy": {
+          "api": {
+            "rest_endpoint": "https://api.shieldcraft-ai.com/computeguard",
+            "auth": "GuardSuite API token"
+          },
+          "architecture": {
+            "core_dependency_id": "guardsuite-core@>=1.4.0,<2.0.0",
+            "schema_source": "guardsuite-core/canonical_schema.json",
+            "required_interfaces": [
+              "I_Evaluator",
+              "I_ScannerCLI",
+              "I_ComplianceLedger"
+            ],
+            "override_exclusion": [
+              "canonical.output_contract",
+              "evaluator.runtime_override",
+              "canonicalization_rules"
+            ],
+            "output_contract": "strict"
+          },
+          "cli": {
+            "base_command": "computeguard",
+            "scan_command": "computeguard scan",
+            "supported_flags": [
+              "--json",
+              "--stdin",
+              "--quiet",
+              "--explain",
+              "--output json",
+              "--fixpack-summary",
+              "--compliance-ledger"
+            ],
+            "reserved_flags": [
+              "--ledger-only",
+              "--fixpack-diff"
+            ],
+            "output_contract": {
+              "json_schema": "/schemas/cli_output.json"
+            },
+            "error_contract": {
+              "json_schema": "/schemas/cli_error.json"
+            }
+          },
+          "compliance": {
+            "compliance_ledger_enabled": true,
+            "ledger_visibility": "full",
+            "ledger_schema_version": "1.0.0"
+          },
+          "ecosystem_integrations": {
+            "guardscore": {
+              "pillar_weight": 0.33,
+              "severity_penalties": {
+                "critical": 40,
+                "high": 25,
+                "medium": 10,
+                "low": 2
+              },
+              "provided_score_inputs": [
+                "gpu_waste_estimate",
+                "compute_cost_risk",
+                "remediation_hint_count",
+                "fixpack_applied_count",
+                "compliance_ledger_item_count",
+                "resource_count"
+              ],
+              "badge_eligibility_signal": true
+            },
+            "playground": {
+              "wasm_safe": true,
+              "max_runtime_ms": 2000,
+              "playground_latency_target_ms": 1600,
+              "json_sanitize": true,
+              "svg_sanitize": true,
+              "quick_score_mode": true
+            },
+            "guardboard": {
+              "exposes_fixpack_hints": true,
+              "shows_compliance_ledger": true,
+              "badge_preview_supported": true
+            }
+          },
+          "features": [
+            {
+              "id": "CMPG-FEAT-010",
+              "title": "Full Compute Governance Coverage",
+              "summary": "600+ compute governance rules spanning GPU and cost controls.",
+              "included": true
+            },
+            {
+              "id": "CMPG-FEAT-020",
+              "title": "Compliance Ledger",
+              "summary": "Generates audit-grade JSON ledgers for FinOps reviews.",
+              "included": true
+            },
+            {
+              "id": "CMPG-FEAT-030",
+              "title": "FixPack-Lite Remediation",
+              "summary": "Deterministic HCL snippets for top misconfigurations.",
+              "included": true
+            },
+            {
+              "id": "CMPG-FEAT-040",
+              "title": "Advanced GuardScore Inputs",
+              "summary": "Feeds premium GuardScore weighting for executive reporting.",
+              "included": true
+            },
+            {
+              "id": "CMPG-FEAT-050",
+              "title": "Pipeline-aware Governance",
+              "summary": "Correlates compute signals with CI/CD and telemetry adapters.",
+              "included": true
+            }
+          ],
+          "fixpack": {
+            "included": true,
+            "fixpack_folder": "fixpack/compute",
+            "reference_hint_format": "fixpack:<ISSUE_ID>",
+            "surfaces_hints": true,
+            "snippet_count": 10
+          },
+          "future_extensions": [
+            "GPU sustainability scoring",
+            "Automatic remediation bundle promotions",
+            "Pipeline-to-compute correlation heatmaps"
+          ],
+          "governance": {
+            "spec_version": "2025.11",
+            "last_reviewed": "2025-11-24",
+            "owner": "GuardSuite Platform Team",
+            "stability_level": "ga"
+          },
+          "governance_domains": [
+            "finops_governance",
+            "gpu_capacity_planning",
+            "telemetry_gap_detection",
+            "compliance_ledgering",
+            "deterministic_remediation"
+          ],
+          "integration_points": {
+            "products_consuming": [
+              "computescan",
+              "guardscore",
+              "guardboard"
+            ],
+            "playground": {
+              "quick_score_mode_supported": true,
+              "exposes_fixpack_hints": true
+            }
+          },
+          "interoperability_conflicts": [
+            "Ledger schema updates require GuardBoard overlay refresh.",
+            "New compute adapters may shift GuardScore weighting."
+          ],
+          "long_description": "ComputeGuard extends ComputeScan with enterprise-grade FinOps governance,\ndeterministic FixPack-Lite remediation, and audit-ready compliance ledgers. It\nenforces cost controls for GPU fleets, emits GuardScore upgrades, and ships\nGuardBoard overlays so leadership can track remediation health. The blueprint\nemphasizes deterministic output, schema-first interfaces, and WASM-safe\nexecution for Playground demos.\n",
+          "maintainers": [
+            {
+              "name": "Deon Prinsloo",
+              "role": "AI Solutions Architect",
+              "contact": "deon@shieldcraft-ai.com"
+            }
+          ],
+          "marketing": {
+            "hero": "Eliminate GPU waste with deterministic compute governance.",
+            "blurbs": [
+              "600+ advanced compute governance and FinOps rules",
+              "Deterministic FixPack-Lite remediation and ledger outputs",
+              "GuardScore upgrades and GuardBoard overlays for exec-ready reports"
+            ],
+            "ctas": [
+              {
+                "text": "Get ComputeGuard",
+                "href": "/buy/computeguard"
+              }
+            ]
+          },
+          "metadata": {
+            "version": "2025.11",
+            "funnel_stage": "bottom_funnel",
+            "pricing_reference": "pricing/guardsuite_pricing.yml",
+            "ux_goals": [
+              "Deliver deterministic GPU governance packages for enterprise releases",
+              "Surface actionable remediation bundles for GuardBoard and GuardScore consumers"
+            ]
+          },
+          "performance_constraints": {
+            "max_memory_mb": 260,
+            "expected_runtime_ms": 850,
+            "large_plan_runtime_ms": 2000,
+            "playground_runtime_ms": 2100,
+            "quickscore_threshold_resources": 800
+          },
+          "pillar": "compute",
+          "product_type": "paid_blueprint",
+          "purpose_summary": "Provide deterministic cost governance, remediation hints, and compliance-grade ledgers across GPU and compute-intensive workloads.\n",
+          "references": {
+            "master_spec": "docs/guardsuite_master_spec.md",
+            "template_spec": "templates/spec_page.md.j2",
+            "canonical_schema": "guardsuite-core/canonical_schema.json"
+          },
+          "related_products": [
+            "computescan",
+            "guardboard",
+            "guardscore",
+            "guardsuite-core"
+          ],
+          "release_metadata": {
+            "release_channel": "stable",
+            "release_notes_url": "https://shieldcraft-ai.com/guardsuite/computeguard/releases/2.0.0",
+            "published_date": "2025-11-19"
+          },
+          "rule_categories": [
+            "GPU Provisioning & Utilization",
+            "Rightsizing & Instance Sizing",
+            "Autoscaling Safety",
+            "Cost Escalation Detection",
+            "Compliance Mapping",
+            "Deterministic Remediation"
+          ],
+          "security": {
+            "no_external_calls_at_runtime": true,
+            "sanitize_all_inputs": true,
+            "svg_sanitization": true,
+            "wasm_compatible": true,
+            "sandbox_requirement": "Playground runtime must be WASM sandboxed"
+          },
+          "short_description": "Enterprise FinOps governance and deterministic remediation for GPU-heavy compute estates.\n",
+          "testing": {
+            "unit_tests_required": true,
+            "integration_tests_required": true,
+            "snapshot_schema_test": true,
+            "test_coverage_min_percent": 85,
+            "ci_jobs": [
+              "validate_schema",
+              "unit",
+              "integration",
+              "snapshot_conformance",
+              "perf_regression"
+            ]
+          },
+          "versioning": {
+            "semver": true,
+            "core_dependency_pin": "guardsuite-core@>=1.4.0,<2.0.0",
+            "schema_version_pin": "canonical_schema@1.0.0",
+            "breaking_change_policy": "Any breaking change requires a guardsuite-core RFC, FinOps ledger migration note, and coordinated release with ComputeScan and GuardBoard.\n"
+          }
+        }
+      },
+      "issues": []
+    },
+    "computescan": {
+      "product": "computescan",
+      "exists": true,
+      "parsed": {
+        "id": "computescan",
+        "name": "ComputeScan",
+        "owner": "",
+        "version": "1.0.0",
+        "status": "production",
+        "spec_yaml": "",
+        "checklist_yaml": "",
+        "gpt_instructions_yaml": "",
+        "x_legacy": {
+          "api": {
+            "rest_endpoint": "https://api.shieldcraft-ai.com/computescan",
+            "auth": "GuardSuite API token"
+          },
+          "architecture": {
+            "core_dependency_id": "guardsuite-core@>=1.4.0,<2.0.0",
+            "schema_source": "guardsuite-core/canonical_schema.json",
+            "required_interfaces": [
+              "I_Evaluator",
+              "I_ScannerCLI"
+            ],
+            "override_exclusion": [
+              "canonical.output_contract",
+              "evaluator.runtime_override"
+            ],
+            "output_contract": "strict"
+          },
+          "cli": {
+            "base_command": "computescan",
+            "scan_command": "computescan scan",
+            "supported_flags": [
+              "--json",
+              "--stdin",
+              "--quiet",
+              "--explain",
+              "--fast",
+              "--full"
+            ],
+            "reserved_flags": [
+              "--fixpack-summary",
+              "--telemetry-report"
+            ]
+          },
+          "compliance": {
+            "compliance_ledger_enabled": false,
+            "ledger_visibility": "none"
+          },
+          "ecosystem_integrations": {
+            "guardscore": {
+              "pillar_weight": 0.33,
+              "severity_penalties": {
+                "critical": 40,
+                "high": 25,
+                "medium": 10,
+                "low": 2
+              },
+              "provided_score_inputs": [
+                "resource_inventory_gaps",
+                "cost_regression_risk",
+                "telemetry_coverage_score",
+                "fixpack_preview_count"
+              ],
+              "badge_eligibility_signal": true
+            },
+            "playground": {
+              "wasm_safe": true,
+              "max_runtime_ms": 1500,
+              "playground_latency_target_ms": 900,
+              "json_sanitize": true,
+              "svg_sanitize": true,
+              "quick_score_mode": true
+            },
+            "guardboard": {
+              "exposes_fixpack_hints": true,
+              "shows_compliance_ledger": false,
+              "badge_preview_supported": true
+            }
+          },
+          "features": [
+            {
+              "id": "CSCAN-FEAT-001",
+              "title": "Fast Scan Mode",
+              "summary": "Low-latency deterministic scan for CI and pre-deploy checks.",
+              "included": true
+            },
+            {
+              "id": "CSCAN-FEAT-002",
+              "title": "Full Scan Mode",
+              "summary": "Expanded analysis for deep compute inventories.",
+              "included": true
+            },
+            {
+              "id": "CSCAN-FEAT-003",
+              "title": "Telemetry Coverage Checks",
+              "summary": "Flags missing metrics/logging for critical nodes.",
+              "included": true
+            },
+            {
+              "id": "CSCAN-FEAT-004",
+              "title": "Fixpack Preview Hooks",
+              "summary": "Provides deterministic hints for paid Guard fixpacks.",
+              "included": true
+            }
+          ],
+          "fixpack": {
+            "included": false,
+            "reference_hint_format": "fixpack:<ISSUE_ID>",
+            "surfaces_hints": true,
+            "notes": "ComputeGuard and paid products supply remediation bundles."
+          },
+          "future_extensions": [
+            "GPU utilization governance heuristics",
+            "Deterministic capacity planning hints",
+            "Optional sustainability scoring inputs"
+          ],
+          "governance": {
+            "spec_version": "2025.11",
+            "last_reviewed": "2025-11-24",
+            "owner": "GuardSuite Platform Team",
+            "stability_level": "ga"
+          },
+          "governance_domains": [
+            "compute_resource_inventory",
+            "cost_governance",
+            "telemetry_gap_detection",
+            "fixpack_preview_readiness",
+            "deterministic_output"
+          ],
+          "integration_points": {
+            "products_consuming": [
+              "computeguard",
+              "guardscore",
+              "guardboard"
+            ],
+            "playground": {
+              "quick_score_mode_supported": true
+            }
+          },
+          "interoperability_conflicts": [
+            "New compute adapters may require GuardScore weighting refresh.",
+            "Fixpack preview schema changes impact GuardBoard overlays."
+          ],
+          "long_description": "ComputeScan discovers compute resources (VMs, instances, GPU attachments),\nevaluates sizing, cost, and telemetry posture, and emits canonical findings\nfor downstream GuardSuite products. It prioritizes deterministic output,\nfast CI-friendly runtimes, and fixpack preview hooks for higher-level guards.\n",
+          "maintainers": [
+            {
+              "name": "Deon Prinsloo",
+              "role": "AI Solutions Architect",
+              "contact": "deon@shieldcraft-ai.com"
+            }
+          ],
+          "marketing": {
+            "hero": "Deterministic compute governance scanner for GuardSuite.",
+            "blurbs": [
+              "Low-latency compute scanning for CI and pre-deploy checks",
+              "Canonical JSON findings + GuardBoard-ready metadata",
+              "Built-in fixpack preview hooks for paid Guard products"
+            ],
+            "ctas": [
+              {
+                "text": "Run ComputeScan",
+                "href": "/playground"
+              }
+            ]
+          },
+          "metadata": {
+            "version": "2025.11",
+            "funnel_stage": "mid_funnel",
+            "pricing_reference": "pricing/guardsuite_pricing.yml",
+            "ux_goals": [
+              "Provide CI-safe compute scans with deterministic issue ordering",
+              "Feed paid Guard products with high-signal preview data"
+            ]
+          },
+          "performance_constraints": {
+            "max_memory_mb": 120,
+            "expected_runtime_ms": 300,
+            "large_plan_runtime_ms": 950,
+            "playground_runtime_ms": 1100,
+            "quickscore_threshold_resources": 900
+          },
+          "pillar": "compute",
+          "product_type": "free_scanner",
+          "purpose_summary": "Provide fast CI-safe compute scanning, canonical findings, and fixpack preview inputs for ComputeGuard, GuardScore, and GuardBoard.\n",
+          "references": {
+            "master_spec": "docs/guardsuite_master_spec.md",
+            "template_spec": "templates/spec_page.md.j2",
+            "canonical_schema": "guardsuite-core/canonical_schema.json"
+          },
+          "related_products": [
+            "computeguard",
+            "guardboard",
+            "guardscore",
+            "guardsuite-core"
+          ],
+          "release_metadata": {
+            "release_channel": "stable",
+            "release_notes_url": "https://shieldcraft-ai.com/guardsuite/computescan/releases/1.0.0",
+            "published_date": "2025-11-19"
+          },
+          "rule_categories": [
+            "Resource Inventory & Drift",
+            "Cost & Sizing Controls",
+            "Telemetry & Observability",
+            "Fixpack Preview Hooks",
+            "Deterministic Output Contract"
+          ],
+          "security": {
+            "no_external_calls_at_runtime": true,
+            "sanitize_all_inputs": true,
+            "svg_sanitization": true,
+            "wasm_compatible": true,
+            "sandbox_requirement": "Playground runtime must be WASM sandboxed",
+            "safe_error_reporting": true
+          },
+          "short_description": "Lightweight, deterministic compute resource scanner that feeds GuardSuite scoring, remediation, and dashboard products.\n",
+          "testing": {
+            "unit_tests_required": true,
+            "integration_tests_required": true,
+            "snapshot_schema_test": true,
+            "test_coverage_min_percent": 80,
+            "ci_jobs": [
+              "validate_schema",
+              "unit",
+              "integration",
+              "snapshot_conformance",
+              "perf_regression"
+            ]
+          },
+          "versioning": {
+            "semver": true,
+            "core_dependency_pin": "guardsuite-core@>=1.4.0,<2.0.0",
+            "schema_version_pin": "canonical_schema@1.0.0",
+            "breaking_change_policy": "Any change that alters canonical finding fields or CLI output requires a coordinated release with ComputeGuard and GuardBoard consumers.\n"
+          }
+        }
+      },
+      "issues": []
+    },
+    "guardboard": {
+      "product": "guardboard",
+      "exists": true,
+      "parsed": {
+        "id": "guardboard",
+        "name": "GuardBoard",
+        "owner": "",
+        "version": "1.0.1",
+        "status": "production",
+        "spec_yaml": "",
+        "checklist_yaml": "",
+        "gpt_instructions_yaml": "",
+        "x_legacy": {
+          "api": {
+            "rest_endpoint": "https://api.shieldcraft-ai.com/guardboard",
+            "auth": "GuardSuite API token"
+          },
+          "architecture": {
+            "core_dependency_id": "guardsuite-core@>=1.4.0,<2.0.0",
+            "schema_source": "guardsuite-core/canonical_schema.json",
+            "required_interfaces": [
+              "I_ArtifactIngestor",
+              "I_DashboardRenderer",
+              "I_SignedExportService"
+            ],
+            "override_exclusion": [
+              "canonical.output_contract"
+            ],
+            "output_contract": "dashboard"
+          },
+          "cli": {
+            "base_command": "guardboard",
+            "scan_command": "guardboard scan --plan <plan.json>",
+            "supported_flags": [
+              "--json",
+              "--output json"
+            ],
+            "reserved_flags": [
+              "--export-signed"
+            ]
+          },
+          "compliance": {
+            "compliance_ledger_enabled": true,
+            "ledger_visibility": "full"
+          },
+          "ecosystem_integrations": {
+            "guardscore": {
+              "pillar_weight": 0.0,
+              "severity_penalties": {
+                "critical": 40,
+                "high": 25,
+                "medium": 10,
+                "low": 2
+              },
+              "provided_score_inputs": [
+                "badge_metadata",
+                "guardscore",
+                "percentile"
+              ],
+              "badge_eligibility_signal": true
+            },
+            "playground": {
+              "wasm_safe": true,
+              "max_runtime_ms": 0,
+              "playground_latency_target_ms": 0,
+              "json_sanitize": true,
+              "svg_sanitize": true,
+              "quick_score_mode": false
+            },
+            "guardboard": {
+              "exposes_fixpack_hints": false,
+              "shows_compliance_ledger": true,
+              "badge_preview_supported": true
+            }
+          },
+          "features": [
+            {
+              "id": "GBOARD-FEAT-010",
+              "title": "Deterministic Artifact Views",
+              "summary": "Every dashboard references immutable artifact IDs with provenance.",
+              "included": true
+            },
+            {
+              "id": "GBOARD-FEAT-020",
+              "title": "Signed Export Bundles",
+              "summary": "Produces signed, tamper-evident exports for audits and exec briefings.",
+              "included": true
+            },
+            {
+              "id": "GBOARD-FEAT-030",
+              "title": "Badge + GuardScore Overlays",
+              "summary": "Visualizes GuardScore, badge eligibility, and remediation progress.",
+              "included": true
+            }
+          ],
+          "fixpack": {
+            "included": false,
+            "reference_hint_format": "fixpack:<ISSUE_ID>",
+            "surfaces_hints": false
+          },
+          "future_extensions": [
+            "Live incident overlays",
+            "Self-service GuardScore badge configuration",
+            "Deeper drilldowns into FixPack adoption"
+          ],
+          "governance": {
+            "spec_version": "2025.11",
+            "last_reviewed": "2025-11-24",
+            "owner": "GuardSuite Platform Team",
+            "stability_level": "ga"
+          },
+          "governance_domains": [
+            "artifact_provenance",
+            "dashboard_determinism",
+            "export_signing",
+            "badge_preview_integrity",
+            "role_based_access"
+          ],
+          "integration_points": {
+            "products_consuming": [
+              "guardscore",
+              "guard-specs"
+            ],
+            "playground": {
+              "quick_score_mode_supported": false,
+              "exposes_fixpack_hints": false
+            },
+            "dashboards": [
+              "exec_overview",
+              "compliance_audit",
+              "badge_status"
+            ]
+          },
+          "long_description": "GuardBoard ingests canonical GuardSuite artifacts (scan outputs, GuardScore summaries,\nbadge metadata, compliance ledgers) and renders deterministic dashboards,\ninvestigation workflows, and export bundles. It ensures every view references\nimmutable artifact IDs, tracks provenance, and keeps signed exports ready for\naudits. GuardBoard is how customer teams, SREs, and executives review GuardSuite\nposture with confidence.\n",
+          "maintainers": [
+            {
+              "name": "GuardSuite Platform Team",
+              "role": "Product Owner",
+              "contact": "platform@guardsuite.internal"
+            }
+          ],
+          "marketing": {
+            "hero": "Deterministic GuardSuite dashboards for execs and auditors.",
+            "blurbs": [
+              "Signed exports and immutable artifact references",
+              "Unified view across scanners, GuardScore, and compliance ledgers",
+              "Ready-made overlays for exec briefings and audits"
+            ],
+            "ctas": [
+              {
+                "text": "Explore GuardBoard",
+                "href": "/docs/guardboard"
+              }
+            ]
+          },
+          "metadata": {
+            "version": "2025.11",
+            "funnel_stage": "toplevel_funnel",
+            "pricing_reference": "pricing/guardsuite_pricing.yml",
+            "ux_goals": [
+              "Visualize GuardSuite artifacts with deterministic ordering",
+              "Generate signed exports that pass executive and audit reviews"
+            ]
+          },
+          "performance_constraints": {
+            "max_memory_mb": 256,
+            "expected_runtime_ms": 500,
+            "playground_runtime_ms": 200,
+            "large_plan_runtime_ms": 850,
+            "quickscore_threshold_resources": 50
+          },
+          "pillar": "ui",
+          "product_type": "experience",
+          "provenance": [
+            "Derived from GuardSuite Platform dashboard charter"
+          ],
+          "purpose_summary": "Provide an auditable, deterministic UI and export layer for GuardSuite artifacts with signed bundles, provenance tracking, and badge previews.\n",
+          "references": {
+            "master_spec": "docs/guardsuite_master_spec.md",
+            "template_spec": "templates/spec_page.md.j2",
+            "canonical_schema": "guardsuite-core/canonical_schema.json"
+          },
+          "related_products": [
+            "computeguard",
+            "computescan",
+            "guardscore",
+            "guardsuite-core",
+            "guardsuite-specs",
+            "pipelinescan",
+            "vectorscan"
+          ],
+          "release_metadata": {
+            "release_channel": "stable",
+            "release_notes_url": "https://shieldcraft-ai.com/guardsuite/guardboard/releases/1.0.1",
+            "published_date": "2025-11-24"
+          },
+          "rule_categories": [
+            "Artifact Integrity",
+            "Dashboard Rendering",
+            "Export Signing",
+            "Role-Based Access",
+            "Badge Preview UX"
+          ],
+          "security": {
+            "no_external_calls_at_runtime": true,
+            "sanitize_all_inputs": true,
+            "svg_sanitization": true,
+            "wasm_compatible": false,
+            "sandbox_requirement": "All exports must be signed and verified before download."
+          },
+          "short_description": "Deterministic GuardSuite dashboard and export surface that visualizes validated artifacts, GuardScore outcomes, and badge readiness for executives and auditors.\n",
+          "testing": {
+            "unit_tests_required": true,
+            "integration_tests_required": true,
+            "snapshot_schema_test": true,
+            "test_coverage_min_percent": 85,
+            "ci_jobs": [
+              "validate_schema",
+              "unit",
+              "integration",
+              "visual_regression"
+            ]
+          },
+          "versioning": {
+            "semver": true,
+            "spec_version": "2025.11",
+            "last_reviewed": "2025-11-24",
+            "stability_level": "ga",
+            "breaking_change_policy": "Dashboard schema changes require migration guides, signed-export verifier updates, and comms to GuardScore + GuardSpecs consumers.\n"
+          }
+        }
+      },
+      "issues": []
+    },
+    "guardscore": {
+      "product": "guardscore",
+      "exists": true,
+      "parsed": {
+        "id": "guardscore",
+        "name": "GuardScore",
+        "owner": "GuardSuite Scoring Team",
+        "version": "2.2.0",
+        "status": "production",
+        "spec_yaml": "products/guardscore.yml",
+        "checklist_yaml": "docs/checklists/guardscore_checklist.yml",
+        "gpt_instructions_yaml": "templates/guardscore_instructions.yml",
+        "x_legacy": {
+          "api": {
+            "rest_endpoint": "https://api.shieldcraft-ai.com/guardscore",
+            "auth": "GuardSuite API token",
+            "response_contract": "guardscore/canonical_output.json"
+          },
+          "architecture": {
+            "core_dependency_id": "guardsuite-core@>=1.4.0,<2.0.0",
+            "schema_source": "guardsuite-core/canonical_schema.json",
+            "required_interfaces": [
+              "I_ScoringModel",
+              "I_PercentileEngine",
+              "I_BadgeEmitter"
+            ],
+            "boundary": {
+              "provided_by_template": [
+                "evaluator_pipeline",
+                "canonicalization",
+                "canonical_schema_validation"
+              ],
+              "provided_by_core": [
+                "evaluator_primitives.so",
+                "severity_mapping_core",
+                "wasm_numeric_runtime"
+              ],
+              "provided_by_guardscore": [
+                "scoring_model",
+                "percentile_engine",
+                "drift_engine",
+                "explainability_artifacts",
+                "badge_engine"
+              ]
+            },
+            "forbidden_overrides": [
+              "severity_mapping_logic",
+              "canonical_schema",
+              "CLI core flags",
+              "telemetry_contract"
+            ]
+          },
+          "badge_contract": {
+            "badges": {
+              "A": "p >= 0.90",
+              "B": "0.75 <= p < 0.90",
+              "C": "0.50 <= p < 0.75",
+              "D": "0.25 <= p < 0.50",
+              "E": "0.10 <= p < 0.25",
+              "F": "p < 0.10"
+            },
+            "svg_safety": {
+              "allowed_tags": [
+                "svg",
+                "g",
+                "path",
+                "rect",
+                "circle",
+                "text"
+              ],
+              "prohibited_tags": [
+                "script",
+                "foreignObject",
+                "iframe"
+              ],
+              "allowed_attributes": [
+                "d",
+                "fill",
+                "stroke",
+                "width",
+                "height",
+                "viewBox"
+              ],
+              "external_refs_prohibited": true,
+              "deterministic_rendering": true
+            }
+          },
+          "cli": {
+            "base_command": "guardscore",
+            "supported_flags": [
+              "--json",
+              "--output json",
+              "--quiet"
+            ],
+            "reserved_flags": [
+              "--stdin"
+            ]
+          },
+          "compliance": {
+            "compliance_ledger_enabled": true,
+            "ledger_visibility": "full",
+            "required_artifacts": [
+              "guardscore.json",
+              "explainability.json",
+              "badge.json"
+            ],
+            "schema_validation_required": true
+          },
+          "ecosystem_integrations": {
+            "computeguard": {
+              "pillar_weight": 0.33,
+              "ingest_contract": "compute_guard_output.json"
+            },
+            "vectorguard": {
+              "pillar_weight": 0.33,
+              "ingest_contract": "vector_guard_output.json"
+            },
+            "pipelineguard": {
+              "pillar_weight": 0.34,
+              "ingest_contract": "pipeline_guard_output.json"
+            },
+            "guardscore": {
+              "pillar_weight": 1.0,
+              "severity_penalties": {
+                "critical": 8,
+                "high": 5,
+                "medium": 3,
+                "low": 1,
+                "info": 0
+              },
+              "produces_guardscore_artifacts": true,
+              "exposes_fixpack_hints": true
+            },
+            "guardboard": {
+              "consumes_guardscore": true,
+              "exposes_percentile": true,
+              "exposes_fixpack_hints": false,
+              "shows_compliance_ledger": true,
+              "badge_preview_supported": true
+            },
+            "playground": {
+              "wasm_safe": true,
+              "max_runtime_ms": 250,
+              "playground_latency_target_ms": 150,
+              "quick_score_mode": true,
+              "json_sanitize": true,
+              "svg_sanitize": true
+            }
+          },
+          "features": [
+            {
+              "id": "GSC-010",
+              "title": "Deterministic Scoring Contract",
+              "summary": "Fixed precision math, canonical hashing, and no nondeterministic IO.",
+              "included": true
+            },
+            {
+              "id": "GSC-020",
+              "title": "Explainable Outputs",
+              "summary": "Provides severity weight breakdowns, pillar contributions, and rule traces.",
+              "included": true
+            },
+            {
+              "id": "GSC-030",
+              "title": "Drift + Percentile Engine",
+              "summary": "Synthetic dataset + drift thresholds ensure percentile stability.",
+              "included": true
+            }
+          ],
+          "fixpack": {
+            "included": false,
+            "reference_hint_format": "fixpack:<ISSUE_ID>",
+            "surfaces_hints": true,
+            "modifier_contract": {
+              "cap_point_reduction": 0.4,
+              "numeric_contract": "fixed_64",
+              "stage": "post_aggregation",
+              "deterministic": true
+            }
+          },
+          "future_extensions": [
+            "Additional pillar weight slots for DataGuard",
+            "Signed percentile snapshots per tenant",
+            "GuardScore-derived SLA alerts"
+          ],
+          "governance": {
+            "spec_version": "2026.02",
+            "last_reviewed": "2026-02-05",
+            "owner": "GuardSuite Scoring Program",
+            "stability_level": "ga",
+            "invariants": [
+              "Scoring pipeline order must match guardsuite-template evaluator pipeline.",
+              "No nondeterministic IO (clock, randomness, locale, filesystem).",
+              "All timestamps encoded as UTC ISO-8601 with Z suffix.",
+              "Hashing uses canonical_json_utf8 with sorted keys."
+            ]
+          },
+          "governance_domains": [
+            "deterministic_scoring",
+            "artifact_provenance",
+            "wasm_safety",
+            "explainability",
+            "drift_detection"
+          ],
+          "integration_points": {
+            "products_consuming": [
+              "guardboard",
+              "guardscore-api",
+              "scorebadge"
+            ],
+            "playground": {
+              "quick_score_mode_supported": true,
+              "exposes_fixpack_hints": true
+            },
+            "dashboards": [
+              "exec_overview",
+              "governance_review"
+            ]
+          },
+          "interoperability_conflicts": [
+            "Non-deterministic scoring plugins",
+            "Unsigned synthetic datasets"
+          ],
+          "long_description": "GuardScore consumes canonical outputs from ComputeGuard, ComputeScan,\nVectorGuard, PipelineGuard, and future pillars to produce a single,\ndeterministic GuardScore per tenant or workload. It enforces\nWASM-compatible math, fixed precision, provenance tracking, and\nreproducible explainability artifacts so downstream experiences (GuardBoard,\nGuardScore API, ScoreBadge publisher) can trust the results. The engine\nguards against drift, validates fixpack modifiers, and emits canonical\nJSON/CBOR ready for immutable storage.\n",
+          "maintainers": [
+            {
+              "name": "Deon Prinsloo",
+              "role": "AI Solutions Architect",
+              "contact": "deon@shieldcraft-ai.com"
+            },
+            {
+              "name": "GuardSuite Scoring Team",
+              "role": "Product Owner",
+              "contact": "guardscore@guardsuite.internal"
+            }
+          ],
+          "marketing": {
+            "hero": "One deterministic GuardScore across every pillar.",
+            "blurbs": [
+              "Deterministic scoring and percentile math across OS/arch/runtime.",
+              "Explainable outputs with pillar weights, severity penalties, and drift data.",
+              "Badge-ready scoring contract trusted by GuardBoard and ScoreBadge."
+            ],
+            "ctas": [
+              {
+                "text": "Understand GuardScore",
+                "href": "/docs/guardscore"
+              }
+            ]
+          },
+          "metadata": {
+            "version": "2026.02",
+            "funnel_stage": "toplevel_funnel",
+            "pricing_reference": "pricing/guardsuite_pricing.yml",
+            "documentation_entrypoint": "docs/products/guardscore.md",
+            "ux_goals": [
+              "Expose a single deterministic GuardScore for exec dashboards and APIs.",
+              "Provide explainability artifacts (pillars, severity math, drift signals).",
+              "Guarantee badge readiness signals for GuardBoard and downstream products."
+            ]
+          },
+          "performance_constraints": {
+            "max_memory_mb": 256,
+            "expected_runtime_ms": 600,
+            "large_plan_runtime_ms": 1100,
+            "playground_runtime_ms": 220,
+            "quickscore_threshold_resources": 75,
+            "realtime_refresh_interval_ms": 60000
+          },
+          "pillar": "crosscut",
+          "product_type": "scoring_engine",
+          "products": [
+            "guardscore"
+          ],
+          "provenance": [
+            "Derived from GuardSuite scoring charter",
+            "Aligned with guardsuite-template evaluator pipeline"
+          ],
+          "purpose_summary": "Provide a deterministic, auditable scoring model governing how GuardSuite aggregates issues, weights pillars, applies fixpack modifiers, and signals eligibility for GuardScore-powered products.\n",
+          "references": {
+            "canonical_schema": "guardsuite-core/canonical_schema.json",
+            "scoring_runbook": "docs/runbooks/guardscore.md",
+            "template_spec": "templates/spec_page.md.j2"
+          },
+          "related_products": [
+            "computeguard",
+            "computescan",
+            "guardboard",
+            "guardsuite-core",
+            "pipelineguard",
+            "pipelinescan",
+            "vectorguard",
+            "vectorscan"
+          ],
+          "release_metadata": {
+            "release_channel": "stable",
+            "release_notes_url": "https://shieldcraft-ai.com/guardsuite/guardscore/releases/2.2.0",
+            "published_date": "2026-02-05"
+          },
+          "rule_categories": [
+            "Severity Normalization",
+            "Pillar Weight Governance",
+            "Fixpack Modifiers",
+            "Percentile Modeling",
+            "Badge Eligibility"
+          ],
+          "scoring_model": {
+            "severity_penalties": {
+              "critical": 8,
+              "high": 5,
+              "medium": 3,
+              "low": 1,
+              "info": 0
+            },
+            "pillar_weights": {
+              "compute": 0.33,
+              "vector": 0.33,
+              "pipeline": 0.34
+            },
+            "aggregation_formula": "sum(pillar_score * pillar_weight) + fixpack_modifier",
+            "synthetic_dataset": {
+              "id": "syn-2026.01",
+              "samples": 10000,
+              "distribution_hash": "sha256:abc123",
+              "min_samples_per_tenant": 200
+            },
+            "percentile_model": {
+              "algorithm": "deterministic_cdf",
+              "tie_breaker": "upper_bound",
+              "sparse_tenant_behavior": "use_global_percentile"
+            },
+            "drift_detection": {
+              "threshold_percent": 0.15,
+              "windows": [
+                "7d",
+                "30d"
+              ],
+              "deterministic": true
+            },
+            "explainability": {
+              "required_fields": [
+                "severity_weight_breakdown",
+                "pillar_weight_breakdown",
+                "rule_contribution_list_top_n",
+                "normalization_steps",
+                "synthetic_dataset_reference"
+              ],
+              "rule_contribution_list_top_n": 10
+            },
+            "numeric_contract": {
+              "precision": "fixed_64",
+              "rounding_mode": "round_half_away_from_zero",
+              "overflow_behavior": "clamp_to_max"
+            }
+          },
+          "security": {
+            "no_external_calls_at_runtime": true,
+            "sanitize_all_inputs": true,
+            "svg_sanitization": true,
+            "svg_sanitization_required": true,
+            "wasm_safe": true,
+            "wasm_compatible": true,
+            "deterministic_math": true,
+            "sandbox_requirement": "All GuardScore executions must run inside signed WASM evaluator sandboxes.",
+            "telemetry_redaction": [
+              "tenant_id",
+              "resource_id"
+            ]
+          },
+          "short_description": "Deterministic GuardSuite scoring engine that converts multi-pillar findings into a single GuardScore, percentile, and badge signal with audit-grade explainability.\n",
+          "testing": {
+            "unit_tests_required": true,
+            "integration_tests_required": true,
+            "snapshot_schema_test": true,
+            "wasm_execution_required": true,
+            "deterministic_replay_tests": true,
+            "ci_jobs": [
+              "validate_schema",
+              "unit",
+              "integration",
+              "wasm"
+            ]
+          },
+          "versioning": {
+            "semver": true,
+            "spec_version": "2026.02",
+            "scoring_version_policy": {
+              "severity_changes": "minor",
+              "pillar_weight_changes": "minor",
+              "scoring_semantics_changes": "major",
+              "schema_changes": "minor_or_major",
+              "synthetic_dataset_distribution_change": "patch"
+            },
+            "abi": {
+              "supported_versions": [
+                "v1"
+              ],
+              "wasm_abi": "wasi_snapshot_preview1",
+              "supported_arch": [
+                "x86_64",
+                "arm64"
+              ]
+            },
+            "compatibility_window_months": 12
+          }
+        }
+      },
+      "issues": []
+    },
+    "guardsuite-core": {
+      "product": "guardsuite-core",
+      "exists": true,
+      "parsed": {
+        "id": "guardsuite-core",
+        "name": "GuardSuite Core",
+        "owner": "GuardSuite Platform Team",
+        "version": "2.4.0",
+        "status": "production",
+        "spec_yaml": "products/guardsuite-core.yml",
+        "checklist_yaml": "checklists/guardsuite-core.yml",
+        "gpt_instructions_yaml": "templates/guardsuite-core_instructions.yml",
+        "x_legacy": {
+          "api": {
+            "base_url": "https://api.shieldcraft-ai.com/guardsuite-core",
+            "rest_endpoint": "/v1/scan",
+            "openapi_path": "api/openapi.yml",
+            "auth": "GuardSuite API token",
+            "payload_limits": {
+              "max_request_bytes": 2000000,
+              "default_timeout_ms": 5000
+            },
+            "validation_tests_required": true,
+            "error_contract": "schemas/cli_error.json"
+          },
+          "architecture": {
+            "core_dependency_id": "guardsuite-core@>=2.4.0",
+            "canonical_schema_source": "schemas/core/canonical_schema.json",
+            "required_interfaces": [
+              "I_PlanLoader",
+              "I_IssueSerializer",
+              "I_TemplateRenderer"
+            ],
+            "forbidden_overrides": [
+              "canonical.output_contract",
+              "engine.payload_serializer"
+            ],
+            "evaluator_pipeline": {
+              "stages": [
+                "load_profile",
+                "initialize_context",
+                "discover_resources",
+                "gather_metadata",
+                "evaluate_rules",
+                "canonicalize",
+                "snapshot_normalize",
+                "emit_output"
+              ],
+              "invariants": [
+                "Stages execute strictly in the published order.",
+                "No nondeterministic IO or environment branching.",
+                "Timestamps encode as UTC ISO-8601 with Z suffix.",
+                "Arithmetic must use fixed_64 deterministic math.",
+                "Outputs serialize via canonical_json_utf8."
+              ]
+            },
+            "canonicalization": {
+              "input": {
+                "normalize_paths_to": "/",
+                "enforce_key_ordering": true,
+                "timestamp_format": "UTC_ISO8601_Z",
+                "unicode_normalization": "NFC",
+                "float_handling": "fixed64_or_forbidden"
+              },
+              "output": {
+                "enforce_key_ordering": true,
+                "serialization": "canonical_json_utf8",
+                "strip_fields": [
+                  "local_paths",
+                  "tmp_dir",
+                  "debug_info"
+                ]
+              },
+              "snapshot_normalization": {
+                "runs_required": 3,
+                "identical_hash_required": true,
+                "timestamp_normalization": "UTC_ISO8601"
+              }
+            },
+            "binary_core": {
+              "artifacts_dir": "artifacts/binaries/",
+              "required_modules": [
+                "evaluator_primitives.so",
+                "severity_mapping_core.so",
+                "canonicalization_core.so",
+                "schema_verifier_core.so"
+              ],
+              "abi_manifest": "artifacts/abi/binary_abi_matrix.yml",
+              "supported_architectures": [
+                "x86_64",
+                "arm64"
+              ],
+              "signing_required": true,
+              "checksum_required": true,
+              "fallback_policy": {
+                "dev": "python_fallback_allowed",
+                "ci": "python_fallback_warn",
+                "production": "python_fallback_forbidden"
+              }
+            },
+            "fixpack_registry": {
+              "registry_dir": "fixpacks/",
+              "manifest": "fixpacks/registry_index.yml",
+              "metadata_schema": "schemas/fixpack_schema.yml",
+              "signature_required": true,
+              "deterministic_ordering": true
+            },
+            "error_model": {
+              "error_codes": {
+                "VALIDATION_ERROR": 2,
+                "SCHEMA_ERROR": 3,
+                "RUNTIME_ERROR": 4,
+                "PARTIAL_INPUT_ERROR": 5,
+                "BINARY_INTEGRITY_ERROR": 6,
+                "DRIFT_ERROR": 7
+              },
+              "output_contract": {
+                "canonical_error_schema": "schemas/cli_error.json",
+                "required_fields": [
+                  "error_code",
+                  "message",
+                  "detail",
+                  "timestamp_utc",
+                  "error_hash"
+                ],
+                "forbidden_fields": [
+                  "stacktrace",
+                  "local_paths"
+                ],
+                "deterministic_error_output": true
+              }
+            },
+            "schema_fragments": {
+              "canonical_dir": "schemas/core/",
+              "pillar_extensions_dir": "schemas/pillar/",
+              "mandatory_fragment_fields": [
+                "id",
+                "version",
+                "owner",
+                "rfc_link",
+                "compatibility_notes"
+              ],
+              "fragment_validation_command": "guardsuite-core verify-fragment <file>",
+              "compatibility": {
+                "core_fragment_versions": ">=2.0.0",
+                "pillar_extension_versions": ">=1.0.0",
+                "incompatible_combinations": [
+                  "core<2.0.0 + pillar_extension>=2.0"
+                ],
+                "enforcement": "reject_on_load"
+              }
+            }
+          },
+          "cli": {
+            "base_command": "guardsuite-core",
+            "supported_flags": [
+              "--json",
+              "--stdin",
+              "--quiet",
+              "--output json"
+            ],
+            "deterministic_output": true
+          },
+          "compliance": {
+            "compliance_ledger_enabled": true,
+            "ledger_visibility": "full",
+            "required_artifacts": [
+              "canonical_schema.json",
+              "provenance_schema.yml",
+              "fixpack_registry_index.yml"
+            ],
+            "schema_validation_required": true
+          },
+          "ecosystem_integrations": {
+            "guardscore": {
+              "pillar_weight": 0.0,
+              "severity_penalties": {
+                "critical": 40,
+                "high": 25,
+                "medium": 10,
+                "low": 2
+              },
+              "provided_score_inputs": [
+                "guardscore_contract_version",
+                "schema_version",
+                "fixpack_registry_state"
+              ]
+            },
+            "playground": {
+              "wasm_safe": true,
+              "max_runtime_ms": 1500,
+              "playground_latency_target_ms": 500,
+              "quick_score_mode": false,
+              "json_sanitize": true,
+              "svg_sanitize": true
+            },
+            "guardboard": {
+              "exposes_fixpack_hints": true,
+              "shows_compliance_ledger": false,
+              "badge_preview_supported": false
+            }
+          },
+          "features": [
+            {
+              "id": "GSCORE-CORE-001",
+              "title": "Authoritative Evaluator Pipeline",
+              "summary": "Ships the canonical stage ordering, invariants, and orchestration.",
+              "included": true
+            },
+            {
+              "id": "GSCORE-CORE-002",
+              "title": "Signed Binary Core",
+              "summary": "Provides ABI-locked WASM + native modules with deterministic parity.",
+              "included": true
+            },
+            {
+              "id": "GSCORE-CORE-003",
+              "title": "FixPack + Schema Registry",
+              "summary": "Publishes fragment governance, fixpack metadata, and drift enforcement.",
+              "included": true
+            }
+          ],
+          "fixpack": {
+            "included": false,
+            "registry_alignment": "fixpack_registry.manifest",
+            "remediation_hint_format": "fixpack:<ISSUE_ID>",
+            "exposes_cli_lookup": true
+          },
+          "future_extensions": [
+            "Signed percentile snapshots for GuardBoard drift detection",
+            "Deterministic quickscore helpers for Playground",
+            "Schema fragment diff API for third-party partners"
+          ],
+          "governance": {
+            "spec_version": "2026.04",
+            "last_reviewed": "2026-03-09",
+            "owner": "GuardSuite Platform Team",
+            "stability_level": "ga",
+            "changelog_required": true,
+            "codeowners_required": true,
+            "rfc_required_for_major": true,
+            "breaking_change_policy": "Any breaking schema, binary ABI, evaluator pipeline, or canonicalization modification requires an RFC, downstream coordination, and regeneration of affected pillars and the template.\n",
+            "principles": [
+              "Schema-first contracts drive every release decision.",
+              "Determinism and WASM safety override performance shortcuts.",
+              "All provenance fields must be signed and validated."
+            ],
+            "evaluator_pipeline_invariants": [
+              "Stages must run in exactly this order (no additions or reorderings).",
+              "No nondeterministic IO such as randomness or local system time.",
+              "Timestamps serialize as UTC ISO-8601 with Z suffix.",
+              "Canonicalization enforces deterministic key ordering and fixed_64 math.",
+              "Outputs emit canonical_json_utf8 with stable hashing."
+            ]
+          },
+          "governance_domains": [
+            "deterministic_runtime",
+            "provenance_enforcement",
+            "wasm_safety",
+            "schema_governance",
+            "fixpack_registry"
+          ],
+          "integration_points": {
+            "guardboard": {
+              "uses_canonical_schema_exports": true,
+              "consumes_fixpack_registry": true
+            },
+            "guardscore": {
+              "requires_canonical_output_contract": true,
+              "ingests_severity_penalties": true
+            },
+            "playground": {
+              "wasm_safe_runner": true,
+              "requires_playground_latency_target_ms": 500
+            },
+            "ci_bootstrap": {
+              "cli_commands": [
+                "guardsuite-core ci:validate",
+                "guardsuite-core ci:bootstrap"
+              ]
+            }
+          },
+          "interoperability_conflicts": [
+            "Unsigned binaries or fragments",
+            "Non-deterministic evaluator overrides",
+            "Dynamic imports inside WASM sandboxes"
+          ],
+          "long_description": "GuardSuite Core provides the canonical runtime layer used by scanners,\nguards, scoring engines, dashboards, and governance tooling. It exposes\nauthoritative JSON schemas, fragment governance, the evaluator pipeline,\ncanonicalization contracts, provenance validation, ABI-signed binary\nmodules, FixPack registry capabilities, telemetry schemas, deterministic\nsnapshot normalization, and WASM-safe execution primitives. Every\nGuardSuite pillar consumes this contract as the source of truth for\ningestion, processing, validation, rendering, and drift-free evolution.\n",
+          "maintainers": [
+            {
+              "name": "Deon Prinsloo",
+              "role": "AI Solutions Architect",
+              "contact": "deon@shieldcraft-ai.com"
+            },
+            {
+              "name": "GuardSuite Platform Team",
+              "role": "Product Owner",
+              "contact": "platform@guardsuite.internal"
+            }
+          ],
+          "marketing": {
+            "hero": "Deterministic foundation for every GuardSuite workload.",
+            "blurbs": [
+              "Authoritative schemas, evaluator pipeline, and canonicalization contracts.",
+              "Signed binary core that enforces parity across WASM, Python, and native.",
+              "FixPack registry plus telemetry governance for every pillar."
+            ],
+            "ctas": [
+              {
+                "text": "Read the GuardSuite Core spec",
+                "href": "/docs/products/guardsuite-core"
+              }
+            ]
+          },
+          "metadata": {
+            "version": "2026.04",
+            "funnel_stage": "toplevel_funnel",
+            "pricing_reference": "pricing/guardsuite_pricing.yml",
+            "documentation_entrypoint": "docs/products/guardsuite-core.md",
+            "ux_goals": [
+              "Guarantee deterministic evaluator execution for all pillars.",
+              "Expose canonical schemas, fragments, and ABI contracts without drift.",
+              "Keep FixPack, telemetry, and observability tooling aligned to governance."
+            ]
+          },
+          "performance_constraints": {
+            "max_memory_mb": 256,
+            "expected_runtime_ms": 400,
+            "large_plan_runtime_ms": 900,
+            "playground_runtime_ms": 1000,
+            "playground_latency_target_ms": 500,
+            "quickscore_threshold_resources": 25,
+            "realtime_refresh_interval_ms": 30000,
+            "pipeline_stage_budgets": {
+              "load_profile_ms": 50,
+              "discover_resources_ms": 150,
+              "gather_metadata_ms": 200,
+              "evaluate_rules_ms": 200,
+              "canonicalize_ms": 150,
+              "snapshot_normalize_ms": 150
+            }
+          },
+          "pillar": "crosscut",
+          "product_type": "core",
+          "products": [
+            "guardsuite-core"
+          ],
+          "provenance": [
+            "Derived from GuardSuite Core charter v2026.04",
+            "Aligned with guardsuite-template evaluator pipeline",
+            "ABI manifest tracked in artifacts/abi/binary_abi_matrix.yml"
+          ],
+          "purpose_summary": "Provide a single, authoritative, versioned foundation for schemas, evaluator pipelines, binary-backed primitives, governance rules, and deterministic behavior across all GuardSuite products.\n",
+          "references": {
+            "canonical_schema": "schemas/core/canonical_schema.json",
+            "telemetry": {
+              "schema": "schemas/telemetry_event_schema.yml",
+              "schema_version_pin": ">=1.0,<2.0",
+              "required_fields": [
+                "event_type",
+                "timestamp_utc",
+                "component",
+                "trace_id"
+              ],
+              "limits": {
+                "max_event_payload_bytes": 64000,
+                "max_events_per_rule_execution": 10
+              },
+              "redact_patterns": [
+                ".*secret.*",
+                ".*token.*"
+              ]
+            },
+            "logs": {
+              "structured_json": true,
+              "redact_fields": [
+                "resource_id",
+                "tenant_id"
+              ],
+              "include": [
+                "component",
+                "timestamp_utc",
+                "trace_id"
+              ]
+            },
+            "metrics": [
+              "core_runs_total",
+              "core_schema_errors_total",
+              "core_parity_failures_total"
+            ],
+            "runbooks": {
+              "parity_failure": "docs/runbooks/parity_failure.md",
+              "schema_drift": "docs/runbooks/schema_drift.md",
+              "binary_compromise": "docs/runbooks/binary_compromise.md"
+            },
+            "deliverables": [
+              "schemas/core/canonical_schema.json",
+              "schemas/provenance_schema.yml",
+              "artifacts/abi/binary_abi_matrix.yml",
+              "artifacts/binaries/<arch>/*",
+              "fixpacks/registry_index.yml",
+              "api/openapi.yml",
+              "docs/runbooks/*.md",
+              "examples/*",
+              "tests/parity_test_harness/",
+              "ci/guardsuite-core-ci.yml"
+            ]
+          },
+          "related_products": [
+            "guardscore",
+            "guardboard",
+            "computeguard",
+            "computescan",
+            "pipelineguard",
+            "pipelinescan",
+            "vectorguard",
+            "vectorscan"
+          ],
+          "release_metadata": {
+            "release_channel": "stable",
+            "release_notes_url": "https://shieldcraft-ai.com/guardsuite-core/releases/2.4.0",
+            "published_date": "2026-03-09",
+            "artifact_version_hash": "f5bf9548"
+          },
+          "rule_categories": [
+            "Canonicalization & Evaluator Lifecycle",
+            "ABI Integrity & Binary Governance",
+            "Schema Fragment Enforcement",
+            "FixPack Registry Management",
+            "Telemetry & Observability Guardrails"
+          ],
+          "security": {
+            "no_external_calls_at_runtime": true,
+            "sanitize_all_inputs": true,
+            "svg_sanitization": true,
+            "wasm_compatible": true,
+            "sandbox_requirement": "Core CLI must run under WASI for Playground",
+            "safe_error_reporting": true,
+            "wasm_forbidden_operations": [
+              "randomness",
+              "locale",
+              "filesystem_write",
+              "dynamic_imports",
+              "system_time",
+              "environment_variable_branching",
+              "nondeterministic_float_ops",
+              "network_access"
+            ]
+          },
+          "short_description": "Deterministic runtime, canonical schemas, ABI-backed binaries, evaluator pipeline, and governance systems that power every GuardSuite pillar.\n",
+          "testing": {
+            "unit_tests_required": true,
+            "integration_tests_required": true,
+            "snapshot_schema_test": true,
+            "parity_tests_required": true,
+            "wasm_execution_required": true,
+            "test_coverage_min_percent": 90,
+            "ci_matrix": [
+              "ubuntu-x86_64",
+              "ubuntu-arm64",
+              "macos-x86_64"
+            ],
+            "ci_jobs": [
+              "validate_schema",
+              "unit",
+              "integration",
+              "snapshot_conformance",
+              "parity_tests",
+              "wasm_conformance",
+              "binary_signature_check"
+            ]
+          },
+          "versioning": {
+            "semver": true,
+            "core_dependency_pin": "guardsuite-core@>=2.4.0",
+            "schema_version_pin": "schemas/core@>=2.0.0",
+            "compatibility_window_months": 12,
+            "breaking_change_process": "RFC + downstream coordination + migration plan",
+            "migration_policy": {
+              "major_change": "pillar_regeneration_required",
+              "minor_change": "notify_downstream_and_document"
+            }
+          }
+        }
+      },
+      "issues": []
+    },
+    "guardsuite-specs": {
+      "product": "guardsuite-specs",
+      "exists": true,
+      "parsed": {
+        "id": "guardsuite-specs",
+        "name": "GuardSpecs",
+        "owner": "GuardSuite Platform Team",
+        "version": "1.0.0",
+        "status": "draft",
+        "spec_yaml": "products/guardsuite-specs.yml",
+        "checklist_yaml": "db/products.json#guardsuite-specs.checklist_yaml",
+        "gpt_instructions_yaml": "db/products.json#guardsuite-specs.gpt_instructions_yaml",
+        "x_legacy": {
+          "api": {
+            "rest_endpoint": "https://api.shieldcraft-ai.com/guard-specs",
+            "auth": "GuardSuite API token"
+          },
+          "architecture": {
+            "core_dependency_id": "guardsuite-core@>=1.4.0,<2.0.0",
+            "schema_source": "guardsuite-core/canonical_schema.json",
+            "required_interfaces": [
+              "I_GuardSpecsAPI",
+              "I_BootstrapGenerator",
+              "I_ChecklistRegistry"
+            ],
+            "override_exclusion": [
+              "canonical.output_contract",
+              "deterministic_hashing"
+            ],
+            "output_contract": "registry"
+          },
+          "cli": {
+            "base_command": "guard-specs-cli",
+            "scan_command": "",
+            "supported_flags": [
+              "--product-list",
+              "--product-create",
+              "--product-validate",
+              "--bootstrap-generate"
+            ],
+            "reserved_flags": [
+              "--output json"
+            ]
+          },
+          "compliance": {
+            "compliance_ledger_enabled": false,
+            "ledger_visibility": "none"
+          },
+          "ecosystem_integrations": {
+            "guardscore": {
+              "pillar_weight": 0.25,
+              "severity_penalties": {
+                "critical": 40,
+                "high": 25,
+                "medium": 10,
+                "low": 2
+              },
+              "provided_score_inputs": [
+                "bootstrap_version_hash",
+                "validation_failure_count",
+                "schema_change_frequency"
+              ],
+              "badge_eligibility_signal": true
+            },
+            "playground": {
+              "wasm_safe": true,
+              "max_runtime_ms": 1200,
+              "playground_latency_target_ms": 900,
+              "json_sanitize": true,
+              "svg_sanitize": true,
+              "quick_score_mode": false
+            },
+            "guardboard": {
+              "exposes_fixpack_hints": false,
+              "shows_compliance_ledger": false,
+              "badge_preview_supported": true
+            }
+          },
+          "features": [
+            {
+              "id": "GSPEC-FEAT-001",
+              "title": "Canonical Product Registry",
+              "summary": "Stores specs, checklists, and GPT instructions with schema validation.\n",
+              "included": true
+            },
+            {
+              "id": "GSPEC-FEAT-002",
+              "title": "Deterministic Bootstrap Generator",
+              "summary": "Produces Architect-ready JSON with canonical hashing.",
+              "included": true
+            },
+            {
+              "id": "GSPEC-FEAT-003",
+              "title": "Audit & Feedback Automation",
+              "summary": "Ingests #FEEDBACK_CONTRACT payloads and tracks migrations.",
+              "included": true
+            }
+          ],
+          "fixpack": {
+            "included": false,
+            "reference_hint_format": "fixpack:<ISSUE_ID>",
+            "surfaces_hints": false,
+            "snippet_count": 0
+          },
+          "future_extensions": [
+            "Scheduler-driven bootstrap regeneration",
+            "Automated migration guide publishing",
+            "Additional audit webhooks"
+          ],
+          "governance": {
+            "spec_version": "2025.11",
+            "last_reviewed": "2025-11-24",
+            "owner": "GuardSuite Platform Team",
+            "stability_level": "experimental"
+          },
+          "governance_domains": [
+            "schema_registry",
+            "deterministic_bootstrap",
+            "governance_lifecycle",
+            "migration_guidance"
+          ],
+          "integration_points": {
+            "products_consuming": [
+              "computeguard",
+              "computescan",
+              "guardboard",
+              "guardscore",
+              "pipelineguard",
+              "pipelinescan",
+              "vectorguard",
+              "vectorscan"
+            ],
+            "playground": {
+              "quick_score_mode_supported": false,
+              "exposes_fixpack_hints": false
+            }
+          },
+          "interoperability_conflicts": [
+            "Schema format updates require pillar pin bumps.",
+            "Bootstrap hash length changes impact Architect clients."
+          ],
+          "long_description": "GuardSpecs stores every canonical GuardSuite product spec, checklist, and GPT\ninstruction set. It validates content against the schema registry, produces\ndeterministic bootstrap artifacts for Architect sessions, and exposes API/CLI\ntooling so pillars can automate validation. GuardSpecs is the control plane\nfor governance rules, migration guides, and deterministic hashing policies.\n",
+          "maintainers": [
+            {
+              "name": "GuardSuite Platform Team",
+              "role": "Registry Maintainers",
+              "contact": "platform@guardsuite.internal"
+            }
+          ],
+          "marketing": {
+            "hero": "Deterministic GuardSuite metadata control plane.",
+            "blurbs": [
+              "Schema-first registry for specs, checklists, and GPT instructions",
+              "Bootstrap generator for Architect and Implementor workflows",
+              "Deterministic validation CLI for CI/CD"
+            ],
+            "ctas": [
+              {
+                "text": "Use guard-specs-cli",
+                "href": "/docs/guard-specs-cli"
+              }
+            ]
+          },
+          "metadata": {
+            "version": "2025.11",
+            "funnel_stage": "toplevel_funnel",
+            "pricing_reference": "pricing/guardsuite_pricing.yml",
+            "ux_goals": [
+              "Keep every GuardSuite spec schema-compliant",
+              "Provide deterministic bootstrap artifacts for Architect"
+            ]
+          },
+          "performance_constraints": {
+            "max_memory_mb": 128,
+            "expected_runtime_ms": 400,
+            "playground_runtime_ms": 900,
+            "realtime_refresh_interval_ms": 45000,
+            "quickscore_threshold_resources": 500
+          },
+          "pillar": "crosscut",
+          "product_type": "core",
+          "purpose_summary": "Provide a single source of truth for GuardSuite specs, checklists, and bootstraps with strict schema validation and deterministic hashing.\n",
+          "references": {
+            "master_spec": "docs/guardsuite_master_spec.md",
+            "template_spec": "templates/spec_page.md.j2",
+            "canonical_schema": "guardsuite-core/canonical_schema.json"
+          },
+          "related_products": [
+            "guardboard",
+            "guardscore",
+            "guardsuite-core"
+          ],
+          "release_metadata": {
+            "release_channel": "beta",
+            "release_notes_url": "https://shieldcraft-ai.com/guardsuite/guard-specs/releases/1.0.0",
+            "published_date": "2025-11-24"
+          },
+          "rule_categories": [
+            "Schema Validation",
+            "Bootstrap Composition",
+            "Feedback Contract Processing",
+            "Deterministic Hashing"
+          ],
+          "security": {
+            "no_external_calls_at_runtime": true,
+            "sanitize_all_inputs": true,
+            "svg_sanitization": true,
+            "wasm_compatible": true,
+            "sandbox_requirement": "Bootstrap generation must remain deterministic and offline.\n"
+          },
+          "short_description": "Canonical product spec + checklist registry with deterministic bootstrap generation for GuardSuite.\n",
+          "testing": {
+            "unit_tests_required": true,
+            "integration_tests_required": true,
+            "snapshot_schema_test": true,
+            "test_coverage_min_percent": 85,
+            "ci_jobs": [
+              "validate_schema",
+              "unit",
+              "integration",
+              "snapshot_conformance"
+            ]
+          },
+          "versioning": {
+            "semver": true,
+            "core_dependency_pin": "guardsuite-core@>=1.4.0,<2.0.0",
+            "schema_version_pin": "canonical_schema@1.0.0",
+            "breaking_change_policy": "Breaking schema or bootstrap changes require migration guides and downstream coordination with every GuardSuite pillar.\n"
+          }
+        }
+      },
+      "issues": []
+    },
+    "guardsuite-template": {
+      "product": "guardsuite-template",
+      "exists": true,
+      "parsed": {
+        "id": "guardsuite-template",
+        "name": "",
+        "owner": "",
+        "version": "",
+        "spec_yaml": "",
+        "checklist_yaml": "",
+        "gpt_instructions_yaml": "",
+        "x_legacy": {
+          "acceptance_criteria": [
+            "Pillars created via template pass verify + self-test.",
+            "Canonically formatted output conforms to output_contract.",
+            "Telemetry hooks implemented and within telemetry.limits.",
+            "Binary-backed modules used for production builds; fallback rules applied.",
+            "CI contract satisfied before release.",
+            "Cross-repo compatibility checks passed."
+          ],
+          "adapter_boundary": {
+            "description": "Template defines interfaces; pillars implement provider logic.",
+            "interfaces": [
+              "discover()",
+              "fetch_metadata()",
+              "capability_manifest()"
+            ],
+            "adapter_compatibility": [
+              "Adapters must conform to adapter interface and capability manifest.",
+              "Adapters must not perform nondeterministic I/O during canonicalization."
+            ]
+          },
+          "binary_abi_matrix": {
+            "supported_abi_versions": [
+              "v1"
+            ],
+            "supported_cpu_arch": [
+              "x86_64",
+              "arm64"
+            ],
+            "wasm_abi_expected": "wasi_snapshot_preview1",
+            "compatibility_rules": [
+              "Binaries published with ABI v1 are compatible across supported_cpu_arch for 12 months.",
+              "ABI changes require major version and migration instructions."
+            ]
+          },
+          "binary_core": {
+            "modules": [
+              "canonicalization_core.so",
+              "evaluator_primitives.so",
+              "severity_mapping_core.so",
+              "schema_verifier_core.so",
+              "fixpack_loader_core.so"
+            ],
+            "fallback_behavior": {
+              "dev": "python_fallback_allowed",
+              "ci": "python_fallback_warn",
+              "production": "python_fallback_forbidden"
+            },
+            "abi_matrix_reference": "binary_abi_matrix"
+          },
+          "bootstrap_outputs": [
+            "evaluator_pipeline_manifest.json",
+            "rule_registry_index.json",
+            "fixpack_catalog_index.json",
+            "cli_flag_manifest.json",
+            "snapshot_fixture_templates/"
+          ],
+          "ci_contract": {
+            "required_jobs": [
+              "validate_schema",
+              "unit",
+              "integration",
+              "snapshot",
+              "wasm",
+              "self_test",
+              "verify"
+            ],
+            "invariants": [
+              "verify must pass before merge",
+              "self_test must pass in CI",
+              "snapshot determinism enforced across CI images"
+            ]
+          },
+          "cli": {
+            "verbs": [
+              "scan",
+              "explain",
+              "validate",
+              "rules",
+              "verify",
+              "validate-self"
+            ],
+            "flags": [
+              "--json",
+              "--stdin",
+              "--quiet",
+              "--strict",
+              "--profile <name>",
+              "--out <path>"
+            ],
+            "exit_codes": {
+              "VALIDATION_ERROR": 2,
+              "RUNTIME_ERROR": 3,
+              "SCHEMA_ERROR": 4,
+              "STRICT_MODE_FAILURE": 5
+            },
+            "invariants": [
+              "help output must be machine-parseable",
+              "--json must validate against CLI JSON schema"
+            ]
+          },
+          "configuration": {
+            "file": "pillar_config.yml",
+            "supports": [
+              "severity_overrides",
+              "rule_enablement",
+              "fixpack_enablement",
+              "evaluation_modes"
+            ],
+            "invariants": [
+              "config must validate against template config schema",
+              "config may not override forbidden template fields"
+            ]
+          },
+          "cross_repo_integration": {
+            "requires": [
+              "guardsuite-specs version >= schema_version",
+              "guardsuite-core runtime >= min_pillar_runtime"
+            ],
+            "artifacts_exchanged": [
+              "schema fragments",
+              "binary_core ABI manifests",
+              "bootstrap outputs"
+            ]
+          },
+          "deliverables": [
+            "spec.yml (this file)",
+            "scaffold_new_pillar.py",
+            "guardtemplate CLI with verify/self-test commands",
+            "canonical schema fragments under schemas/core/",
+            "rule_scaffolder utility",
+            "binary core module ABI manifests",
+            "sample pillar generated by scaffold (example_pillar/)"
+          ],
+          "determinism": {
+            "path_normalization": "strip absolute paths; separator = '/'; lowercase where appropriate",
+            "float_rules": {
+              "precision": "fixed_64",
+              "rounding_mode": "round_half_away_from_zero",
+              "overflow_behavior": "clamp_to_max"
+            },
+            "canonical_ordering": [
+              "rule_id",
+              "resource_id",
+              "severity",
+              "timestamp_utc"
+            ],
+            "hash_contract": {
+              "algorithm": "SHA256",
+              "serialization": "canonical_json_utf8",
+              "include_fields": [
+                "rule_id",
+                "severity",
+                "metadata",
+                "canonical_timestamp"
+              ],
+              "exclude_fields": [
+                "local_paths",
+                "transient_debug_fields"
+              ]
+            },
+            "snapshot_requirements": {
+              "runs": 3,
+              "cross_platform": [
+                "ubuntu",
+                "debian",
+                "macos"
+              ],
+              "identical_hash_required": true
+            }
+          },
+          "evaluator_pipeline": {
+            "stages": [
+              "load_input",
+              "initialize_context",
+              "load_schema",
+              "validate_schema",
+              "discover_resources",
+              "run_rules",
+              "aggregate_severity",
+              "fixpack_integration",
+              "canonicalize_output",
+              "strict_mode_verify",
+              "snapshot_normalize",
+              "emit_output"
+            ],
+            "invariants": [
+              "Stages execute in listed order; skipping a stage must be explicit and logged.",
+              "Stages must be idempotent and deterministic.",
+              "No stage may perform nondeterministic IO or unbounded parallelism without guardrails.",
+              "All timestamps must be UTC ISO-8601."
+            ]
+          },
+          "fixpacks": {
+            "required_metadata": [
+              "fixpack_id",
+              "description",
+              "remediation_snippet",
+              "difficulty",
+              "impacted_resources"
+            ],
+            "validation": [
+              "schema_valid",
+              "rule_id_consistency",
+              "snippet_normalization"
+            ],
+            "determinism": [
+              {
+                "previews_normalized": true
+              },
+              {
+                "patch_hashing_required": true
+              }
+            ]
+          },
+          "frontend_determinism": {
+            "pinned_node_version": "required",
+            "lockfile_required": true,
+            "no_randomized_build_artifacts": true,
+            "normalize_ssr_output": true,
+            "invariants": [
+              "UI builds used in CI must produce deterministic SSR payloads for snapshot tests."
+            ]
+          },
+          "lifecycle_state_machine": {
+            "states": [
+              "INIT",
+              "LOADED",
+              "VALIDATED",
+              "EVALUATED",
+              "CANONICALIZED",
+              "VERIFIED",
+              "EMITTED"
+            ],
+            "transitions": [
+              "INIT -> LOADED : load_input",
+              "LOADED -> VALIDATED : validate_schema",
+              "VALIDATED -> EVALUATED : run_rules and aggregate",
+              "EVALUATED -> CANONICALIZED : canonicalize_output",
+              "CANONICALIZED -> VERIFIED : strict_mode_verify",
+              "VERIFIED -> EMITTED : emit_output"
+            ]
+          },
+          "metadata": {
+            "id": "guardsuite-template",
+            "name": "GuardSuite Template",
+            "product_type": "pillar_template",
+            "owner": "GuardSuite Platform Team",
+            "spec_version": "2.1.0",
+            "runtime_api_version": "2025.12",
+            "schema_version": "2.1.0",
+            "min_pillar_runtime": "2025.12",
+            "created": "2025-12-01",
+            "updated": "2025-12-XX",
+            "summary": "Authoritative template for creating GuardSuite pillars: deterministic, WASM-safe, binary-backed core utilities, standardized lifecycle, and cross-repo integration."
+          },
+          "related_products": [
+            "guardsuite-core"
+          ],
+          "mission": [
+            "Provide a complete, deterministic, WASM-safe baseline for building GuardSuite pillars.",
+            "Guarantee contract compliance, cross-pillar consistency, and governance alignment.",
+            "Enable rapid creation of new products with minimal drift."
+          ],
+          "multitenancy": {
+            "enabled": false,
+            "required_field_if_enabled": "tenant_id",
+            "normalization": "lowercase",
+            "invariants": [
+              "No tenant bleed-through.",
+              "All artifacts must match scoring/processing tenant_id if enabled."
+            ]
+          },
+          "output_contract": {
+            "schema": "schemas/output/canonical_output.json",
+            "invariants": [
+              {
+                "deterministic_key_ordering": true
+              },
+              {
+                "timestamps": "UTC ISO-8601"
+              },
+              {
+                "standardized_error_payloads": true
+              },
+              {
+                "severity_buckets_enforced": [
+                  "critical",
+                  "high",
+                  "medium",
+                  "low",
+                  "info"
+                ]
+              },
+              {
+                "fixpack_fields_normalized": true
+              },
+              {
+                "provenance_required": true
+              }
+            ]
+          },
+          "performance_contract": {
+            "budgets": [
+              {
+                "max_rule_execution_ms": 50
+              },
+              {
+                "max_fixpack_load_ms": 200
+              },
+              {
+                "max_evaluator_latency_ms": 300
+              }
+            ],
+            "perf_tests": [
+              {
+                "representative_dataset": "tests/data/perf/representative"
+              },
+              {
+                "regression_threshold_percent": 5
+              }
+            ],
+            "invariants": [
+              "performance budgets must be validated in CI"
+            ]
+          },
+          "pillar_interop": {
+            "policy": [
+              "Pillars SHOULD NOT directly depend on another pillar's internal artifacts.",
+              "Inter-pillar integration allowed only via canonical artifacts published to guardsuite-specs.",
+              "Cross-pillar references must be explicit and version-pinned."
+            ]
+          },
+          "pillar_minimum_files": [
+            "spec.yml",
+            "checklist.yml",
+            "schemas/",
+            "fixpack/",
+            "rules/",
+            "cli entrypoint",
+            "migrations/"
+          ],
+          "principles": [
+            "Schema-first: pillars extend shared fragments aligned with guardsuite-specs.",
+            "Deterministic: identical inputs → identical outputs across OS/arch/runtime.",
+            "Security-first: sandboxable, reproducible, binary-backed core logic in production.",
+            "Governance-aligned: versioned, lifecycle-controlled, with strict contracts.",
+            "Modular extensibility: clear boundaries between template/core/pillar."
+          ],
+          "resource_discovery": {
+            "resource_definition": [
+              {
+                "resource_id": "string (unique)"
+              },
+              {
+                "resource_type": "string"
+              },
+              {
+                "provider": "string"
+              },
+              {
+                "discovered_at": "timestamp_utc"
+              }
+            ],
+            "required_identifiers": [
+              "resource_id",
+              "provider_id (if applicable)"
+            ],
+            "invariants": [
+              "discovery must be idempotent",
+              "resource identifiers canonicalized",
+              "capability_manifest must be provided by each adapter"
+            ]
+          },
+          "responsibility_boundary": {
+            "provided_by_template": [
+              "evaluator_pipeline definition and lifecycle_state_machine",
+              "CLI verbs, flags, and output structures",
+              "rule registry, rule scaffolder, and rule scaffolding inputs",
+              "fixpack loader + validation patterns",
+              "schema fragments and fragment governance",
+              "canonicalization & determinism rules (policy-level)",
+              "telemetry hook definitions and telemetry schema",
+              "verify & self-test command definitions and expected artifacts",
+              "scaffolding scripts (scaffold_new_pillar.py)"
+            ],
+            "provided_by_core": [
+              "IP-protected binary modules (ABI-stable)",
+              "canonicalization_core.so",
+              "evaluator_primitives.so",
+              "severity_mapping_core.so",
+              "schema_verifier_core.so",
+              "fixpack_loader_core.so"
+            ],
+            "provided_by_pillar": [
+              "pillar-specific rules and rule bundles",
+              "pillar-specific schema extensions (under schemas/pillar/)",
+              "pillar-specific fixpacks and metadata",
+              "pillar documentation and governance metadata"
+            ],
+            "forbidden_overrides": [
+              "evaluator_pipeline",
+              "canonicalization core behavior",
+              "severity mapping algorithms provided by core",
+              "CLI core verbs and output contract",
+              "schema fragment canonical fields",
+              "binary core module behavior/ABI"
+            ]
+          },
+          "rule_system": {
+            "rule_scaffolder": {
+              "command": "pillar.rules scaffold <rule-id>",
+              "inputs_collected": [
+                "severity (required)",
+                "remediation_hint (optional)",
+                "fixpack_hint (optional)",
+                "categories/tags"
+              ],
+              "generates": [
+                "rule_source_file",
+                "rule_metadata_block",
+                "rule_schema_fragment",
+                "unit_test_skeleton",
+                "snapshot_fixture",
+                "optional_fixpack_stub"
+              ]
+            },
+            "rule_fixpack_alignment": {
+              "fixpacks_must_reference_valid_rule_ids": true,
+              "rule_bundles_must_emit_all_severities": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "snapshots_must_include_at_least": "4 severities"
+            }
+          },
+          "scaffolding": {
+            "script": "scaffold_new_pillar.py",
+            "generates": [
+              "spec.yml (fully populated)",
+              "checklist.yml stub",
+              "schemas/ (core fragments + pillar extensions)",
+              "rules/ directory with example rule",
+              "fixpack/ directory with stub",
+              "cli entrypoint",
+              "web/ skeleton",
+              "docs/ skeleton",
+              "migrations/ directory"
+            ],
+            "guarantees": [
+              "deterministic initial structure",
+              "governance metadata included"
+            ]
+          },
+          "schema_sources": {
+            "canonical_repo": "guardsuite-specs",
+            "fragments_dir": "schemas/core",
+            "pillar_extensions_dir": "schemas/pillar",
+            "inheritance_rules": [
+              "Pillars extend core fragments; do not redefine canonical fields."
+            ],
+            "validation_command": "guardtemplate verify"
+          },
+          "schemas": {
+            "fragments": [
+              "schemas/core/common_issue_fragment.json",
+              "schemas/core/common_metadata_fragment.json",
+              "schemas/core/common_output_fragment.json"
+            ],
+            "governance": {
+              "fragment_governance": {
+                "propose_via": "RFC",
+                "approval": "core_owners + platform_team",
+                "versioning": "semver",
+                "migration_policy": "pillar_regeneration_required_on_major"
+              }
+            }
+          },
+          "security": {
+            "wasm_requirements": [
+              "no_dynamic_imports",
+              "deterministic_io_only",
+              "no_network_egress_in_preview"
+            ],
+            "governance": [
+              {
+                "codeowners_required": true
+              },
+              {
+                "security_review_required": true
+              },
+              {
+                "license_compliance_required": true
+              },
+              {
+                "changelog_per_release_required": true
+              }
+            ]
+          },
+          "self_test": {
+            "command": "pillar validate-self",
+            "artifacts": [
+              "selftest-report.json",
+              "canonical-output-preview.json"
+            ],
+            "exit_codes": {
+              "PASS": 0,
+              "FAIL": 1
+            }
+          },
+          "severity_mapping": {
+            "module": "severity_mapping_core.so",
+            "buckets": [
+              "critical",
+              "high",
+              "medium",
+              "low",
+              "info"
+            ],
+            "invariants": [
+              {
+                "deterministic_weighting": true
+              },
+              {
+                "wasm_safe_integers_only": true
+              },
+              {
+                "no_bucket_redefinition_by_pillars": true
+              }
+            ]
+          },
+          "telemetry": {
+            "hooks": [
+              "evaluator_start",
+              "evaluator_end",
+              "rule_fired",
+              "fixpack_loaded",
+              "plan_loaded"
+            ],
+            "schema": [
+              {
+                "event_type": "string"
+              },
+              {
+                "timestamp_utc": "string"
+              },
+              {
+                "rule_id": "string?"
+              },
+              {
+                "pillar_id": "string"
+              },
+              {
+                "severity": "string?"
+              },
+              {
+                "duration_ms": "integer?"
+              },
+              {
+                "metadata": "object?"
+              }
+            ],
+            "limits": {
+              "max_event_payload_bytes": 64000,
+              "max_events_per_rule_execution": 10,
+              "redact_patterns": [
+                ".*secret.*",
+                ".*token.*"
+              ],
+              "invariants": [
+                "Events must be JSON and conform to telemetry.schema.",
+                "Redact sensitive fields before emission.",
+                "Stable key ordering required for ingestion correctness."
+              ]
+            }
+          },
+          "verify": {
+            "command": "guardtemplate verify",
+            "produces": [
+              "verify-report.json"
+            ],
+            "checks": [
+              "schema_presence",
+              "schema_validity",
+              "fixpack_consistency",
+              "rule_registry_integrity",
+              "wasm_safety",
+              "evaluator_alignment"
+            ]
+          },
+          "versioning_policy": {
+            "semver": true,
+            "breaking_changes_require": "major",
+            "binary_abi_compatibility_window": "12 months",
+            "downstream_migration_required": true,
+            "rfc_required_for": [
+              "evaluator stage changes",
+              "canonical output schema modifications",
+              "severity mapping changes"
+            ],
+            "template_evolution": [
+              "spec_version bump requires pillar regeneration guidance"
+            ]
+          },
+          "versions": {
+            "spec_version": "2.1.0",
+            "runtime_api": "2025.12",
+            "schema_version": "2.1.0",
+            "min_pillar_runtime": "2025.12"
+          }
+        }
+      },
+      "issues": []
+    },
+    "guardsuite_master_spec": {
+      "product": "guardsuite_master_spec",
+      "exists": true,
+      "parsed": {
+        "id": "guardsuite_master_spec",
+        "name": "GuardSuite Master Spec",
+        "owner": "",
+        "version": "1.0.0",
+        "status": "production",
+        "spec_yaml": "",
+        "checklist_yaml": "",
+        "gpt_instructions_yaml": "",
+        "x_legacy": {
+          "architecture": {
+            "core_dependency_id": "guardsuite-core@>=1.4.0,<2.0.0",
+            "schema_source": "guardsuite-core/canonical_schema.json",
+            "required_interfaces": [
+              "I_SpecGenerator",
+              "I_SchemaValidator",
+              "I_CIOrchestrator"
+            ],
+            "override_exclusion": [
+              "canonical.output_contract"
+            ],
+            "output_contract": "lenient"
+          },
+          "ci": {
+            "required_jobs": [
+              "validate_schema",
+              "unit",
+              "integration",
+              "snapshot_conformance"
+            ],
+            "doc_generation_job": "generate_docs",
+            "test_runner": "pytest",
+            "lint_runner": "ruff",
+            "artifact_publish_policy": {
+              "generate_docs_artifact": true,
+              "open_sync_pr_workflow": "open_sync_pr.yml",
+              "require_manual_approval_for_publish": true
+            }
+          },
+          "governance": {
+            "maintainers_change_policy": "PR + 2 approvers",
+            "security_disclosure": "security@shieldcraft-ai.com",
+            "secrets_handling": "use GitHub Secrets, rotate quarterly",
+            "policy_docs": [
+              "docs/release_policy.md",
+              "docs/ci_policy.md",
+              "docs/security_policy.md"
+            ]
+          },
+          "index": {
+            "products": [
+              {
+                "id": "vectorscan",
+                "path": "products/vectorscan.yml",
+                "doc": "docs/products/vectorscan.md",
+                "type": "free_scanner"
+              },
+              {
+                "id": "vectorguard",
+                "path": "products/vectorguard.yml",
+                "doc": "docs/products/vectorguard.md",
+                "type": "paid_blueprint"
+              },
+              {
+                "id": "computescan",
+                "path": "products/computescan.yml",
+                "doc": "docs/products/computescan.md",
+                "type": "free_scanner"
+              },
+              {
+                "id": "computeguard",
+                "path": "products/computeguard.yml",
+                "doc": "docs/products/computeguard.md",
+                "type": "paid_blueprint"
+              },
+              {
+                "id": "pipelinescan",
+                "path": "products/pipelinescan.yml",
+                "doc": "docs/products/pipelinescan.md",
+                "type": "free_scanner"
+              },
+              {
+                "id": "pipelineguard",
+                "path": "products/pipelineguard.yml",
+                "doc": "docs/products/pipelineguard.md",
+                "type": "paid_blueprint"
+              },
+              {
+                "id": "guardboard",
+                "path": "products/guardboard.yml",
+                "doc": "docs/products/guardboard.md",
+                "type": "paid_blueprint"
+              },
+              {
+                "id": "guardscore",
+                "path": "products/guardscore.yml",
+                "doc": "docs/products/guardscore.md",
+                "type": "scoring_engine"
+              },
+              {
+                "id": "guardsuite-core",
+                "path": "products/guardsuite-core.yml",
+                "doc": "docs/products/guardsuite-core.md",
+                "type": "core"
+              }
+            ]
+          },
+          "integrations": {
+            "guardscore_engine": {
+              "repo": "guardsuite-core",
+              "expected_api": "GuardScoreEngine.v1",
+              "versioning": "semver"
+            },
+            "playground": {
+              "wasm_constraints": {
+                "max_runtime_ms": 2000,
+                "quick_score_threshold_resources": 1000
+              }
+            },
+            "guardboard": {
+              "badge_contract": {
+                "svg_sanitize_required": true,
+                "badge_metadata_keys": [
+                  "score",
+                  "percentile",
+                  "pillar_weights",
+                  "issued_at"
+                ]
+              }
+            }
+          },
+          "long_description": "The GuardSuite Master Spec consolidates canonical schema links, product\nindices, template contracts, CI/validation rules, release cadence policies,\nand ecosystem-level integration requirements. It is the single authoritative\nreference consumed by the guardsuite-specs generator, CI workflows, and\nproduct repositories to ensure consistent outputs, deterministic remediation\nflows, and coordinated releases across pillars.\n",
+          "maintainers": [
+            {
+              "name": "Deon Prinsloo",
+              "role": "AI Solutions Architect",
+              "contact": "deon@shieldcraft-ai.com"
+            }
+          ],
+          "marketing": {
+            "hero": "Single Source of Truth for GuardSuite product and schema governance.",
+            "blurbs": [
+              "A canonical index for products, templates, and schema versions",
+              "Machine-readable rules for doc generation and CI validation",
+              "Defines cross-pillar contracts and release policies"
+            ],
+            "ctas": [
+              {
+                "text": "Open Spec Repo",
+                "href": "/specs"
+              }
+            ]
+          },
+          "pillar": "crosscut",
+          "product_type": "spec_index",
+          "purpose_summary": "Act as the authoritative index and governance contract for the entire GuardSuite ecosystem, covering product definitions, schema evolution, CI requirements, and cross-pillar integrations.\n",
+          "references": {
+            "templates": "templates/",
+            "products_folder": "products/",
+            "docs_folder": "docs/products/",
+            "canonical_schema": "guardsuite-core/canonical_schema.json"
+          },
+          "related_products": [
+            "guardsuite-core"
+          ],
+          "release": {
+            "cadence": [
+              {
+                "product_release": "monthly"
+              },
+              {
+                "core_release": "quarterly"
+              }
+            ],
+            "channel_policy": [
+              {
+                "stable": "general availability"
+              },
+              {
+                "beta": "early access"
+              },
+              {
+                "incubating": "internal preview"
+              }
+            ],
+            "notification_policy": [
+              {
+                "notify_slack": true
+              },
+              {
+                "notify_email": true
+              }
+            ]
+          },
+          "release_metadata": {
+            "published_date": "2025-11-19",
+            "repo_url": "https://github.com/shieldcraft-ai/guardsuite-specs",
+            "contact": "deon@shieldcraft-ai.com"
+          },
+          "schemas": {
+            "canonical_schema": "guardsuite-core/canonical_schema.json",
+            "product_schema": "products/schema/product.schema.json",
+            "schema_release_policy": {
+              "cadence": "semver",
+              "migration_docs_required": true,
+              "rfc_required_for_breaking": true
+            }
+          },
+          "security": {
+            "allowed_domains": [
+              "shieldcraft-ai.com",
+              "guardsuite-core.s3.amazonaws.com"
+            ],
+            "forbidden_patterns": [
+              "example.com"
+            ],
+            "wasm_sandbox_required": true
+          },
+          "short_description": "Canonical Source of Truth (SoT) for GuardSuite product specs, templates, schemas, integrations, and launch plans.\n",
+          "templates": {
+            "spec_template": "templates/spec_page.md.j2",
+            "snapshot_template": "templates/spec_snapshot.md.j2",
+            "partials_folder": "templates/partials",
+            "product_template_version": "1.0.0"
+          },
+          "testing": {
+            "product_tests_required": true,
+            "yaml_contract_tests": true,
+            "snapshot_generation_required": true,
+            "minimum_coverage_percent": 80
+          }
+        }
+      },
+      "issues": []
+    },
+    "pipelineguard": {
+      "product": "pipelineguard",
+      "exists": true,
+      "parsed": {
+        "id": "pipelineguard",
+        "name": "PipelineGuard",
+        "owner": "GuardSuite Platform Team",
+        "version": "2.4.0",
+        "status": "production",
+        "spec_yaml": "products/pipelineguard.yml",
+        "checklist_yaml": "checklists/pipelineguard.yml",
+        "gpt_instructions_yaml": "templates/pipelineguard_instructions.yml",
+        "x_legacy": {
+          "architecture": {
+            "core_dependency_id": "guardsuite-core@>=2.4.0",
+            "canonical_schema_source": "schemas/pipelineguard/canonical_schema.json",
+            "required_interfaces": [
+              "I_Evaluator",
+              "I_ScannerCLI",
+              "I_ComplianceLedger",
+              "I_RemediationEngine"
+            ],
+            "output_contract": "strict",
+            "evaluator_pipeline": {
+              "stages": [
+                "load_pipeline_manifest",
+                "hydrate_provenance",
+                "build_permission_graph",
+                "evaluate_rules",
+                "synthesize_remediation",
+                "canonicalize_output",
+                "persist_compliance_ledger"
+              ],
+              "invariants": [
+                "Evaluator MUST match template-defined stage ordering exactly.",
+                "No random, local time, locale, or env-dependent branching.",
+                "All timestamps MUST be normalized UTC ISO-8601 + Z.",
+                "All numeric operations MUST use fixed_64 semantics.",
+                "All outputs MUST serialize using canonical_json_utf8.",
+                "Snapshot normalization MUST produce identical hashes across 3 runs."
+              ]
+            }
+          },
+          "cli": {
+            "base_command": "pipelineguard",
+            "scan_command": "pipelineguard scan",
+            "supported_flags": [
+              "--json",
+              "--stdin",
+              "--quiet",
+              "--explain",
+              "--output json",
+              "--fixpack-summary",
+              "--compliance-ledger"
+            ],
+            "reserved_flags": [
+              "--ledger-only",
+              "--fixpack-diff"
+            ],
+            "wasm_safe_required": true,
+            "machine_parseable_help": true,
+            "canonical_error_output_required": true
+          },
+          "compliance": {
+            "compliance_ledger_enabled": true,
+            "ledger_visibility": "full",
+            "ledger_schema_version": "1.0.1",
+            "ledger_invariants": [
+              "canonical_ordering",
+              "deterministic_timestamps",
+              "hash_chain_required",
+              "provenance_link_required",
+              "ledger_index_monotonic",
+              "shard_partition_consistent",
+              "ledger_entry_canonical_json_utf8"
+            ]
+          },
+          "ecosystem_integrations": {
+            "guardscore": {
+              "pillar_weight": 0.33,
+              "severity_penalties": {
+                "critical": 40,
+                "high": 25,
+                "medium": 10,
+                "low": 2
+              },
+              "provided_score_inputs": [
+                "workflow_permission_risk",
+                "artifact_integrity_risk",
+                "remediation_hint_count",
+                "fixpack_applied_count",
+                "compliance_ledger_item_count",
+                "identity_drift_score",
+                "pipeline_complexity_score"
+              ],
+              "badge_eligibility_signal": true
+            },
+            "playground": {
+              "wasm_safe": true,
+              "max_runtime_ms": 2000,
+              "playground_latency_target_ms": 1500,
+              "json_sanitize": true,
+              "svg_sanitize": true,
+              "quick_score_mode": true
+            },
+            "guardboard": {
+              "exposes_fixpack_hints": true,
+              "shows_compliance_ledger": true,
+              "advanced_score_overlays": true,
+              "badge_preview_supported": true,
+              "provenance_chain_insights": true
+            }
+          },
+          "features": [
+            {
+              "id": "PIPEG-FEAT-010",
+              "title": "Full Pipeline Governance Coverage",
+              "summary": "600+ workflow, permission, provenance, and artifact rules.",
+              "included": true
+            },
+            {
+              "id": "PIPEG-FEAT-020",
+              "title": "Compliance Ledger",
+              "summary": "Audit-grade, hash-chained ledger with provenance links.",
+              "included": true
+            },
+            {
+              "id": "PIPEG-FEAT-030",
+              "title": "FixPack-Lite Remediation",
+              "summary": "Deterministic, CI-safe remediation snippets.",
+              "included": true
+            },
+            {
+              "id": "PIPEG-FEAT-040",
+              "title": "Premium GuardScore Inputs",
+              "summary": "Supply-chain and workflow risk signals for scoring.",
+              "included": true
+            },
+            {
+              "id": "PIPEG-FEAT-050",
+              "title": "Artifact Lifecycle Governance",
+              "summary": "End-to-end artifact signature & provenance validation.",
+              "included": true
+            },
+            {
+              "id": "PIPEG-FEAT-060",
+              "title": "Pipeline Identity Security",
+              "summary": "Token trust chain, actor impersonation, and identity drift rules.",
+              "included": true
+            }
+          ],
+          "fixpack": {
+            "included": true,
+            "fixpack_folder": "fixpack/pipeline",
+            "snippet_count": 10,
+            "reference_hint_format": "fixpack:<ISSUE_ID>",
+            "deterministic_ordering": true,
+            "signature_required": true,
+            "provenance_required": true,
+            "cache_stability_required": true,
+            "wasm_safe_snippets_required": true
+          },
+          "future_extensions": [
+            "Signed remediation bundles for partner-led workflows",
+            "GuardScore percentile overlays inside GuardBoard",
+            "CI provider specific quickstart generators"
+          ],
+          "governance": {
+            "spec_version": "2026.04",
+            "last_reviewed": "2026-03-12",
+            "owner": "GuardSuite Platform Team",
+            "stability_level": "ga",
+            "release_channel": "stable",
+            "changelog_required": true,
+            "codeowners_required": true,
+            "rfc_required_for_major": true,
+            "blueprint_inheritance": "pipelinescan@>=2.0",
+            "forbidden_overrides": [
+              "canonical.output_contract",
+              "evaluator.runtime_override",
+              "compliance.disable_ledger",
+              "fixpack.runtime_override",
+              "provenance.disable_validation"
+            ],
+            "breaking_change_policy": "Any breaking change to remediation semantics, compliance ledger schema, provenance fields, or scoring inputs requires a PipelineGuard RFC, downstream sync with GuardScore & GuardBoard, and coordinated template regeneration across GuardSuite-Template and GuardSuite Core.\n",
+            "principles": [
+              "Schema-first governance with fixed evaluator ordering.",
+              "Deterministic remediation + ledgering beat performance shortcuts.",
+              "Provenance and signature validation are always enforced."
+            ],
+            "evaluator_pipeline_invariants": [
+              "Evaluator MUST match template-defined stage ordering exactly.",
+              "No random, local time, locale, or env-dependent branching.",
+              "All timestamps MUST be normalized UTC ISO-8601 + Z.",
+              "All numeric operations MUST use fixed_64 semantics.",
+              "All outputs MUST serialize using canonical_json_utf8.",
+              "Snapshot normalization MUST produce identical hashes across 3 runs."
+            ]
+          },
+          "governance_domains": [
+            "workflow_permissions",
+            "supply_chain_integrity",
+            "artifact_governance",
+            "secret_management",
+            "runner_security",
+            "job_boundary_controls",
+            "drift_detection",
+            "observability_gaps",
+            "compliance_mapping",
+            "deterministic_remediation",
+            "pipeline_identity_spoofing_detection",
+            "artifact_promotion_chain_integrity"
+          ],
+          "integration_points": {
+            "guardboard": {
+              "consumes_compliance_ledger": true,
+              "renders_pipeline_heatmaps": true
+            },
+            "guardscore": {
+              "ingests_pipeline_risk_signals": true,
+              "exposes_fixpack_reduction_metrics": true
+            },
+            "pipelinescan": {
+              "shares_evaluator_contracts": true
+            },
+            "playground": {
+              "wasm_safe_runner": true
+            }
+          },
+          "interoperability_conflicts": [
+            "Unsigned pipelines or artifact promotion chains",
+            "Dynamic evaluator plugins with nondeterministic IO",
+            "Disabling compliance ledger persistence"
+          ],
+          "long_description": "PipelineGuard is the enterprise-grade governance and workflow-security\nblueprint for CI/CD. It enforces deterministic CI/CD policy, supply-chain\nprovenance, hardened artifact lifecycles, signature validation, FixPack-Lite\ndeterministic remediation, and a full compliance ledger with hash-chain\nintegrity. The blueprint provides more than 600 workflow, runner, permission,\nand supply-chain integrity rules. It integrates with GuardBoard for visual\ngovernance insights, GuardScore for workflow and artifact risk scoring, and\nPlayground WASM sandbox execution for CI-safe evaluator runs.\n",
+          "maintainers": [
+            {
+              "name": "Deon Prinsloo",
+              "role": "AI Solutions Architect",
+              "contact": "deon@shieldcraft-ai.com"
+            },
+            {
+              "name": "PipelineGuard Blueprint Team",
+              "role": "Product Owner",
+              "contact": "pipelineguard@guardsuite.internal"
+            }
+          ],
+          "marketing": {
+            "hero": "Deterministic CI/CD governance with ledger-grade remediation.",
+            "blurbs": [
+              "600+ workflow, runner, provenance, and artifact integrity rules.",
+              "Hash-chained compliance ledger with premium GuardScore insights.",
+              "FixPack-Lite snippets deliver deterministic remediation for pipelines."
+            ],
+            "ctas": [
+              {
+                "text": "Explore PipelineGuard",
+                "href": "/docs/products/pipelineguard"
+              }
+            ]
+          },
+          "metadata": {
+            "version": "2026.04",
+            "funnel_stage": "bottom_funnel",
+            "pricing_reference": "pricing/guardsuite_pricing.yml",
+            "documentation_entrypoint": "docs/products/pipelineguard.md",
+            "ux_goals": [
+              "Guarantee enterprise-grade CI/CD governance coverage.",
+              "Expose explainable ledger + remediation artifacts for auditors.",
+              "Integrate GuardScore inputs without nondeterministic drift."
+            ]
+          },
+          "performance_constraints": {
+            "max_memory_mb": 230,
+            "expected_runtime_ms": 650,
+            "large_plan_runtime_ms": 1500,
+            "playground_runtime_ms": 1800,
+            "quickscore_threshold_resources": 800,
+            "pipeline_stage_budgets": {
+              "discover_ci_sources_ms": 200,
+              "provenance_verification_ms": 250,
+              "permission_graph_build_ms": 150,
+              "evaluate_rules_ms": 300,
+              "remediation_synthesis_ms": 150,
+              "canonicalize_output_ms": 150,
+              "ledgers_write_ms": 120
+            }
+          },
+          "pillar": "pipeline",
+          "product_type": "paid_blueprint",
+          "products": [
+            "pipelineguard"
+          ],
+          "provenance": [
+            "Derived from PipelineGuard charter v2026.04",
+            "Aligned with canonical evaluator pipeline from guard-template"
+          ],
+          "purpose_summary": "Provide deterministic governance, artifact integrity enforcement, rule-driven workflow security, provenance validation, and enterprise remediation across software supply chains and multi-cloud CI/CD pipelines.\n",
+          "references": {
+            "canonical_schema": "schemas/pipelineguard/canonical_schema.json",
+            "pricing_reference": "pricing/guardsuite_pricing.yml",
+            "master_spec": "docs/guardsuite_master_spec.md",
+            "template_spec": "templates/spec_page.md.j2",
+            "deliverables": [
+              "schemas/pipelineguard/canonical_schema.json",
+              "fixpack/pipeline/*",
+              "cli/pipelineguard_cli.yaml",
+              "docs/runbooks/pipelineguard/*.md",
+              "examples/*",
+              "tests/pipelineguard/*",
+              "ci/pipelineguard-ci.yml"
+            ]
+          },
+          "related_products": [
+            "pipelinescan",
+            "guardscore",
+            "guardboard",
+            "computeguard",
+            "computescan"
+          ],
+          "release_metadata": {
+            "release_channel": "stable",
+            "release_notes_url": "https://shieldcraft-ai.com/guardsuite/pipelineguard/releases/2.4.0",
+            "published_date": "2026-03-12"
+          },
+          "rule_categories": [
+            "Workflow Permissions & Boundary Safety",
+            "Supply-Chain Provenance & Signature Enforcement",
+            "Artifact Hardening & Integrity Lifecycle Governance",
+            "Secret Boundary Enforcement & Exposure Detection",
+            "Runner & Executor Hardening",
+            "Job & Step Boundary Safety",
+            "Pipeline Drift / Misalignment Detection",
+            "Telemetry & Logging Gaps",
+            "Deterministic Remediation & FixPack-Lite",
+            "Identity Spoofing, Token Trust Chains, and Workflow Tampering",
+            "Artifact Promotion Chain Governance"
+          ],
+          "security": {
+            "no_external_calls_at_runtime": true,
+            "sanitize_all_inputs": true,
+            "svg_sanitization": true,
+            "provenance_required": true,
+            "wasm_compatible": true,
+            "sandbox_requirement": "Playground runtime must be WASI sandboxed",
+            "safe_error_reporting": true,
+            "forbidden_overrides_enforced": true
+          },
+          "short_description": "Enterprise CI/CD and supply-chain governance with deterministic remediation, compliance ledgering, provenance integrity enforcement, and premium GuardScore intelligence.\n",
+          "testing": {
+            "unit_tests_required": true,
+            "integration_tests_required": true,
+            "snapshot_schema_test": true,
+            "test_coverage_min_percent": 85,
+            "wasm_conformance_required": true,
+            "parity_tests_required": true,
+            "evaluator_determinism_tests_required": true,
+            "ci_jobs": [
+              "validate_schema",
+              "unit",
+              "integration",
+              "snapshot_conformance",
+              "parity_tests",
+              "wasm_conformance",
+              "evaluator_determinism"
+            ]
+          },
+          "versioning": {
+            "semver": true,
+            "core_dependency_pin": "guardsuite-core@>=2.4.0",
+            "schema_version_pin": "canonical_schema@>=2.0.0",
+            "compatibility_window_months": 12,
+            "breaking_change_process": "RFC + core + pipelinescan coordination",
+            "stability_level": "ga"
+          }
+        }
+      },
+      "issues": []
+    },
+    "pipelinescan": {
+      "product": "pipelinescan",
+      "exists": true,
+      "parsed": {
+        "id": "pipelinescan",
+        "name": "",
+        "owner": "",
+        "version": "",
+        "spec_yaml": "",
+        "checklist_yaml": "",
+        "gpt_instructions_yaml": "",
+        "x_legacy": {
+          "acceptance_criteria": [
+            "All canonical artifacts validate against schemas and DET-001 normalization rules.",
+            "Snapshot determinism: 3-run identical hash under supported images.",
+            "No remediation artifacts or fixpack content included in repository or outputs.",
+            "No core/binary artifacts packaged or referenced.",
+            "CLI help machine-parseable (--json) and CLI JSON outputs validate against canonical schema.",
+            "Parity tests (python ↔ wasm) pass for representative fixtures.",
+            "Adapters are WASM-safe and read-only; any failing adapter tests block merge."
+          ],
+          "artifact_contract": {
+            "canonical_output_schema": "schemas/pipelinescan/canonical_output.json",
+            "schema_version_pin": "canonical_output@>=2.0.0",
+            "required_fields": [
+              "metadata",
+              "issues[]",
+              "issues[].rule_id",
+              "issues[].resource_id_or_address",
+              "issues[].severity",
+              "pipeline_snapshot (optional)"
+            ],
+            "provenance": {
+              "required": false,
+              "recommended_for_high_confidence_checks": true,
+              "rules": [
+                {
+                  "if_provenance_present": "validate_signature_if_present"
+                },
+                {
+                  "missing_provenance": "allowed (scanner sets provenance_source: \"scanner_unverified\")"
+                }
+              ]
+            },
+            "export_bundle_contract": {
+              "required_fields": [
+                "metadata",
+                "issues",
+                "guardscore_inputs_light",
+                "adapters_manifest"
+              ],
+              "canonical_serialization": true,
+              "wasm_safe": true,
+              "prohibits": [
+                "remediation_patches",
+                "fixpack_content",
+                "private_binary_references"
+              ]
+            }
+          },
+          "cli": {
+            "base_command": "pipelinescan",
+            "scan_command": "pipelinescan scan",
+            "supported_flags": [
+              "--json",
+              "--stdin",
+              "--quiet",
+              "--explain",
+              "--out <path>"
+            ],
+            "reserved_flags": [
+              "--internal-debug"
+            ],
+            "exit_codes": {
+              "VALIDATION_ERROR": 2,
+              "RUNTIME_ERROR": 3,
+              "SCHEMA_ERROR": 4,
+              "PARTIAL_INPUT_ERROR": 5
+            },
+            "invariants": [
+              "help must be machine_parseable when --json supplied",
+              "CLI must not expose internal IP, remediation content, or binary references",
+              "CLI outputs must conform to canonical_output_schema when --json used"
+            ]
+          },
+          "deliverables": [
+            "repos/pipelinescan/spec.yml",
+            "schemas/pipelinescan/canonical_output.json",
+            "rules/pipelinescan/*.yml",
+            "adapters/*/manifest.yml",
+            "examples/scenarios/*",
+            "tests/snapshots/*",
+            "ci/pipelinescan-ci.yml"
+          ],
+          "determinism": {
+            "normalization_layer": "DET-001",
+            "hashing_contract": {
+              "algorithm": "SHA256",
+              "input": "normalized_payload(strip_diagnostics_for_hash=true)",
+              "serialization": "canonical_json_utf8",
+              "output_encoding": "hex_lowercase",
+              "fixed64_required": true,
+              "cross_runtime_consistency": true
+            },
+            "snapshot_requirements": {
+              "runs": 3,
+              "cross_platform_images": [
+                "ubuntu-22.04",
+                "debian-12",
+                "macos-latest"
+              ],
+              "identical_hash_required": true
+            }
+          },
+          "evaluator_pipeline": {
+            "source_of_truth": "guardsuite-core:evaluator_pipeline_stages",
+            "enforce_stage_ordering": true,
+            "stages": [
+              "load_profile",
+              "initialize_context",
+              "load_schema",
+              "validate_schema",
+              "discover_ci_resources",
+              "gather_metadata",
+              "evaluate_rules",
+              "canonicalize_output",
+              "snapshot_normalize",
+              "emit_output"
+            ],
+            "invariants": [
+              "Stages must run in the listed order and be idempotent.",
+              "No nondeterministic IO, no runtime clock reads, no randomness inside stages.",
+              "No stage may attempt remediation or fixpack application.",
+              "Adapters must only collect read-only metadata and must be WASM-safe."
+            ]
+          },
+          "examples_and_docs": {
+            "examples_dir": "examples/scenarios/",
+            "required_example_count": 6,
+            "docs_required": [
+              "docs/getting_started.md",
+              "docs/adapters.md",
+              "docs/security.md",
+              "docs/observability.md"
+            ]
+          },
+          "fixpack": {
+            "included": false,
+            "notes": "PipelineScan does NOT execute or ship fixpacks. It may surface *hints* referencing paid fixpacks by **opaque ID only** (no patch content, no patch preview). Any reference must be an ID that resolves only within paid product pipelines.\n"
+          },
+          "governance_notes": [
+            "PipelineScan is a limited, detection-only scanner used to funnel users toward paid remediation products (PipelineGuard).",
+            "Ensure all contributor PRs are validated for forbidden content (remediation code, binary references).",
+            "Adapter PRs must include wasm safety evidence and a read-only manifest."
+          ],
+          "guardboard_integration": {
+            "expected_contract": [
+              {
+                "canonical_fields_present": true
+              },
+              {
+                "badge_preview_eligible": true
+              },
+              {
+                "fixpack_hints_referenced_by_id_only": true
+              },
+              {
+                "compliance_ledger_integration": false
+              }
+            ],
+            "visualization_guidance": [
+              {
+                "short_summary": "Scanner-level summary suitable for engineering review"
+              },
+              {
+                "do_not_show_remediation_patches": true
+              }
+            ]
+          },
+          "guardscore_integration": {
+            "whitelist_inputs_allowed": [
+              "issue_count_by_severity",
+              "artifact_integrity_flag",
+              "workflow_permission_risk_light",
+              "resource_count"
+            ],
+            "forbidden_inputs": [
+              "remediation_confidence_points",
+              "estimated_reduction_points",
+              "fixpack_application_status"
+            ],
+            "penalty_map": {
+              "critical": 40,
+              "high": 25,
+              "medium": 10,
+              "low": 2,
+              "info": 0
+            }
+          },
+          "metadata": {
+            "id": "pipelinescan",
+            "name": "PipelineScan",
+            "product_type": "free_scanner",
+            "pillar": "pipeline",
+            "product_version": "2.4.0",
+            "status": "production",
+            "owner": "GuardSuite Platform Team",
+            "maintainers": [
+              {
+                "name": "Deon Prinsloo",
+                "role": "AI Solutions Architect",
+                "contact": "deon@shieldcraft-ai.com"
+              }
+            ],
+            "created": "2026-04-01",
+            "updated": "2026-04-15",
+            "summary": "Lightweight, deterministic pipeline scanner for CI/CD manifests (GitHub Actions, GitLab CI, Terraform pipelines, container build workflows). Produces canonical, schema-first artifacts consumable by GuardScore and GuardBoard. Intentionally limited to detection + hints (no remediation content shipped). Designed to be WASM-safe and IP-preserving (no paid binaries or fixpack execution).\n",
+            "related_products": [
+              "guardsuite-core"
+            ]
+          },
+          "observability": {
+            "metrics": [
+              "pipelinescan_runs_total",
+              "pipelinescan_issues_total",
+              "pipelinescan_partial_inputs_total"
+            ],
+            "logs": {
+              "structured_json": true,
+              "redact_fields": [
+                "resource_id",
+                "tenant_id",
+                "user_paste"
+              ],
+              "include": [
+                "spec_version",
+                "scanner_version"
+              ]
+            },
+            "telemetry_limits": {
+              "max_event_payload_bytes": 16000,
+              "max_events_per_scan": 50,
+              "max_events_per_rule_execution": 5
+            }
+          },
+          "performance": {
+            "runtime_target_ms": 400,
+            "memory_cap_mb": 192,
+            "stage_budgets": {
+              "discover_ci_resources_ms": 150,
+              "gather_metadata_ms": 200,
+              "evaluate_rules_ms": 250,
+              "canonicalize_ms": 100
+            }
+          },
+          "principles": [
+            {
+              "schema_first": true
+            },
+            {
+              "deterministic": true
+            },
+            {
+              "non_ip_exposing": true
+            },
+            {
+              "no_remediation_execution": true
+            },
+            {
+              "wasm_safe": true
+            },
+            {
+              "no_nondeterministic_io": true
+            },
+            {
+              "provenance_preferred_but_optional": true
+            }
+          ],
+          "purpose": {
+            "brief": "Provide accessible, deterministic pipeline security and supply-chain scanning that emits canonical GuardSuite artifacts while protecting paid remediation IP.\n",
+            "goals": [
+              "deterministic canonical artifacts for downstream consumers",
+              "minimal, read-only adapters for CI platforms",
+              "strict no-remediation/no-binary policy to protect commercial IP",
+              "WASM-safe runtime compatibility for Playground demos and browser runs"
+            ]
+          },
+          "resource_capabilities": {
+            "supports": [
+              {
+                "ci_platform_metadata": "required"
+              },
+              {
+                "job_definition_parsing": "required"
+              },
+              {
+                "permission_graph": "optional"
+              },
+              {
+                "artifact_manifest_parsing": "required"
+              },
+              {
+                "provenance_fields": "optional"
+              },
+              {
+                "runner_meta": "optional"
+              }
+            ],
+            "adapter_manifest_requirements": [
+              "name",
+              "provider",
+              "capabilities[]",
+              "capability_version",
+              {
+                "wasm_safe": true
+              },
+              {
+                "read_only": true
+              },
+              {
+                "forbidden_ops": [
+                  "network_access",
+                  "filesystem_write",
+                  "env_write"
+                ]
+              }
+            ]
+          },
+          "responsibility_boundary": {
+            "provided_by_template": [
+              "evaluator_pipeline_stages",
+              "canonicalization rules (DET-001)",
+              "telemetry schemas",
+              "snapshot normalization contract"
+            ],
+            "provided_by_core": [
+              "canonical schema fragments",
+              "provenance schema",
+              "binary parity / ABI (not shipped)"
+            ],
+            "provided_by_pipelinescan": [
+              "read-only pipeline scanning rules",
+              "lightweight adapters (metadata collection only)",
+              "sample plans & examples"
+            ],
+            "forbidden_overrides": [
+              "core binary modules (disallowed to package or reference)",
+              "canonicalization primitives",
+              "evaluator pipeline order",
+              "reimplementation of paid remediation logic or fixpack runtime"
+            ]
+          },
+          "rule_system": {
+            "rule_id_namespace": "pipelinescan",
+            "rules_must": [
+              "have rule_id (snake_case)",
+              "have severity in [critical, high, medium, low, info]",
+              "have title, description, rationale, and remediation_hint_id (opaque)",
+              "be deterministic in evaluation"
+            ],
+            "forbidden_rule_capabilities": [
+              "executing patches",
+              "invoking external remediation engines",
+              "shipping private fixpack logic"
+            ],
+            "baseline_requirements": [
+              {
+                "minimum_rule_count": 120
+              },
+              {
+                "category_coverage": [
+                  "workflow_permissions",
+                  "artifact_integrity",
+                  "secret_management",
+                  "runner_security",
+                  "drift_detection"
+                ]
+              },
+              {
+                "rule_metadata_required": [
+                  "severity",
+                  "group",
+                  "explain"
+                ]
+              }
+            ]
+          },
+          "security": {
+            "no_external_calls_at_runtime": true,
+            "sanitize_all_inputs": true,
+            "wasm_compatible": true,
+            "forbid_ip_exposure_rules": [
+              "Do not include or distribute guardsuite-core binary artifacts",
+              "Do not include remediation snippets or fixpack patches",
+              "Do not expose internal ABI manifests"
+            ],
+            "telemetry_redaction": {
+              "redact_patterns": [
+                ".*secret.*",
+                ".*token.*"
+              ],
+              "minify_user_pasted_code": true,
+              "limit_event_payload_bytes": 16000
+            }
+          },
+          "testing": {
+            "unit_tests_required": true,
+            "integration_tests_required": true,
+            "snapshot_tests_required": true,
+            "snapshot_runs": 3,
+            "parity_tests": {
+              "python_vs_wasm_required": true,
+              "python_vs_native_optional": true
+            },
+            "coverage_min_percent": 80,
+            "ci_jobs": [
+              "validate_schema",
+              "unit",
+              "integration",
+              "snapshot",
+              "wasm_conformance",
+              "parity_checks"
+            ]
+          },
+          "versioning": {
+            "semver": true,
+            "spec_version": "2026.04",
+            "product_version": "2.4.0",
+            "compatibility_window_months": 12,
+            "core_dependency_pin": "guardsuite-core@>=2.4.0,<3.0.0",
+            "schema_version_pin": "schemas/pipelinescan@>=2.0.0",
+            "breaking_change_process": "RFC + guardsuite-core coordination + downstream consumer notice"
+          },
+          "wasm_safety": {
+            "enforce": true,
+            "forbidden_operations": [
+              "randomness",
+              "system_time",
+              "locale",
+              "filesystem_write",
+              "environment_variable_access",
+              "network_access",
+              "dynamic_imports"
+            ],
+            "adapter_requirements": [
+              {
+                "wasm_safe": true
+              },
+              {
+                "read_only": true
+              }
+            ]
+          }
+        }
+      },
+      "issues": []
+    },
+    "playground": {
+      "product": "playground",
+      "exists": true,
+      "parsed": {
+        "id": "playground",
+        "name": "GuardSuite Playground",
+        "owner": "",
+        "version": "",
+        "status": "production",
+        "spec_yaml": "",
+        "checklist_yaml": "",
+        "gpt_instructions_yaml": "",
+        "x_legacy": {
+          "api": {
+            "rest_endpoint": "https://playground.shieldcraft-ai.com/api",
+            "auth": "GuardSuite session token",
+            "deterministic_responses_required": true,
+            "rate_limits": {
+              "max_request_bytes": 2000000,
+              "timeout_ms": 3000
+            }
+          },
+          "api_readonly_guarantee": {
+            "read_only": true,
+            "forbids": [
+              "write_operations",
+              "destructive_actions",
+              "stateful_session_modification"
+            ],
+            "allowed": [
+              "evaluate",
+              "preview_badge",
+              "export_bundle"
+            ]
+          },
+          "architecture": {
+            "core_dependency_id": "guardsuite-core@>=2.3.0",
+            "evaluator_dependency_id": "guardsuite-template@>=2.3.0",
+            "wasm_runtime": "wasi_snapshot_preview1",
+            "schema_source": "schemas/playground/playground.schema.yml",
+            "output_contract": "sandbox",
+            "required_interfaces": [
+              "I_PlaygroundRuntime",
+              "I_CanonicalEvaluator",
+              "I_GuardSuiteAPI",
+              "I_BadgePreview",
+              "I_SamplePlanLoader"
+            ],
+            "override_exclusion": [
+              "canonical.output_contract",
+              "evaluator.runtime_override",
+              "wasm_runtime_safety",
+              "quickscore_mode_mutation"
+            ]
+          },
+          "ecosystem_integrations": {
+            "guardscore": {
+              "pillar_weight": 0.2,
+              "severity_penalties": {
+                "critical": 40,
+                "high": 25,
+                "medium": 10,
+                "low": 2
+              },
+              "provided_score_inputs": [
+                "badge_preview_score",
+                "sample_plan_issue_counts",
+                "remediation_hint_count"
+              ],
+              "badge_eligibility_signal": true
+            },
+            "playground_self": {
+              "wasm_safe": true,
+              "json_sanitize": true,
+              "svg_sanitize": true,
+              "quick_score_mode": true,
+              "max_runtime_ms": 900,
+              "playground_latency_target_ms": 750
+            },
+            "guardboard": {
+              "badge_preview_supported": true,
+              "exposes_fixpack_hints": true,
+              "shows_compliance_ledger": false
+            }
+          },
+          "evaluator_pipeline_stages": {
+            "source_of_truth": "guardsuite-core",
+            "enforce_stage_ordering": true,
+            "required_stages": [
+              "load_profile",
+              "initialize_context",
+              "discover_resources",
+              "gather_metadata",
+              "evaluate_rules",
+              "canonicalize",
+              "snapshot_normalize",
+              "emit_output"
+            ]
+          },
+          "export_bundle_contract": {
+            "required_fields": [
+              "metadata",
+              "issues",
+              "guardscore_inputs",
+              "badge_preview"
+            ],
+            "optional_fields": [
+              "provenance",
+              "remediation_hint_count"
+            ],
+            "canonical_serialization": true,
+            "wasm_safe": true,
+            "prohibits": [
+              "ui_state",
+              "ephemeral_fields",
+              "browser_local_paths"
+            ]
+          },
+          "governance": {
+            "changelog_required": true,
+            "codeowners_required": true,
+            "rfc_required_for_major": true,
+            "template_sync_required": true,
+            "cross_pillar_invariants": true,
+            "breaking_change_policy": "Any evaluator pipeline modification, schema change, WASM sandbox rule change, UI-export contract change, or deterministic-hash modification requires:\n  - RFC approval\n  - guardsuite-core parity verification\n  - template/evaluator parity verification\n  - GuardBoard compatibility validation\n  - updated Playground documentation & sample plans\n"
+          },
+          "hashing_contract": {
+            "algorithm": "SHA256",
+            "input": "normalized_payload(strip_diagnostics=true)",
+            "output_encoding": "hex_lowercase",
+            "canonical_json_utf8": true,
+            "fixed64_required": true,
+            "wasm_safe": true,
+            "prohibits": [
+              "noncanonical_fields",
+              "local_time",
+              "diagnostics_inside_hash",
+              "unstable_key_ordering",
+              "float_differences_across_runtimes"
+            ],
+            "guarantees": [
+              {
+                "python_wasm_native_parity": true
+              },
+              {
+                "byte_for_byte_stability": true
+              }
+            ]
+          },
+          "integration_points": {
+            "products_consuming": [
+              "guardboard",
+              "guardscore",
+              "vectorscan",
+              "computeguard"
+            ],
+            "playground": {
+              "quick_score_mode_supported": true,
+              "exposes_fixpack_hints": true
+            }
+          },
+          "long_description": "GuardSuite Playground is the browser-executed evaluator sandbox for demos,\ndocumentation, AI walkthroughs, and GuardScore previews. All evaluations run\nunder WASI-constrained WASM with fixed_64 numeric handling, timestamp\nnormalization, deterministic snapshot rules, and canonical JSON output.\nPlayground mirrors the authoritative evaluator pipeline, ensuring\ncross-runtime parity with Python, WASM, and native-ABI environments.\nIt provides badge previews, GuardScore inputs, shareable URLs, deterministic\nsample plans, and exportable canonical bundles for GuardBoard and Architect.\n",
+          "metadata": {
+            "created": "2025-11-18",
+            "updated": "2026-03-10",
+            "owner": "GuardSuite Platform Team",
+            "maintainers": [
+              {
+                "name": "Deon Prinsloo",
+                "role": "AI Solutions Architect",
+                "contact": "deon@shieldcraft-ai.com"
+              }
+            ],
+            "funnel_stage": "top_of_funnel",
+            "pricing_reference": "pricing/guardsuite_pricing.yml",
+            "ux_goals": [
+              "deterministic outputs",
+              "zero-install onboarding",
+              "exportable badge-ready JSON",
+              "GuardScore preview compatibility"
+            ]
+          },
+          "performance_constraints": {
+            "max_memory_mb": 192,
+            "expected_runtime_ms": 600,
+            "wasm_runtime_ms": 750,
+            "quickscore_threshold_resources": 200,
+            "realtime_refresh_interval_ms": 60000
+          },
+          "pillar": "crosscut",
+          "playground_stage_budgets": {
+            "sample_plan_load_ms": 80,
+            "evaluator_init_ms": 100,
+            "rule_eval_ms": 250,
+            "badge_calc_ms": 120,
+            "canonicalize_output_ms": 80,
+            "export_payload_ms": 50
+          },
+          "principles": [
+            {
+              "schema_first": true
+            },
+            {
+              "wasm_safe": true
+            },
+            {
+              "determinism_required": true
+            },
+            {
+              "no_nondeterministic_io": true
+            },
+            {
+              "fixed64_numeric_contract_required": true
+            },
+            {
+              "canonical_output_required": true
+            },
+            {
+              "browser_sandbox_required": true
+            },
+            {
+              "deterministic_demo_data": true
+            },
+            {
+              "provenance_optional_but_normalized": true
+            }
+          ],
+          "product_type": "core",
+          "product_version": "2.1.0",
+          "related_products": [
+            "guardsuite-core"
+          ],
+          "provenance": {
+            "required": false,
+            "deterministic_timestamps": true,
+            "wasm_safe": true,
+            "included_in_exports": true,
+            "fields_if_present": [
+              "producer",
+              "producer_version",
+              "artifact_id",
+              "created_at_utc",
+              "signature (optional)"
+            ],
+            "rules": {
+              "missing_provenance_behavior": "allow",
+              "malformed_provenance": "normalize_and_warn"
+            }
+          },
+          "provenance_required": false,
+          "purpose_summary": "Provide a zero-install, WASM-safe deterministic evaluator for demos, documentation flows, customer onboarding, and AI-powered product education.\n",
+          "quickscore_behavior": {
+            "enabled": true,
+            "deterministic": true,
+            "rules": [
+              "never bypass canonical evaluator stages",
+              "issue suppression must be stable and documented",
+              "deterministic fallback required if optimization disabled"
+            ]
+          },
+          "references": [
+            "docs/guardsuite_master_spec.md",
+            "templates/spec_page.md.j2",
+            "schemas/playground/playground.schema.yml",
+            "guardsuite-core/canonical_schema.json",
+            "guardsuite-template/spec.yml"
+          ],
+          "release_metadata": {
+            "release_channel": "stable",
+            "release_notes_url": "https://shieldcraft-ai.com/guardsuite/playground/releases/2.1.0",
+            "published_date": "2026-03-10"
+          },
+          "sample_plan_schema": {
+            "path": "schemas/playground/sample_plan.schema.yml",
+            "required_fields": [
+              "resources[]",
+              "metadata",
+              "inputs"
+            ],
+            "wasm_safe": true,
+            "deterministic_defaults": true,
+            "prohibited_fields": [
+              "timestamps_local",
+              "host_paths"
+            ]
+          },
+          "security": {
+            "no_external_calls_at_runtime": true,
+            "sanitize_all_inputs": true,
+            "svg_sanitization": true,
+            "wasm_compatible": true,
+            "sandbox_requirement": "Playground must run entirely in a WASM sandbox with zero host privileges.\n",
+            "safe_error_reporting": true,
+            "deterministic_isolation": true,
+            "forbidden_overrides_enforced": true,
+            "browser_local_storage_behavior": {
+              "deterministic_cache_allowed": false,
+              "session_storage_allowed": true,
+              "sensitive_data_prohibited": true
+            }
+          },
+          "short_description": "Browser-based deterministic evaluator and GuardScore preview environment, executed entirely inside a WASM sandbox with canonical GuardSuite pipelines.\n",
+          "spec_version": "2026.04",
+          "stability_level": "ga",
+          "telemetry_redaction": {
+            "enabled": true,
+            "redacted_fields": [
+              "resource_id",
+              "tenant_id",
+              "secrets",
+              "tokens",
+              "code_snippets_raw"
+            ],
+            "minimized_payloads": true,
+            "prohibits": [
+              "user_pasted_content_upload",
+              "environment_leakage"
+            ],
+            "wasm_safe": true
+          },
+          "testing": {
+            "unit_tests_required": true,
+            "integration_tests_required": true,
+            "wasm_conformance_required": true,
+            "snapshot_schema_test": true,
+            "snapshot_determinism": true,
+            "test_coverage_min_percent": 80,
+            "ci_jobs": [
+              "validate_schema",
+              "unit",
+              "integration",
+              "wasm_conformance",
+              "snapshot_conformance"
+            ]
+          },
+          "ui_flags": {
+            "allow": [
+              "canonical_json",
+              "badge_preview",
+              "guardscore_preview"
+            ],
+            "forbid": [
+              "custom_plugins",
+              "network_calls",
+              "user_uploaded_binaries",
+              "arbitrary_javascript"
+            ]
+          },
+          "versioning": {
+            "semver": true,
+            "core_dependency_pin": "guardsuite-core@>=2.3.0",
+            "schema_version_pin": "playground.schema@>=1.1.0",
+            "compatibility_window_months": 12,
+            "breaking_change_policy": "Any evaluator pipeline, schema, normalized output, or export contract change requires:\n  - schema bump\n  - GuardBoard compatibility validation\n  - downstream consumer testing\n  - updated documentation & sample plans\n"
+          },
+          "wasm_forbidden_operations": [
+            "randomness",
+            "system_time",
+            "locale",
+            "filesystem_write",
+            "environment_variable_access",
+            "network_access",
+            "dynamic_imports"
+          ]
+        }
+      },
+      "issues": []
+    },
+    "vectorguard": {
+      "product": "vectorguard",
+      "exists": true,
+      "parsed": {
+        "id": "vectorguard",
+        "name": "",
+        "owner": "",
+        "version": "",
+        "spec_yaml": "",
+        "checklist_yaml": "",
+        "gpt_instructions_yaml": "",
+        "x_legacy": {
+          "deterministic_normalization_layer": {
+            "id": "DET-001",
+            "version": "2026.04",
+            "status": "required",
+            "description": "Authoritative, cross-pillar normalization and hashing layer used by all GuardSuite evaluators. Ensures perfect parity across Python, WASM, and native-ABI runtimes by enforcing deterministic key ordering, timestamp normalization, numeric fixed_64 contracts, canonical list ordering rules, and canonical_json_utf8 serialization. This layer eliminates nondeterministic drift and provides a stable hashing substrate for provenance, snapshot tests, evaluator parity, and GuardScore integration.\n",
+            "objectives": [
+              "eliminate all nondeterministic execution paths",
+              "guarantee evaluator-level determinism across all runtimes",
+              "unify hashing behavior across scanners, blueprints, and core engines",
+              "ensure zero drift in pipeline snapshot views",
+              "preserve human-facing output fidelity while enforcing strict hash-view rules"
+            ],
+            "responsibilities": [
+              "enforce_canonical_key_ordering",
+              "normalize_paths",
+              "normalize_timestamps",
+              "enforce_fixed64_numeric_contract",
+              "apply_schema_aware_list_sorting",
+              "strip_diagnostics_only_during_hashing",
+              "inject_canonical_timestamp",
+              "produce_canonical_json_utf8_for_hashing",
+              "preserve_full_diagnostics_in_human_output",
+              "maintain cross-runtime parity (python ⇄ wasm ⇄ native)"
+            ],
+            "prohibitions": [
+              "no_runtime_clock_access",
+              "no_randomness_or_randomized_algorithms",
+              "no_env_based_branching",
+              "no_locale_dependent_parsing",
+              "no_data_structure_iteration_without_key_ordering",
+              "no_mutation_of_lifecycle/debug fields",
+              "no_reordering_lists_except_schema-defined canonical lists",
+              "no_tz_inference (UTC only)",
+              "no_nan_or_infinite_values"
+            ],
+            "timestamp_contract": {
+              "normalize_timestamp": {
+                "input_formats": [
+                  "ANY"
+                ],
+                "output_format": "UTC ISO-8601 with Z suffix",
+                "malformed_behavior": "fallback_to_epoch_zero",
+                "deterministic_epoch_zero": "1970-01-01T00:00:00.000Z",
+                "tz_behavior": "force_utc",
+                "nanosecond_truncation": "truncate_to_milliseconds"
+              },
+              "canonical_timestamp_injection": {
+                "location": "metadata.canonical_timestamp",
+                "overwrite_existing": true,
+                "included_in_human_output": true,
+                "added_prior_to_hashing": true,
+                "deterministic": true
+              }
+            },
+            "path_normalization": {
+              "rules": [
+                "convert_backslashes_to_slashes",
+                "collapse_redundant_segments",
+                "resolve_to_rooted_absolute_form",
+                "enforce_leading_slash",
+                {
+                  "stable_across_os": true
+                },
+                {
+                  "invalid_paths": "return_empty_string"
+                }
+              ],
+              "wasm_notes": [
+                "no_access_to_real_fs",
+                "path normalization must not depend on OS separators",
+                "memory-safe canonicalization only"
+              ]
+            },
+            "numeric_normalization": {
+              "contract": "fixed_64",
+              "description": "Converts floating-point values to fixed_64 integer-scaled form to avoid platform differences (CPython vs WASM vs native). Prevents nondeterministic rounding behavior across architectures.\n",
+              "rules": {
+                "scale_factor": "1e6",
+                "rounding_mode": "round_half_away_from_zero",
+                "non_finite_values": 0,
+                "wasm_safe": true,
+                "deterministic": true
+              }
+            },
+            "issue_sorting": {
+              "canonical_sort": {
+                "required": true,
+                "applies_to": "issues[]",
+                "sorting_keys": [
+                  "rule_id",
+                  "resource_id",
+                  "severity",
+                  "timestamp_utc"
+                ],
+                "fallback_keys": [
+                  "id",
+                  "resource_address",
+                  ""
+                ],
+                "deterministic": true,
+                "stable_across_runtimes": true,
+                "prohibits": [
+                  "unstable custom comparators",
+                  "locale-sort",
+                  "nondeterministic hash-ordering"
+                ]
+              }
+            },
+            "payload_normalization": {
+              "function": "normalize_payload",
+              "behavior": {
+                "strip_diagnostics_for_hash": true,
+                "preserve_diagnostics_for_output": true,
+                "recursive_key_ordering": true,
+                "recursive_unicode_normalization": "NFC",
+                "missing_fields": "set_to_null",
+                "apply_list_sorting_only_where_specified": true,
+                "exclude_noncanonical_fields_from_hashing": [
+                  "diagnostics",
+                  "pipeline_trace",
+                  "lifecycle_state",
+                  "debug*",
+                  "ephemeral_*"
+                ]
+              },
+              "hash_payload_view": {
+                "serialization_format": "canonical_json_utf8",
+                "stable_across_os": true,
+                "prohibits": [
+                  "BOM_headers",
+                  "locale-specific whitespace",
+                  "indentation differences"
+                ]
+              }
+            },
+            "hashing_contract": {
+              "algorithm": "SHA256",
+              "input": "normalized_payload(strip_diagnostics_for_hash=true)",
+              "output_encoding": "hex_lowercase",
+              "prohibits": [
+                "timestamps_other_than_metadata.canonical_timestamp",
+                "nondeterministic_metadata",
+                "evaluator_diagnostics",
+                "runtime_specific_fields",
+                "ordering_not_canonical"
+              ],
+              "guarantees": [
+                {
+                  "cross_runtime_consistency": true
+                },
+                {
+                  "architecture_independent": true
+                },
+                {
+                  "byte_for_byte_identical": true
+                }
+              ]
+            },
+            "schema_requirements": {
+              "canonical_output_schema": {
+                "path": "templates/guard_pillar/schemas/output/canonical_output.json",
+                "required_fields": [
+                  "metadata",
+                  "metadata.canonical_timestamp",
+                  "issues[]",
+                  "issues[].rule_id",
+                  "issues[].resource_id or issues[].resource_address",
+                  "issues[].severity",
+                  "provenance",
+                  "fixpack"
+                ],
+                "must_define_sorting_semantics": true,
+                "must_define_nullable_fields": true,
+                "versioning": "schema_first",
+                "wasm_safe": true
+              }
+            },
+            "related_products": [
+              "guardsuite-core"
+            ],
+            "implementation_requirements": {
+              "canonical_utils": {
+                "required_functions": [
+                  "normalize_path",
+                  "normalize_timestamp",
+                  "normalize_float",
+                  "canonical_sort",
+                  "normalize_payload"
+                ],
+                "deterministic": true,
+                "wasm_safe": true,
+                "binary_abi_mappings_required": true
+              },
+              "evaluator_requirements": [
+                "replace_sort_issues_with_canonical_sort",
+                "call_normalize_payload_prior_to_hashing",
+                "inject_canonical_timestamp_before_hashing",
+                "preserve_diagnostics unless hashing",
+                "lifecycle_state and pipeline_trace excluded from hash",
+                "prohibit_runtime_clock"
+              ]
+            },
+            "testing_requirements": {
+              "snapshot_tests": [
+                "3_runs_identical_hash_required",
+                "python_vs_wasm_parity_required",
+                "python_vs_binary_parity_required",
+                "canonical_output_snapshot_stability_required"
+              ],
+              "unit_tests": [
+                "test_normalize_payload",
+                "test_issue_sorting",
+                "test_hash_vs_output_view",
+                "test_fixed64_rounding",
+                "test_path_normalization_edge_cases",
+                "test_timestamp_malformed_to_epoch_zero"
+              ],
+              "regression_prevention": [
+                "forbid_new_nondeterministic_fields",
+                "forbid_clock_access",
+                "forbid_randomness",
+                "forbid_locale_affected_operations",
+                "forbid_hash_payload_structure_changes_without_RFC"
+              ]
+            }
+          }
+        }
+      },
+      "issues": []
+    },
+    "vectorscan": {
+      "product": "vectorscan",
+      "exists": true,
+      "parsed": {
+        "id": "vectorscan",
+        "name": "VectorScan",
+        "owner": "",
+        "version": "2.0.0",
+        "status": "production",
+        "spec_yaml": "",
+        "checklist_yaml": "",
+        "gpt_instructions_yaml": "",
+        "x_legacy": {
+          "architecture": {
+            "core_dependency_id": "guardsuite-core@>=1.4.0,<2.0.0",
+            "schema_source": "guardsuite-core/canonical_schema.json",
+            "required_interfaces": [
+              "I_Evaluator",
+              "I_ScannerCLI"
+            ],
+            "override_exclusion": [
+              "canonical.output_contract",
+              "evaluator.runtime_override"
+            ],
+            "output_contract": "strict"
+          },
+          "cli": {
+            "base_command": "vectorscan",
+            "scan_command": "vectorscan scan",
+            "supported_flags": [
+              "--json",
+              "--stdin",
+              "--quiet",
+              "--explain",
+              "--output json"
+            ],
+            "reserved_flags": [
+              "--compliance-ledger",
+              "--fixpack-summary"
+            ]
+          },
+          "compliance": {
+            "compliance_ledger_enabled": false,
+            "ledger_visibility": "none"
+          },
+          "ecosystem_integrations": {
+            "guardscore": {
+              "pillar_weight": 0.33,
+              "severity_penalties": {
+                "critical": 40,
+                "high": 25,
+                "medium": 10,
+                "low": 2
+              },
+              "provided_score_inputs": [
+                "issue_count_by_severity",
+                "remediation_hint_count",
+                "resource_count"
+              ],
+              "badge_eligibility_signal": true
+            },
+            "playground": {
+              "wasm_safe": true,
+              "max_runtime_ms": 2000,
+              "playground_latency_target_ms": 1300,
+              "json_sanitize": true,
+              "svg_sanitize": true,
+              "quick_score_mode": true
+            },
+            "guardboard": {
+              "exposes_fixpack_hints": true,
+              "shows_compliance_ledger": false,
+              "badge_preview_supported": true
+            }
+          },
+          "features": [
+            {
+              "id": "VEC-FEAT-001",
+              "title": "Public Endpoint Detection",
+              "summary": "Detects vector indices exposed to global CIDRs.",
+              "included": true
+            },
+            {
+              "id": "VEC-FEAT-004",
+              "title": "Embedding Storage Encryption Check",
+              "summary": "Flags storage lacking encryption-at-rest.",
+              "included": true
+            },
+            {
+              "id": "VEC-FEAT-020",
+              "title": "IAM Wildcard Detection",
+              "summary": "Detects IAM roles with unsafe vector path wildcards.",
+              "included": true
+            },
+            {
+              "id": "VEC-FEAT-030",
+              "title": "Retrieval Pipeline Configuration Safety",
+              "summary": "Detects missing filters, PII omissions, or risky retrieval params.",
+              "included": true
+            }
+          ],
+          "fixpack": {
+            "included": false,
+            "reference_hint_format": "fixpack:<ISSUE_ID>",
+            "surfaces_hints": true
+          },
+          "future_extensions": [
+            "vector store cost estimation (lightweight mode)",
+            "embedding density heuristics",
+            "advanced retrieval pattern heuristics"
+          ],
+          "governance": {
+            "spec_version": "2025.11",
+            "last_reviewed": "2025-11-24",
+            "owner": "GuardSuite Platform Team",
+            "stability_level": "ga"
+          },
+          "governance_domains": [
+            "embedding_security",
+            "network_exposure",
+            "encryption",
+            "iam_controls",
+            "retrieval_pipeline_safety",
+            "drift_detection",
+            "observability_gaps"
+          ],
+          "interoperability_conflicts": [
+            "QuickScore mode may require recalibration for GuardScore v2.",
+            "Embedding governance model expansion (2026) may introduce new fields."
+          ],
+          "long_description": "VectorScan provides fast, deterministic governance and security scanning\nfor vector-serving infrastructure, embedding storage, and RAG\nconfiguration patterns. It emits canonical schema–aligned output,\nintegrates seamlessly with Playground, and feeds GuardScore and\nGuardBoard for scoring and reporting. VectorScan is the top-of-funnel\nentry point into the GuardSuite ecosystem.\n",
+          "maintainers": [
+            {
+              "name": "Deon Prinsloo",
+              "role": "AI Solutions Architect",
+              "contact": "deon@shieldcraft-ai.com"
+            },
+            {
+              "name": "GuardSuite PMO",
+              "role": "Product Owner",
+              "contact": "pmo@shieldcraft-ai.com"
+            }
+          ],
+          "marketing": {
+            "hero": "Secure your vector stack with instant, deterministic scans.",
+            "funnel_stage": "bottom_funnel",
+            "blurbs": [
+              "Detect embedding leaks and public vector endpoints",
+              "Perfect for Playground paste-to-scan",
+              "Upgrade to VectorGuard for remediation & ledger"
+            ],
+            "ctas": [
+              {
+                "text": "Scan your plan now",
+                "href": "/playground"
+              }
+            ],
+            "ux_goals": [
+              "Scan GenAI apps for policy drift",
+              "Pipeline GuardBoard ingest artifacts"
+            ]
+          },
+          "metadata": {
+            "version": "2025.11",
+            "funnel_stage": "mid_funnel",
+            "pricing_reference": "pricing/guardsuite_pricing.yml",
+            "ux_goals": [
+              "Offer instant, deterministic scans for vector teams",
+              "Drive upgrades into VectorGuard when remediation is needed"
+            ]
+          },
+          "performance_constraints": {
+            "max_memory_mb": 150,
+            "expected_runtime_ms": 500,
+            "large_plan_runtime_ms": 1200,
+            "playground_runtime_ms": 1300,
+            "quickscore_threshold_resources": 1000
+          },
+          "pillar": "vector",
+          "product_type": "free_scanner",
+          "purpose_summary": "Detect misconfigurations and exposure risks in vector-serving infrastructure.",
+          "references": {
+            "master_spec": "docs/guardsuite_master_spec.md",
+            "template_spec": "templates/spec_page.md.j2",
+            "canonical_schema": "guardsuite-core/canonical_schema.json",
+            "pricing_reference": "pricing/guardsuite_pricing.yml"
+          },
+          "related_products": [
+            "guardboard",
+            "guardscore",
+            "guardsuite-core",
+            "vectorguard"
+          ],
+          "release_metadata": {
+            "release_channel": "stable",
+            "release_notes_url": "https://shieldcraft-ai.com/guardsuite/vectorscan/releases/2.0.0",
+            "published_date": "2025-11-19"
+          },
+          "rule_categories": [
+            "Embedding Security",
+            "Network Exposure & Boundary Controls",
+            "IAM Hardening",
+            "Storage Encryption",
+            "Retrieval Configuration Safety",
+            "Drift Detection",
+            "Operational Logging & Observability"
+          ],
+          "security": {
+            "no_external_calls_at_runtime": true,
+            "sanitize_all_inputs": true,
+            "svg_sanitization": true,
+            "wasm_compatible": true,
+            "sandbox_requirement": "Playground runtime must be WASM sandboxed",
+            "safe_error_reporting": true
+          },
+          "short_description": "Free, deterministic Terraform plan scanner for vector databases, embedding pipelines, and RAG-like architectures.\n",
+          "testing": {
+            "unit_tests_required": true,
+            "integration_tests_required": true,
+            "snapshot_schema_test": true,
+            "test_coverage_min_percent": 80,
+            "ci_jobs": [
+              "validate_schema",
+              "unit",
+              "integration",
+              "snapshot_conformance"
+            ]
+          },
+          "versioning": {
+            "semver": true,
+            "core_dependency_pin": "guardsuite-core@>=1.4.0,<2.0.0",
+            "schema_version_pin": "canonical_schema@1.0.0",
+            "breaking_change_policy": "Any breaking change MUST include a guardsuite-core RFC, updated schema, and coordinated release with VectorGuard.\n",
+            "spec_version": "2025.11",
+            "last_reviewed": "2025-11-23",
+            "stability_level": "ga"
+          }
+        }
+      },
+      "issues": []
+    }
+  }
+}

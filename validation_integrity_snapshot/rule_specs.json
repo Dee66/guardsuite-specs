@@ -1,0 +1,22 @@
+{
+  "generated": "2025-11-26T11:48:22.261545+00:00",
+  "results": {
+    "rule_specs/computeguard/00_base_rule.yml": [],
+    "rule_specs/computescan/00_base_rule.yml": [],
+    "rule_specs/guardboard/00_base_rule.yml": [],
+    "rule_specs/guardscore/00_base_rule.yml": [],
+    "rule_specs/guardsuite-core/00_base_rule.yml": [],
+    "rule_specs/guardsuite-specs/00_base_rule.yml": [],
+    "rule_specs/guardsuite-template/00_base_rule.yml": [],
+    "rule_specs/guardsuite_master_spec/00_base_rule.yml": [],
+    "rule_specs/pipelineguard/00_base_rule.yml": [],
+    "rule_specs/pipelinescan/00_base_rule.yml": [],
+    "rule_specs/playground/00_base_rule.yml": [],
+    "rule_specs/rule_spec_template.yml": [
+      "rule_id must match regex: ^[a-z0-9_-]+(-base-\\d+)?$",
+      "applies_to must be one of the product directories under rule_specs/: ['computeguard', 'computescan', 'guardboard', 'guardscore', 'guardsuite-core', 'guardsuite-specs', 'guardsuite-template', 'guardsuite_master_spec', 'pipelineguard', 'pipelinescan', 'playground', 'vectorguard', 'vectorscan']"
+    ],
+    "rule_specs/vectorguard/00_base_rule.yml": [],
+    "rule_specs/vectorscan/00_base_rule.yml": []
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "generated": "2025-11-26T11:48:22.233457+00:00",
+  "results": {
+    "computeguard": {
+      "has_checklist": true,
+      "top_level_keys": [
+        "id",
+        "version",
+        "pillar",
+        "product",
+        "phases"
+      ]
+    },
+    "computescan": {
+      "has_checklist": false,
+      "missing_reason": "Error parsing checklist: while scanning a simple key\n  in \"products/computescan/checklist/checklist.yml\", line 59, column 7\ncould not find expected ':'\n  in \"products/computescan/checklist/checklist.yml\", line 61, column 1"
+    },
+    "guardboard": {
+      "has_checklist": true,
+      "top_level_keys": [
+        "id",
+        "product",
+        "version",
+        "status",
+        "phases"
+      ]
+    },
+    "guardscore": {
+      "has_checklist": false,
+      "missing_reason": "Error parsing checklist: mapping values are not allowed here\n  in \"products/guardscore/checklist/checklist.yml\", line 180, column 88"
+    },
+    "guardsuite-core": {
+      "has_checklist": true,
+      "top_level_keys": [
+        "checklist"
+      ]
+    },
+    "guardsuite-specs": {
+      "has_checklist": false,
+      "missing_reason": "Error parsing checklist: mapping values are not allowed here\n  in \"products/guardsuite-specs/checklist/checklist.yml\", line 129, column 11"
+    },
+    "guardsuite-template": {
+      "has_checklist": true,
+      "top_level_keys": [
+        "id",
+        "product",
+        "version",
+        "status",
+        "phases",
+        "acceptance_criteria",
+        "deliverables"
+      ]
+    },
+    "guardsuite_master_spec": {
+      "has_checklist": false,
+      "missing_reason": "Error parsing checklist: mapping values are not allowed here\n  in \"products/guardsuite_master_spec/checklist/checklist.yml\", line 129, column 11"
+    },
+    "pipelineguard": {
+      "has_checklist": true,
+      "top_level_keys": [
+        "checklist"
+      ]
+    },
+    "pipelinescan": {
+      "has_checklist": false,
+      "missing_reason": "Error parsing checklist: mapping values are not allowed here\n  in \"products/pipelinescan/checklist/checklist.yml\", line 15, column 52"
+    },
+    "playground": {
+      "has_checklist": false,
+      "missing_reason": "Error parsing checklist: mapping values are not allowed here\n  in \"products/playground/checklist/checklist.yml\", line 55, column 51"
+    },
+    "vectorguard": {
+      "has_checklist": true,
+      "top_level_keys": [
+        "checklist"
+      ]
+    },
+    "vectorscan": {
+      "has_checklist": false,
+      "missing_reason": "Error parsing checklist: mapping values are not allowed here\n  in \"products/vectorscan/checklist/checklist.yml\", line 22, column 45"
+    }
+  }
+}
