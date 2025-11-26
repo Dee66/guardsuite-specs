@@ -1,0 +1,5 @@
+--- products/pipelinescan/metadata/product.yml.orig+++ products/pipelinescan/metadata/product.yml@@ -1,4 +1,4 @@-id: ''
++id: pipelinescan
+ name: ''
+ owner: ''
+ version: ''
