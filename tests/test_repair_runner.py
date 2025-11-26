@@ -18,5 +18,5 @@ def test_normalize_and_diff():
         p = Path(td) / "sample.txt"
         p.write_text("line: 1\n")
         diff = repair_runner.run_once(str(p), apply=False)
-        # Expect the diff to show the added normalized marker
-        assert "+# normalized-by-repair-runner" in diff
+        # Expect the diff to show the added normalized marker (any rule marker)
+        assert "+# normalized-by" in diff

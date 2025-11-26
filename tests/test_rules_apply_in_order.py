@@ -18,9 +18,9 @@ def test_rules_apply_in_order(tmp_path):
     rules_dir = tmp_path / "rules"
     rules_dir.mkdir()
     # rule a -> append marker A
-    (rules_dir / "a_rule.py").write_text('def normalize(text):\n    return text+"A\n"')
+    (rules_dir / "a_rule.py").write_text('def normalize(text):\n    return text+"A\\n"')
     # rule b -> append marker B
-    (rules_dir / "b_rule.py").write_text('def normalize(text):\n    return text+"B\n"')
+    (rules_dir / "b_rule.py").write_text('def normalize(text):\n    return text+"B\\n"')
 
     runner = load_runner()
     # Load rules from temp dir

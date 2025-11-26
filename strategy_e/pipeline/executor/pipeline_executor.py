@@ -3,7 +3,7 @@ from pathlib import Path
 from strategy_e.pipeline.results.diff_utils import generate_unified_diff
 from strategy_e.pipeline.results.backup_utils import write_backup
 
-def run_pipeline_on_text(text: str, rules, path: str = None, dry_run: bool = False):
+def run_pipeline_on_text(text: str, rules, path: str = None, dry_run: bool = False, backup_dir: str = None):
     """
     Executes normalization, validation, and repair instructions in-order.
     - Normalization is optional.
@@ -61,7 +61,7 @@ def run_pipeline_on_text(text: str, rules, path: str = None, dry_run: bool = Fal
     backup_path = None
     if path is not None and not dry_run:
         try:
-            backup_path = write_backup(path, text)
+            backup_path = write_backup(path, text, backup_dir=backup_dir)
         except Exception:
             backup_path = None
 
