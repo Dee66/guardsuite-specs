@@ -1,0 +1,1308 @@
+{
+  "alpha": 0.25,
+  "files": {
+    "canonical_state/guard_suite_state.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/computeguard/assets/copy/demo/demo_version.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/computeguard/assets/copy/demo/plan_bad.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/computeguard/assets/copy/demo/plan_guard.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/computeguard/checklist/checklist.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/computeguard/metadata/product.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/computescan/assets/copy/demo/demo_version.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/computescan/assets/copy/demo/plan_bad.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/computescan/assets/copy/demo/plan_guard.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/computescan/checklist/checklist.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/computescan/metadata/product.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardboard/assets/copy/demo/demo_version.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardboard/assets/copy/demo/plan_bad.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardboard/assets/copy/demo/plan_guard.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardboard/checklist/checklist.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardboard/metadata/product.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardscore/assets/copy/demo/demo_version.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardscore/assets/copy/demo/plan_bad.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardscore/assets/copy/demo/plan_guard.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardscore/checklist/checklist.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardscore/metadata/product.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardsuite-core/assets/copy/demo/demo_version.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardsuite-core/assets/copy/demo/plan_bad.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardsuite-core/assets/copy/demo/plan_guard.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardsuite-core/checklist/checklist.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardsuite-core/metadata/product.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardsuite-specs/assets/copy/demo/demo_version.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardsuite-specs/assets/copy/demo/plan_bad.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardsuite-specs/assets/copy/demo/plan_guard.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardsuite-specs/checklist/checklist.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardsuite-specs/metadata/product.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardsuite-template/assets/copy/demo/demo_version.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardsuite-template/assets/copy/demo/plan_bad.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardsuite-template/assets/copy/demo/plan_guard.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardsuite-template/checklist/checklist.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardsuite-template/metadata/product.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardsuite_master_spec/assets/copy/demo/demo_version.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardsuite_master_spec/assets/copy/demo/plan_bad.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardsuite_master_spec/assets/copy/demo/plan_guard.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardsuite_master_spec/checklist/checklist.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/guardsuite_master_spec/metadata/product.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/pipelineguard/assets/copy/demo/demo_version.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/pipelineguard/assets/copy/demo/plan_bad.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/pipelineguard/assets/copy/demo/plan_guard.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/pipelineguard/checklist/checklist.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/pipelineguard/metadata/product.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/pipelinescan/assets/copy/demo/demo_version.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/pipelinescan/assets/copy/demo/plan_bad.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/pipelinescan/assets/copy/demo/plan_guard.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/pipelinescan/checklist/checklist.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/pipelinescan/metadata/product.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/playground/assets/copy/demo/demo_version.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/playground/assets/copy/demo/plan_bad.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/playground/assets/copy/demo/plan_guard.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/playground/checklist/checklist.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/playground/metadata/product.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/vectorguard/assets/copy/demo/demo_version.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/vectorguard/assets/copy/demo/plan_bad.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/vectorguard/assets/copy/demo/plan_guard.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/vectorguard/checklist/checklist.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/vectorguard/metadata/product.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/vectorscan/assets/copy/demo/demo_version.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/vectorscan/assets/copy/demo/plan_bad.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/vectorscan/assets/copy/demo/plan_guard.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/vectorscan/checklist/checklist.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "products/vectorscan/metadata/product.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "rule_specs/computeguard/00_base_rule.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "rule_specs/computescan/00_base_rule.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "rule_specs/guardboard/00_base_rule.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "rule_specs/guardscore/00_base_rule.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "rule_specs/guardsuite-core/00_base_rule.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "rule_specs/guardsuite-specs/00_base_rule.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "rule_specs/guardsuite-template/00_base_rule.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "rule_specs/guardsuite_master_spec/00_base_rule.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "rule_specs/pipelineguard/00_base_rule.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "rule_specs/pipelinescan/00_base_rule.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "rule_specs/playground/00_base_rule.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "rule_specs/rule_spec_template.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "rule_specs/vectorguard/00_base_rule.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "rule_specs/vectorscan/00_base_rule.yml": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "validation_integrity_snapshot/checklists.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "validation_integrity_snapshot/master_validation_report.md": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "validation_integrity_snapshot/metadata.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "validation_integrity_snapshot/repair_runner.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "validation_integrity_snapshot/repo_scan.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "validation_integrity_snapshot/rule_specs.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "validation_integrity_snapshot/semantic.json": {
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "prediction_1": 0.0,
+      "series": [
+        0
+      ]
+    }
+  },
+  "generated": "2025-11-26T13:28:45.444050+00:00",
+  "ma_window": 3,
+  "products": {
+    "computeguard": {
+      "budget": 5,
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "predictions": {
+        "ensemble": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "es": {
+          "1": 0,
+          "10": 0,
+          "3": 0
+        },
+        "lr": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "ma": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        }
+      },
+      "risk_score": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "computescan": {
+      "budget": 5,
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "predictions": {
+        "ensemble": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "es": {
+          "1": 0,
+          "10": 0,
+          "3": 0
+        },
+        "lr": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "ma": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        }
+      },
+      "risk_score": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "guardboard": {
+      "budget": 5,
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "predictions": {
+        "ensemble": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "es": {
+          "1": 0,
+          "10": 0,
+          "3": 0
+        },
+        "lr": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "ma": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        }
+      },
+      "risk_score": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "guardscore": {
+      "budget": 5,
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "predictions": {
+        "ensemble": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "es": {
+          "1": 0,
+          "10": 0,
+          "3": 0
+        },
+        "lr": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "ma": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        }
+      },
+      "risk_score": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "guardsuite-core": {
+      "budget": 5,
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "predictions": {
+        "ensemble": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "es": {
+          "1": 0,
+          "10": 0,
+          "3": 0
+        },
+        "lr": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "ma": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        }
+      },
+      "risk_score": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "guardsuite-specs": {
+      "budget": 5,
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "predictions": {
+        "ensemble": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "es": {
+          "1": 0,
+          "10": 0,
+          "3": 0
+        },
+        "lr": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "ma": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        }
+      },
+      "risk_score": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "guardsuite-template": {
+      "budget": 5,
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "predictions": {
+        "ensemble": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "es": {
+          "1": 0,
+          "10": 0,
+          "3": 0
+        },
+        "lr": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "ma": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        }
+      },
+      "risk_score": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "guardsuite_master_spec": {
+      "budget": 5,
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "predictions": {
+        "ensemble": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "es": {
+          "1": 0,
+          "10": 0,
+          "3": 0
+        },
+        "lr": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "ma": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        }
+      },
+      "risk_score": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "pipelineguard": {
+      "budget": 5,
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "predictions": {
+        "ensemble": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "es": {
+          "1": 0,
+          "10": 0,
+          "3": 0
+        },
+        "lr": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "ma": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        }
+      },
+      "risk_score": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "pipelinescan": {
+      "budget": 5,
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "predictions": {
+        "ensemble": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "es": {
+          "1": 0,
+          "10": 0,
+          "3": 0
+        },
+        "lr": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "ma": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        }
+      },
+      "risk_score": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "playground": {
+      "budget": 5,
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "predictions": {
+        "ensemble": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "es": {
+          "1": 0,
+          "10": 0,
+          "3": 0
+        },
+        "lr": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "ma": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        }
+      },
+      "risk_score": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "vectorguard": {
+      "budget": 5,
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "predictions": {
+        "ensemble": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "es": {
+          "1": 0,
+          "10": 0,
+          "3": 0
+        },
+        "lr": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "ma": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        }
+      },
+      "risk_score": 0.0,
+      "series": [
+        0
+      ]
+    },
+    "vectorscan": {
+      "budget": 5,
+      "model_params": {
+        "lr_intercept": 0.0,
+        "lr_slope": 0.0
+      },
+      "predictions": {
+        "ensemble": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "es": {
+          "1": 0,
+          "10": 0,
+          "3": 0
+        },
+        "lr": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        },
+        "ma": {
+          "1": 0.0,
+          "10": 0.0,
+          "3": 0.0
+        }
+      },
+      "risk_score": 0.0,
+      "series": [
+        0
+      ]
+    }
+  }
+}

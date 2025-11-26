@@ -1,0 +1,106 @@
+# GuardSuite Drift Forecast
+**Generated:** 2025-11-26T13:28:45.444050+00:00
+
+## Products Risk Summary
+- computeguard: next-step ensemble=0.0 risk=0.0% (budget 5)
+- computescan: next-step ensemble=0.0 risk=0.0% (budget 5)
+- guardboard: next-step ensemble=0.0 risk=0.0% (budget 5)
+- guardscore: next-step ensemble=0.0 risk=0.0% (budget 5)
+- guardsuite-core: next-step ensemble=0.0 risk=0.0% (budget 5)
+- guardsuite-specs: next-step ensemble=0.0 risk=0.0% (budget 5)
+- guardsuite-template: next-step ensemble=0.0 risk=0.0% (budget 5)
+- guardsuite_master_spec: next-step ensemble=0.0 risk=0.0% (budget 5)
+- pipelineguard: next-step ensemble=0.0 risk=0.0% (budget 5)
+- pipelinescan: next-step ensemble=0.0 risk=0.0% (budget 5)
+- playground: next-step ensemble=0.0 risk=0.0% (budget 5)
+- vectorguard: next-step ensemble=0.0 risk=0.0% (budget 5)
+- vectorscan: next-step ensemble=0.0 risk=0.0% (budget 5)
+
+## Files Next-Step Predictions (1)
+- canonical_state/guard_suite_state.json: predicted=0.0
+- products/computeguard/assets/copy/demo/demo_version.yml: predicted=0.0
+- products/computeguard/assets/copy/demo/plan_bad.json: predicted=0.0
+- products/computeguard/assets/copy/demo/plan_guard.json: predicted=0.0
+- products/computeguard/checklist/checklist.yml: predicted=0.0
+- products/computeguard/metadata/product.yml: predicted=0.0
+- products/computescan/assets/copy/demo/demo_version.yml: predicted=0.0
+- products/computescan/assets/copy/demo/plan_bad.json: predicted=0.0
+- products/computescan/assets/copy/demo/plan_guard.json: predicted=0.0
+- products/computescan/checklist/checklist.yml: predicted=0.0
+- products/computescan/metadata/product.yml: predicted=0.0
+- products/guardboard/assets/copy/demo/demo_version.yml: predicted=0.0
+- products/guardboard/assets/copy/demo/plan_bad.json: predicted=0.0
+- products/guardboard/assets/copy/demo/plan_guard.json: predicted=0.0
+- products/guardboard/checklist/checklist.yml: predicted=0.0
+- products/guardboard/metadata/product.yml: predicted=0.0
+- products/guardscore/assets/copy/demo/demo_version.yml: predicted=0.0
+- products/guardscore/assets/copy/demo/plan_bad.json: predicted=0.0
+- products/guardscore/assets/copy/demo/plan_guard.json: predicted=0.0
+- products/guardscore/checklist/checklist.yml: predicted=0.0
+- products/guardscore/metadata/product.yml: predicted=0.0
+- products/guardsuite-core/assets/copy/demo/demo_version.yml: predicted=0.0
+- products/guardsuite-core/assets/copy/demo/plan_bad.json: predicted=0.0
+- products/guardsuite-core/assets/copy/demo/plan_guard.json: predicted=0.0
+- products/guardsuite-core/checklist/checklist.yml: predicted=0.0
+- products/guardsuite-core/metadata/product.yml: predicted=0.0
+- products/guardsuite-specs/assets/copy/demo/demo_version.yml: predicted=0.0
+- products/guardsuite-specs/assets/copy/demo/plan_bad.json: predicted=0.0
+- products/guardsuite-specs/assets/copy/demo/plan_guard.json: predicted=0.0
+- products/guardsuite-specs/checklist/checklist.yml: predicted=0.0
+- products/guardsuite-specs/metadata/product.yml: predicted=0.0
+- products/guardsuite-template/assets/copy/demo/demo_version.yml: predicted=0.0
+- products/guardsuite-template/assets/copy/demo/plan_bad.json: predicted=0.0
+- products/guardsuite-template/assets/copy/demo/plan_guard.json: predicted=0.0
+- products/guardsuite-template/checklist/checklist.yml: predicted=0.0
+- products/guardsuite-template/metadata/product.yml: predicted=0.0
+- products/guardsuite_master_spec/assets/copy/demo/demo_version.yml: predicted=0.0
+- products/guardsuite_master_spec/assets/copy/demo/plan_bad.json: predicted=0.0
+- products/guardsuite_master_spec/assets/copy/demo/plan_guard.json: predicted=0.0
+- products/guardsuite_master_spec/checklist/checklist.yml: predicted=0.0
+- products/guardsuite_master_spec/metadata/product.yml: predicted=0.0
+- products/pipelineguard/assets/copy/demo/demo_version.yml: predicted=0.0
+- products/pipelineguard/assets/copy/demo/plan_bad.json: predicted=0.0
+- products/pipelineguard/assets/copy/demo/plan_guard.json: predicted=0.0
+- products/pipelineguard/checklist/checklist.yml: predicted=0.0
+- products/pipelineguard/metadata/product.yml: predicted=0.0
+- products/pipelinescan/assets/copy/demo/demo_version.yml: predicted=0.0
+- products/pipelinescan/assets/copy/demo/plan_bad.json: predicted=0.0
+- products/pipelinescan/assets/copy/demo/plan_guard.json: predicted=0.0
+- products/pipelinescan/checklist/checklist.yml: predicted=0.0
+- products/pipelinescan/metadata/product.yml: predicted=0.0
+- products/playground/assets/copy/demo/demo_version.yml: predicted=0.0
+- products/playground/assets/copy/demo/plan_bad.json: predicted=0.0
+- products/playground/assets/copy/demo/plan_guard.json: predicted=0.0
+- products/playground/checklist/checklist.yml: predicted=0.0
+- products/playground/metadata/product.yml: predicted=0.0
+- products/vectorguard/assets/copy/demo/demo_version.yml: predicted=0.0
+- products/vectorguard/assets/copy/demo/plan_bad.json: predicted=0.0
+- products/vectorguard/assets/copy/demo/plan_guard.json: predicted=0.0
+- products/vectorguard/checklist/checklist.yml: predicted=0.0
+- products/vectorguard/metadata/product.yml: predicted=0.0
+- products/vectorscan/assets/copy/demo/demo_version.yml: predicted=0.0
+- products/vectorscan/assets/copy/demo/plan_bad.json: predicted=0.0
+- products/vectorscan/assets/copy/demo/plan_guard.json: predicted=0.0
+- products/vectorscan/checklist/checklist.yml: predicted=0.0
+- products/vectorscan/metadata/product.yml: predicted=0.0
+- rule_specs/computeguard/00_base_rule.yml: predicted=0.0
+- rule_specs/computescan/00_base_rule.yml: predicted=0.0
+- rule_specs/guardboard/00_base_rule.yml: predicted=0.0
+- rule_specs/guardscore/00_base_rule.yml: predicted=0.0
+- rule_specs/guardsuite-core/00_base_rule.yml: predicted=0.0
+- rule_specs/guardsuite-specs/00_base_rule.yml: predicted=0.0
+- rule_specs/guardsuite-template/00_base_rule.yml: predicted=0.0
+- rule_specs/guardsuite_master_spec/00_base_rule.yml: predicted=0.0
+- rule_specs/pipelineguard/00_base_rule.yml: predicted=0.0
+- rule_specs/pipelinescan/00_base_rule.yml: predicted=0.0
+- rule_specs/playground/00_base_rule.yml: predicted=0.0
+- rule_specs/rule_spec_template.yml: predicted=0.0
+- rule_specs/vectorguard/00_base_rule.yml: predicted=0.0
+- rule_specs/vectorscan/00_base_rule.yml: predicted=0.0
+- validation_integrity_snapshot/checklists.json: predicted=0.0
+- validation_integrity_snapshot/master_validation_report.md: predicted=0.0
+- validation_integrity_snapshot/metadata.json: predicted=0.0
+- validation_integrity_snapshot/repair_runner.json: predicted=0.0
+- validation_integrity_snapshot/repo_scan.json: predicted=0.0
+- validation_integrity_snapshot/rule_specs.json: predicted=0.0
+- validation_integrity_snapshot/semantic.json: predicted=0.0
