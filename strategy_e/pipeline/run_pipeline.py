@@ -7,6 +7,7 @@ def main():
     parser = argparse.ArgumentParser(description="Run Strategy-E rule-spec pipeline.")
     parser.add_argument("target", help="File to run pipeline on")
     parser.add_argument("--rules", default="rule_specs", help="Path to rule_specs")
+    parser.add_argument("--dry-run", action="store_true", help="Run without writing backups or modifying files")
     args = parser.parse_args()
 
     target_path = Path(args.target)
@@ -17,7 +18,12 @@ def main():
     with target_path.open("r", encoding="utf-8") as f:
         original = f.read()
 
-    result = run_pipeline_on_text(original, rules, str(target_path))
+    result = run_pipeline_on_text(
+        original,
+        rules,
+        path=str(target_path),
+        dry_run=args.dry_run,
+    )
 
     print("=== NORMALIZED ===")
     print(result["normalized_text"])
@@ -26,8 +32,11 @@ def main():
         print(f"- {e}")
     print("=== DIFF ===")
     print(result["diff"])
-    print("=== BACKUP CREATED ===")
-    print(result.get("backup_path", "(none)"))
+    if args.dry_run:
+        print("=== DRY RUN: No backups written, no file modifications applied ===")
+    else:
+        print("=== BACKUP CREATED ===")
+        print(result.get("backup_path", "(none)"))
     print("=== END ===")
 
 
