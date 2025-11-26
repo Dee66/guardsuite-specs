@@ -1,0 +1,1 @@
+Idle GPU detected: p3.2xlarge

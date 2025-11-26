@@ -8,6 +8,12 @@ def main():
     parser.add_argument("target", help="File to run pipeline on")
     parser.add_argument("--rules", default="rule_specs", help="Path to rule_specs")
     parser.add_argument("--dry-run", action="store_true", help="Run without writing backups or modifying files")
+    parser.add_argument(
+        "--backup-dir",
+        type=str,
+        default=None,
+        help="Optional directory to write backups instead of the default location"
+    )
     args = parser.parse_args()
 
     target_path = Path(args.target)
@@ -23,6 +29,7 @@ def main():
         rules,
         path=str(target_path),
         dry_run=args.dry_run,
+        backup_dir=args.backup_dir,
     )
 
     print("=== NORMALIZED ===")
@@ -35,8 +42,11 @@ def main():
     if args.dry_run:
         print("=== DRY RUN: No backups written, no file modifications applied ===")
     else:
-        print("=== BACKUP CREATED ===")
-        print(result.get("backup_path", "(none)"))
+        if result.get("backup_path"):
+            print(f"Backup written to: {result['backup_path']}")
+        else:
+            print("=== BACKUP CREATED ===")
+            print(result.get("backup_path", "(none)"))
     print("=== END ===")
 
 

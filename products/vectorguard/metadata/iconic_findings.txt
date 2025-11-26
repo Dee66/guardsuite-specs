@@ -1,0 +1,1 @@
+IAM drift detected: policy allows wildcard resource "*"

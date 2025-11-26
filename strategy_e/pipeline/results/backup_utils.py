@@ -1,20 +1,27 @@
-import os
+from pathlib import Path
 from datetime import datetime
 
-def write_backup(path: str, content: str) -> str:
+
+def write_backup(path, content, backup_dir=None):
     """
     Writes a deterministic timestamped backup for a file being repaired.
-    Returns the backup file path.
-    Backup file lives under strategy_e/pipeline/results/backups/.
+    Returns the backup file path. If `backup_dir` is provided, it's used as the root; otherwise
+    default location `strategy_e/pipeline/results/backups/` is used.
     """
     ts = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
-    name = os.path.basename(path)
-    backup_dir = os.path.join("strategy_e", "pipeline", "results", "backups")
-    os.makedirs(backup_dir, exist_ok=True)
+    name = Path(path).name
 
-    backup_path = os.path.join(backup_dir, f"{name}.backup.{ts}.yml")
+    # Determine directory
+    if backup_dir is not None:
+        backup_root = Path(backup_dir)
+    else:
+        backup_root = Path("strategy_e") / "pipeline" / "results" / "backups"
 
-    with open(backup_path, "w", encoding="utf-8", newline="\n") as f:
+    backup_root.mkdir(parents=True, exist_ok=True)
+
+    backup_path = backup_root / f"{name}.backup.{ts}.yml"
+
+    with backup_path.open("w", encoding="utf-8", newline="\n") as f:
         f.write(content)
 
-    return backup_path
+    return str(backup_path)

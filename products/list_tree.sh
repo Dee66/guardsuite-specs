@@ -22,7 +22,7 @@ set -euo pipefail
 
 TARGET="."
 OUTPUT="tree.txt"
-MAX_DEPTH="${MAX_DEPTH:-3}"
+MAX_DEPTH="${MAX_DEPTH:-5}"
 
 print_help() {
     sed -n '1,/^set -euo pipefail$/p' "$0" | sed 's/^# \{0,1\}//' | grep -v '^#!/'

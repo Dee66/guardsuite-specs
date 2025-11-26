@@ -1,0 +1,1 @@
+Spot GPU and inference waste instantly.
