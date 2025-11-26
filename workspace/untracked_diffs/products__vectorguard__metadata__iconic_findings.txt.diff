@@ -1,0 +1,8 @@
+diff --git a/products/vectorguard/metadata/iconic_findings.txt b/products/vectorguard/metadata/iconic_findings.txt
+new file mode 100644
+index 0000000..c403796
+--- /dev/null
++++ b/products/vectorguard/metadata/iconic_findings.txt
+@@ -0,0 +1 @@
++IAM drift detected: policy allows wildcard resource "*"
+\ No newline at end of file

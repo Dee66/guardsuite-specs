@@ -1,0 +1,8 @@
+diff --git a/products/computescan/metadata/iconic_findings.txt b/products/computescan/metadata/iconic_findings.txt
+new file mode 100644
+index 0000000..cd7fb4b
+--- /dev/null
++++ b/products/computescan/metadata/iconic_findings.txt
+@@ -0,0 +1 @@
++Idle GPU detected: p3.2xlarge
+\ No newline at end of file

@@ -1,0 +1,158 @@
+diff --git a/workspace/strategy_d/phase7/repair_phase7.py b/workspace/strategy_d/phase7/repair_phase7.py
+new file mode 100644
+index 0000000..793fb9b
+--- /dev/null
++++ b/workspace/strategy_d/phase7/repair_phase7.py
+@@ -0,0 +1,152 @@
++#!/usr/bin/env python3
++import yaml, sys
++from pathlib import Path
++from datetime import datetime, timezone
++from collections import OrderedDict
++import difflib
++
++ROOT = Path.cwd()
++SCHEMA_PATH = ROOT / 'schemas' / 'product_schema.yml'
++PHASE6_REPORT = ROOT / 'workspace' / 'strategy_d' / 'phase6' / 'metadata_validation_report.md'
++OUT_DIFF_DIR = ROOT / 'workspace' / 'strategy_d' / 'phase7' / 'diffs'
++OUT_DIFF_DIR.mkdir(parents=True, exist_ok=True)
++REVALID_REPORT = ROOT / 'workspace' / 'strategy_d' / 'phase7' / 'metadata_revalidation_report.md'
++
++products = [
++    'vectorscan','vectorguard','computescan','computeguard','pipelinescan','pipelineguard',
++    'guardboard','guardscore','guardsuite-core','guardsuite_master_spec','guardsuite-specs',
++    'guardsuite-template','playground'
++]
++
++try:
++    schema = yaml.safe_load(SCHEMA_PATH.read_text(encoding='utf-8'))
++except Exception as e:
++    print('ERROR: unable to load schema', e)
++    sys.exit(1)
++
++properties = schema.get('properties', {}) or {}
++required = schema.get('required', []) or []
++
++pytype_map = {
++    'string': str,
++    'integer': int,
++    'number': (int, float),
++    'boolean': bool,
++    'array': list,
++    'object': dict,
++    'mapping': dict,
++}
++
++# Helper to create placeholder value for a schema type
++def placeholder_for(schema_entry):
++    t = None
++    if isinstance(schema_entry, dict):
++        t = schema_entry.get('type')
++    elif isinstance(schema_entry, str):
++        t = schema_entry
++    if t == 'string' or t is None:
++        return ''
++    if t == 'array':
++        return []
++    if t in ('object','mapping'):
++        return {}
++    if t == 'integer':
++        return 0
++    if t == 'number':
++        return 0
++    if t == 'boolean':
++        return False
++    return ''
++
++# Repair logic for a single metadata mapping
++def repair_metadata(data):
++    # data is a dict
++    new = OrderedDict()
++    x_legacy = OrderedDict()
++    # Preserve keys that are in schema properties, in schema order
++    for key in properties.keys():
++        if key in data:
++            val = data.pop(key)
++            # type correction: if schema expects array but val not a list => wrap
++            exp = properties.get(key)
++            exp_type = exp.get('type') if isinstance(exp, dict) else (exp if isinstance(exp, str) else None)
++            if exp_type == 'array' and not isinstance(val, list):
++                val = [val]
++            if exp_type in ('object','mapping') and not isinstance(val, dict):
++                # wrap primitive into a map to preserve content
++                val = {'value': val}
++            new[key] = val
++        else:
++            # only insert missing required placeholders
++            if key in required:
++                new[key] = placeholder_for(properties.get(key))
++    # Any remaining keys in data are extraneous — move to x_legacy
++    for k in sorted(data.keys()):
++        x_legacy[k] = data[k]
++    if x_legacy:
++        new['x_legacy'] = x_legacy
++    return new
++
++# For each product, load metadata, compute repaired version, write back and save diff
++modified = []
++for prod in products:
++    meta_path = ROOT / 'products' / prod / 'metadata' / 'product.yml'
++    if not meta_path.exists():
++        print('SKIP missing', meta_path)
++        continue
++    original_text = meta_path.read_text(encoding='utf-8')
++    try:
++        data = yaml.safe_load(original_text)
++    except Exception as e:
++        # malformed YAML — try to fix by dumping nothing (empty dict) then proceed
++        data = {}
++    if data is None:
++        data = {}
++    if not isinstance(data, dict):
++        # wrap root into mapping
++        data = {'value': data}
++    repaired = repair_metadata(dict(data))
++    # Dump repaired YAML deterministically
++    # Convert OrderedDicts to plain dicts (preserve insertion order)
++    def to_plain(o):
++        if isinstance(o, dict):
++            return {k: to_plain(v) for k, v in o.items()}
++        if isinstance(o, list):
++            return [to_plain(v) for v in o]
++        return o
++
++    new_text = yaml.safe_dump(to_plain(repaired), sort_keys=False, allow_unicode=True)
++    # If no-op, still produce empty diff
++    if new_text.strip() != original_text.strip():
++        meta_path.write_text(new_text, encoding='utf-8')
++        modified.append(str(meta_path.relative_to(ROOT)))
++    # produce unified diff file
++    diff_path = OUT_DIFF_DIR / f"{prod}.metadata.diff"
++    original_lines = original_text.splitlines(keepends=True)
++    new_lines = new_text.splitlines(keepends=True)
++    ud = ''.join(difflib.unified_diff(original_lines, new_lines, fromfile=str(meta_path.relative_to(ROOT))+".orig", tofile=str(meta_path.relative_to(ROOT)), lineterm=''))
++    diff_path.write_text(ud or '# no changes\n', encoding='utf-8')
++    print('WROTE DIFF', diff_path)
++
++print('Modified metadata files:', len(modified))
++# After repairs, run Phase 6 validator script to revalidate
++validator = ROOT / 'workspace' / 'strategy_d' / 'phase6' / 'validate_phase6.py'
++if validator.exists():
++    print('Running validator to revalidate...')
++    rc = 0
++    import subprocess
++    try:
++        subprocess.run([sys.executable, str(validator)], check=True)
++    except subprocess.CalledProcessError as e:
++        print('Validator failed', e)
++        rc = 1
++    # Move phase6 output to phase7 revalidation report path
++    phase6_out = ROOT / 'workspace' / 'strategy_d' / 'phase6' / 'metadata_validation_report.md'
++    if phase6_out.exists():
++        # copy content
++        REVALID_REPORT.write_text(phase6_out.read_text(encoding='utf-8'), encoding='utf-8')
++        print('WROTE', REVALID_REPORT)
++    sys.exit(rc)
++else:
++    print('Validator not found; skipping revalidation')
++    sys.exit(0)

@@ -1,0 +1,8 @@
+diff --git a/products/pipelinescan/metadata/iconic_findings.txt b/products/pipelinescan/metadata/iconic_findings.txt
+new file mode 100644
+index 0000000..87656b8
+--- /dev/null
++++ b/products/pipelinescan/metadata/iconic_findings.txt
+@@ -0,0 +1 @@
++Actions permission warning: write-all access detected
+\ No newline at end of file

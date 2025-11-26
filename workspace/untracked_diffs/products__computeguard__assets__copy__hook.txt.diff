@@ -1,0 +1,8 @@
+diff --git a/products/computeguard/assets/copy/hook.txt b/products/computeguard/assets/copy/hook.txt
+new file mode 100644
+index 0000000..f50d7b1
+--- /dev/null
++++ b/products/computeguard/assets/copy/hook.txt
+@@ -0,0 +1 @@
++Enforce FinOps-grade compute governance.
+\ No newline at end of file
