@@ -1,0 +1,307 @@
+From 30779d079e04b84e2e0be437add42fb59386dc11 Mon Sep 17 00:00:00 2001
+From: Deon Prinsloo <deon@shieldcraft-ai.com>
+Date: Thu, 27 Nov 2025 10:55:43 +0200
+Subject: [PATCH] Phase-5 pilot: promote computeguard schema, update base rule,
+ scaffold adapters
+
+---
+ ai_reports/snapshot_status.md                 | 46 ++++++++++++++++
+ ai_reports/test_coverage.txt                  | 52 +++++++++++++++++++
+ ai_reports/test_results.xml                   |  1 +
+ products/computeguard/rules/00_base_rule.yml  |  9 ++++
+ products/computeguard/schema.yml              | 21 ++++++++
+ strategy_e/adapters/__init__.py               |  3 ++
+ strategy_e/adapters/computeguard_adapter.py   | 20 +++++++
+ strategy_e/adapters/pipeline_adapter.py       | 46 ++++++++++++++++
+ .../tests/test_computeguard_adapter.py        |  8 +++
+ .../adapters/tests/test_pipeline_adapter.py   |  8 +++
+ 10 files changed, 214 insertions(+)
+ create mode 100644 ai_reports/snapshot_status.md
+ create mode 100644 ai_reports/test_coverage.txt
+ create mode 100644 ai_reports/test_results.xml
+ create mode 100644 products/computeguard/rules/00_base_rule.yml
+ create mode 100644 products/computeguard/schema.yml
+ create mode 100644 strategy_e/adapters/__init__.py
+ create mode 100644 strategy_e/adapters/computeguard_adapter.py
+ create mode 100644 strategy_e/adapters/pipeline_adapter.py
+ create mode 100644 strategy_e/adapters/tests/test_computeguard_adapter.py
+ create mode 100644 strategy_e/adapters/tests/test_pipeline_adapter.py
+
+diff --git a/ai_reports/snapshot_status.md b/ai_reports/snapshot_status.md
+new file mode 100644
+index 0000000..81888c8
+--- /dev/null
++++ b/ai_reports/snapshot_status.md
+@@ -0,0 +1,46 @@
++# Snapshot / Test Impact Status
++
++Generated: 2025-11-27T06:05:10Z
++
++## Git status lines (filtered)
++
++### Relevant porcelain lines before tests
++```
++ M .github/copilot-instructions.md
++ D products/tree.txt
++?? ai_reports/
++?? architect/
++?? workspace_strategy_d_phase13_diffs.zip
++```
++
++### Relevant porcelain lines after tests
++```
++ M .github/copilot-instructions.md
++ D products/tree.txt
++?? .coverage
++?? ai_reports/
++?? architect/
++?? strategy_e/pipeline/results/backups/sample.yml.backup.20251127T060453Z.yml
++?? strategy_e/pipeline/results/backups/sample.yml.backup.20251127T060506Z.yml
++?? workspace_strategy_d_phase13_diffs.zip
++```
++
++## Files that appeared/changed as a result of running the tests
++
++The following untracked files were created during the test run and are likely test artifacts (not committed):
++
++- `.coverage` (coverage data file)
++- `strategy_e/pipeline/results/backups/sample.yml.backup.20251127T060453Z.yml`
++- `strategy_e/pipeline/results/backups/sample.yml.backup.20251127T060506Z.yml`
++
++These indicate no tracked snapshot files were updated by the test run (no entries modifying files under `tests/snapshots/` or canonical snapshot directories).
++
++## Files that *would* change if `pytest --update-snapshots` were run
++
++No snapshot updates would be performed by the tests as executed (no tests failed that expect snapshot updates). To determine snapshot changes under `--update-snapshots`, run the update command in a temporary branch and review `git status` after the run.
++
++## Notes
++
++- This file was generated without modifying any repository files outside `ai_reports/`.
++- The listed backup files in `strategy_e/pipeline/results/backups/` are untracked backups produced by test fixtures; they are not part of product artifacts.
++- Manually inspect these artifacts and remove if undesired.
+diff --git a/ai_reports/test_coverage.txt b/ai_reports/test_coverage.txt
+new file mode 100644
+index 0000000..d12de3d
+--- /dev/null
++++ b/ai_reports/test_coverage.txt
+@@ -0,0 +1,52 @@
++Name                                                                     Stmts   Miss  Cover   Missing
++------------------------------------------------------------------------------------------------------
++/tmp/pytest-of-dee/pytest-1/test_rules_apply_in_order0/rules/a_rule.py       2      0   100%
++/tmp/pytest-of-dee/pytest-1/test_rules_apply_in_order0/rules/b_rule.py       2      0   100%
++api/__init__.py                                                              2      0   100%
++api/app.py                                                                  12      7    42%   12-22
++api/bootstrap_api.py                                                        23      6    74%   13, 25-28, 39
++api/bootstrap_generator.py                                                  28      0   100%
++api/ci_integration.py                                                       40     26    35%   25-29, 35-39, 43-45, 51-74
++api/config.py                                                                4      1    75%   9
++api/db.py                                                                   11      2    82%   19-20
++api/products.py                                                             19     13    32%   9, 13-14, 18-21, 25-30
++api/routes.py                                                                6      0   100%
++api/validate.py                                                             20     15    25%   17-40
++api/webhook_ingest.py                                                       19     15    21%   7-29
++strategy_e/pipeline/executor/pipeline_executor.py                           46     17    63%   28, 32-33, 38-42, 49-51, 57-58, 65-66, 76-77
++strategy_e/pipeline/executor/repair_steps.py                                25     12    52%   25-35, 38-39
++strategy_e/pipeline/results/backup_utils.py                                 13      0   100%
++strategy_e/pipeline/results/diff_utils.py                                    6      0   100%
++strategy_e/validators/__init__.py                                            0      0   100%
++strategy_e/validators/rule_spec_validator.py                                90     30    67%   27-28, 37, 51-52, 56, 62, 65, 71, 75, 84, 87-91, 100, 103-107, 116, 119-123, 134, 140-143
++tests/__init__.py                                                            0      0   100%
++tests/strategy_e/test_rule_spec_validator.py                                11      0   100%
++tests/strategy_e/test_rule_spec_validator_strict.py                         17      0   100%
++tests/test_bootstrap_generator.py                                           49      0   100%
++tests/test_drift_forecast_engine.py                                         44      0   100%
++tests/test_drift_forecast_regression_guard.py                               37      0   100%
++tests/test_markdown_normalization.py                                        18      0   100%
++tests/test_pipeline_backup_dir.py                                           19      0   100%
++tests/test_pipeline_backups_and_dryrun.py                                   18      0   100%
++tests/test_product_metadata_contract_v2.py                                  83      4    95%   126-129
++tests/test_product_runtime_contracts.py                                     80      8    90%   31, 46, 56-59, 65-70
++tests/test_product_schema_contract.py                                       68      6    91%   15, 17, 20, 23, 58, 77
++tests/test_product_semantics.py                                             29      3    90%   28, 39, 47
++tests/test_release_metadata.py                                              28      1    96%   28
++tests/test_repair_runner.py                                                 17      0   100%
++tests/test_repair_runner_dir.py                                             23      0   100%
++tests/test_rules_apply_in_order.py                                          23      0   100%
++tests/test_template_field_coverage.py                                       39      2    95%   91, 147
++tests/test_yaml_normalization_roundtrip.py                                  24      1    96%   30
++tests/test_yaml_validity.py                                                 66      6    91%   47, 61, 94-95, 99, 110
++tests/utils.py                                                              33      2    94%   32, 35
++tools/drift_forecast_engine.py                                             143     38    73%   26-27, 32, 45, 67, 150, 180-202, 206-217, 221
++tools/repair_rules/normalize_checklist_structure.py                         18      4    78%   14, 24, 30-31
++tools/repair_rules/normalize_markdown_formatting.py                          3      0   100%
++tools/repair_rules/normalize_metadata_structure.py                          10      3    70%   15, 19-20
++tools/repair_rules/sample_rule.py                                            9      1    89%   17
++tools/repair_runner.py                                                     113     41    64%   30, 33, 46, 80, 86, 107-118, 130, 132, 140-141, 146-173, 177
++validation/__init__.py                                                       0      0   100%
++validation/validator.py                                                     26     12    54%   25-29, 33-39
++------------------------------------------------------------------------------------------------------
++TOTAL                                                                     1416    276    81%
+diff --git a/ai_reports/test_results.xml b/ai_reports/test_results.xml
+new file mode 100644
+index 0000000..51aea74
+--- /dev/null
++++ b/ai_reports/test_results.xml
+@@ -0,0 +1 @@
++<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="46" time="0.548" timestamp="2025-11-27T08:04:53.265286+02:00" hostname="dee-pc"><testcase classname="tests.strategy_e.test_rule_spec_validator" name="test_base_rule_spec_valid" time="0.003" /><testcase classname="tests.strategy_e.test_rule_spec_validator" name="test_validator_detects_missing_fields" time="0.003" /><testcase classname="tests.strategy_e.test_rule_spec_validator_strict" name="test_strict_valid_spec_passes" time="0.002" /><testcase classname="tests.strategy_e.test_rule_spec_validator_strict" name="test_invalid_rule_id_fails" time="0.002" /><testcase classname="tests.strategy_e.test_rule_spec_validator_strict" name="test_missing_outputs_fields" time="0.003" /><testcase classname="tests.test_bootstrap_generator" name="test_generate_bootstrap_creates_artifact" time="0.002" /><testcase classname="tests.test_bootstrap_generator" name="test_create_bootstrap_requires_product" time="0.002" /><testcase classname="tests.test_bootstrap_generator" name="test_list_bootstraps_returns_sorted_artifacts" time="0.002" /><testcase classname="tests.test_drift_forecast_engine" name="test_moving_average_basic" time="0.001" /><testcase classname="tests.test_drift_forecast_engine" name="test_linear_regression_predict_simple" time="0.000" /><testcase classname="tests.test_drift_forecast_engine" name="test_exponential_smoothing_predict" time="0.000" /><testcase classname="tests.test_drift_forecast_engine" name="test_ensemble_prediction_behaviour" time="0.000" /><testcase classname="tests.test_drift_forecast_regression_guard" name="test_regression_guard_matches_forecast_file" time="0.004" /><testcase classname="tests.test_markdown_normalization" name="test_markdown_normalization" time="0.017" /><testcase classname="tests.test_pipeline_backup_dir" name="test_backup_written_to_custom_dir" time="0.005" /><testcase classname="tests.test_pipeline_backup_dir" name="test_backup_dir_not_used_in_dry_run" time="0.001" /><testcase classname="tests.test_pipeline_backups_and_dryrun" name="test_dry_run_produces_no_backup" time="0.001" /><testcase classname="tests.test_pipeline_backups_and_dryrun" name="test_real_run_creates_backup_and_changes_file" time="0.003" /><testcase classname="tests.test_product_metadata_contract_v2" name="test_marketing_sections_have_content[product_index]" time="0.001" /><testcase classname="tests.test_product_metadata_contract_v2" name="test_marketing_ctas_have_valid_hyperlinks[product_index]" time="0.001" /><testcase classname="tests.test_product_metadata_contract_v2" name="test_release_notes_url_matches_product_identity[product_index]" time="0.001" /><testcase classname="tests.test_product_metadata_contract_v2" name="test_maintainers_contacts_are_emails[product_index]" time="0.001" /><testcase classname="tests.test_product_metadata_contract_v2" name="test_governance_domains_have_minimum_entries[product_index]" time="0.001" /><testcase classname="tests.test_product_metadata_contract_v2" name="test_features_have_unique_and_well_formed_ids[product_index]" time="0.001" /><testcase classname="tests.test_product_metadata_contract_v2" name="test_security_contract_has_required_booleans[product_index]" time="0.000" /><testcase classname="tests.test_product_metadata_contract_v2" name="test_fixpack_hint_format_contains_issue_placeholder[product_index]" time="0.000" /><testcase classname="tests.test_product_metadata_contract_v2" name="test_related_products_reference_known_ids[product_index]" time="0.000" /><testcase classname="tests.test_product_runtime_contracts" name="test_cli_base_command_matches_product_id[product_index]" time="0.001" /><testcase classname="tests.test_product_runtime_contracts" name="test_cli_scan_command_aligns_with_base_command[product_index]" time="0.001" /><testcase classname="tests.test_product_runtime_contracts" name="test_cli_supported_flags_include_json[product_index]" time="0.001" /><testcase classname="tests.test_product_runtime_contracts" name="test_api_rest_endpoint_uses_https[product_index]" time="0.001" /><testcase classname="tests.test_product_runtime_contracts" name="test_performance_constraints_have_positive_targets[product_index]" time="0.001" /><testcase classname="tests.test_product_runtime_contracts" name="test_guardscore_severity_penalties_descend[product_index]" time="0.001" /><testcase classname="tests.test_product_runtime_contracts" name="test_playground_integration_declares_wasm_safety[product_index]" time="0.001" /><testcase classname="tests.test_product_runtime_contracts" name="test_guardboard_integration_declares_badge_controls[product_index]" time="0.001" /><testcase classname="tests.test_product_schema_contract" name="test_yaml_schema_contract_is_consistent" time="0.023" /><testcase classname="tests.test_product_semantics" name="test_compliance_and_purpose_alignment" time="0.022" /><testcase classname="tests.test_release_metadata" name="test_release_metadata_is_consistent" time="0.022" /><testcase classname="tests.test_repair_runner" name="test_normalize_and_diff" time="0.003" /><testcase classname="tests.test_repair_runner_dir" name="test_run_directory_dryrun_creates_diffs" time="0.005" /><testcase classname="tests.test_rules_apply_in_order" name="test_rules_apply_in_order" time="0.002" /><testcase classname="tests.test_template_field_coverage" name="test_required_fields_have_template_references" time="0.004" /><testcase classname="tests.test_template_field_coverage" name="test_templates_do_not_reference_removed_fields" time="0.001" /><testcase classname="tests.test_template_field_coverage" name="test_all_product_yaml_fields_are_known" time="0.023" /><testcase classname="tests.test_yaml_normalization_roundtrip" name="test_yaml_normalization_roundtrip" time="0.004" /><testcase classname="tests.test_yaml_validity" name="test_all_yaml_files_parse_and_contain_required_keys" time="0.023" /></testsuite></testsuites>
+\ No newline at end of file
+diff --git a/products/computeguard/rules/00_base_rule.yml b/products/computeguard/rules/00_base_rule.yml
+new file mode 100644
+index 0000000..3147ae1
+--- /dev/null
++++ b/products/computeguard/rules/00_base_rule.yml
+@@ -0,0 +1,9 @@
++id: "base-rule"
++name: "Base Rule Template"
++description: "Product base rule template — replace placeholders when adding concrete rules."
++severity: "medium"
++remediation_hint: "Add remediation steps specific to the product and configuration."
++remediation_difficulty: "medium"
++created_by: "automation@guardsuite"
++last_reviewed: "2025-11-27"
++tags: []
+diff --git a/products/computeguard/schema.yml b/products/computeguard/schema.yml
+new file mode 100644
+index 0000000..76b35d8
+--- /dev/null
++++ b/products/computeguard/schema.yml
+@@ -0,0 +1,21 @@
++plan_id: "computeguard-default-plan"
++schema_version: "0.1.0"
++resources:
++  - id: "sample-1"
++    name: "sample-resource"
++    type: "text"
++    content: |
++      example line 1
++      example line 2
++metadata:
++  source: "ai_reports/schema_templates/computeguard.schema.yml"
++  ingested_at: "2025-11-27T14:30:00Z"
++  template_version: "0.1.0"
++  schema_version: "0.1.0"
++  rule_count: 0
++  severity_totals: {}
++  quick_score_mode: ""
++  plan_size_bytes: 0
++notes:
++  - "Promoted from ai_reports/schema_templates/computeguard.schema.yml as part of Phase-5 pilot."
++  - "Replace sample resource with real product data before operational use."
+diff --git a/strategy_e/adapters/__init__.py b/strategy_e/adapters/__init__.py
+new file mode 100644
+index 0000000..27c60aa
+--- /dev/null
++++ b/strategy_e/adapters/__init__.py
+@@ -0,0 +1,3 @@
++"""Adapters package for Strategy E evaluators."""
++
++__all__ = ["pipeline_adapter", "computeguard_adapter"]
+diff --git a/strategy_e/adapters/computeguard_adapter.py b/strategy_e/adapters/computeguard_adapter.py
+new file mode 100644
+index 0000000..03274d9
+--- /dev/null
++++ b/strategy_e/adapters/computeguard_adapter.py
+@@ -0,0 +1,20 @@
++from typing import Any, Dict, Optional
++
++from strategy_e.adapters.pipeline_adapter import evaluate as pipeline_evaluate
++
++
++def evaluate(resource: Dict[str, Any], rules: Optional[Any] = None, path: Optional[str] = None, dry_run: bool = False) -> Dict[str, Any]:
++    """Computeguard-specific adapter.
++
++    Performs lightweight input validation against expected product fields, then delegates to the canonical pipeline adapter.
++    """
++    if not isinstance(resource, dict):
++        raise ValueError("resource must be a mapping type")
++
++    # Lightweight precondition: product schemas require `plan_id` and `resources`
++    if not resource.get("plan_id"):
++        raise ValueError("resource missing required field: plan_id")
++    if not resource.get("resources"):
++        raise ValueError("resource missing required field: resources")
++
++    return pipeline_evaluate(resource, rules=rules, path=path, dry_run=dry_run)
+diff --git a/strategy_e/adapters/pipeline_adapter.py b/strategy_e/adapters/pipeline_adapter.py
+new file mode 100644
+index 0000000..1d2b5e9
+--- /dev/null
++++ b/strategy_e/adapters/pipeline_adapter.py
+@@ -0,0 +1,46 @@
++from typing import Any, Dict, Optional
++
++try:
++    from strategy_e.pipeline.executor.pipeline_executor import run_pipeline_on_text
++except Exception:
++    # Fallback stub if executor not importable in this environment
++    def run_pipeline_on_text(text: str, rules, path: str = None, dry_run: bool = False, backup_dir: str = None):
++        return {
++            "normalized_text": text,
++            "validation_errors": [],
++            "repaired_text": text,
++            "diff": "",
++            "backup_path": None,
++            "dry_run": dry_run,
++        }
++
++
++def evaluate(resource: Dict[str, Any], rules: Optional[Any] = None, path: Optional[str] = None, dry_run: bool = False) -> Dict[str, Any]:
++    """Adapter that maps a resource to the canonical pipeline executor.
++
++    - Accepts a resource that may contain a `text` field or `resources` list with `content`.
++    - Calls `run_pipeline_on_text` and normalizes the response into a consistent dict.
++    """
++    text = ""
++    if isinstance(resource, dict):
++        if resource.get("text"):
++            text = resource.get("text")
++        elif resource.get("resources") and isinstance(resource.get("resources"), list):
++            first = resource.get("resources")[0]
++            text = first.get("content", "") if isinstance(first, dict) else str(first)
++        else:
++            # best-effort stringification
++            text = str(resource)
++    else:
++        text = str(resource)
++
++    result = run_pipeline_on_text(text, rules or [], path=path, dry_run=dry_run)
++
++    violations = [{"message": m} for m in result.get("validation_errors", [])]
++
++    return {
++        "violations": violations,
++        "repaired_text": result.get("repaired_text", ""),
++        "diff": result.get("diff", ""),
++        "metadata": {"dry_run": result.get("dry_run", False)},
++    }
+diff --git a/strategy_e/adapters/tests/test_computeguard_adapter.py b/strategy_e/adapters/tests/test_computeguard_adapter.py
+new file mode 100644
+index 0000000..7c5b066
+--- /dev/null
++++ b/strategy_e/adapters/tests/test_computeguard_adapter.py
+@@ -0,0 +1,8 @@
++from strategy_e.adapters.computeguard_adapter import evaluate
++
++
++def test_computeguard_adapter_basic():
++    resource = {"plan_id": "sample", "resources": [{"content": "short\nlonger line content"}]}
++    result = evaluate(resource, rules=[{"validation": {"checks": [{"type": "line_length", "max": 10}]}}], dry_run=True)
++    assert isinstance(result, dict)
++    assert "violations" in result
+diff --git a/strategy_e/adapters/tests/test_pipeline_adapter.py b/strategy_e/adapters/tests/test_pipeline_adapter.py
+new file mode 100644
+index 0000000..8e3e6ad
+--- /dev/null
++++ b/strategy_e/adapters/tests/test_pipeline_adapter.py
+@@ -0,0 +1,8 @@
++from strategy_e.adapters.pipeline_adapter import evaluate
++
++
++def test_pipeline_adapter_basic():
++    resource = {"plan_id": "test-plan", "resources": [{"content": "short\nline"}]}
++    result = evaluate(resource, rules=[{"validation": {"checks": [{"type": "line_length", "max": 120}]}}], dry_run=True)
++    assert isinstance(result, dict)
++    assert "violations" in result
+-- 
+2.43.0
+

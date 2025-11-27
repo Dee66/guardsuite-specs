@@ -4,6 +4,7 @@ from pathlib import Path
 
 def load_runner():
     import importlib.util
+
     repo_root = Path(__file__).resolve().parents[1]
     target = repo_root / "tools" / "repair_runner.py"
     spec = importlib.util.spec_from_file_location("repair_runner", str(target))

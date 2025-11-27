@@ -80,16 +80,47 @@ except Exception as e:
         f.write(str(e))
     pytest_exit = 2
 
-# Flake8 output (use existing file if present)
+# Flake8 output: always run and capture exit code and output
 flake_path = os.path.join(AI_REPORTS, "phase5_flake8_raw_after.txt")
-if not os.path.exists(flake_path):
-    try:
-        with open(flake_path, "w", encoding="utf-8") as f:
-            p = subprocess.run("flake8 . --exclude .venv", cwd=ROOT, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-            f.write(p.stdout)
-    except Exception as e:
-        with open(flake_path, "w", encoding="utf-8") as f:
-            f.write(str(e))
+try:
+    p = subprocess.run("flake8 . --exclude .venv", cwd=ROOT, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    with open(flake_path, "w", encoding="utf-8") as f:
+        f.write(p.stdout)
+    flake_exit = p.returncode
+except FileNotFoundError as e:
+    # flake8 not installed; record exit code 127 and message
+    with open(flake_path, "w", encoding="utf-8") as f:
+        f.write("flake8: command not found\n")
+    flake_exit = 127
+except subprocess.CalledProcessError as e:
+    # subprocess.run shouldn't raise here, but handle defensively
+    with open(flake_path, "w", encoding="utf-8") as f:
+        f.write(e.output if hasattr(e, 'output') else str(e))
+    flake_exit = getattr(e, 'returncode', 2)
+except Exception as e:
+    with open(flake_path, "w", encoding="utf-8") as f:
+        f.write(str(e))
+    flake_exit = 2
+
+# Also run flake8 specifically on adapters directory and capture exit code
+adapters_flake_path = os.path.join(AI_REPORTS, "adapters_flake8.txt")
+try:
+    p_ad = subprocess.run("flake8 strategy_e/adapters --max-line-length 88", cwd=ROOT, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    with open(adapters_flake_path, "w", encoding="utf-8") as f:
+        f.write(p_ad.stdout)
+    adapters_flake_exit = p_ad.returncode
+except FileNotFoundError:
+    with open(adapters_flake_path, "w", encoding="utf-8") as f:
+        f.write("flake8: command not found\n")
+    adapters_flake_exit = 127
+except subprocess.CalledProcessError as e:
+    with open(adapters_flake_path, "w", encoding="utf-8") as f:
+        f.write(e.output if hasattr(e, 'output') else str(e))
+    adapters_flake_exit = getattr(e, 'returncode', 2)
+except Exception as e:
+    with open(adapters_flake_path, "w", encoding="utf-8") as f:
+        f.write(str(e))
+    adapters_flake_exit = 2
 
 summary = {
     "generated_at": datetime.utcnow().isoformat()+"Z",
@@ -100,6 +131,9 @@ summary = {
     "pytest_summary": os.path.relpath(pytest_out_path, ROOT),
     "pytest_exit_code": pytest_exit,
     "flake8_summary": os.path.relpath(flake_path, ROOT),
+    "flake8_exit_code": flake_exit,
+    "adapters_flake8_summary": os.path.relpath(adapters_flake_path, ROOT),
+    "adapters_flake8_exit_code": adapters_flake_exit,
 }
 
 with open(os.path.join(AI_REPORTS, "evidence_summary.json"), "w", encoding="utf-8", newline="\n") as f:

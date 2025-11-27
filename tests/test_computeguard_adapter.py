@@ -8,13 +8,7 @@ def test_computeguard_adapter_basic():
     }
     result = evaluate(
         resource,
-        rules=[
-            {
-                "validation": {
-                    "checks": [{"type": "line_length", "max": 10}]
-                }
-            }
-        ],
+        rules=[{"validation": {"checks": [{"type": "line_length", "max": 10}]}}],
         dry_run=True,
     )
     assert isinstance(result, dict)

@@ -10,6 +10,7 @@ If --new is a checksums.json file, it will be read directly.
 
 Outputs a JSON report listing added/removed/changed/unchanged files.
 """
+
 import argparse
 import hashlib
 import json
@@ -19,24 +20,24 @@ import sys
 
 
 def load_checksums(path: Path):
-    with path.open('r', encoding='utf-8') as f:
+    with path.open("r", encoding="utf-8") as f:
         data = json.load(f)
-    return data.get('files', {})
+    return data.get("files", {})
 
 
 def compute_checksums_for_repo(root: Path):
     # Collect candidate files under the repo matching the canonical areas
     patterns = [
-        'canonical_state/guard_suite_state.json',
-        'validation_integrity_snapshot/*.json',
-        'validation_integrity_snapshot/*.md',
-        'products/*/metadata/product.yml',
-        'products/*/checklist/checklist.yml',
-        'rule_specs/**/*.yml',
-        'products/*/assets/copy/demo/plan_bad.json',
-        'products/*/assets/copy/demo/plan_guard.json',
-        'products/*/assets/copy/demo/demo_version.yml',
-        'products/*/assets/copy/repro_notes.md',
+        "canonical_state/guard_suite_state.json",
+        "validation_integrity_snapshot/*.json",
+        "validation_integrity_snapshot/*.md",
+        "products/*/metadata/product.yml",
+        "products/*/checklist/checklist.yml",
+        "rule_specs/**/*.yml",
+        "products/*/assets/copy/demo/plan_bad.json",
+        "products/*/assets/copy/demo/plan_guard.json",
+        "products/*/assets/copy/demo/demo_version.yml",
+        "products/*/assets/copy/repro_notes.md",
     ]
     files = set()
     for pat in patterns:
@@ -53,8 +54,8 @@ def compute_checksums_from_list(root: Path, relpaths):
         p = root / rel
         if p.exists() and p.is_file():
             h = hashlib.sha256()
-            with p.open('rb') as fh:
-                for chunk in iter(lambda: fh.read(8192), b''):
+            with p.open("rb") as fh:
+                for chunk in iter(lambda: fh.read(8192), b""):
                     h.update(chunk)
             out[rel] = h.hexdigest()
         else:
@@ -95,20 +96,20 @@ def make_report(ref_checks, new_checks):
     score = int((unchanged_count / total) * 100) if total > 0 else 100
 
     report = {
-        'timestamp': datetime.now(timezone.utc).isoformat(),
-        'summary': {
-            'total_paths': total,
-            'added': len(added),
-            'removed': len(removed),
-            'changed': len(changed),
-            'unchanged': len(unchanged),
-            'drift_score': score,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "summary": {
+            "total_paths": total,
+            "added": len(added),
+            "removed": len(removed),
+            "changed": len(changed),
+            "unchanged": len(unchanged),
+            "drift_score": score,
         },
-        'details': {
-            'added': sorted(added),
-            'removed': sorted(removed),
-            'changed': sorted(changed),
-            'unchanged': sorted(unchanged),
+        "details": {
+            "added": sorted(added),
+            "removed": sorted(removed),
+            "changed": sorted(changed),
+            "unchanged": sorted(unchanged),
         },
     }
     return report
@@ -116,42 +117,44 @@ def make_report(ref_checks, new_checks):
 
 def write_json(path: Path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open('w', encoding='utf-8', newline='\n') as f:
+    with path.open("w", encoding="utf-8", newline="\n") as f:
         json.dump(data, f, indent=2, ensure_ascii=False, sort_keys=True)
 
 
 def write_markdown(path: Path, report):
-    ts = report.get('timestamp')
+    ts = report.get("timestamp")
     lines = []
-    lines.append('# GuardSuite Drift Report')
-    lines.append(f'**Generated:** {ts}')
-    lines.append('')
-    lines.append('## Summary')
-    s = report['summary']
+    lines.append("# GuardSuite Drift Report")
+    lines.append(f"**Generated:** {ts}")
+    lines.append("")
+    lines.append("## Summary")
+    s = report["summary"]
     lines.append(f"- Total paths considered: {s['total_paths']}")
     lines.append(f"- Added: {s['added']}")
     lines.append(f"- Removed: {s['removed']}")
     lines.append(f"- Changed: {s['changed']}")
     lines.append(f"- Unchanged: {s['unchanged']}")
     lines.append(f"- Drift score: {s['drift_score']}/100")
-    lines.append('')
-    lines.append('See `drift_report.json` for machine-readable details.')
+    lines.append("")
+    lines.append("See `drift_report.json` for machine-readable details.")
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open('w', encoding='utf-8', newline='\n') as f:
-        f.write('\n'.join(lines) + '\n')
+    with path.open("w", encoding="utf-8", newline="\n") as f:
+        f.write("\n".join(lines) + "\n")
 
 
 def main(argv):
-    ap = argparse.ArgumentParser(description='Drift comparison engine')
-    ap.add_argument('--ref', required=True, help='Reference checksums.json')
-    ap.add_argument('--new', required=True, help='New path (dir) or checksums.json file')
-    ap.add_argument('--out', required=True, help='Output JSON file')
+    ap = argparse.ArgumentParser(description="Drift comparison engine")
+    ap.add_argument("--ref", required=True, help="Reference checksums.json")
+    ap.add_argument(
+        "--new", required=True, help="New path (dir) or checksums.json file"
+    )
+    ap.add_argument("--out", required=True, help="Output JSON file")
     args = ap.parse_args(argv)
 
-    root = Path('.').resolve()
+    root = Path(".").resolve()
     ref_path = Path(args.ref)
     if not ref_path.exists():
-        print('Reference checksums file not found:', ref_path, file=sys.stderr)
+        print("Reference checksums file not found:", ref_path, file=sys.stderr)
         return 2
     ref_checks = load_checksums(ref_path)
 
@@ -166,11 +169,11 @@ def main(argv):
     outpath = Path(args.out)
     write_json(outpath, report)
     # also write a markdown companion
-    mdpath = outpath.parent / 'drift_report.md'
+    mdpath = outpath.parent / "drift_report.md"
     write_markdown(mdpath, report)
-    print('WROTE', outpath, 'and', mdpath)
+    print("WROTE", outpath, "and", mdpath)
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     raise SystemExit(main(sys.argv[1:]))

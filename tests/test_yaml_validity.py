@@ -21,10 +21,22 @@ STRICT_KEYS = {
     "release_metadata",
     "references",
 }
-ALLOWED_PRODUCT_TYPES = {"free_scanner", "paid_blueprint", "scoring_engine", "core", "experience", "spec_index"}
+ALLOWED_PRODUCT_TYPES = {
+    "free_scanner",
+    "paid_blueprint",
+    "scoring_engine",
+    "core",
+    "experience",
+    "spec_index",
+}
+
 
 def _product_spec_paths():
-    excluded = {"guardsuite_master_spec.yml", "guardsuite-template.yml", "pillar-template.yml"}
+    excluded = {
+        "guardsuite_master_spec.yml",
+        "guardsuite-template.yml",
+        "pillar-template.yml",
+    }
     return [
         p
         for p in PRODUCTS.glob("*.yml")
@@ -40,7 +52,9 @@ def test_all_yaml_files_parse_and_contain_required_keys():
     for file in yaml_files:
         text = file.read_text(encoding="utf-8")
         assert "\t" not in text, f"Tabs detected in {file}"
-        assert "example.com" not in text.lower(), f"Forbidden domain example.com in {file}"
+        assert "example.com" not in text.lower(), (
+            f"Forbidden domain example.com in {file}"
+        )
 
         data = yaml.safe_load(text)
         if data is None:
@@ -52,7 +66,9 @@ def test_all_yaml_files_parse_and_contain_required_keys():
             if key == "features":
                 assert isinstance(data[key], list), f"features must be a list in {file}"
             elif key == "maintainers":
-                assert isinstance(data[key], list) and data[key], f"maintainers must be a non-empty list in {file}"
+                assert isinstance(data[key], list) and data[key], (
+                    f"maintainers must be a non-empty list in {file}"
+                )
             else:
                 assert data[key], f"{key} missing or empty in {file}"
 
@@ -67,17 +83,31 @@ def test_all_yaml_files_parse_and_contain_required_keys():
 
         assert data["id"], f"id missing or empty in {file}"
         assert data["name"], f"name missing or empty in {file}"
-        assert data["pillar"] in ["vector", "compute", "pipeline", "crosscut", "ui"], f"Invalid pillar value in {file}"
-        assert data["product_type"] in ALLOWED_PRODUCT_TYPES, f"Invalid product_type in {file}"
+        assert data["pillar"] in [
+            "vector",
+            "compute",
+            "pipeline",
+            "crosscut",
+            "ui",
+        ], f"Invalid pillar value in {file}"
+        assert data["product_type"] in ALLOWED_PRODUCT_TYPES, (
+            f"Invalid product_type in {file}"
+        )
 
         version = str(data["version"])
         assert version.replace(".", "").isdigit(), f"Invalid version format in {file}"
 
         features = data["features"]
-        assert isinstance(features, list) and features, f"Features must be a non-empty list in {file}"
+        assert isinstance(features, list) and features, (
+            f"Features must be a non-empty list in {file}"
+        )
         for feature in features:
-            assert {"id", "title", "summary"} <= set(feature.keys()), f"Incomplete feature entry in {file}"
-            assert isinstance(feature.get("included"), bool), f"Feature included flag must be bool in {file}"
+            assert {"id", "title", "summary"} <= set(feature.keys()), (
+                f"Incomplete feature entry in {file}"
+            )
+            assert isinstance(feature.get("included"), bool), (
+                f"Feature included flag must be bool in {file}"
+            )
 
         release = data["release_metadata"]
         assert release["release_notes_url"].startswith("https://shieldcraft-ai.com/"), (
@@ -86,26 +116,43 @@ def test_all_yaml_files_parse_and_contain_required_keys():
 
         references = data["references"]
         canonical_schema = references.get("canonical_schema", "")
-        assert canonical_schema.endswith(".json"), f"Canonical schema reference must be a JSON path in {file}"
+        assert canonical_schema.endswith(".json"), (
+            f"Canonical schema reference must be a JSON path in {file}"
+        )
 
         fixpack = data["fixpack"]
-        assert isinstance(fixpack.get("included"), bool), f"fixpack.included must be bool in {file}"
+        assert isinstance(fixpack.get("included"), bool), (
+            f"fixpack.included must be bool in {file}"
+        )
         if fixpack["included"]:
-            assert fixpack.get("fixpack_folder"), f"fixpack_folder required when fixpack is included in {file}"
-            assert fixpack.get("snippet_count", 0) > 0, f"snippet_count must be positive when fixpack included in {file}"
+            assert fixpack.get("fixpack_folder"), (
+                f"fixpack_folder required when fixpack is included in {file}"
+            )
+            assert fixpack.get("snippet_count", 0) > 0, (
+                f"snippet_count must be positive when fixpack included in {file}"
+            )
 
         compliance = data["compliance"]
         if compliance.get("compliance_ledger_enabled"):
-            assert compliance.get("ledger_visibility") in {"full", "partial", "summary_only"}, (
+            assert compliance.get("ledger_visibility") in {
+                "full",
+                "partial",
+                "summary_only",
+            }, (
                 f"ledger_visibility must be full|partial|summary_only when ledger enabled in {file}"
             )
 
         cli = data["cli"]
         assert cli.get("base_command"), f"base_command missing in {file}"
         if data.get("pillar") == "crosscut":
-            assert cli.get("scan_command") in (None, ""), f"Crosscut products should not define scan_command in {file}"
+            assert cli.get("scan_command") in (
+                None,
+                "",
+            ), f"Crosscut products should not define scan_command in {file}"
             api = data.get("api")
-            assert api and api.get("rest_endpoint"), f"Crosscut products must expose api.rest_endpoint in {file}"
+            assert api and api.get("rest_endpoint"), (
+                f"Crosscut products must expose api.rest_endpoint in {file}"
+            )
         else:
             assert cli.get("scan_command"), f"scan_command missing in {file}"
 

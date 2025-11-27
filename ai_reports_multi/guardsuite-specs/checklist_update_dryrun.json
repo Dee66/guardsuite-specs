@@ -1,0 +1,12 @@
+{
+  "generated_at": "2025-11-27T16:17:29.270619Z",
+  "patch_path": "/home/dee/workspace/AI/GuardSuite/guardsuite-specs/ai_reports/checklist_patch_dryrun.patch",
+  "suggestions": {
+    "notes": [],
+    "suggested_mark_done": [
+      "PROMOTED_SCHEMA",
+      "BASE_RULE_UPDATED",
+      "PROGRESS_JSON"
+    ]
+  }
+}

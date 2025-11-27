@@ -35,9 +35,7 @@ def run_pipeline_on_text(
     for _path, rule in iterable_rules:
         for step in rule.get("normalization", {}).get("steps", []):
             if step.get("operation") == "trim_trailing_whitespace":
-                normalized = "\n".join(
-                    [ln.rstrip() for ln in normalized.splitlines()]
-                )
+                normalized = "\n".join([ln.rstrip() for ln in normalized.splitlines()])
 
     # VALIDATION (dummy, to be extended later)
     for _path, rule in iterable_rules:
@@ -46,9 +44,7 @@ def run_pipeline_on_text(
                 max_len = check.get("max", 120)
                 for idx, line in enumerate(normalized.splitlines(), start=1):
                     if len(line) > max_len:
-                        errors.append(
-                            f"Line {idx}: exceeds {max_len} characters"
-                        )
+                        errors.append(f"Line {idx}: exceeds {max_len} characters")
 
     # APPLY REPAIR STEPS
     # rules may be a mapping (from tests) or an iterable of (path, rule) tuples

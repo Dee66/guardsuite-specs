@@ -45,14 +45,18 @@ def load_canonical_schema() -> dict:
     try:
         return json.loads(CANONICAL_SCHEMA_PATH.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:  # pragma: no cover
-        raise ValueError(f"Canonical schema JSON invalid at {CANONICAL_SCHEMA_REL}: {exc}") from exc
+        raise ValueError(
+            f"Canonical schema JSON invalid at {CANONICAL_SCHEMA_REL}: {exc}"
+        ) from exc
 
 
 def iter_schema_files() -> list[Path]:
     if not SCHEMA_DIR.exists():
         return []
     return sorted(
-        p for p in SCHEMA_DIR.iterdir() if p.suffix.lower() in SCHEMA_EXTENSIONS and p.is_file()
+        p
+        for p in SCHEMA_DIR.iterdir()
+        if p.suffix.lower() in SCHEMA_EXTENSIONS and p.is_file()
     )
 
 
@@ -94,23 +98,31 @@ def validate_schema_canonical_references() -> list[str]:
             continue
         ref_properties = references_block.get("properties")
         if not isinstance(ref_properties, dict):
-            errors.append(f"{schema_path}: references block must define properties for canonical schema checks")
+            errors.append(
+                f"{schema_path}: references block must define properties for canonical schema checks"
+            )
             continue
         canonical_prop = ref_properties.get("canonical_schema")
         if not canonical_prop:
             continue
         if canonical_prop.get("type") != "string":
-            errors.append(f"{schema_path}: references.canonical_schema.type must be 'string'")
+            errors.append(
+                f"{schema_path}: references.canonical_schema.type must be 'string'"
+            )
         const_value = canonical_prop.get("const")
         if const_value != CANONICAL_SCHEMA_REL:
             errors.append(
                 f"{schema_path}: references.canonical_schema.const must equal {CANONICAL_SCHEMA_REL}"
             )
         if "enum" in canonical_prop:
-            errors.append(f"{schema_path}: references.canonical_schema must use const, not enum")
+            errors.append(
+                f"{schema_path}: references.canonical_schema must use const, not enum"
+            )
         required_refs = references_block.get("required", []) or []
         if "canonical_schema" not in required_refs:
-            errors.append(f"{schema_path}: references block must require canonical_schema")
+            errors.append(
+                f"{schema_path}: references block must require canonical_schema"
+            )
     return errors
 
 
@@ -177,7 +189,8 @@ def main() -> None:
     failures.extend(canonical_reference_errors)
     pillar_template_schema_errors = _pillar_template_schema_errors()
     failures.extend(
-        f"{PILLAR_TEMPLATE_SCHEMA_PREFIX}{detail}" for detail in pillar_template_schema_errors
+        f"{PILLAR_TEMPLATE_SCHEMA_PREFIX}{detail}"
+        for detail in pillar_template_schema_errors
     )
     if failures:
         print("Schema validation failed:")

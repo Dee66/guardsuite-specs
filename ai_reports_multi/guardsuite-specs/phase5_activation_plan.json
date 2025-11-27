@@ -1,0 +1,101 @@
+{
+  "generated_at": "2025-11-27T14:23:00Z",
+  "activation_blockers": [
+    "Promote `ai_reports/schema_templates/*` -> `products/<product>/schema.yml` (per-product schemas missing)",
+    "Update `rule_specs/*/00_base_rule.yml` to include `severity` and `remediation_hint` across product rule sets",
+    "Implement product evaluator adapters under `strategy_e/adapters/` mapping `evaluate(resource)` -> `run_pipeline_on_text`",
+    "Add minimal unit tests and CI validations for adapters and promoted schemas",
+    "Assign owners for promoted schema and rule registry updates"
+  ],
+  "activation_dependencies": {
+    "global": ["UNBLOCK-G-01"],
+    "computeguard": ["UNBLOCK-G-01","UNBLOCK-C-01","RULE-C-01","EVAL-C-01"],
+    "computescan": ["UNBLOCK-G-01","UNBLOCK-C-02","RULE-CN-01","EVAL-CN-01"],
+    "pipelineguard": ["UNBLOCK-G-01","UNBLOCK-P-02","RULE-P-01","EVAL-P-01"],
+    "pipelinescan": ["UNBLOCK-G-01","UNBLOCK-P-03","RULE-PS-01","EVAL-PS-01"],
+    "vectorguard": ["UNBLOCK-G-01","UNBLOCK-V-01","RULE-V-01","EVAL-V-01"],
+    "vectorscan": ["UNBLOCK-G-01","UNBLOCK-V-02","RULE-VS-01","EVAL-VS-01"]
+  },
+  "activation_steps_schema": [
+    {
+      "id": "SCHEMA-S1",
+      "description": "Promote per-product schema template -> `products/<product>/schema.yml`",
+      "products": ["computeguard","computescan","pipelineguard","pipelinescan","vectorguard","vectorscan"],
+      "action": "Create small product-scoped PR with template content, fill required canonical fields, add sample resource, run schema validation",
+      "validation_steps": ["Validate against guardsuite-core/canonical_schema.json","Ensure metadata.source and metadata.ingested_at set","Include sample resource for smoke test"]
+    },
+    {
+      "id": "SCHEMA-S2",
+      "description": "CI: Add schema validation job for promoted product schemas",
+      "action": "Add CI job that runs JSON/YAML schema validation on changed `products/*/schema.yml` files",
+      "validation_steps": ["Fail PR if schema validation fails"]
+    }
+  ],
+  "activation_steps_rules": [
+    {
+      "id": "RULE-R1",
+      "description": "Update base rule templates",
+      "action": "Update `rule_specs/<product>/00_base_rule.yml` to include `severity`, `remediation_hint`, `created_by`, `last_reviewed`",
+      "sequence": "early"
+    },
+    {
+      "id": "RULE-R2",
+      "description": "Add concrete example rules",
+      "action": "Add at least one concrete rule per product linking to the promoted schema fields",
+      "sequence": "mid"
+    },
+    {
+      "id": "RULE-R3",
+      "description": "Run rule registry audit",
+      "action": "Regenerate `ai_reports/rule_registry_audit.json` and ensure no template-only rule sets remain",
+      "sequence": "mid"
+    },
+    {
+      "id": "RULE-R4",
+      "description": "Integrate rule registry audits into CI",
+      "action": "Add CI check to fail PRs that leave template-only rule sets",
+      "sequence": "late"
+    }
+  ],
+  "activation_steps_evaluators": [
+    {
+      "id": "EVAL-E1",
+      "description": "Create canonical adapter (pipeline) and document adapter API",
+      "action": "Implement canonical mapping `evaluate(resource)` -> `run_pipeline_on_text` (scaffold in `strategy_e/adapters/pipeline_adapter.py`) and publish adapter API README",
+      "sequence": "early"
+    },
+    {
+      "id": "EVAL-E2",
+      "description": "Implement per-product adapters",
+      "action": "Create `strategy_e/adapters/<product>_adapter.py` modules exposing `evaluate(resource)`, validating input against promoted schema, normalizing outputs to violations + remediation_hint",
+      "sequence": "mid"
+    },
+    {
+      "id": "EVAL-E3",
+      "description": "Add adapter unit and integration tests",
+      "action": "Add unit tests that use sample resources from promoted product schemas and CI job to run them",
+      "sequence": "mid"
+    },
+    {
+      "id": "EVAL-E4",
+      "description": "Add CI job to run adapter tests",
+      "action": "Ensure adapters are validated on PRs",
+      "sequence": "late"
+    }
+  ],
+  "activation_order": [
+    "SCHEMA-S1 (promote schemas per product, single-product PRs)",
+    "SCHEMA-S2 (add CI schema validation)",
+    "EVAL-E1 (implement canonical pipeline adapter and doc)",
+    "RULE-R1 (update base rule templates across products)",
+    "RULE-R2 (add concrete product rules)",
+    "RULE-R3 (run rule registry audit)",
+    "EVAL-E2 (implement per-product adapters)",
+    "EVAL-E3 (add adapter unit/integration tests)",
+    "EVAL-E4 (add CI adapter test job)",
+    "RULE-R4 (integrate rule registry audits into CI)",
+    "Governance: Assign owners and approve PRs (final authorization)"
+  ],
+  "notes": "Activation plan is dependency-driven and prefers small, single-product PRs to reduce review friction. The canonical adapter should be implemented early to allow adapter scaffolds to call into the executor. After the listed steps and CI validations are completed, rerun Phase-3 readiness scans to confirm gate transitions and allow activation.",
+  "format": "json"
+}

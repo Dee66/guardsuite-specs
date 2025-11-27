@@ -8,13 +8,7 @@ def test_pipeline_adapter_basic():
     }
     result = evaluate(
         resource,
-        rules=[
-            {
-                "validation": {
-                    "checks": [{"type": "line_length", "max": 120}]
-                }
-            }
-        ],
+        rules=[{"validation": {"checks": [{"type": "line_length", "max": 120}]}}],
         dry_run=True,
     )
     assert isinstance(result, dict)

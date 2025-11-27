@@ -1,0 +1,14 @@
+{
+  "generated_at": "2025-11-27T16:17:29Z",
+  "repos": [
+    {
+      "collect_error": null,
+      "collected_ai_reports": true,
+      "full_audit_exit_code": 0,
+      "git_head": "52bd15b0c0aa07283cc293b0a863e005f2ae936b",
+      "repo": "/home/dee/workspace/AI/GuardSuite/guardsuite-specs",
+      "repo_name": "guardsuite-specs",
+      "scan_started_at": "2025-11-27T16:17:22Z"
+    }
+  ]
+}

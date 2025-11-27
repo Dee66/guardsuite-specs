@@ -20,7 +20,9 @@ def _hash_inputs(spec: str, checklist: str, instructions: str) -> str:
     return digest[:8]
 
 
-def generate_bootstrap(pid: str, *, persist: bool = True) -> Tuple[Dict[str, Any] | None, List[str]]:
+def generate_bootstrap(
+    pid: str, *, persist: bool = True
+) -> Tuple[Dict[str, Any] | None, List[str]]:
     db = load_db()
     product = db.get(pid)
     if not product:
@@ -51,6 +53,8 @@ def generate_bootstrap(pid: str, *, persist: bool = True) -> Tuple[Dict[str, Any
 
     if persist:
         path = BOOTSTRAP_DIR / f"{pid}.bootstrap.json"
-        path.write_text(json.dumps(artifact, indent=2, sort_keys=True), encoding="utf-8")
+        path.write_text(
+            json.dumps(artifact, indent=2, sort_keys=True), encoding="utf-8"
+        )
 
     return artifact, []

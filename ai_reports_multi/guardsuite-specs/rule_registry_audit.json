@@ -1,0 +1,160 @@
+{
+  "rules": [
+    {
+      "rule_id": "computeguard-base-00",
+      "source_file": "rule_specs/computeguard/00_base_rule.yml",
+      "source_dir": "rule_specs/computeguard",
+      "severity": null,
+      "title": null,
+      "description": "Base placeholder rule-spec for computeguard. Replace in later phases.",
+      "remediation_hint": null,
+      "remediation_difficulty": null
+    },
+    {
+      "rule_id": "computescan-base-00",
+      "source_file": "rule_specs/computescan/00_base_rule.yml",
+      "source_dir": "rule_specs/computescan",
+      "severity": null,
+      "title": null,
+      "description": "Base placeholder rule-spec for computescan. Replace in later phases.",
+      "remediation_hint": null,
+      "remediation_difficulty": null
+    },
+    {
+      "rule_id": "guardscore-base-00",
+      "source_file": "rule_specs/guardscore/00_base_rule.yml",
+      "source_dir": "rule_specs/guardscore",
+      "severity": null,
+      "title": null,
+      "description": "Base placeholder rule-spec for guardscore. Replace in later phases.",
+      "remediation_hint": null,
+      "remediation_difficulty": null
+    },
+    {
+      "rule_id": "pipelineguard-base-00",
+      "source_file": "rule_specs/pipelineguard/00_base_rule.yml",
+      "source_dir": "rule_specs/pipelineguard",
+      "severity": null,
+      "title": null,
+      "description": "Base placeholder rule-spec for pipelineguard. Replace in later phases.",
+      "remediation_hint": null,
+      "remediation_difficulty": null
+    },
+    {
+      "rule_id": "pipelinescan-base-00",
+      "source_file": "rule_specs/pipelinescan/00_base_rule.yml",
+      "source_dir": "rule_specs/pipelinescan",
+      "severity": null,
+      "title": null,
+      "description": "Base placeholder rule-spec for pipelinescan. Replace in later phases.",
+      "remediation_hint": null,
+      "remediation_difficulty": null
+    },
+    {
+      "rule_id": "vectorguard-base-00",
+      "source_file": "rule_specs/vectorguard/00_base_rule.yml",
+      "source_dir": "rule_specs/vectorguard",
+      "severity": null,
+      "title": null,
+      "description": "Base placeholder rule-spec for vectorguard. Replace in later phases.",
+      "remediation_hint": null,
+      "remediation_difficulty": null
+    },
+    {
+      "rule_id": "vectorscan-base-00",
+      "source_file": "rule_specs/vectorscan/00_base_rule.yml",
+      "source_dir": "rule_specs/vectorscan",
+      "severity": null,
+      "title": null,
+      "description": "Base placeholder rule-spec for vectorscan. Replace in later phases.",
+      "remediation_hint": null,
+      "remediation_difficulty": null
+    }
+  ],
+  "missing_fields": [
+    {
+      "file": "rule_specs/computeguard/00_base_rule.yml",
+      "issue": "missing_severity",
+      "rule_id": "computeguard-base-00"
+    },
+    {
+      "file": "rule_specs/computeguard/00_base_rule.yml",
+      "issue": "missing_remediation_hint",
+      "rule_id": "computeguard-base-00"
+    },
+    {
+      "file": "rule_specs/computescan/00_base_rule.yml",
+      "issue": "missing_severity",
+      "rule_id": "computescan-base-00"
+    },
+    {
+      "file": "rule_specs/computescan/00_base_rule.yml",
+      "issue": "missing_remediation_hint",
+      "rule_id": "computescan-base-00"
+    },
+    {
+      "file": "rule_specs/guardscore/00_base_rule.yml",
+      "issue": "missing_severity",
+      "rule_id": "guardscore-base-00"
+    },
+    {
+      "file": "rule_specs/guardscore/00_base_rule.yml",
+      "issue": "missing_remediation_hint",
+      "rule_id": "guardscore-base-00"
+    },
+    {
+      "file": "rule_specs/pipelineguard/00_base_rule.yml",
+      "issue": "missing_severity",
+      "rule_id": "pipelineguard-base-00"
+    },
+    {
+      "file": "rule_specs/pipelineguard/00_base_rule.yml",
+      "issue": "missing_remediation_hint",
+      "rule_id": "pipelineguard-base-00"
+    },
+    {
+      "file": "rule_specs/pipelinescan/00_base_rule.yml",
+      "issue": "missing_severity",
+      "rule_id": "pipelinescan-base-00"
+    },
+    {
+      "file": "rule_specs/pipelinescan/00_base_rule.yml",
+      "issue": "missing_remediation_hint",
+      "rule_id": "pipelinescan-base-00"
+    },
+    {
+      "file": "rule_specs/vectorguard/00_base_rule.yml",
+      "issue": "missing_severity",
+      "rule_id": "vectorguard-base-00"
+    },
+    {
+      "file": "rule_specs/vectorguard/00_base_rule.yml",
+      "issue": "missing_remediation_hint",
+      "rule_id": "vectorguard-base-00"
+    },
+    {
+      "file": "rule_specs/vectorscan/00_base_rule.yml",
+      "issue": "missing_severity",
+      "rule_id": "vectorscan-base-00"
+    },
+    {
+      "file": "rule_specs/vectorscan/00_base_rule.yml",
+      "issue": "missing_remediation_hint",
+      "rule_id": "vectorscan-base-00"
+    }
+  ],
+  "invalid_values": [],
+  "duplicates": [],
+  "orphans": [
+    "rule_specs/guardboard",
+    "rule_specs/guardsuite-core",
+    "rule_specs/guardsuite-specs",
+    "rule_specs/guardsuite-template",
+    "rule_specs/guardsuite_master_spec",
+    "rule_specs/playground"
+  ],
+  "notes": [
+    "Generated from ai_reports/pillar_map.json and rule_specs directories referenced.",
+    "Validation is heuristic: checks for presence and simple value validations. For canonical schema validation, run full schema validator if needed."
+  ]
+}

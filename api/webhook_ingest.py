@@ -3,6 +3,7 @@ from api.db import load_db, save_db
 
 WEBHOOK_SECRET = os.environ.get("GUARDSUITE_WEBHOOK_SECRET", "")
 
+
 def ingest_scan_result(payload, headers):
     secret = headers.get("X-Webhook-Secret")
     if secret != WEBHOOK_SECRET:
@@ -19,11 +20,13 @@ def ingest_scan_result(payload, headers):
         return {"error": "product_not_found"}
 
     product.setdefault("audit_history", [])
-    product["audit_history"].append({
-        "task_id": task_id,
-        "summary": summary,
-        "feedback_contract": contract,
-    })
+    product["audit_history"].append(
+        {
+            "task_id": task_id,
+            "summary": summary,
+            "feedback_contract": contract,
+        }
+    )
     save_db(db)
 
     return {"status": "ok"}

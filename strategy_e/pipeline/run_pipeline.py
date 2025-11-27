@@ -5,11 +5,7 @@ from strategy_e.pipeline.executor.pipeline_executor import run_pipeline_on_text
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description=(
-            "Run Strategy-E rule-spec pipeline."
-        )
-    )
+    parser = argparse.ArgumentParser(description=("Run Strategy-E rule-spec pipeline."))
     parser.add_argument("target", help="File to run pipeline on")
     parser.add_argument(
         "--rules",
@@ -25,10 +21,7 @@ def main():
         "--backup-dir",
         type=str,
         default=None,
-        help=(
-            "Optional directory to write backups instead of the default "
-            "location"
-        ),
+        help=("Optional directory to write backups instead of the default location"),
     )
     args = parser.parse_args()
 
@@ -56,10 +49,7 @@ def main():
     print("=== DIFF ===")
     print(result["diff"])
     if args.dry_run:
-        print(
-            "=== DRY RUN: No backups written, no file modifications "
-            "applied ==="
-        )
+        print("=== DRY RUN: No backups written, no file modifications applied ===")
     else:
         if result.get("backup_path"):
             print(f"Backup written to: {result['backup_path']}")

@@ -1,10 +1,4 @@
-No changes applied to `products/computeguard/checklist/checklist.md`.
-All suggested checklist IDs were either already checked or had no exact-match checklist entries.
-
-Suggested IDs processed:
-- ACC-005 (already checked)
-- PROMOTED_SCHEMA (no exact checklist line found)
-- BASE_RULE_UPDATED (no exact checklist line found)
-- PROGRESS_JSON (no exact checklist line found)
-
-If you want any of the above to be applied to specific checklist lines, provide the exact checklist ID(s) as they appear in `products/computeguard/checklist/checklist.md` and I will update them deterministically.
+Backup: /home/dee/workspace/AI/GuardSuite/guardsuite-specs/ai_reports/checklist_backups/checklist.md.backup.20251127T162525Z
+Patch: /home/dee/workspace/AI/GuardSuite/guardsuite-specs/ai_reports/checklist_patch_dryrun.patch
+Applied IDs: []
+Skipped IDs: {'ACC-005': 'no exact unchecked checklist line matched mapping tokens', 'ATU-P3-C-01': 'no exact unchecked checklist line matched mapping tokens', 'ATU-P3-C-02': 'no exact unchecked checklist line matched mapping tokens', 'ATU-P3-C-03': 'no exact unchecked checklist line matched mapping tokens', 'ATU-P3-P-01': 'no exact unchecked checklist line matched mapping tokens', 'ATU-P3-P-04': 'no exact unchecked checklist line matched mapping tokens', 'BASE_RULE_UPDATED': 'no exact unchecked checklist line matched mapping tokens', 'EVAL-C-01': 'no exact unchecked checklist line matched mapping tokens', 'EVAL-C-03': 'no exact unchecked checklist line matched mapping tokens', 'EVAL-P-01': 'no exact unchecked checklist line matched mapping tokens', 'PROGRESS_JSON': 'no exact unchecked checklist line matched mapping tokens', 'PROMOTED_SCHEMA': 'no exact unchecked checklist line matched mapping tokens', 'RULE-C-01': 'no exact unchecked checklist line matched mapping tokens'}

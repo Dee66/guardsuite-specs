@@ -1,0 +1,19 @@
+{
+  "generated_at": "2025-11-27T14:31:00Z",
+  "pilot": "Phase-5 pre-activation pilot: computeguard",
+  "changes": [
+    "products/computeguard/schema.yml (promoted from ai_reports/schema_templates/computeguard.schema.yml)",
+    "products/computeguard/rules/00_base_rule.yml (updated with severity, remediation_hint, remediation_difficulty)",
+    "strategy_e/adapters/pipeline_adapter.py (scaffolded canonical adapter)",
+    "strategy_e/adapters/computeguard_adapter.py (scaffolded product adapter)",
+    "strategy_e/adapters/tests/test_pipeline_adapter.py (unit test)",
+    "strategy_e/adapters/tests/test_computeguard_adapter.py (unit test)"
+  ],
+  "dependencies": [
+    "Ensure CI runs pytest on strategy_e/adapters/tests/ to validate adapters",
+    "Promote remaining product schemas using same pattern",
+    "Update rule_specs for other products following base rule template changes"
+  ],
+  "notes": "Created deterministic pilot artifacts and minimal test harness. These changes are PR-ready; run CI to validate and iterate. No files outside `products/` and `strategy_e/adapters/` were modified.",
+  "format": "json"
+}

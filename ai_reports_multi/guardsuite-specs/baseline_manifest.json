@@ -1,0 +1,12 @@
+{
+  "generated": "2025-11-27T06:10:29Z",
+  "branch": "main",
+  "commit": "64367e01072c5410893f659015ad6ae46683a024",
+  "file_hashes": {
+    "ai_reports/ai_report_diffs.md": "1e70bd11d599fe41b5774daa3f8af3159d0db682ab3cca6bc91caf3b961a0874",
+    "ai_reports/ai_report_latest.md": "111a79a1eda9511230195e7dcd5cd98ce758a22d5ffa4a4004fea5cc734354e5",
+    "ai_reports/snapshot_status.md": "408957bb1bebeb616ec4630790ae5a7ff206707ecf723608c17f17083481bc56",
+    "ai_reports/test_coverage.txt": "4911c2269d31c2aa553c945f4646a76858acba9813dff3128ea1593234bb414a",
+    "ai_reports/test_results.xml": "07502e1a47b90ca233867a551f0aa632c241d008e2943ad29b5b054d4345ccf7"
+  }
+}

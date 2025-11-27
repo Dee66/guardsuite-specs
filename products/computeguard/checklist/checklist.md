@@ -173,7 +173,7 @@
 - [ ] ACC-002: CLI output MUST validate against cli_output.json.
 - [ ] ACC-003: Fixpack preview MUST be deterministic across 3 runs.
 - [ ] ACC-004: Compliance ledger MUST validate schema.
- - [x] ACC-005: All unit, integration, snapshot tests MUST pass.
+- [ ] ACC-005: All unit, integration, snapshot tests MUST pass.
  - [ ] ACC-006: Performance thresholds MUST be met.
 - [ ] ACC-007: Forbidden overrides MUST not exist.
 - [ ] ACC-008: Developer docs MUST be complete and accurate.

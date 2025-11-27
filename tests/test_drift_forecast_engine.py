@@ -10,8 +10,10 @@ import importlib.util
 
 def load_tools_module():
     root = Path(__file__).resolve().parents[1]
-    mod_path = root / 'tools' / 'drift_forecast_engine.py'
-    module_spec = importlib.util.spec_from_file_location('drift_forecast_engine', str(mod_path))
+    mod_path = root / "tools" / "drift_forecast_engine.py"
+    module_spec = importlib.util.spec_from_file_location(
+        "drift_forecast_engine", str(mod_path)
+    )
     module_obj = importlib.util.module_from_spec(module_spec)
     module_spec.loader.exec_module(module_obj)
     return module_obj

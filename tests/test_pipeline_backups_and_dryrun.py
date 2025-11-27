@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from strategy_e.pipeline.executor.pipeline_executor import run_pipeline_on_text
 
+
 def test_dry_run_produces_no_backup(tmp_path):
     f = tmp_path / "sample.yml"
     f.write_text("a: 1\n", encoding="utf-8")

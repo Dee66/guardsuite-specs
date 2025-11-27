@@ -45,7 +45,13 @@ def load_yaml(path: Path) -> dict:
 
 def get_git_commit() -> str:
     try:
-        return subprocess.check_output(["git", "rev-parse", "HEAD"], stderr=subprocess.DEVNULL).decode().strip()
+        return (
+            subprocess.check_output(
+                ["git", "rev-parse", "HEAD"], stderr=subprocess.DEVNULL
+            )
+            .decode()
+            .strip()
+        )
     except Exception:
         return "unknown"
 
@@ -170,11 +176,13 @@ def resolve_related_products(product_ids: List[str]) -> List[dict]:
                 display_name = load_yaml(spec_path).get("name", pid)
             except Exception:
                 display_name = pid
-        related.append({
-            "id": pid,
-            "name": display_name,
-            "doc_path": f"{pid}.md",
-        })
+        related.append(
+            {
+                "id": pid,
+                "name": display_name,
+                "doc_path": f"{pid}.md",
+            }
+        )
     return related
 
 
@@ -219,9 +227,13 @@ def render_product(product_id: str, outdir: Path, snippets: dict) -> Path:
     tpl = env.get_template(tpl_name)
     iso_timestamp = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     meta = {"commit": get_git_commit(), "timestamp": iso_timestamp}
-    compliance_matrix = load_optional_yaml(product.get("compliance", {}).get("matrix_snippet"))
+    compliance_matrix = load_optional_yaml(
+        product.get("compliance", {}).get("matrix_snippet")
+    )
     contract_spec = load_optional_yaml(product.get("contract_ref"))
-    contract_yaml = yaml.safe_dump(contract_spec, sort_keys=False) if contract_spec else None
+    contract_yaml = (
+        yaml.safe_dump(contract_spec, sort_keys=False) if contract_spec else None
+    )
     related_links = resolve_related_products(product.get("related_products", []))
     canonical_schema = _canonical_schema_context(product)
     rendered = tpl.render(
@@ -314,8 +326,12 @@ def resolve_targets(product: str | None, generate_all: bool) -> List[str]:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Render GuardSuite product docs")
     parser.add_argument("--product", help="single product id to render")
-    parser.add_argument("--all", action="store_true", help="render docs for every product spec")
-    parser.add_argument("--out", default=str(OUTDIR), help="output directory for generated docs")
+    parser.add_argument(
+        "--all", action="store_true", help="render docs for every product spec"
+    )
+    parser.add_argument(
+        "--out", default=str(OUTDIR), help="output directory for generated docs"
+    )
     args = parser.parse_args()
 
     _canonical_preflight()

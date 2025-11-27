@@ -1,0 +1,139 @@
+{
+  "pillars": {
+    "vector": {
+      "products": {
+        "vectorguard": [
+          {
+            "rule_id": "vectorguard-base-00",
+            "exists": true,
+            "missing_fields": [
+              "missing_severity",
+              "missing_remediation_hint"
+            ],
+            "is_template": true
+          }
+        ],
+        "vectorscan": [
+          {
+            "rule_id": "vectorscan-base-00",
+            "exists": true,
+            "missing_fields": [
+              "missing_severity",
+              "missing_remediation_hint"
+            ],
+            "is_template": true
+          }
+        ]
+      },
+      "product_list": [
+        "vectorguard",
+        "vectorscan"
+      ]
+    },
+    "compute": {
+      "products": {
+        "computeguard": [
+          {
+            "rule_id": "computeguard-base-00",
+            "exists": true,
+            "missing_fields": [
+              "missing_severity",
+              "missing_remediation_hint"
+            ],
+            "is_template": true
+          }
+        ],
+        "computescan": [
+          {
+            "rule_id": "computescan-base-00",
+            "exists": true,
+            "missing_fields": [
+              "missing_severity",
+              "missing_remediation_hint"
+            ],
+            "is_template": true
+          }
+        ]
+      },
+      "product_list": [
+        "computeguard",
+        "computescan"
+      ]
+    },
+    "pipeline": {
+      "products": {
+        "pipelineguard": [
+          {
+            "rule_id": "pipelineguard-base-00",
+            "exists": true,
+            "missing_fields": [
+              "missing_severity",
+              "missing_remediation_hint"
+            ],
+            "is_template": true
+          }
+        ],
+        "pipelinescan": [
+          {
+            "rule_id": "pipelinescan-base-00",
+            "exists": true,
+            "missing_fields": [
+              "missing_severity",
+              "missing_remediation_hint"
+            ],
+            "is_template": true
+          }
+        ]
+      },
+      "product_list": [
+        "pipelineguard",
+        "pipelinescan"
+      ]
+    }
+  },
+  "missing_rules": [],
+  "template_rules": [
+    {
+      "rule_id": "computeguard-base-00",
+      "product": "computeguard",
+      "source_file": "rule_specs/computeguard/00_base_rule.yml"
+    },
+    {
+      "rule_id": "computescan-base-00",
+      "product": "computescan",
+      "source_file": "rule_specs/computescan/00_base_rule.yml"
+    },
+    {
+      "rule_id": "pipelineguard-base-00",
+      "product": "pipelineguard",
+      "source_file": "rule_specs/pipelineguard/00_base_rule.yml"
+    },
+    {
+      "rule_id": "pipelinescan-base-00",
+      "product": "pipelinescan",
+      "source_file": "rule_specs/pipelinescan/00_base_rule.yml"
+    },
+    {
+      "rule_id": "vectorguard-base-00",
+      "product": "vectorguard",
+      "source_file": "rule_specs/vectorguard/00_base_rule.yml"
+    },
+    {
+      "rule_id": "vectorscan-base-00",
+      "product": "vectorscan",
+      "source_file": "rule_specs/vectorscan/00_base_rule.yml"
+    }
+  ],
+  "orphan_rules": [
+    "rule_specs/guardboard",
+    "rule_specs/guardsuite-core",
+    "rule_specs/guardsuite-specs",
+    "rule_specs/guardsuite-template",
+    "rule_specs/guardsuite_master_spec",
+    "rule_specs/playground"
+  ],
+  "notes": [
+    "Matrix constructed from ai_reports/pillar_map.json, ai_reports/rule_spec_alignment.json, and ai_reports/rule_registry_audit.json",
+    "is_template heuristic: rule_id contains \"base-00\" or source file == 00_base_rule.yml"
+  ]
+}

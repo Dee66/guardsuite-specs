@@ -1,0 +1,29 @@
+{
+  "rules": {
+    "ACC-005": {
+      "description": "All unit/integration/snapshot tests must pass",
+      "type": "pytest_exit_code",
+      "params": {"path": "ai_reports/pytest_summary.txt", "exit_code_key": "pytest_exit_code"}
+    },
+    "PROMOTED_SCHEMA": {
+      "description": "Product schema promoted",
+      "type": "file_exists_and_commit",
+      "params": {"path": "products/computeguard/schema.yml"}
+    },
+    "BASE_RULE_UPDATED": {
+      "description": "Base rule file exists",
+      "type": "file_exists_and_commit",
+      "params": {"path": "products/computeguard/rules/00_base_rule.yml"}
+    },
+    "ADAPTERS_SCAFFOLDED": {
+      "description": "Adapter scaffolding present and adapter tests pass",
+      "type": "adapters_checks",
+      "params": {"paths": ["strategy_e/adapters/pipeline_adapter.py","strategy_e/adapters/computeguard_adapter.py"], "pytest_path": "ai_reports/adapter_pytest_summary.txt"}
+    },
+    "PROGRESS_JSON": {
+      "description": "User-supplied progress snapshot present",
+      "type": "file_exists",
+      "params": {"path": "ai_reports/progress.json"}
+    }
+  }
+}

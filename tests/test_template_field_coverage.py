@@ -6,7 +6,11 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 PRODUCTS = ROOT / "products"
 TEMPLATES = ROOT / "templates"
-EXCLUDED_SPECS = {"guardsuite_master_spec.yml", "guardsuite-template.yml", "pillar-template.yml"}
+EXCLUDED_SPECS = {
+    "guardsuite_master_spec.yml",
+    "guardsuite-template.yml",
+    "pillar-template.yml",
+}
 
 TEMPLATE_FILES = [
     TEMPLATES / "spec_page.md.j2",
@@ -94,7 +98,9 @@ def test_required_fields_have_template_references():
 def test_templates_do_not_reference_removed_fields():
     text = _template_text()
     for forbidden in FORBIDDEN_TEMPLATE_SNIPPETS:
-        assert forbidden not in text, f"Template still references removed field `{forbidden}`"
+        assert forbidden not in text, (
+            f"Template still references removed field `{forbidden}`"
+        )
 
 
 def test_all_product_yaml_fields_are_known():
@@ -143,7 +149,10 @@ def test_all_product_yaml_fields_are_known():
     }
 
     for spec_path in PRODUCTS.glob("*.yml"):
-        if spec_path.name.endswith("_worksheet.yml") or spec_path.name in EXCLUDED_SPECS:
+        if (
+            spec_path.name.endswith("_worksheet.yml")
+            or spec_path.name in EXCLUDED_SPECS
+        ):
             continue
         data = yaml.safe_load(spec_path.read_text(encoding="utf-8"))
         unknown = set(data.keys()) - known_fields
