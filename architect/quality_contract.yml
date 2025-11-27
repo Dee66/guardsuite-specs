@@ -1,0 +1,146 @@
+version: "1.0"
+title: "GuardSuite Quality Contract"
+scope: "Applies to Architect (ChatGPT) and Implementor (Copilot) across all GuardSuite products."
+
+# -------------------------------------------------------------------
+# 1. FOUNDATIONAL PRINCIPLES (MUST ALWAYS APPLY)
+# -------------------------------------------------------------------
+principles:
+  - "SOLID: Every new or modified module must uphold SRP, DIP, LSP, ISP, OCP."
+  - "Design Patterns: Suggest when they reduce coupling, improve clarity, or solve a known structure."
+  - "OOP Integrity: Classes must have single responsibility, minimal public API, and encapsulated data."
+  - "Clean Code: Code must be readable, consistent, intentional, and free of dead paths."
+  - "Documentation: Every significant module/function/class must include concise, purpose-first docstrings."
+  - "Determinism: No randomness, no clock-time behavior, no hidden side-effects."
+  - "Testability: Code must be testable, with clear boundaries and minimal global state."
+  - "Maintainability: Prefer composition over inheritance; avoid magic numbers; avoid unnecessary complexity."
+
+# -------------------------------------------------------------------
+# 2. ARCHITECT RESPONSIBILITIES (AI → ATUs)
+# -------------------------------------------------------------------
+architect:
+  must:
+    - enforce_quality_contract: true
+    - suggest_design_pattern_when_helpful: true
+    - split_ATUs_when_large_files_appear: true
+    - detect_low_cohesion_and_flag: true
+    - reject_ATUs_that_violate_SOLID: true
+    - ensure_docs_for_new_modules: true
+  must_not:
+    - demand patterns “for the sake of it”
+    - ignore architectural degradation
+    - allow modules > ~300 lines without refactor suggestion
+  review_mode:
+    - name: "Architecture Review Mode (ARM)"
+    - trigger: "When code grows, becomes complex, or Implementor reports concerns."
+    - output: "Structured improvement recommendations."
+
+# -------------------------------------------------------------------
+# 3. IMPLEMENTOR RESPONSIBILITIES (COPILOT → CODE)
+# -------------------------------------------------------------------
+implementor:
+  must:
+    - follow_SOLID_in_every_edit: true
+    - ensure_code_consistency_with_existing_style: true
+    - keep_functions_short_and_cohesive: true
+    - apply_sensible_refactors_if_ATU_allows: true
+    - generate_clean, pythonic_code: true
+    - write_short_precise_docstrings: true
+    - run_tests_when_ATU_requests: true
+  must_not:
+    - introduce_god_objects: true
+    - create_large_multiresponsibility_functions: true
+    - bypass_requested_design_patterns: true
+    - introduce_global_state: true
+
+# -------------------------------------------------------------------
+# 4. AUTOMATIC PATTERN SUGGESTION LOGIC
+# -------------------------------------------------------------------
+design_pattern_triggers:
+  strategy:
+    when: "multiple interchangeable algorithms appear"
+  factory:
+    when: "object creation logic becomes complex or conditional"
+  adapter:
+    when: "interfaces mismatch across modules"
+  facade:
+    when: "exposing a simpler API would reduce cognitive load"
+  template_method:
+    when: "shared algorithm steps with variable substeps exist"
+  command:
+    when: "operations should be queueable, undoable, or logged"
+  observer:
+    when: "state change must trigger multiple side effects"
+  state:
+    when: "behaviors change based on internal state"
+
+# -------------------------------------------------------------------
+# 5. REFACTORING RULES
+# -------------------------------------------------------------------
+refactoring_rules:
+  max_function_length_lines: 40
+  max_module_length_lines: 300
+  triggers:
+    - "nested logic > 3 levels deep"
+    - "duplicated code ≥ 2 times"
+    - "class with more than 3 responsibilities"
+  response:
+    - "Architect must issue a refactor ATU"
+    - "Implementor must perform safe incremental refactor"
+
+# -------------------------------------------------------------------
+# 6. DOCUMENTATION CONTRACT
+# -------------------------------------------------------------------
+documentation:
+  required_for:
+    - new classes
+    - new public functions
+    - complex logic blocks
+  docstring_style: "Concise: purpose → parameters → return → side-effects"
+  banned:
+    - narrative comments
+    - trivial comments (“# loop through items”) 
+
+# -------------------------------------------------------------------
+# 7. TESTING CONTRACT
+# -------------------------------------------------------------------
+testing:
+  rules:
+    - "Any new logic must be testable."
+    - "Tests must be deterministic."
+    - "Mocks/stubs allowed only for external services."
+  implementor_may_add_tests_when_ATU_allows: true
+  architect_must_require_tests_for_critical_paths: true
+
+# -------------------------------------------------------------------
+# 8. FINAL QUALITY GATE (ARCHITECT + IMPLEMENTOR)
+# -------------------------------------------------------------------
+quality_gate:
+  fail_conditions:
+    - violates_SOLID
+    - introduces_excessive_cyclomatic_complexity
+    - missing_docstrings_on_public_APIs
+    - no_tests_for_new_logic
+    - inconsistent_naming
+    - overly_long_modules
+  pass_conditions:
+    - deterministic
+    - documented
+    - testable
+    - SOLID
+    - maintainable
+    - clear interfaces
+    - no dead code
+
+# -------------------------------------------------------------------
+# 9. ENFORCEMENT
+# -------------------------------------------------------------------
+enforcement:
+  architect_must_block_if_breached: true
+  implementor_must_raise_concerns_if_ATU_would_violate: true
+  resolution: "Architect issues refactor ATU to correct violations."
+
+# -------------------------------------------------------------------
+# 10. END OF QUALITY CONTRACT
+# -------------------------------------------------------------------
+EOF: true

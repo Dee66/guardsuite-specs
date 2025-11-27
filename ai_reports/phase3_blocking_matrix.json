@@ -1,0 +1,104 @@
+{
+  "generated": "2025-11-27T13:00:00Z",
+  "source_input": "ai_reports/evaluator_alignment_plan.json",
+  "pillars": {
+    "vector": {
+      "schema_issues": [
+        "product-level schema files missing for vectorguard and vectorscan",
+        "canonical fields absent in product schemas"
+      ],
+      "evaluator_issues": [
+        "No per-product evaluator adapters exposing evaluate(resource)",
+        "Products lack evaluator implementations; only pipeline/shared executor mapping is possible"
+      ],
+      "rule_registry_issues": [
+        "Only base template rules present (vectorguard-base-00, vectorscan-base-00)",
+        "Template rules missing required fields: severity, remediation_hint",
+        "No concrete non-template rules"
+      ],
+      "orchestration_issues": [
+        "No assigned product owners for vector product rule_specs",
+        "Promotion of templates not scheduled or automated"
+      ],
+      "ordered_unblock_sequence": [
+        "Promote and populate product schemas for vectorguard and vectorscan",
+        "Complete base rule templates (add severity, remediation_hint) and add at least one non-template rule per product",
+        "Implement per-product evaluator adapters mapping to shared executor or product logic",
+        "Assign product owners and finalize promotion workflows"
+      ]
+    },
+    "compute": {
+      "schema_issues": [
+        "product-level schema files missing for computeguard and computescan",
+        "canonical fields absent in product schemas"
+      ],
+      "evaluator_issues": [
+        "No concrete per-product evaluators (only checklist documentation references)",
+        "Adapters to pipeline executor not implemented"
+      ],
+      "rule_registry_issues": [
+        "Only base template rules present (computeguard-base-00, computescan-base-00)",
+        "Template rules missing required fields: severity, remediation_hint",
+        "No concrete non-template rules"
+      ],
+      "orchestration_issues": [
+        "Ownership for compute products and orphan rule_specs not established",
+        "No automated promotion path for templates"
+      ],
+      "ordered_unblock_sequence": [
+        "Promote and populate product schemas for computeguard and computescan",
+        "Complete base rule templates with required metadata and add non-template rules",
+        "Implement per-product evaluator adapters or map checklist usage to pipeline executor via adapters",
+        "Assign product owners and add validation tests"
+      ]
+    },
+    "pipeline": {
+      "schema_issues": [
+        "product-level schema files missing for pipelineguard and pipelinescan",
+        "canonical fields absent in product schemas"
+      ],
+      "evaluator_issues": [
+        "Executor exists but does not expose evaluate(resource) signature",
+        "Adapter mapping from run_pipeline_on_text -> evaluate(resource) not implemented"
+      ],
+      "rule_registry_issues": [
+        "Only base template rules present (pipelineguard-base-00, pipelinescan-base-00)",
+        "Template rules missing required fields: severity, remediation_hint",
+        "No concrete non-template rules"
+      ],
+      "orchestration_issues": [
+        "Need to add unit/integration tests validating executor↔adapter↔product schema flow",
+        "Promotion workflow for templates to product schemas is not defined"
+      ],
+      "ordered_unblock_sequence": [
+        "Document and implement adapter mapping run_pipeline_on_text -> evaluate(resource)",
+        "Promote and populate product schemas for pipelineguard and pipelinescan",
+        "Complete base rule templates and add non-template rules",
+        "Add unit/integration tests and CI checks for executor↔adapter↔schema flow"
+      ]
+    }
+  },
+  "global_blockers": [
+    "Missing product-level schema files for all mapped products",
+    "Template-only rule registry entries lacking severity and remediation metadata",
+    "Missing per-product evaluator adapters or mappings to pipeline executor",
+    "No product ownership assigned for orphan rule_specs"
+  ],
+  "pillar_blockers": {
+    "vector": ["schema_issues","evaluator_issues","rule_registry_issues","orchestration_issues"],
+    "compute": ["schema_issues","rule_registry_issues","evaluator_issues","orchestration_issues"],
+    "pipeline": ["evaluator_issues","schema_issues","rule_registry_issues","orchestration_issues"]
+  },
+  "prioritized_actions": [
+    "1) Promote and populate product schemas for all mapped products (vector, compute, pipeline) using templates in ai_reports/schema_templates/",
+    "2) Complete base rule templates: add severity and remediation_hint and create at least one concrete non-template rule per product",
+    "3) Implement per-product evaluator adapters that expose evaluate(resource) and map to pipeline executor where appropriate (pipeline first)",
+    "4) Add unit/integration tests and CI checks validating executor↔adapter↔schema flow",
+    "5) Assign product owners for orphan rule_specs and establish promotion/review workflow"
+  ],
+  "notes": [
+    "Ordered sequences are pragmatic recommendations: schema promotion unlocks validation, rule_registry completion unlocks enforcement, adapters unlock runtime bindings.",
+    "Pipeline pillar can leverage existing executor for common behavior; adapters are still required for product-level signatures.",
+    "Promoting templates is non-destructive if staged in PRs and validated with canonical schema checks before merge."
+  ]
+}
