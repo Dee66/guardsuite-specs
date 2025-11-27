@@ -1,0 +1,49 @@
+{
+  "generated_at": "2025-11-27T12:10:00Z",
+  "source": "ai_reports/checklist_evidence_map.json",
+  "updates_suggested": [
+    {
+      "check_id": "ACC-005",
+      "action": "mark_done",
+      "evidence": [
+        {"type": "pytest", "path": "ai_reports/pytest_summary.txt", "exit_code": 0}
+      ],
+      "note": "Pytest exit code 0; pytest summary saved in ai_reports/pytest_summary.txt"
+    },
+    {
+      "check_id": "PROMOTED_SCHEMA",
+      "action": "mark_done",
+      "evidence": [
+        {"type": "file", "path": "products/computeguard/schema.yml", "exists": true}
+      ],
+      "note": "Schema file exists; last commit for schema: 5b84389 (see evidence_summary.json)"
+    },
+    {
+      "check_id": "BASE_RULE_UPDATED",
+      "action": "mark_done",
+      "evidence": [
+        {"type": "file", "path": "products/computeguard/rules/00_base_rule.yml", "exists": true}
+      ],
+      "note": "Base rule file exists; last commit: 5b84389"
+    },
+    {
+      "check_id": "ADAPTERS_SCAFFOLDED",
+      "action": "mark_partial",
+      "evidence": [
+        {"type": "file", "path": "strategy_e/adapters/pipeline_adapter.py", "exists": true},
+        {"type": "file", "path": "strategy_e/adapters/computeguard_adapter.py", "exists": true}
+      ],
+      "note": "Adapter files exist; runtime contract tests passed earlier but further validation recommended (integration, lint fixes review)."
+    },
+    {
+      "check_id": "PROGRESS_JSON",
+      "action": "mark_done",
+      "evidence": [
+        {"type": "file", "path": "ai_reports/progress.json", "exists": true}
+      ],
+      "note": "User-supplied progress snapshot file present. Use this as authoritative input for progress mapping after audit."
+    }
+  ],
+  "applied": false,
+  "instructions": "Review the suggested updates. If accepted, run the updater script (tools/update_checklist_from_progress.py) to apply these changes to products/computeguard/checklist/checklist.md. A deterministic backup will be saved under ai_reports/checklist_backups/."
+}
