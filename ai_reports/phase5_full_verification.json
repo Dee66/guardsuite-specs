@@ -1,0 +1,88 @@
+{
+  "generated_at": "2025-11-27T14:36:00Z",
+  "pytest": {
+    "status": "passed",
+    "tests_run": 2,
+    "failures": 0,
+    "summary": "All adapter unit tests passed after normalizing rules format to the executor's expected iterable of (path, rule) tuples.",
+    "notes": "Adapters updated to normalize rules; pipeline adapter now accepts both dict lists and tuple formats for robustness. Full pytest output captured in /tmp/phase5_pytest_final.txt"
+  },
+  "lf_endings_check": {
+    "products/computeguard/schema.yml": "LF_ONLY",
+    "products/computeguard/rules/00_base_rule.yml": "LF_ONLY",
+    "strategy_e/adapters/__init__.py": "LF_ONLY",
+    "strategy_e/adapters/pipeline_adapter.py": "LF_ONLY",
+    "strategy_e/adapters/computeguard_adapter.py": "LF_ONLY",
+    "strategy_e/adapters/tests/test_pipeline_adapter.py": "LF_ONLY",
+    "strategy_e/adapters/tests/test_computeguard_adapter.py": "LF_ONLY",
+    "ai_reports/phase5_pilot_clean.patch": "LF_ONLY"
+  },
+  "patch_comparison": {
+    "products/computeguard/schema.yml": "PRESENT_IN_PATCH",
+    "products/computeguard/rules/00_base_rule.yml": "PRESENT_IN_PATCH",
+    "strategy_e/adapters/__init__.py": "PRESENT_IN_PATCH",
+    "strategy_e/adapters/pipeline_adapter.py": "PRESENT_IN_PATCH",
+    "strategy_e/adapters/computeguard_adapter.py": "PRESENT_IN_PATCH",
+    "strategy_e/adapters/tests/test_pipeline_adapter.py": "PRESENT_IN_PATCH",
+    "strategy_e/adapters/tests/test_computeguard_adapter.py": "PRESENT_IN_PATCH",
+    "ai_reports/phase5_pilot_clean.patch": "NOT_IN_PATCH (this is the patch file itself; not expected inside content)"
+  },
+  "schema_validation": {
+    "plan_id": true,
+    "schema_version": true,
+    "resources": true,
+    "metadata": true,
+    "metadata.source": true,
+    "metadata.ingested_at": true,
+    "notes": "Sample resource present under `resources`; canonical required fields detected via simple grep-based checks. Recommend running JSON/YAML schema validation against `guardsuite-core/canonical_schema.json` as CI step for full validation."
+  },
+  "rule_file_validation": {
+    "severity": true,
+    "remediation_hint": true,
+    "remediation_difficulty": true,
+    "created_by": true,
+    "last_reviewed": true,
+    "notes": "All required placeholders present in `products/computeguard/rules/00_base_rule.yml`."
+  },
+  "compile_and_import_checks": {
+    "compile_output": "See /tmp/phase5_compile_final.txt",
+    "imports_check": "imports_ok",
+    "notes": "Adapters compile and import successfully in the current environment after fixes."
+  },
+  "dry_run_ci": {
+    "linting_tool": "flake8",
+    "lint_pass": false,
+    "lint_issues": [
+      "strategy_e/adapters/computeguard_adapter.py:6:80: E501 line too long (137 > 79 characters)",
+      "strategy_e/adapters/computeguard_adapter.py:9:80: E501 line too long (124 > 79 characters)",
+      "strategy_e/adapters/computeguard_adapter.py:14:80: E501 line too long (81 > 79 characters)",
+      "strategy_e/adapters/computeguard_adapter.py:20:80: E501 line too long (82 > 79 characters)",
+      "strategy_e/adapters/computeguard_adapter.py:27:80: E501 line too long (85 > 79 characters)",
+      "strategy_e/adapters/pipeline_adapter.py:4:80: E501 line too long (83 > 79 characters)",
+      "strategy_e/adapters/pipeline_adapter.py:7:80: E501 line too long (112 > 79 characters)",
+      "strategy_e/adapters/pipeline_adapter.py:18:80: E501 line too long (137 > 79 characters)",
+      "strategy_e/adapters/pipeline_adapter.py:21:80: E501 line too long (92 > 79 characters)",
+      "strategy_e/adapters/pipeline_adapter.py:22:80: E501 line too long (86 > 79 characters)",
+      "strategy_e/adapters/pipeline_adapter.py:28:80: E501 line too long (87 > 79 characters)",
+      "strategy_e/adapters/pipeline_adapter.py:30:80: E501 line too long (86 > 79 characters)",
+      "strategy_e/adapters/pipeline_adapter.py:37:80: E501 line too long (86 > 79 characters)",
+      "strategy_e/adapters/pipeline_adapter.py:42:80: E501 line too long (85 > 79 characters)",
+      "strategy_e/adapters/pipeline_adapter.py:56:80: E501 line too long (80 > 79 characters)",
+      "strategy_e/adapters/tests/test_computeguard_adapter.py:5:80: E501 line too long (94 > 79 characters)",
+      "strategy_e/adapters/tests/test_computeguard_adapter.py:6:80: E501 line too long (119 > 79 characters)",
+      "strategy_e/adapters/tests/test_pipeline_adapter.py:5:80: E501 line too long (82 > 79 characters)",
+      "strategy_e/adapters/tests/test_pipeline_adapter.py:6:80: E501 line too long (120 > 79 characters)"
+    ],
+    "notes": "flake8 ran and reported E501 (line-too-long) issues. Recommend wrapping long lines to <=79 chars or configure project's line-length policy in CI."
+  },
+  "overall_status": "PARTIAL",
+  "remaining_discrepancies": [
+    "flake8 E501 line-too-long violations in adapter modules and tests"
+  ],
+  "recommendations": [
+    "Address flake8 E501 violations by wrapping long lines or updating project's line-length policy",
+    "Add CI job to run pytest on `strategy_e/adapters/tests/` and JSON/YAML schema validation against `guardsuite-core/canonical_schema.json` for promoted schemas",
+    "Ensure PRs include sample resources for smoke tests and that rule metadata is filled for all products"
+  ],
+  "format": "json"
+}
