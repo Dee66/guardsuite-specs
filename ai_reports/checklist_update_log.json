@@ -1,20 +1,25 @@
 {
-  "generated_at": "2025-11-27T12:29:00Z",
-  "source": "ai_reports/checklist_update_suggestions.json",
-  "suggested_ids": [
-    "ACC-005",
-    "PROMOTED_SCHEMA",
-    "BASE_RULE_UPDATED",
-    "PROGRESS_JSON"
+  "applied_ids": [
+    "PROMOTED_SCHEMA"
   ],
-  "applied_ids": [],
-  "skipped_ids": [
-    "ACC-005",
-    "PROMOTED_SCHEMA",
-    "BASE_RULE_UPDATED",
-    "PROGRESS_JSON"
-  ],
-  "patch_path": "ai_reports/checklist_patch.apply.txt",
-  "backup_path": "ai_reports/checklist_backups/checklist.md.backup.20251127T122900Z",
-  "note": "No checklist lines matched the suggested IDs as unchecked; no modifications applied. Backup saved and a descriptive patch file created."
+  "backup": "/home/dee/workspace/AI/GuardSuite/guardsuite-specs/ai_reports/checklist_backups/checklist.md.backup.20251127T123955Z",
+  "checklist_path": "/home/dee/workspace/AI/GuardSuite/guardsuite-specs/products/computeguard/checklist/checklist.md",
+  "mapping_path": "tools/checklist_mapping_suggested.json",
+  "progress_path": "ai_reports/progress_with_evidence.json",
+  "progress_updated": true,
+  "skipped_ids": {
+    "ACC-005": "no exact unchecked checklist line matched mapping tokens",
+    "ATU-P3-C-01": "no exact unchecked checklist line matched mapping tokens",
+    "ATU-P3-C-02": "no exact unchecked checklist line matched mapping tokens",
+    "ATU-P3-C-03": "no exact unchecked checklist line matched mapping tokens",
+    "ATU-P3-P-01": "no exact unchecked checklist line matched mapping tokens",
+    "ATU-P3-P-04": "no exact unchecked checklist line matched mapping tokens",
+    "BASE_RULE_UPDATED": "no exact unchecked checklist line matched mapping tokens",
+    "EVAL-C-01": "no exact unchecked checklist line matched mapping tokens",
+    "EVAL-C-03": "no exact unchecked checklist line matched mapping tokens",
+    "EVAL-P-01": "no exact unchecked checklist line matched mapping tokens",
+    "PROGRESS_JSON": "no exact unchecked checklist line matched mapping tokens",
+    "RULE-C-01": "no exact unchecked checklist line matched mapping tokens"
+  },
+  "timestamp": "2025-11-27T12:39:55Z"
 }
