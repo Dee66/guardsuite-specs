@@ -28,6 +28,16 @@
     "notes": "Repository-wide flake8 output indicates many style issues; configure CI line-length or fix files incrementally. See ai_reports/phase5_flake8_raw.txt for details."
   },
   "overall_status": "PARTIAL",
+  "last_lint_fix": {
+    "files_fixed": [
+      "strategy_e/pipeline/executor/pipeline_executor.py",
+      "strategy_e/pipeline/run_pipeline.py",
+      "strategy_e/pipeline/loader/rule_loader.py",
+      "strategy_e/pipeline/results/diff_utils.py",
+      "strategy_e/pipeline/results/backup_utils.py"
+    ],
+    "notes": "Applied `black` to these files and made minimal manual edits to satisfy E501 and remove unused imports. Ruff installed and used for formatting where applicable."
+  },
   "recommendations": [
     "Address flake8 issues across the repo incrementally; focus on CI-critical modules first",
     "Add CI job to run flake8 with chosen line-length setting and pytest for adapter tests",

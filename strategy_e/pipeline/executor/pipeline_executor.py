@@ -1,9 +1,14 @@
-from typing import List, Dict, Any
-from pathlib import Path
 from strategy_e.pipeline.results.diff_utils import generate_unified_diff
 from strategy_e.pipeline.results.backup_utils import write_backup
 
-def run_pipeline_on_text(text: str, rules, path: str = None, dry_run: bool = False, backup_dir: str = None):
+
+def run_pipeline_on_text(
+    text: str,
+    rules,
+    path: str = None,
+    dry_run: bool = False,
+    backup_dir: str = None,
+):
     """
     Executes normalization, validation, and repair instructions in-order.
     - Normalization is optional.
@@ -27,19 +32,23 @@ def run_pipeline_on_text(text: str, rules, path: str = None, dry_run: bool = Fal
     else:
         iterable_rules = rules
 
-    for (_path, rule) in iterable_rules:
+    for _path, rule in iterable_rules:
         for step in rule.get("normalization", {}).get("steps", []):
             if step.get("operation") == "trim_trailing_whitespace":
-                normalized = "\n".join([l.rstrip() for l in normalized.splitlines()])
+                normalized = "\n".join(
+                    [ln.rstrip() for ln in normalized.splitlines()]
+                )
 
     # VALIDATION (dummy, to be extended later)
-    for (_path, rule) in iterable_rules:
+    for _path, rule in iterable_rules:
         for check in rule.get("validation", {}).get("checks", []):
             if check.get("type") == "line_length":
                 max_len = check.get("max", 120)
                 for idx, line in enumerate(normalized.splitlines(), start=1):
                     if len(line) > max_len:
-                        errors.append(f"Line {idx}: exceeds {max_len} characters")
+                        errors.append(
+                            f"Line {idx}: exceeds {max_len} characters"
+                        )
 
     # APPLY REPAIR STEPS
     # rules may be a mapping (from tests) or an iterable of (path, rule) tuples
@@ -47,12 +56,15 @@ def run_pipeline_on_text(text: str, rules, path: str = None, dry_run: bool = Fal
         steps = rules.get("repair", {}).get("steps", [])
     else:
         steps = []
-        for (_p, r) in rules:
+        for _p, r in rules:
             steps.extend(r.get("repair", {}).get("steps", []))
 
     # apply_repair_steps may be integrated later; placeholder kept if missing
     try:
-        from strategy_e.pipeline.executor.repair_steps import apply_repair_steps
+        from strategy_e.pipeline.executor.repair_steps import (
+            apply_repair_steps,
+        )
+
         repaired = apply_repair_steps(normalized, steps)
     except Exception:
         repaired = normalized
@@ -66,7 +78,9 @@ def run_pipeline_on_text(text: str, rules, path: str = None, dry_run: bool = Fal
             backup_path = None
 
     # DIFF GENERATION
-    diff_output = generate_unified_diff(text, repaired, before_label="original", after_label="repaired")
+    diff_output = generate_unified_diff(
+        text, repaired, before_label="original", after_label="repaired"
+    )
 
     # WRITE REPAIRED TEXT BACK TO FILE IF path PROVIDED (only when not dry_run)
     if path is not None and not dry_run:
