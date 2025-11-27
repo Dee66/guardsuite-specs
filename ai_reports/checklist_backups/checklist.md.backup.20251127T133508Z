@@ -23,7 +23,7 @@
 
 - [ ] INIT-001: Ensure poetry install succeeds with no flags.
 - [ ] INIT-002: Verify presence of required directory layout: `src/`, `schemas/`, `fixpack/`, `catalog/`, `examples/rules/`, `tests/`, `docs/`.
-- [x] INIT-003: Validate example rule bundle directory: `examples/rules/*` exists and contains at least one example file.
+- [ ] INIT-003: Validate example rule bundle directory: `examples/rules/*` exists and contains at least one example file.
 - [ ] INIT-004: Validate existence of catalog directory and index file `catalog/index.yml`.
 - [ ] INIT-005: Validate presence of at least 3 example fixpacks under `catalog/`.
 - [x] INIT-006: Ensure all schema files declared in spec exist under `/schemas`.
@@ -91,7 +91,7 @@
 - [ ] CLI-004: Implement reserved flags (`--ledger-only`, `--fixpack-diff`) with stubs or restrictions.
 - [ ] CLI-005: Ensure `--json` output conforms to `/schemas/cli_output.json`.
 - [ ] CLI-006: Ensure error payloads conform to `/schemas/cli_error.json`.
-- [x] CLI-007: Implement strict-mode exit code policy.
+- [ ] CLI-007: Implement strict-mode exit code policy.
 - [ ] CLI-008: Ensure explain mode supports both human and machine-readable output.
 - [ ] CLI-009: Validate CLI help output lists all verbs/flags in canonical order.
 - [ ] CLI-010: Implement fixpack-summary and compliance-ledger flags.
