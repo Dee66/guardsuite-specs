@@ -1,0 +1,49 @@
+{
+  "generated": "2025-11-27T12:55:00Z",
+  "source_inputs": [
+    "ai_reports/evaluator_schema_detection.json",
+    "ai_reports/evaluator_schema_consistency.json",
+    "ai_reports/schema_readiness_report.json"
+  ],
+  "pillars": {
+    "vector": {
+      "evaluator_source": "missing",
+      "evaluator_path": null,
+      "schema_binding_status": "ISSUES",
+      "required_actions": [
+        "Create product-level schema files under `products/vectorguard/schema.yml` and `products/vectorscan/schema.yml` following `guardsuite-core/canonical_schema.json`",
+        "Implement per-product evaluator adapters that expose `evaluate(resource)` or document mapping to a shared executor",
+        "Populate and promote dry-run templates from `ai_reports/schema_templates/` into `products/<product>/schema.yml`",
+        "Assign ownership for `rule_specs/vectorguard` and `rule_specs/vectorscan` and remove/resolve template placeholders"
+      ]
+    },
+    "compute": {
+      "evaluator_source": "missing",
+      "evaluator_path": "products/computescan/checklist/checklist.yml (documentation reference)",
+      "schema_binding_status": "ISSUES",
+      "required_actions": [
+        "Create product-level schema files under `products/computeguard/schema.yml` and `products/computescan/schema.yml` following `guardsuite-core/canonical_schema.json`",
+        "Implement per-product evaluator adapters exposing `evaluate(resource)` or map checklist usage to pipeline executor via adapters",
+        "Populate and promote dry-run templates from `ai_reports/schema_templates/` into `products/<product>/schema.yml`",
+        "Assign ownership for `rule_specs/computeguard` and `rule_specs/computescan` and convert templates into concrete rules"
+      ]
+    },
+    "pipeline": {
+      "evaluator_source": "executor_based",
+      "evaluator_path": "strategy_e/pipeline/executor/pipeline_executor.py",
+      "schema_binding_status": "ISSUES",
+      "required_actions": [
+        "Document adapter that maps pipeline executor API (`run_pipeline_on_text`) to `evaluate(resource)` signature expected by product checklists",
+        "Create product-level schema files under `products/pipelineguard/schema.yml` and `products/pipelinescan/schema.yml` following `guardsuite-core/canonical_schema.json`",
+        "Provide per-product evaluator wrappers if product-specific behavior is required",
+        "Promote dry-run templates from `ai_reports/schema_templates/` into `products/<product>/schema.yml` and validate against canonical schema",
+        "Add tests that exercise pipeline executor mapping and product adapters"
+      ]
+    }
+  },
+  "overall_recommendation": [
+    "Treat the pipeline executor as canonical runtime for Phase 3 but require explicit adapter layer for product `evaluate(resource)` bindings.",
+    "Populate and promote product schema files for all mapped products to satisfy canonical schema requirements and unlock schema validation and evaluator binding.",
+    "Assign product owners to resolve orphan rule_specs and replace template base rules with concrete rules having full metadata (severity, remediation_hint)."
+  ]
+}

@@ -1,0 +1,47 @@
+# Task Contract definitions for PIL
+# Defines the binary 'done_contract' conditions, ambiguity flags, and examples
+version: "1.0"
+
+# Core done contract keys (boolean requirements for 100% completion)
+done_contract:
+  implementation_files_present: true      # source files referenced in project_map.yml exist
+  tests_pass: true                        # targeted tests for the task must pass
+  state_transition_implemented: true      # lifecycle/state transition (if applicable) implemented
+  dependency_fulfilled: true              # declared dependencies are in completed state
+
+# Ambiguity flags: list of canonical tags used to mark tasks with inherent ambiguity
+# These are used to penalize AI confidence scores when present.
+ambiguity_flags: []
+
+# Task type examples
+examples:
+  pipeline_stage:
+    task_type: pipeline_stage
+    done_contract:
+      implementation_files_present: true
+      tests_pass: true
+      state_transition_implemented: true
+      dependency_fulfilled: true
+    ambiguity_flags: []
+
+  documentation:
+    task_type: documentation
+    done_contract:
+      implementation_files_present: true
+      tests_pass: false
+      state_transition_implemented: false
+      dependency_fulfilled: true
+    ambiguity_flags: ["scope_unclear"]
+
+# Notes:
+# - The scanner should evaluate each `done_contract` predicate deterministically.
+# - `ambiguity_flags` should be surfaced in the AI confidence computation.
+
+# Example: how to define a custom done_contract for an infra task
+# infra_example:
+#   task_type: infra
+#   done_contract:
+#     implementation_files_present: true
+#     tests_pass: false
+#     state_transition_implemented: false
+#     dependency_fulfilled: true

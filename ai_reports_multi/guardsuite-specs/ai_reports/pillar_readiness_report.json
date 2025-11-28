@@ -1,0 +1,113 @@
+{
+  "generated": "2025-11-27T06:40:00Z",
+  "pillars": {
+    "vector": {
+      "structural_status": "OK",
+      "rule_registry_status": "ISSUES",
+      "coverage_status": "ISSUES",
+      "orphan_analysis": {
+        "orphan_rule_specs": [
+          "rule_specs/guardboard",
+          "rule_specs/guardsuite-core",
+          "rule_specs/guardsuite-specs",
+          "rule_specs/guardsuite-template",
+          "rule_specs/guardsuite_master_spec",
+          "rule_specs/playground"
+        ],
+        "note": "These rule_specs directories exist in the repo but are not mapped as primary/secondary to any pillar."
+      },
+      "template_rule_analysis": [
+        {
+          "rule_id": "vectorguard-base-00",
+          "product": "vectorguard",
+          "source_file": "rule_specs/vectorguard/00_base_rule.yml"
+        },
+        {
+          "rule_id": "vectorscan-base-00",
+          "product": "vectorscan",
+          "source_file": "rule_specs/vectorscan/00_base_rule.yml"
+        }
+      ],
+      "blocking_issues": [
+        "Base template rules missing required fields (severity, remediation_hint). These are present as templates for all products in this pillar and must be completed for Phase 2 readiness.",
+        "No concrete non-template rule definitions found for vectorguard/vectorscan (only templates present)."
+      ]
+    },
+    "compute": {
+      "structural_status": "OK",
+      "rule_registry_status": "ISSUES",
+      "coverage_status": "ISSUES",
+      "orphan_analysis": {
+        "orphan_rule_specs": [
+          "rule_specs/guardboard",
+          "rule_specs/guardsuite-core",
+          "rule_specs/guardsuite-specs",
+          "rule_specs/guardsuite-template",
+          "rule_specs/guardsuite_master_spec",
+          "rule_specs/playground"
+        ],
+        "note": "Orphan rule_specs directories may contain shared or cross-pillar templates; review to determine ownership."
+      },
+      "template_rule_analysis": [
+        {
+          "rule_id": "computeguard-base-00",
+          "product": "computeguard",
+          "source_file": "rule_specs/computeguard/00_base_rule.yml"
+        },
+        {
+          "rule_id": "computescan-base-00",
+          "product": "computescan",
+          "source_file": "rule_specs/computescan/00_base_rule.yml"
+        }
+      ],
+      "blocking_issues": [
+        "Base template rules missing required fields (severity, remediation_hint) for compute products.",
+        "No concrete non-template rule definitions found for computeguard/computescan (only templates present)."
+      ]
+    },
+    "pipeline": {
+      "structural_status": "OK",
+      "rule_registry_status": "ISSUES",
+      "coverage_status": "ISSUES",
+      "orphan_analysis": {
+        "orphan_rule_specs": [
+          "rule_specs/guardboard",
+          "rule_specs/guardsuite-core",
+          "rule_specs/guardsuite-specs",
+          "rule_specs/guardsuite-template",
+          "rule_specs/guardsuite_master_spec",
+          "rule_specs/playground"
+        ],
+        "note": "Orphan rule_specs directories may contain shared or cross-pillar templates; review to determine ownership."
+      },
+      "template_rule_analysis": [
+        {
+          "rule_id": "pipelineguard-base-00",
+          "product": "pipelineguard",
+          "source_file": "rule_specs/pipelineguard/00_base_rule.yml"
+        },
+        {
+          "rule_id": "pipelinescan-base-00",
+          "product": "pipelinescan",
+          "source_file": "rule_specs/pipelinescan/00_base_rule.yml"
+        }
+      ],
+      "blocking_issues": [
+        "Base template rules missing required fields (severity, remediation_hint) for pipeline products.",
+        "No concrete non-template rule definitions found for pipelineguard/pipelinescan (only templates present)."
+      ]
+    }
+  },
+  "summary": {
+    "overall_status": "ISSUES",
+    "high_level_recommendations": [
+      "Populate severity and remediation_hint fields in rule-specs (replace template placeholders).",
+      "Decide ownership for orphan rule_specs directories and either map them into pillars or archive them.",
+      "Add at least one concrete, non-template rule per product to enable Phase 2 validation and forecasting work."
+    ]
+  },
+  "notes": [
+    "Report assembled from: ai_reports/pillar_map.json, ai_reports/rule_spec_alignment.json, ai_reports/cross_pillar_integrity.json, ai_reports/rule_registry_audit.json, ai_reports/rule_coverage_matrix.json",
+    "Structural checks are based on existence flags in rule_spec_alignment.json. Coverage checks treat template-only rule sets as incomplete for Phase 2 readiness."
+  ]
+}

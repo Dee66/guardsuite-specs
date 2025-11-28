@@ -1,0 +1,114 @@
+{
+  "generated": "2025-11-27T12:45:00Z",
+  "source_inputs": [
+    "ai_reports/evaluator_schema_detection.json",
+    "ai_reports/evaluator_schema_consistency.json",
+    "ai_reports/schema_coverage_audit.json",
+    "ai_reports/schema_template_validation.json"
+  ],
+  "products": {
+    "computeguard": {
+      "detection_status": "schema_missing, evaluator_missing",
+      "consistency_status": "incomplete",
+      "coverage_status": "missing_canonical_fields",
+      "template_status": "template_present (placeholders)",
+      "blocking_issues": [
+        "products/computeguard/schema.yml missing",
+        "rule_specs/computeguard/evaluator.py missing",
+        "product schema missing canonical fields"
+      ]
+    },
+    "computescan": {
+      "detection_status": "schema_missing, evaluator_missing (only checklist reference found)",
+      "consistency_status": "incomplete",
+      "coverage_status": "missing_canonical_fields",
+      "template_status": "template_present (placeholders)",
+      "blocking_issues": [
+        "products/computescan/schema.yml missing",
+        "rule_specs/computescan/evaluator.py missing",
+        "product schema missing canonical fields"
+      ]
+    },
+    "pipelineguard": {
+      "detection_status": "schema_missing, evaluator_missing (product-level) but pipeline executor present",
+      "consistency_status": "partial (pipeline executor exists)",
+      "coverage_status": "missing_canonical_fields",
+      "template_status": "template_present (placeholders)",
+      "blocking_issues": [
+        "products/pipelineguard/schema.yml missing",
+        "rule_specs/pipelineguard/evaluator.py missing",
+        "product schema missing canonical fields"
+      ]
+    },
+    "pipelinescan": {
+      "detection_status": "schema_missing, evaluator_missing",
+      "consistency_status": "incomplete",
+      "coverage_status": "missing_canonical_fields",
+      "template_status": "template_present (placeholders)",
+      "blocking_issues": [
+        "products/pipelinescan/schema.yml missing",
+        "rule_specs/pipelinescan/evaluator.py missing",
+        "product schema missing canonical fields"
+      ]
+    },
+    "vectorguard": {
+      "detection_status": "schema_missing, evaluator_missing",
+      "consistency_status": "incomplete",
+      "coverage_status": "missing_canonical_fields",
+      "template_status": "template_present (placeholders)",
+      "blocking_issues": [
+        "products/vectorguard/schema.yml missing",
+        "rule_specs/vectorguard/evaluator.py missing",
+        "product schema missing canonical fields"
+      ]
+    },
+    "vectorscan": {
+      "detection_status": "schema_missing, evaluator_missing",
+      "consistency_status": "incomplete",
+      "coverage_status": "missing_canonical_fields",
+      "template_status": "template_present (placeholders)",
+      "blocking_issues": [
+        "products/vectorscan/schema.yml missing",
+        "rule_specs/vectorscan/evaluator.py missing",
+        "product schema missing canonical fields"
+      ]
+    }
+  },
+  "pillars": {
+    "compute": {
+      "detection_summary": "guardsuite-core canonical schema present; product schemas missing; evaluator implementations missing (docs present)",
+      "consistency_summary": "incomplete; documentation references to evaluate(resource) but no per-product evaluators",
+      "coverage_summary": "missing canonical fields across compute products",
+      "template_summary": "templates exist for products with placeholders",
+      "blocking_issues": ["populate product schema files","implement per-product evaluator adapters or document pipeline mapping"]
+    },
+    "pipeline": {
+      "detection_summary": "pipeline executor found; product schemas missing",
+      "consistency_summary": "partial; pipeline-level executor satisfies pipeline stages but not evaluate(resource) signature",
+      "coverage_summary": "missing canonical fields across pipeline products",
+      "template_summary": "templates exist for products with placeholders",
+      "blocking_issues": ["populate product schema files","provide product adapters exposing evaluate(resource) or document mapping"]
+    },
+    "vector": {
+      "detection_summary": "no concrete evaluators found; product schemas missing",
+      "consistency_summary": "incomplete",
+      "coverage_summary": "missing canonical fields across vector products",
+      "template_summary": "templates exist for products with placeholders",
+      "blocking_issues": ["populate product schema files","implement evaluator adapters"]
+    }
+  },
+  "overall": {
+    "ready_products": [],
+    "blocked_products": ["computeguard","computescan","pipelineguard","pipelinescan","vectorguard","vectorscan"],
+    "top_blocking_reasons": [
+      "Missing product-level schema files with canonical fields",
+      "Missing per-product evaluator implementations or adapter mapping to pipeline executor",
+      "Orphan rule_specs need ownership and mapping"
+    ],
+    "recommended_next_steps": [
+      "Populate placeholders in `ai_reports/schema_templates/*.schema.yml` and promote to `products/<product>/schema.yml`",
+      "Implement per-product evaluator adapters exposing `evaluate(resource)` or document how pipeline executor maps to that signature",
+      "Assign ownership for orphan rule_specs and reconcile duplicates/templates"
+    ]
+  }
+}

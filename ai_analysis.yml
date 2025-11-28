@@ -1,0 +1,45 @@
+analysis:
+  guardsuite-specs:
+    CORE-001:
+      confidence: 20
+      interpretation: Missing evidence for required artifacts
+      metrics:
+        CODE_ARTIFACT_PRESENT: true
+        COMPLEXITY_PROFILE: 99
+        DOCUMENTATION: false
+        SANITY_GATE: false
+        SPEC_COVERAGE: 100
+        TESTS_PASS: true
+      missing_evidence:
+      - /home/dee/workspace/AI/GuardSuite/guardsuite-specs/tests/test_ingest.py::test_ingest_success
+      - /home/dee/workspace/AI/GuardSuite/guardsuite-specs/tests/test_stages.py::test_stage_order
+      remediation:
+      - 'Add or restore file: /home/dee/workspace/AI/GuardSuite/guardsuite-specs/tests/test_ingest.py::test_ingest_success'
+      - 'Add or restore file: /home/dee/workspace/AI/GuardSuite/guardsuite-specs/tests/test_stages.py::test_stage_order'
+      semantic_violations: []
+    DOC-001:
+      confidence: 25
+      interpretation: Targeted tests missing or not present
+      metrics:
+        CODE_ARTIFACT_PRESENT: true
+        COMPLEXITY_PROFILE: 100
+        DOCUMENTATION: true
+        SANITY_GATE: false
+        SPEC_COVERAGE: 100
+        TESTS_PASS: false
+      missing_evidence: []
+      remediation:
+      - Add and run unit tests referenced in validation_artifacts
+      semantic_violations: []
+confidence:
+  guardsuite-specs: 22.5
+missing_transition: []
+recommendation:
+- 'guardsuite-specs:CORE-001 -> Add or restore file: /home/dee/workspace/AI/GuardSuite/guardsuite-specs/tests/test_ingest.py::test_ingest_success'
+- 'guardsuite-specs:CORE-001 -> Add or restore file: /home/dee/workspace/AI/GuardSuite/guardsuite-specs/tests/test_stages.py::test_stage_order'
+- guardsuite-specs:DOC-001 -> Add and run unit tests referenced in validation_artifacts
+semantic_violations: []
+spec_coverage_delta:
+  guardsuite-specs:
+    current: null
+    previous: null

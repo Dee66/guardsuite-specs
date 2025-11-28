@@ -1,0 +1,71 @@
+{
+  "evaluated_at": "2025-11-27T17:19:24.540616Z",
+  "results": {
+    "ACC-005": {
+      "evidence": [
+        {
+          "pytest_exit_code": 1
+        }
+      ],
+      "rationale": null,
+      "rule_id": "ACC-005",
+      "satisfied": false,
+      "type": "pytest_exit_code"
+    },
+    "ADAPTERS_SCAFFOLDED": {
+      "evidence": [
+        {
+          "adapter_pytest_passed": false,
+          "files_exist": true,
+          "paths": [
+            "strategy_e/adapters/pipeline_adapter.py",
+            "strategy_e/adapters/computeguard_adapter.py"
+          ],
+          "pytest_path": "ai_reports/adapter_pytest_summary.txt"
+        }
+      ],
+      "rationale": "adapter files present but adapter pytest did not clearly pass",
+      "rule_id": "ADAPTERS_SCAFFOLDED",
+      "satisfied": false,
+      "type": "adapters_checks"
+    },
+    "BASE_RULE_UPDATED": {
+      "evidence": [
+        {
+          "file_exists": true,
+          "last_commit": "5b843894d64eaa6d939c17488409d52ed2402192|5b84389|2025-11-27 10:58:49 +0200",
+          "path": "products/computeguard/rules/00_base_rule.yml"
+        }
+      ],
+      "rationale": "file exists and last_commit recorded",
+      "rule_id": "BASE_RULE_UPDATED",
+      "satisfied": true,
+      "type": "file_exists_and_commit"
+    },
+    "PROGRESS_JSON": {
+      "evidence": [
+        {
+          "file_exists": true,
+          "path": "ai_reports/progress.json"
+        }
+      ],
+      "rationale": "file exists",
+      "rule_id": "PROGRESS_JSON",
+      "satisfied": true,
+      "type": "file_exists"
+    },
+    "PROMOTED_SCHEMA": {
+      "evidence": [
+        {
+          "file_exists": true,
+          "last_commit": "5b843894d64eaa6d939c17488409d52ed2402192|5b84389|2025-11-27 10:58:49 +0200",
+          "path": "products/computeguard/schema.yml"
+        }
+      ],
+      "rationale": "file exists and last_commit recorded",
+      "rule_id": "PROMOTED_SCHEMA",
+      "satisfied": true,
+      "type": "file_exists_and_commit"
+    }
+  }
+}

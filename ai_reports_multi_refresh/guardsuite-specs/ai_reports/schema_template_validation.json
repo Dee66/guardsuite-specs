@@ -1,0 +1,47 @@
+{
+  "generated": "2025-11-27T12:40:00Z",
+  "templates_validated": 6,
+  "results": {
+    "computeguard": {
+      "template_path": "ai_reports/schema_templates/computeguard.schema.yml",
+      "missing_fields": [],
+      "invalid_sections": [],
+      "notes": ["All required canonical fields present as placeholders. metadata block contains required keys: source, ingested_at."]
+    },
+    "computescan": {
+      "template_path": "ai_reports/schema_templates/computescan.schema.yml",
+      "missing_fields": [],
+      "invalid_sections": [],
+      "notes": ["All required canonical fields present as placeholders. metadata block contains required keys: source, ingested_at."]
+    },
+    "pipelineguard": {
+      "template_path": "ai_reports/schema_templates/pipelineguard.schema.yml",
+      "missing_fields": [],
+      "invalid_sections": [],
+      "notes": ["All required canonical fields present as placeholders. metadata block contains required keys: source, ingested_at."]
+    },
+    "pipelinescan": {
+      "template_path": "ai_reports/schema_templates/pipelinescan.schema.yml",
+      "missing_fields": [],
+      "invalid_sections": [],
+      "notes": ["All required canonical fields present as placeholders. metadata block contains required keys: source, ingested_at."]
+    },
+    "vectorguard": {
+      "template_path": "ai_reports/schema_templates/vectorguard.schema.yml",
+      "missing_fields": [],
+      "invalid_sections": [],
+      "notes": ["All required canonical fields present as placeholders. metadata block contains required keys: source, ingested_at."]
+    },
+    "vectorscan": {
+      "template_path": "ai_reports/schema_templates/vectorscan.schema.yml",
+      "missing_fields": [],
+      "invalid_sections": [],
+      "notes": ["All required canonical fields present as placeholders. metadata block contains required keys: source, ingested_at."]
+    }
+  },
+  "summary": {
+    "templates_with_missing_fields": 0,
+    "templates_with_invalid_sections": 0,
+    "recommendation": "Populate placeholder values in templates and move to products/<product>/schema.yml to enable product-level validation."
+  }
+}

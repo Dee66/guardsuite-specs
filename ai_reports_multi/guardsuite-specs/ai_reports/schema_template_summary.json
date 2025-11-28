@@ -1,0 +1,94 @@
+{
+  "generated": "2025-11-27T12:35:00Z",
+  "template_dir": "ai_reports/schema_templates/",
+  "product_list": [
+    "computeguard",
+    "computescan",
+    "pipelineguard",
+    "pipelinescan",
+    "vectorguard",
+    "vectorscan"
+  ],
+  "template_paths": {
+    "computeguard": "ai_reports/schema_templates/computeguard.schema.yml",
+    "computescan": "ai_reports/schema_templates/computescan.schema.yml",
+    "pipelineguard": "ai_reports/schema_templates/pipelineguard.schema.yml",
+    "pipelinescan": "ai_reports/schema_templates/pipelinescan.schema.yml",
+    "vectorguard": "ai_reports/schema_templates/vectorguard.schema.yml",
+    "vectorscan": "ai_reports/schema_templates/vectorscan.schema.yml"
+  },
+  "missing_or_untemplated_products": [],
+  "per_product_checklist": {
+    "computeguard": {
+      "template_exists": true,
+      "required_fields_present": [
+        "plan_id",
+        "schema_version",
+        "resources",
+        "metadata.source",
+        "metadata.ingested_at"
+      ],
+      "notes": ["Placeholders present — populate real values", "Dry-run scaffold"]
+    },
+    "computescan": {
+      "template_exists": true,
+      "required_fields_present": [
+        "plan_id",
+        "schema_version",
+        "resources",
+        "metadata.source",
+        "metadata.ingested_at"
+      ],
+      "notes": ["Placeholders present — populate real values", "Dry-run scaffold"]
+    },
+    "pipelineguard": {
+      "template_exists": true,
+      "required_fields_present": [
+        "plan_id",
+        "schema_version",
+        "resources",
+        "metadata.source",
+        "metadata.ingested_at"
+      ],
+      "notes": ["Placeholders present — populate real values", "Dry-run scaffold"]
+    },
+    "pipelinescan": {
+      "template_exists": true,
+      "required_fields_present": [
+        "plan_id",
+        "schema_version",
+        "resources",
+        "metadata.source",
+        "metadata.ingested_at"
+      ],
+      "notes": ["Placeholders present — populate real values", "Dry-run scaffold"]
+    },
+    "vectorguard": {
+      "template_exists": true,
+      "required_fields_present": [
+        "plan_id",
+        "schema_version",
+        "resources",
+        "metadata.source",
+        "metadata.ingested_at"
+      ],
+      "notes": ["Placeholders present — populate real values", "Dry-run scaffold"]
+    },
+    "vectorscan": {
+      "template_exists": true,
+      "required_fields_present": [
+        "plan_id",
+        "schema_version",
+        "resources",
+        "metadata.source",
+        "metadata.ingested_at"
+      ],
+      "notes": ["Placeholders present — populate real values", "Dry-run scaffold"]
+    }
+  },
+  "notes": [
+    "All mapped products have dry-run templates under `ai_reports/schema_templates/`.",
+    "Templates include required canonical fields as placeholders; next step is populating real values and moving templates under `products/<product>/schema.yml`.",
+    "If you want, I can generate filled examples using sample values to validate canonical schema compatibility."
+  ]
+}
