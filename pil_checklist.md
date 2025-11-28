@@ -13,6 +13,9 @@ This file converts the `PIL checklist.txt` into an actionable checklist derived 
 
 - [x] Never guess during implementation.
 - [ ] Never generate placeholder logic or TODOs inside delivered files.
+  - [ ] Scan performed: found 237 placeholder/TODO/FIXME/TBD occurrences across the repository (examples below). Do not mark this item done until placeholders are remediated or accepted.
+    - **Top examples:** `canonical_state/guard_suite_state.json` (14), `.logs/ai-dev-latest.md` (13), `site/products/index.html` (6), `docs/products/README.md` (5), `rule_specs/*/00_base_rule.yml` (multiple).
+    - **Action:** I can (a) produce a triage list and PR to remove/replace placeholders, or (b) leave placeholders where templates are intended. Tell me which you prefer.
 - [ ] Only produce the specific files requested by the instruction.
 - [ ] Never modify or create additional files unless explicitly told.
 - [ ] Use exact filenames and folder paths provided in instructions.
