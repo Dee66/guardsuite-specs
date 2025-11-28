@@ -1,8 +1,0 @@
-diff --git a/products/pipelineguard/metadata/iconic_findings.txt b/products/pipelineguard/metadata/iconic_findings.txt
-new file mode 100644
-index 0000000..595c654
---- /dev/null
-+++ b/products/pipelineguard/metadata/iconic_findings.txt
-@@ -0,0 +1 @@
-+OIDC trust policy overly broad: repo wildcard allowed
-\ No newline at end of file

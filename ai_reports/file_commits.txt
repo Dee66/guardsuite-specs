@@ -1,4 +1,0 @@
-products/computeguard/schema.yml: 5b843894d64eaa6d939c17488409d52ed2402192 5b84389 2025-11-27 10:58:49 +0200 Phase-5 pilot: promote computeguard schema, update base rule, scaffold adapters
-products/computeguard/rules/00_base_rule.yml: 5b843894d64eaa6d939c17488409d52ed2402192 5b84389 2025-11-27 10:58:49 +0200 Phase-5 pilot: promote computeguard schema, update base rule, scaffold adapters
-strategy_e/adapters/pipeline_adapter.py: 541760c6d10b5a2a09c74be0612c17ee304ae629 541760c 2025-11-27 11:22:30 +0200 ATU-0047: Adapter lint fixes and verification
-strategy_e/adapters/computeguard_adapter.py: 541760c6d10b5a2a09c74be0612c17ee304ae629 541760c 2025-11-27 11:22:30 +0200 ATU-0047: Adapter lint fixes and verification

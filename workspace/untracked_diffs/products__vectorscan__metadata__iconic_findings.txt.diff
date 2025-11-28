@@ -1,8 +1,0 @@
-diff --git a/products/vectorscan/metadata/iconic_findings.txt b/products/vectorscan/metadata/iconic_findings.txt
-new file mode 100644
-index 0000000..09a0b17
---- /dev/null
-+++ b/products/vectorscan/metadata/iconic_findings.txt
-@@ -0,0 +1 @@
-+Public endpoint detected: 0.0.0.0/0
-\ No newline at end of file

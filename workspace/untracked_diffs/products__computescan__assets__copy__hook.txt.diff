@@ -1,8 +1,0 @@
-diff --git a/products/computescan/assets/copy/hook.txt b/products/computescan/assets/copy/hook.txt
-new file mode 100644
-index 0000000..b638afc
---- /dev/null
-+++ b/products/computescan/assets/copy/hook.txt
-@@ -0,0 +1 @@
-+Spot GPU and inference waste instantly.
-\ No newline at end of file

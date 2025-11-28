@@ -1,8 +1,0 @@
-diff --git a/products/vectorguard/assets/copy/hook.txt b/products/vectorguard/assets/copy/hook.txt
-new file mode 100644
-index 0000000..ecbddce
---- /dev/null
-+++ b/products/vectorguard/assets/copy/hook.txt
-@@ -0,0 +1 @@
-+Enforce zero-trust vector infrastructure.
-\ No newline at end of file

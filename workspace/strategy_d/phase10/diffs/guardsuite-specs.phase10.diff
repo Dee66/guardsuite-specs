@@ -1,5 +1,0 @@
---- products/guardsuite-specs/metadata/product.yml.orig+++ products/guardsuite-specs/metadata/product.yml@@ -1,4 +1,4 @@-id: guard-specs
-+id: guardsuite-specs
- name: GuardSpecs
- owner: GuardSuite Platform Team
- version: 1.0.0

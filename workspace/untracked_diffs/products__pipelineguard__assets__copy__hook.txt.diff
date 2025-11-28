@@ -1,8 +1,0 @@
-diff --git a/products/pipelineguard/assets/copy/hook.txt b/products/pipelineguard/assets/copy/hook.txt
-new file mode 100644
-index 0000000..454935b
---- /dev/null
-+++ b/products/pipelineguard/assets/copy/hook.txt
-@@ -0,0 +1 @@
-+Zero-trust CI/CD enforcement.
-\ No newline at end of file

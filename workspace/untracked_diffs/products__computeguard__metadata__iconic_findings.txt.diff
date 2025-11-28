@@ -1,8 +1,0 @@
-diff --git a/products/computeguard/metadata/iconic_findings.txt b/products/computeguard/metadata/iconic_findings.txt
-new file mode 100644
-index 0000000..a90a5f6
---- /dev/null
-+++ b/products/computeguard/metadata/iconic_findings.txt
-@@ -0,0 +1 @@
-+Autoscaling disabled on inference endpoint
-\ No newline at end of file

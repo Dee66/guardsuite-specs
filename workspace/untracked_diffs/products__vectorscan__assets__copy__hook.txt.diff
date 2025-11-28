@@ -1,8 +1,0 @@
-diff --git a/products/vectorscan/assets/copy/hook.txt b/products/vectorscan/assets/copy/hook.txt
-new file mode 100644
-index 0000000..3620892
---- /dev/null
-+++ b/products/vectorscan/assets/copy/hook.txt
-@@ -0,0 +1 @@
-+Detect vector DB misconfigurations instantly.
-\ No newline at end of file

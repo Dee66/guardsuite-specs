@@ -1,8 +1,0 @@
-{
-  "flake8_exit_code": 1,
-  "generated_at": "2025-11-28T06:35:01Z",
-  "pytest_collected": null,
-  "pytest_exit_code": 1,
-  "repo": "/home/dee/workspace/AI/GuardSuite/VectorScan",
-  "scan_started_at": "2025-11-28T06:34:11Z"
-}

@@ -1,5 +1,0 @@
---- products/vectorguard/metadata/product.yml.orig+++ products/vectorguard/metadata/product.yml@@ -1,4 +1,4 @@-id: ''
-+id: vectorguard
- name: ''
- owner: ''
- version: ''
