@@ -9,10 +9,9 @@
 
 This file converts the `PIL checklist.txt` into an actionable checklist derived from the PIL specification. Each item is a single actionable task that can be checked off as completed. Use the included script `scripts/update_pil_progress.py` to update the colored progress bar above to reflect the number of checked items.
 
-**PHASE 0 — AI IMPLEMENTOR RULES (MANDATORY)**
+- **PHASE 0 — AI IMPLEMENTOR RULES (MANDATORY)**
 
-- [ ] Never guess during implementation.
- - [x] Never guess during implementation.
+- [x] Never guess during implementation.
 - [ ] Never generate placeholder logic or TODOs inside delivered files.
 - [ ] Only produce the specific files requested by the instruction.
 - [ ] Never modify or create additional files unless explicitly told.
