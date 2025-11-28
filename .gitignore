@@ -10,3 +10,36 @@ site/
 .vscode/
 *.log
 ai_snapshots/
+
+# Local Python virtual environments
+.pil_venv/
+.venv/
+venv/
+
+# Generated AI reports and scan artifacts
+ai_reports/
+ai_reports_*/
+ai_reports_multi/
+ai_reports_multi_*/
+ai_reports_multi_refresh/
+ai_reports_multi_smoke/
+ai_reports_multi_test/
+ai_reports_multi_vectorscan_test/
+ai_reports_multi_embedded_test/
+
+# Test and tool outputs
+test-reports/
+test-reports/*
+workspace/
+files/
+directories/
+
+# Strategy backups
+strategy_e/pipeline/results/backups/
+
+# Scanner outputs
+repos_index.scan.json
+*.scan.json
+
+# Caches
+.pytest_cache/
