@@ -1,0 +1,54 @@
+# Repository Contract for PIL
+# Versioned contract that defines repo-level sanity gates and structural requirements
+# This file is used by the PIL generator `repo-scanner.py` to decide whether a repository
+# is healthy enough for per-task scoring. Keep stable and human-editable.
+version: "1.0"
+
+# Mandatory sanity checks for Full-Repo Sanity Gate. Each entry is a simple predicate
+# evaluated by `run_sanity_gate()`; implementors may support either string or dict forms.
+sanity_checks:
+  - product.yml          # product metadata must exist
+  - project_map.yml      # mapping of tasks to artifacts
+  - src/                 # source code directory present
+  - tests/               # tests directory present (or CI test reports)
+  - checklist.yml        # canonical checklist file present
+
+# Definition of required structure: explicit files and directories expected in the repo.
+# Use simple glob-like paths; the scanner should interpret trailing `/` as directory.
+required_structure:
+  files:
+    - product.yml
+    - project_map.yml
+    - task_contract.yml
+  directories:
+    - src/
+    - tests/
+    - rule_specs/
+
+# Complexity profile metrics to compute for this repository. These keys are suggestions
+# consumed by `compute_complexity_profile()`; each metric should be a numeric value.
+complexity_profile_metrics:
+  module_count:        # number of Python modules under `src/`
+    description: "Count of top-level Python modules under src/"
+    method: ast_module_count
+  pipeline_stage_count: # pipeline stages discovered via decorators or markers
+    description: "Count of pipeline stage markers (decorators or annotated funcs)"
+    method: ast_decorator_count
+  lines_of_code:
+    description: "Total lines of code across tracked source files"
+    method: loc_count
+
+# Optional gate thresholds (prevent scoring above X% if missing critical items)
+gates:
+  MANDATORY_FILES_PRESENT: true
+
+# Human notes: keep this file minimal and stable; avoid embedding dynamic timestamps.
+
+# Example usage:
+# Example: a small repo that lacks tests would fail the tests directory sanity check
+# and cause `run_sanity_gate()` to return healthy: false. The scanner can read this
+# file and surface which checks failed in the `details` object.
+#
+# Example dict form (supported by scanner):
+# sanity_checks:
+#   - {path: "product.yml", description: "product metadata file"}

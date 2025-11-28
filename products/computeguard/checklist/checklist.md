@@ -3,7 +3,7 @@
 
 <!-- Overall progress bar (colour) -->
 <div role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="94" style="width:94.0%; background:#e6eef0; border-radius:8px; padding:6px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.04);">
-  <div style="width:94.0%; background:linear-gradient(90deg,#4caf50,#2e7d32); color:#fff; padding:10px 12px; text-align:right; border-radius:6px; font-weight:700; transition:width 0.5s ease;">
+  <div style="width:55.0%; background:linear-gradient(90deg,#4caf50,#2e7d32); color:#fff; padding:10px 12px; text-align:right; border-radius:6px; font-weight:700; transition:width 0.5s ease;">
     <span style="display:inline-block; background:rgba(0,0,0,0.12); padding:4px 8px; border-radius:999px; font-size:0.95em;">94.0% Complete</span>
   </div>
 </div>

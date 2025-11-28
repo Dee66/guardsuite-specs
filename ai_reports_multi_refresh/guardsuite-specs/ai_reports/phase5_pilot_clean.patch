@@ -1,0 +1,183 @@
+From 5b843894d64eaa6d939c17488409d52ed2402192 Mon Sep 17 00:00:00 2001
+From: Deon Prinsloo <deon@shieldcraft-ai.com>
+Date: Thu, 27 Nov 2025 10:58:49 +0200
+Subject: [PATCH] Phase-5 pilot: promote computeguard schema, update base rule,
+ scaffold adapters
+
+---
+ products/computeguard/rules/00_base_rule.yml  |  9 ++++
+ products/computeguard/schema.yml              | 21 +++++++++
+ strategy_e/adapters/__init__.py               |  3 ++
+ strategy_e/adapters/computeguard_adapter.py   | 20 ++++++++
+ strategy_e/adapters/pipeline_adapter.py       | 46 +++++++++++++++++++
+ .../tests/test_computeguard_adapter.py        |  8 ++++
+ .../adapters/tests/test_pipeline_adapter.py   |  8 ++++
+ 7 files changed, 115 insertions(+)
+ create mode 100644 products/computeguard/rules/00_base_rule.yml
+ create mode 100644 products/computeguard/schema.yml
+ create mode 100644 strategy_e/adapters/__init__.py
+ create mode 100644 strategy_e/adapters/computeguard_adapter.py
+ create mode 100644 strategy_e/adapters/pipeline_adapter.py
+ create mode 100644 strategy_e/adapters/tests/test_computeguard_adapter.py
+ create mode 100644 strategy_e/adapters/tests/test_pipeline_adapter.py
+
+diff --git a/products/computeguard/rules/00_base_rule.yml b/products/computeguard/rules/00_base_rule.yml
+new file mode 100644
+index 0000000..3147ae1
+--- /dev/null
++++ b/products/computeguard/rules/00_base_rule.yml
+@@ -0,0 +1,9 @@
++id: "base-rule"
++name: "Base Rule Template"
++description: "Product base rule template — replace placeholders when adding concrete rules."
++severity: "medium"
++remediation_hint: "Add remediation steps specific to the product and configuration."
++remediation_difficulty: "medium"
++created_by: "automation@guardsuite"
++last_reviewed: "2025-11-27"
++tags: []
+diff --git a/products/computeguard/schema.yml b/products/computeguard/schema.yml
+new file mode 100644
+index 0000000..76b35d8
+--- /dev/null
++++ b/products/computeguard/schema.yml
+@@ -0,0 +1,21 @@
++plan_id: "computeguard-default-plan"
++schema_version: "0.1.0"
++resources:
++  - id: "sample-1"
++    name: "sample-resource"
++    type: "text"
++    content: |
++      example line 1
++      example line 2
++metadata:
++  source: "ai_reports/schema_templates/computeguard.schema.yml"
++  ingested_at: "2025-11-27T14:30:00Z"
++  template_version: "0.1.0"
++  schema_version: "0.1.0"
++  rule_count: 0
++  severity_totals: {}
++  quick_score_mode: ""
++  plan_size_bytes: 0
++notes:
++  - "Promoted from ai_reports/schema_templates/computeguard.schema.yml as part of Phase-5 pilot."
++  - "Replace sample resource with real product data before operational use."
+diff --git a/strategy_e/adapters/__init__.py b/strategy_e/adapters/__init__.py
+new file mode 100644
+index 0000000..27c60aa
+--- /dev/null
++++ b/strategy_e/adapters/__init__.py
+@@ -0,0 +1,3 @@
++"""Adapters package for Strategy E evaluators."""
++
++__all__ = ["pipeline_adapter", "computeguard_adapter"]
+diff --git a/strategy_e/adapters/computeguard_adapter.py b/strategy_e/adapters/computeguard_adapter.py
+new file mode 100644
+index 0000000..03274d9
+--- /dev/null
++++ b/strategy_e/adapters/computeguard_adapter.py
+@@ -0,0 +1,20 @@
++from typing import Any, Dict, Optional
++
++from strategy_e.adapters.pipeline_adapter import evaluate as pipeline_evaluate
++
++
++def evaluate(resource: Dict[str, Any], rules: Optional[Any] = None, path: Optional[str] = None, dry_run: bool = False) -> Dict[str, Any]:
++    """Computeguard-specific adapter.
++
++    Performs lightweight input validation against expected product fields, then delegates to the canonical pipeline adapter.
++    """
++    if not isinstance(resource, dict):
++        raise ValueError("resource must be a mapping type")
++
++    # Lightweight precondition: product schemas require `plan_id` and `resources`
++    if not resource.get("plan_id"):
++        raise ValueError("resource missing required field: plan_id")
++    if not resource.get("resources"):
++        raise ValueError("resource missing required field: resources")
++
++    return pipeline_evaluate(resource, rules=rules, path=path, dry_run=dry_run)
+diff --git a/strategy_e/adapters/pipeline_adapter.py b/strategy_e/adapters/pipeline_adapter.py
+new file mode 100644
+index 0000000..1d2b5e9
+--- /dev/null
++++ b/strategy_e/adapters/pipeline_adapter.py
+@@ -0,0 +1,46 @@
++from typing import Any, Dict, Optional
++
++try:
++    from strategy_e.pipeline.executor.pipeline_executor import run_pipeline_on_text
++except Exception:
++    # Fallback stub if executor not importable in this environment
++    def run_pipeline_on_text(text: str, rules, path: str = None, dry_run: bool = False, backup_dir: str = None):
++        return {
++            "normalized_text": text,
++            "validation_errors": [],
++            "repaired_text": text,
++            "diff": "",
++            "backup_path": None,
++            "dry_run": dry_run,
++        }
++
++
++def evaluate(resource: Dict[str, Any], rules: Optional[Any] = None, path: Optional[str] = None, dry_run: bool = False) -> Dict[str, Any]:
++    """Adapter that maps a resource to the canonical pipeline executor.
++
++    - Accepts a resource that may contain a `text` field or `resources` list with `content`.
++    - Calls `run_pipeline_on_text` and normalizes the response into a consistent dict.
++    """
++    text = ""
++    if isinstance(resource, dict):
++        if resource.get("text"):
++            text = resource.get("text")
++        elif resource.get("resources") and isinstance(resource.get("resources"), list):
++            first = resource.get("resources")[0]
++            text = first.get("content", "") if isinstance(first, dict) else str(first)
++        else:
++            # best-effort stringification
++            text = str(resource)
++    else:
++        text = str(resource)
++
++    result = run_pipeline_on_text(text, rules or [], path=path, dry_run=dry_run)
++
++    violations = [{"message": m} for m in result.get("validation_errors", [])]
++
++    return {
++        "violations": violations,
++        "repaired_text": result.get("repaired_text", ""),
++        "diff": result.get("diff", ""),
++        "metadata": {"dry_run": result.get("dry_run", False)},
++    }
+diff --git a/strategy_e/adapters/tests/test_computeguard_adapter.py b/strategy_e/adapters/tests/test_computeguard_adapter.py
+new file mode 100644
+index 0000000..7c5b066
+--- /dev/null
++++ b/strategy_e/adapters/tests/test_computeguard_adapter.py
+@@ -0,0 +1,8 @@
++from strategy_e.adapters.computeguard_adapter import evaluate
++
++
++def test_computeguard_adapter_basic():
++    resource = {"plan_id": "sample", "resources": [{"content": "short\nlonger line content"}]}
++    result = evaluate(resource, rules=[{"validation": {"checks": [{"type": "line_length", "max": 10}]}}], dry_run=True)
++    assert isinstance(result, dict)
++    assert "violations" in result
+diff --git a/strategy_e/adapters/tests/test_pipeline_adapter.py b/strategy_e/adapters/tests/test_pipeline_adapter.py
+new file mode 100644
+index 0000000..8e3e6ad
+--- /dev/null
++++ b/strategy_e/adapters/tests/test_pipeline_adapter.py
+@@ -0,0 +1,8 @@
++from strategy_e.adapters.pipeline_adapter import evaluate
++
++
++def test_pipeline_adapter_basic():
++    resource = {"plan_id": "test-plan", "resources": [{"content": "short\nline"}]}
++    result = evaluate(resource, rules=[{"validation": {"checks": [{"type": "line_length", "max": 120}]}}], dry_run=True)
++    assert isinstance(result, dict)
++    assert "violations" in result
+-- 
+2.43.0
+

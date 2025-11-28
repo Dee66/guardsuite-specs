@@ -1,0 +1,57 @@
+# Project Mapping Layer for PIL
+# Root keys are `task_id` values mapping to task definitions.
+# Each task entry describes source, dependencies, implementation files, validation artifacts,
+# and AI confidence requirements.
+
+# Pathing convention examples:
+# - implementation_files: use placeholders like `src/<pillar_name>/module.py`
+# - validation_artifacts: pytest ids, snapshot file paths, or test report fragments
+
+CORE-001:
+  task_source: "checklist.yml: CORE-001"
+  title: "Add initial pipeline stage"
+  description: "Implements the ingestion pipeline stage and associated unit tests."
+  dependencies: [INIT-001]
+  implementation_files:
+    - src/pipelines/ingest.py
+    - src/pipelines/stages.py
+  validation_artifacts:
+    - tests/test_ingest.py::test_ingest_success
+    - tests/test_stages.py::test_stage_order
+  confidence_requirements: STATIC
+  task_spec_coverage:
+    - spec_section: "pipeline.lifecycle"
+      covered: true
+
+# Example of a documentation task
+DOC-001:
+  task_source: "checklist.yml: DOC-001"
+  title: "Add README for compute pillar"
+  description: "Create high-level README documenting the compute pillar's responsibilities."
+  dependencies: []
+  implementation_files:
+    - docs/compute/README.md
+  validation_artifacts:
+    - docs/compute/README.md  # presence validated by sanity gate
+  confidence_requirements: AI_REVIEW
+  task_spec_coverage:
+    - spec_section: "docs.overview"
+      covered: true
+
+# Guidelines:
+# - Keep task IDs unique and stable. Use checklist IDs when available.
+# - `confidence_requirements` must be one of: STATIC, DYNAMIC, AI_REVIEW
+# - `implementation_files` should map to the minimal set of artifacts required to verify the task.
+
+# Example additional task showing nested structure and dynamic confidence requirements:
+#
+# TEST-002:
+#   task_source: "checklist.yml: TEST-002"
+#   title: "Add unit tests for helper"
+#   description: "Provide unit tests that cover edge cases for helper functions."
+#   dependencies: [CORE-001]
+#   implementation_files:
+#     - src/pipelines/helpers.py
+#   validation_artifacts:
+#     - tests/test_helpers.py::test_edge_case
+#   confidence_requirements: DYNAMIC

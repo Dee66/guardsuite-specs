@@ -1,0 +1,64 @@
+{
+  "generated": "2025-11-27T12:00:00Z",
+  "source_inputs": [
+    "ai_reports/pillar_map.json"
+  ],
+  "pillars": {
+    "vector": {
+      "found_evaluators": [],
+      "found_schemas": [],
+      "missing_expected": [
+        "rule_specs/vectorguard/evaluator.py",
+        "rule_specs/vectorscan/evaluator.py",
+        "products/vectorguard/schema.yml",
+        "products/vectorscan/schema.yml"
+      ],
+      "ambiguous_locations": []
+    },
+    "compute": {
+      "found_evaluators": [
+        "products/computescan/checklist/checklist.yml (references evaluate(resource))"
+      ],
+      "found_schemas": [
+        "guardsuite-core/canonical_schema.json",
+        "canonical_schemas/.gitkeep"
+      ],
+      "missing_expected": [
+        "rule_specs/computeguard/evaluator.py",
+        "rule_specs/computescan/evaluator.py",
+        "products/computeguard/schema.yml",
+        "products/computescan/schema.yml"
+      ],
+      "ambiguous_locations": []
+    },
+    "pipeline": {
+      "found_evaluators": [
+        "strategy_e/pipeline/executor/pipeline_executor.py",
+        "strategy_e/pipeline/executor/repair_steps.py"
+      ],
+      "found_schemas": [
+        "canonical_schemas/.gitkeep"
+      ],
+      "missing_expected": [
+        "rule_specs/pipelineguard/evaluator.py",
+        "rule_specs/pipelinescan/evaluator.py",
+        "products/pipelineguard/schema.yml",
+        "products/pipelinescan/schema.yml"
+      ],
+      "ambiguous_locations": []
+    }
+  },
+  "ambiguous_locations": [
+    "canonical_state/guard_suite_state.json (generic evaluator pipeline references)",
+    "validation_integrity_snapshot/metadata.json (policy & evaluator pipeline metadata)",
+    "tmp/ai-export/* (snapshots mentioning evaluator.runtime_override)"
+  ],
+  "notes": [
+    "Detected files by patterns requested: evaluator.py, evaluation/*, guardsuite-core modules, strategy_e/pipeline/executor/*, canonical_schemas/*, products/*/schema.*",
+    "Found concrete executor code under strategy_e/pipeline/executor which maps to the pipeline pillar.",
+    "Found guardsuite-core canonical schema at guardsuite-core/canonical_schema.json (authoritative schema location).",
+    "Many products reference evaluate(resource) in checklist/docs but do not ship evaluator code in rule_specs/* as evaluator.py.",
+    "missing_expected lists are heuristics: expected evaluator.py and product schema files under product folders when absent.",
+    "Ambiguous locations are repository-wide artifacts that reference evaluator pipelines or runtime overrides and are not uniquely mappable to a single pillar."
+  ]
+}

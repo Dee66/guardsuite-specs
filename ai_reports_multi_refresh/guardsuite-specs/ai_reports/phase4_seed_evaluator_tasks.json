@@ -1,0 +1,75 @@
+{
+  "generated": "2025-11-27T14:05:00Z",
+  "purpose": "Seed tasks to create adapter modules and evaluator entrypoints that bind to promoted schemas",
+  "products": [
+    {
+      "product": "computeguard",
+      "adapter_module": "strategy_e/adapters/computeguard_adapter.py",
+      "entrypoint": "evaluate(resource)",
+      "tasks": [
+        {"id": "EVAL-C-01","description": "Create adapter module exposing evaluate(resource) that normalizes input and calls canonical executor or product logic","sequence": "early"},
+        {"id": "EVAL-C-02","description": "Define evaluator entrypoint contract and return schema (issues/violations list) and metadata","sequence": "early"},
+        {"id": "EVAL-C-03","description": "Add unit test verifying adapter returns expected structure when given sample resource conforming to products/computeguard/schema.yml","sequence": "mid"}
+      ],
+      "binding_requirements": ["Adapter must accept resource matching product schema","Adapter must return violations referencing schema fields"]
+    },
+    {
+      "product": "computescan",
+      "adapter_module": "strategy_e/adapters/computescan_adapter.py",
+      "entrypoint": "evaluate(resource)",
+      "tasks": [
+        {"id": "EVAL-CN-01","description": "Create adapter module exposing evaluate(resource)","sequence": "early"},
+        {"id": "EVAL-CN-02","description": "Add unit tests mapping checklist invocation to adapter invocation","sequence": "mid"}
+      ],
+      "binding_requirements": ["Accepts computescan product schema resources","Returns structured violations and remediation hints"]
+    },
+    {
+      "product": "pipelineguard",
+      "adapter_module": "strategy_e/adapters/pipelineguard_adapter.py",
+      "entrypoint": "evaluate(resource)",
+      "tasks": [
+        {"id": "EVAL-P-01","description": "Create canonical adapter that maps evaluate(resource) -> run_pipeline_on_text(text, rules, ...) and normalizes outputs","sequence": "early"},
+        {"id": "EVAL-P-02","description": "Document adapter mapping and add integration test with pipeline executor","sequence": "mid"}
+      ],
+      "binding_requirements": ["Adapter maps product schema fields to pipeline executor input","Adapter preserves violation metadata and remediation_hint"]
+    },
+    {
+      "product": "pipelinescan",
+      "adapter_module": "strategy_e/adapters/pipelinescan_adapter.py",
+      "entrypoint": "evaluate(resource)",
+      "tasks": [
+        {"id": "EVAL-PS-01","description": "Create adapter exposing evaluate(resource) for pipelinescan","sequence": "early"},
+        {"id": "EVAL-PS-02","description": "Integration test with sample pipeline resource","sequence": "mid"}
+      ],
+      "binding_requirements": ["Accept pipeline schema resources","Return violations list with remediation hints"]
+    },
+    {
+      "product": "vectorguard",
+      "adapter_module": "strategy_e/adapters/vectorguard_adapter.py",
+      "entrypoint": "evaluate(resource)",
+      "tasks": [
+        {"id": "EVAL-V-01","description": "Create vectorguard adapter exposing evaluate(resource)","sequence": "early"},
+        {"id": "EVAL-V-02","description": "Unit test validating output shape against expected violations schema","sequence": "mid"}
+      ],
+      "binding_requirements": ["Adapter accepts vector product schema resources","Returns remediation hints and rule IDs"]
+    },
+    {
+      "product": "vectorscan",
+      "adapter_module": "strategy_e/adapters/vectorscan_adapter.py",
+      "entrypoint": "evaluate(resource)",
+      "tasks": [
+        {"id": "EVAL-VS-01","description": "Create vectorscan adapter and tests","sequence": "early"},
+        {"id": "EVAL-VS-02","description": "Integration test with sample vector resource","sequence": "mid"}
+      ],
+      "binding_requirements": ["Adapter binds to promoted vectorscan schema","Adapter returns rule violation objects with remediation_hint"]
+    }
+  ],
+  "global_tasks": [
+    {"id": "EVAL-G-01","description": "Document canonical adapter API and conventions (module path, evaluate signature, return contract)","recommended_sequence": "early"},
+    {"id": "EVAL-G-02","description": "Add CI job to run adapter unit tests and integration tests against promoted schema samples","recommended_sequence": "mid"}
+  ],
+  "notes": [
+    "Adapter modules are task blueprints only — actual code edits to `strategy_e/adapters/` require repository modifications outside ai_reports/.",
+    "Ensure adapters are lightweight wrappers that validate input against product schema and call canonical executor where appropriate."
+  ]
+}

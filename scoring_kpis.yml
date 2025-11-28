@@ -1,0 +1,56 @@
+# PIL Universal Scoring KPIs
+# Version: canonical scoring KPI definitions used across GuardSuite pillars.
+version: "1.0"
+
+# Primary score weights (integers summing to 100).
+# These represent the percentage contribution of each KPI to the final task score.
+score_weights:
+  TESTS_PASS: 30
+  CODE_ARTIFACT_PRESENT: 20
+  SPEC_COVERAGE: 20
+  COMPLEXITY_PROFILE: 10
+  SANITY_GATE: 10
+  DOCUMENTATION: 10
+
+# Task type multipliers to adjust task-level importance
+task_type_weights:
+  pipeline_stage: 1.00
+  documentation: 0.50
+  infra: 0.80
+  critical: 1.50
+
+# Gates: KPIs that, if failed, limit the maximum achievable task score.
+# Scoring engine may apply gate logic such as "if TESTS_PASS==false then cap score at 50%".
+gates:
+  - TESTS_PASS
+  - SANITY_GATE
+
+# Minimal example block showing how a task score would be computed.
+example:
+  task_id: "CORE-001"
+  task_type: "pipeline_stage"
+  metrics:
+    TESTS_PASS: true
+    CODE_ARTIFACT_PRESENT: true
+    SPEC_COVERAGE: 85
+    COMPLEXITY_PROFILE: 12
+    SANITY_GATE: true
+    DOCUMENTATION: false
+  computed_score: 85  # Example computed weighted score (post-gates and type multiplier)
+
+# Notes:
+# - Keep integers in `score_weights` summing to 100 for deterministic aggregation.
+# - `task_type_weights` are multipliers applied after gate logic.
+# - Gates are evaluated before final weighting; implementers should codify exact gate semantics.
+
+# Example: Override gate semantics and weight for a forked experiment
+# experiment:
+#   score_weights:
+#     TESTS_PASS: 40
+#     CODE_ARTIFACT_PRESENT: 20
+#     SPEC_COVERAGE: 20
+#     COMPLEXITY_PROFILE: 10
+#     SANITY_GATE: 10
+#   task_type_weights:
+#     pipeline_stage: 1.0
+#     documentation: 0.6
