@@ -1,0 +1,6 @@
+T1:
+  implementation_files:
+    - src/impl.py
+  task_type: pipeline_stage
+  validation_artifacts:
+    - tests/missing_test.py

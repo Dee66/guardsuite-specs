@@ -1,0 +1,5 @@
+T1:
+  implementation_files:
+    - src/impl.py
+  task_type: pipeline_stage
+  # intentionally no task_spec_coverage -> SPEC_COVERAGE should be neutral

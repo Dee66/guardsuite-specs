@@ -1,0 +1,8 @@
+T1:
+  implementation_files:
+    - src/impl.py
+  task_type: documentation
+  task_spec_coverage:
+    - { covered: true }
+    - { covered: true }
+  validation_artifacts: []

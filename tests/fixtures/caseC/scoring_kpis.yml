@@ -1,0 +1,8 @@
+score_weights:
+  SPEC_COVERAGE: 40
+  DOCUMENTATION: 30
+  SANITY_GATE: 10
+  STATE_TRANSITION: 20
+
+task_type_weights:
+  documentation: 1.0

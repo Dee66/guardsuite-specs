@@ -1,0 +1,5 @@
+T1:
+  implementation_files:
+    - src/impl.py
+  task_type: pipeline_stage
+  # no done_contract referencing state_transition
