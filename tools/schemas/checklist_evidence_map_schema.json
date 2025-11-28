@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "checklist_evidence_map.json",
+  "type": "object",
+  "required": ["generated_at","mappings"],
+  "properties": {
+    "generated_at": {"type": "string"},
+    "mappings": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["evidence","status"],
+        "properties": {
+          "evidence": {"type": "array"},
+          "status": {"type": "string", "enum": ["done","partial","missing","needs-review"]},
+          "rationale": {"type": "string"}
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,8 +1,17 @@
 """Routing registry for GuardSpecs scaffold."""
 
 from api import products
-from api.bootstrap_api import create_bootstrap, get_bootstrap, list_bootstraps, regenerate_bootstrap
-from api.ci_integration import ci_regenerate_all, ci_structural_check, ci_validate_products
+from api.bootstrap_api import (
+    create_bootstrap,
+    get_bootstrap,
+    list_bootstraps,
+    regenerate_bootstrap,
+)
+from api.ci_integration import (
+    ci_regenerate_all,
+    ci_structural_check,
+    ci_validate_products,
+)
 from api.webhook_ingest import ingest_scan_result
 from api.validate import validate_product
 

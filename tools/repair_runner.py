@@ -8,6 +8,7 @@ The normalizer used here is a small deterministic placeholder (appends a stable 
 so behavior is predictable for tests and early development. Replace normalization
 rules with true repair logic during implementation milestone C.1.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -57,7 +58,13 @@ def load_rules(rule_dir: str = "tools/repair_rules") -> List[Callable[[str], str
             if hasattr(mod, "normalize") and callable(getattr(mod, "normalize")):
                 # classify rule type: markdown if filename contains 'markdown', else yaml
                 rtype = "markdown" if "markdown" in name.lower() else "yaml"
-                loaded.append({"name": name, "normalize": getattr(mod, "normalize"), "type": rtype})
+                loaded.append(
+                    {
+                        "name": name,
+                        "normalize": getattr(mod, "normalize"),
+                        "type": rtype,
+                    }
+                )
     return loaded
 
 
@@ -80,7 +87,9 @@ def safe_filename(path: str) -> str:
     return path.replace(os.sep, "__").lstrip(".")
 
 
-def run_once(path: str, apply: bool = False, rules: List[Callable[[str], str]] | None = None) -> str:
+def run_once(
+    path: str, apply: bool = False, rules: List[Callable[[str], str]] | None = None
+) -> str:
     p = Path(path)
     if not p.exists():
         raise FileNotFoundError(path)
@@ -100,7 +109,9 @@ def run_once(path: str, apply: bool = False, rules: List[Callable[[str], str]] |
         normalized = apply_rules(original, rules, file_type=file_type)
     else:
         normalized = normalize_text(original)
-    diff = unified_diff(original, normalized, fromfile=str(p), tofile=str(p) + ".normalized")
+    diff = unified_diff(
+        original, normalized, fromfile=str(p), tofile=str(p) + ".normalized"
+    )
 
     if apply:
         # create backups and diffs
@@ -120,7 +131,9 @@ def run_once(path: str, apply: bool = False, rules: List[Callable[[str], str]] |
     return diff
 
 
-def run_directory(path: str, apply: bool = False, extensions: List[str] | None = None) -> dict:
+def run_directory(
+    path: str, apply: bool = False, extensions: List[str] | None = None
+) -> dict:
     """Process files under `path` (recursively) and return mapping of file -> diff.
 
     `extensions` is a list like ['.yml', '.yaml', '.md', '.txt'] to limit processed files.
@@ -145,8 +158,15 @@ def run_directory(path: str, apply: bool = False, extensions: List[str] | None =
 def main(argv: List[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Repair runner (minimal scaffold)")
     parser.add_argument("path", help="Path to file or directory to normalize")
-    parser.add_argument("--apply", action="store_true", help="Write backups and diffs (default: dry-run)")
-    parser.add_argument("--extensions", help="Comma-separated file extensions to process (e.g. .yml,.yaml,.md)")
+    parser.add_argument(
+        "--apply",
+        action="store_true",
+        help="Write backups and diffs (default: dry-run)",
+    )
+    parser.add_argument(
+        "--extensions",
+        help="Comma-separated file extensions to process (e.g. .yml,.yaml,.md)",
+    )
     args = parser.parse_args(argv)
 
     exts = None

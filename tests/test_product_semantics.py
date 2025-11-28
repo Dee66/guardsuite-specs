@@ -17,7 +17,12 @@ def test_compliance_and_purpose_alignment():
         p
         for p in PRODUCTS.glob("*.yml")
         if not p.name.endswith("_worksheet.yml")
-        and p.name not in {"guardsuite_master_spec.yml", "guardsuite-template.yml", "pillar-template.yml"}
+        and p.name
+        not in {
+            "guardsuite_master_spec.yml",
+            "guardsuite-template.yml",
+            "pillar-template.yml",
+        }
     ]
     assert specs, "No product specs found"
 
@@ -36,11 +41,18 @@ def test_compliance_and_purpose_alignment():
         visibility = compliance.get("ledger_visibility")
 
         if ledger_enabled:
-            assert visibility in {"full", "partial", "summary_only"}, (
+            assert visibility in {
+                "full",
+                "partial",
+                "summary_only",
+            }, (
                 f"ledger_visibility must be full|partial|summary_only when enabled in {path}"
             )
         else:
-            assert visibility in {"none", None}, f"ledger_visibility must be none when disabled in {path}"
+            assert visibility in {
+                "none",
+                None,
+            }, f"ledger_visibility must be none when disabled in {path}"
 
         fixpack = data.get("fixpack", {})
         if fixpack.get("included"):

@@ -38,14 +38,22 @@ def _ensure_readme(
         if README_NOTICE in content:
             print("[info] README already contains GuardSuite notice.")
             return
-        message = f"[dry-run] Would append GuardSuite notice to {readme_path}" if dry_run else f"Appending GuardSuite notice to {readme_path}"
+        message = (
+            f"[dry-run] Would append GuardSuite notice to {readme_path}"
+            if dry_run
+            else f"Appending GuardSuite notice to {readme_path}"
+        )
         print(message)
         if not dry_run:
             updated = content.rstrip() + "\n\n" + README_NOTICE + "\n"
             readme_path.write_text(updated, encoding="utf-8")
         return
 
-    message = f"[dry-run] Would create README at {readme_path}" if dry_run else f"Creating README at {readme_path}"
+    message = (
+        f"[dry-run] Would create README at {readme_path}"
+        if dry_run
+        else f"Creating README at {readme_path}"
+    )
     print(message)
     if not dry_run:
         readme_path.write_text(template_body.strip() + "\n", encoding="utf-8")
@@ -66,10 +74,14 @@ def prepare(
 
     if dry_run:
         if not repo_exists:
-            print(f"[dry-run] Target repo missing: {target_repo_path}. Clone or create it before syncing.")
+            print(
+                f"[dry-run] Target repo missing: {target_repo_path}. Clone or create it before syncing."
+            )
         else:
             if not target_docs_dir.exists():
-                print(f"[dry-run] Docs directory absent; would create {target_docs_dir}.")
+                print(
+                    f"[dry-run] Docs directory absent; would create {target_docs_dir}."
+                )
             else:
                 print(f"[dry-run] Docs directory present: {target_docs_dir}.")
     else:
@@ -91,7 +103,9 @@ def prepare(
             if readme_path.exists():
                 readme = readme_path.read_text(encoding="utf-8")
                 if "guardsuite-specs" not in readme:
-                    print(f"[dry-run] README missing guardsuite-specs notice: {readme_path}")
+                    print(
+                        f"[dry-run] README missing guardsuite-specs notice: {readme_path}"
+                    )
             else:
                 print(f"[dry-run] README missing at {readme_path}.")
 
@@ -100,11 +114,24 @@ def prepare(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Sync GuardSuite docs into a target repository")
+    parser = argparse.ArgumentParser(
+        description="Sync GuardSuite docs into a target repository"
+    )
     parser.add_argument("--product", required=True, help="product id to sync")
-    parser.add_argument("--target", required=True, help="local path to target repo (for dry run or copy)")
-    parser.add_argument("--dry-run", action="store_true", default=True, help="simulate the copy (default)")
-    parser.add_argument("--force", action="store_true", help="bypass dry run and copy files")
+    parser.add_argument(
+        "--target",
+        required=True,
+        help="local path to target repo (for dry run or copy)",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        default=True,
+        help="simulate the copy (default)",
+    )
+    parser.add_argument(
+        "--force", action="store_true", help="bypass dry run and copy files"
+    )
     parser.add_argument(
         "--ensure-readme",
         action="store_true",

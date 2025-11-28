@@ -3,16 +3,25 @@ from pathlib import Path
 from strategy_e.pipeline.loader.rule_loader import load_rule_specs
 from strategy_e.pipeline.executor.pipeline_executor import run_pipeline_on_text
 
+
 def main():
-    parser = argparse.ArgumentParser(description="Run Strategy-E rule-spec pipeline.")
+    parser = argparse.ArgumentParser(description=("Run Strategy-E rule-spec pipeline."))
     parser.add_argument("target", help="File to run pipeline on")
-    parser.add_argument("--rules", default="rule_specs", help="Path to rule_specs")
-    parser.add_argument("--dry-run", action="store_true", help="Run without writing backups or modifying files")
+    parser.add_argument(
+        "--rules",
+        default="rule_specs",
+        help="Path to rule_specs",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Run without writing backups or modifying files",
+    )
     parser.add_argument(
         "--backup-dir",
         type=str,
         default=None,
-        help="Optional directory to write backups instead of the default location"
+        help=("Optional directory to write backups instead of the default location"),
     )
     args = parser.parse_args()
 

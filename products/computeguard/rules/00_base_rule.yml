@@ -1,0 +1,9 @@
+id: "base-rule"
+name: "Base Rule Template"
+description: "Product base rule template — replace placeholders when adding concrete rules."
+severity: "medium"
+remediation_hint: "Add remediation steps specific to the product and configuration."
+remediation_difficulty: "medium"
+created_by: "automation@guardsuite"
+last_reviewed: "2025-11-27"
+tags: []

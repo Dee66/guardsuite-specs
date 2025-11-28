@@ -1,0 +1,1 @@
+# computeguard adapter placeholder

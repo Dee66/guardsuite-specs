@@ -51,7 +51,9 @@ def validate_rule_spec(path: Path):
             except Exception:
                 known = []
             if applies not in known:
-                errors.append(f"applies_to must be one of the product directories under rule_specs/: {known}")
+                errors.append(
+                    f"applies_to must be one of the product directories under rule_specs/: {known}"
+                )
         else:
             errors.append("applies_to must be a string")
 
@@ -88,7 +90,9 @@ def validate_rule_spec(path: Path):
                     errors.append(f"normalization.steps[{idx}] must be a mapping")
                 else:
                     if "id" not in step or "operation" not in step:
-                        errors.append(f"normalization.steps[{idx}] must contain id and operation")
+                        errors.append(
+                            f"normalization.steps[{idx}] must contain id and operation"
+                        )
 
     # validation.checks checks
     val = data.get("validation") or {}
@@ -104,7 +108,9 @@ def validate_rule_spec(path: Path):
                     errors.append(f"validation.checks[{idx}] must be a mapping")
                 else:
                     if "id" not in chk or "description" not in chk:
-                        errors.append(f"validation.checks[{idx}] must contain id and description")
+                        errors.append(
+                            f"validation.checks[{idx}] must contain id and description"
+                        )
 
     # repair.steps checks
     rep = data.get("repair") or {}
@@ -120,18 +126,26 @@ def validate_rule_spec(path: Path):
                     errors.append(f"repair.steps[{idx}] must be a mapping")
                 else:
                     if "id" not in rs or "operation" not in rs:
-                        errors.append(f"repair.steps[{idx}] must contain id and operation")
+                        errors.append(
+                            f"repair.steps[{idx}] must contain id and operation"
+                        )
 
     # outputs must contain produces_diff and produces_log as booleans
     out = data.get("outputs")
     if not isinstance(out, dict):
-        errors.append("outputs must be a mapping containing produces_diff and produces_log")
+        errors.append(
+            "outputs must be a mapping containing produces_diff and produces_log"
+        )
     else:
         if "produces_diff" not in out or "produces_log" not in out:
             errors.append("outputs must contain produces_diff and produces_log")
         else:
-            if not isinstance(out.get("produces_diff"), bool) or not isinstance(out.get("produces_log"), bool):
-                errors.append("outputs.produces_diff and outputs.produces_log must be booleans")
+            if not isinstance(out.get("produces_diff"), bool) or not isinstance(
+                out.get("produces_log"), bool
+            ):
+                errors.append(
+                    "outputs.produces_diff and outputs.produces_log must be booleans"
+                )
 
     return errors
 

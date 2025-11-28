@@ -1,0 +1,21 @@
+plan_id: "computeguard-default-plan"
+schema_version: "0.1.0"
+resources:
+  - id: "sample-1"
+    name: "sample-resource"
+    type: "text"
+    content: |
+      example line 1
+      example line 2
+metadata:
+  source: "ai_reports/schema_templates/computeguard.schema.yml"
+  ingested_at: "2025-11-27T14:30:00Z"
+  template_version: "0.1.0"
+  schema_version: "0.1.0"
+  rule_count: 0
+  severity_totals: {}
+  quick_score_mode: ""
+  plan_size_bytes: 0
+notes:
+  - "Promoted from ai_reports/schema_templates/computeguard.schema.yml as part of Phase-5 pilot."
+  - "Replace sample resource with real product data before operational use."

@@ -19,9 +19,9 @@ def test_marketing_sections_have_content(record):
     hero = marketing.get("hero", "").strip()
     blurbs = marketing.get("blurbs", [])
     assert hero, f"marketing.hero missing or empty in {record.path}"
-    assert blurbs and all(isinstance(blurb, str) and blurb.strip() for blurb in blurbs), (
-        f"marketing.blurbs must contain non-empty strings in {record.path}"
-    )
+    assert blurbs and all(
+        isinstance(blurb, str) and blurb.strip() for blurb in blurbs
+    ), f"marketing.blurbs must contain non-empty strings in {record.path}"
 
 
 @pytest.mark.parametrize("record", PRODUCT_SPEC_RECORDS, ids=PRODUCT_SPEC_IDS)
@@ -74,7 +74,9 @@ def test_maintainers_contacts_are_emails(record):
 def test_governance_domains_have_minimum_entries(record):
     spec = record.data
     domains = spec.get("governance_domains", [])
-    assert len(domains) >= 3, f"governance_domains must contain at least 3 entries in {record.path}"
+    assert len(domains) >= 3, (
+        f"governance_domains must contain at least 3 entries in {record.path}"
+    )
     assert all(isinstance(domain, str) and domain.strip() for domain in domains), (
         f"governance_domains entries must be non-empty strings in {record.path}"
     )
@@ -99,7 +101,9 @@ def test_security_contract_has_required_booleans(record):
     security = spec.get("security", {})
     required_keys = ("sanitize_all_inputs", "svg_sanitization", "wasm_compatible")
     for key in required_keys:
-        assert isinstance(security.get(key), bool), f"security.{key} must be bool in {record.path}"
+        assert isinstance(security.get(key), bool), (
+            f"security.{key} must be bool in {record.path}"
+        )
     sandbox_requirement = security.get("sandbox_requirement", "")
     assert isinstance(sandbox_requirement, str) and sandbox_requirement.strip(), (
         f"security.sandbox_requirement must be descriptive in {record.path}"
@@ -110,7 +114,9 @@ def test_security_contract_has_required_booleans(record):
 def test_fixpack_hint_format_contains_issue_placeholder(record):
     spec = record.data
     fixpack = spec.get("fixpack", {})
-    hint_format = fixpack.get("reference_hint_format") or fixpack.get("remediation_hint_format", "")
+    hint_format = fixpack.get("reference_hint_format") or fixpack.get(
+        "remediation_hint_format", ""
+    )
     assert hint_format, f"FixPack hint format missing in {record.path}"
     assert "<ISSUE_ID>" in hint_format, (
         f"FixPack hint format must include <ISSUE_ID> placeholder in {record.path}"
@@ -121,7 +127,9 @@ def test_fixpack_hint_format_contains_issue_placeholder(record):
 def test_related_products_reference_known_ids(record):
     spec = record.data
     related = spec.get("related_products", [])
-    assert isinstance(related, list), f"related_products must be a list in {record.path}"
+    assert isinstance(related, list), (
+        f"related_products must be a list in {record.path}"
+    )
     for product in related:
         if product in CANONICAL_PRODUCT_IDS:
             continue

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # COPILOT: Do not add new required fields without updating all existing products.
 """Validate GuardSuite product YAML files for required keys and structure."""
+
 from __future__ import annotations
 
 import argparse
@@ -106,34 +107,82 @@ SEMANTIC_RUNTIME_PATH = SEMANTIC_DIR / "semantic_runtime.yml"
 SEMANTIC_RUNTIME_SCHEMA = SEMANTIC_DIR / "semantic_runtime.schema.yml"
 SEMANTIC_RUNTIME_PREFIX = "Semantic runtime schema failed: "
 SEMANTIC_RUNTIME_ENVIRONMENT_PATH = SEMANTIC_DIR / "semantic_runtime_environment.yml"
-SEMANTIC_RUNTIME_ENVIRONMENT_SCHEMA = SEMANTIC_DIR / "semantic_runtime_environment.schema.yml"
+SEMANTIC_RUNTIME_ENVIRONMENT_SCHEMA = (
+    SEMANTIC_DIR / "semantic_runtime_environment.schema.yml"
+)
 SEMANTIC_RUNTIME_ENVIRONMENT_PREFIX = "Semantic runtime environment schema failed: "
 SEMANTIC_RUNTIME_CAPABILITIES_PATH = SEMANTIC_DIR / "semantic_runtime_capabilities.yml"
-SEMANTIC_RUNTIME_CAPABILITIES_SCHEMA = SEMANTIC_DIR / "semantic_runtime_capabilities.schema.yml"
+SEMANTIC_RUNTIME_CAPABILITIES_SCHEMA = (
+    SEMANTIC_DIR / "semantic_runtime_capabilities.schema.yml"
+)
 SEMANTIC_RUNTIME_CAPABILITIES_PREFIX = "Semantic runtime capabilities schema failed: "
-SEMANTIC_RUNTIME_CAPABILITIES_REGISTRY_PATH = SEMANTIC_DIR / "semantic_runtime_capabilities_registry.yml"
-SEMANTIC_RUNTIME_CAPABILITIES_REGISTRY_SCHEMA = SEMANTIC_DIR / "semantic_runtime_capabilities_registry.schema.yml"
-SEMANTIC_RUNTIME_CAPABILITIES_REGISTRY_PREFIX = "Semantic runtime capabilities registry schema failed: "
-SEMANTIC_RUNTIME_CAPABILITY_MATRIX_PATH = SEMANTIC_DIR / "semantic_runtime_capability_matrix.yml"
-SEMANTIC_RUNTIME_CAPABILITY_MATRIX_SCHEMA = SEMANTIC_DIR / "semantic_runtime_capability_matrix.schema.yml"
-SEMANTIC_RUNTIME_CAPABILITY_MATRIX_PREFIX = "Semantic runtime capability matrix schema failed: "
-SEMANTIC_RUNTIME_CAPABILITY_MANIFEST_PATH = SEMANTIC_DIR / "semantic_runtime_capability_manifest.yml"
-SEMANTIC_RUNTIME_CAPABILITY_MANIFEST_SCHEMA = SEMANTIC_DIR / "semantic_runtime_capability_manifest.schema.yml"
-SEMANTIC_RUNTIME_CAPABILITY_MANIFEST_PREFIX = "Semantic runtime capability manifest schema failed: "
-SEMANTIC_RUNTIME_CAPABILITY_INDEX_PATH = SEMANTIC_DIR / "semantic_runtime_capability_index.yml"
-SEMANTIC_RUNTIME_CAPABILITY_INDEX_SCHEMA = SEMANTIC_DIR / "semantic_runtime_capability_index.schema.yml"
-SEMANTIC_RUNTIME_CAPABILITY_INDEX_PREFIX = "Semantic runtime capability index schema failed: "
-SEMANTIC_RUNTIME_CAPABILITY_MAP_PATH = SEMANTIC_DIR / "semantic_runtime_capability_map.yml"
-SEMANTIC_RUNTIME_CAPABILITY_MAP_SCHEMA = SEMANTIC_DIR / "semantic_runtime_capability_map.schema.yml"
-SEMANTIC_RUNTIME_CAPABILITY_MAP_PREFIX = "Semantic runtime capability map schema failed: "
-SEMANTIC_RUNTIME_CAPABILITY_GROUPS_PATH = SEMANTIC_DIR / "semantic_runtime_capability_groups.yml"
-SEMANTIC_RUNTIME_CAPABILITY_GROUPS_SCHEMA = SEMANTIC_DIR / "semantic_runtime_capability_groups.schema.yml"
-SEMANTIC_RUNTIME_CAPABILITY_GROUPS_PREFIX = "Semantic runtime capability groups schema failed: "
-SEMANTIC_RUNTIME_CAPABILITY_TOPOLOGY_PATH = SEMANTIC_DIR / "semantic_runtime_capability_topology.yml"
-SEMANTIC_RUNTIME_CAPABILITY_TOPOLOGY_SCHEMA = SEMANTIC_DIR / "semantic_runtime_capability_topology.schema.yml"
-SEMANTIC_RUNTIME_CAPABILITY_TOPOLOGY_PREFIX = "Semantic runtime capability topology schema failed: "
+SEMANTIC_RUNTIME_CAPABILITIES_REGISTRY_PATH = (
+    SEMANTIC_DIR / "semantic_runtime_capabilities_registry.yml"
+)
+SEMANTIC_RUNTIME_CAPABILITIES_REGISTRY_SCHEMA = (
+    SEMANTIC_DIR / "semantic_runtime_capabilities_registry.schema.yml"
+)
+SEMANTIC_RUNTIME_CAPABILITIES_REGISTRY_PREFIX = (
+    "Semantic runtime capabilities registry schema failed: "
+)
+SEMANTIC_RUNTIME_CAPABILITY_MATRIX_PATH = (
+    SEMANTIC_DIR / "semantic_runtime_capability_matrix.yml"
+)
+SEMANTIC_RUNTIME_CAPABILITY_MATRIX_SCHEMA = (
+    SEMANTIC_DIR / "semantic_runtime_capability_matrix.schema.yml"
+)
+SEMANTIC_RUNTIME_CAPABILITY_MATRIX_PREFIX = (
+    "Semantic runtime capability matrix schema failed: "
+)
+SEMANTIC_RUNTIME_CAPABILITY_MANIFEST_PATH = (
+    SEMANTIC_DIR / "semantic_runtime_capability_manifest.yml"
+)
+SEMANTIC_RUNTIME_CAPABILITY_MANIFEST_SCHEMA = (
+    SEMANTIC_DIR / "semantic_runtime_capability_manifest.schema.yml"
+)
+SEMANTIC_RUNTIME_CAPABILITY_MANIFEST_PREFIX = (
+    "Semantic runtime capability manifest schema failed: "
+)
+SEMANTIC_RUNTIME_CAPABILITY_INDEX_PATH = (
+    SEMANTIC_DIR / "semantic_runtime_capability_index.yml"
+)
+SEMANTIC_RUNTIME_CAPABILITY_INDEX_SCHEMA = (
+    SEMANTIC_DIR / "semantic_runtime_capability_index.schema.yml"
+)
+SEMANTIC_RUNTIME_CAPABILITY_INDEX_PREFIX = (
+    "Semantic runtime capability index schema failed: "
+)
+SEMANTIC_RUNTIME_CAPABILITY_MAP_PATH = (
+    SEMANTIC_DIR / "semantic_runtime_capability_map.yml"
+)
+SEMANTIC_RUNTIME_CAPABILITY_MAP_SCHEMA = (
+    SEMANTIC_DIR / "semantic_runtime_capability_map.schema.yml"
+)
+SEMANTIC_RUNTIME_CAPABILITY_MAP_PREFIX = (
+    "Semantic runtime capability map schema failed: "
+)
+SEMANTIC_RUNTIME_CAPABILITY_GROUPS_PATH = (
+    SEMANTIC_DIR / "semantic_runtime_capability_groups.yml"
+)
+SEMANTIC_RUNTIME_CAPABILITY_GROUPS_SCHEMA = (
+    SEMANTIC_DIR / "semantic_runtime_capability_groups.schema.yml"
+)
+SEMANTIC_RUNTIME_CAPABILITY_GROUPS_PREFIX = (
+    "Semantic runtime capability groups schema failed: "
+)
+SEMANTIC_RUNTIME_CAPABILITY_TOPOLOGY_PATH = (
+    SEMANTIC_DIR / "semantic_runtime_capability_topology.yml"
+)
+SEMANTIC_RUNTIME_CAPABILITY_TOPOLOGY_SCHEMA = (
+    SEMANTIC_DIR / "semantic_runtime_capability_topology.schema.yml"
+)
+SEMANTIC_RUNTIME_CAPABILITY_TOPOLOGY_PREFIX = (
+    "Semantic runtime capability topology schema failed: "
+)
 PILLAR_TEMPLATE_SPEC_PATH = PRODUCTS / "pillar-template.yml"
-PILLAR_TEMPLATE_SCHEMA_PATH = ROOT / "products" / "schema" / "pillar-template.schema.yml"
+PILLAR_TEMPLATE_SCHEMA_PATH = (
+    ROOT / "products" / "schema" / "pillar-template.schema.yml"
+)
 PILLAR_TEMPLATE_SCHEMA_PREFIX = "Pillar template schema failed: "
 
 ISSUEDICT_REQUIRED_FIELDS = (
@@ -153,9 +202,13 @@ def load_yaml(path: Path) -> dict:
 
 def _load_semantic_rules() -> None:
     if not SEMANTIC_RULES_PATH.exists():
-        raise FileNotFoundError("semantic_rules.yml missing; bootstrap semantic governance")
+        raise FileNotFoundError(
+            "semantic_rules.yml missing; bootstrap semantic governance"
+        )
     if not SEMANTIC_RULES_SCHEMA.exists():
-        raise FileNotFoundError("semantic_rules.schema.yml missing; bootstrap semantic governance")
+        raise FileNotFoundError(
+            "semantic_rules.schema.yml missing; bootstrap semantic governance"
+        )
     rules_payload = load_yaml(SEMANTIC_RULES_PATH)
     schema_payload = load_yaml(SEMANTIC_RULES_SCHEMA)
     validator = Draft202012Validator(schema_payload)
@@ -169,9 +222,13 @@ def _load_semantic_rules() -> None:
 
 def _load_semantic_categories() -> None:
     if not SEMANTIC_CATEGORIES_PATH.exists():
-        raise FileNotFoundError("semantic_categories.yml missing; bootstrap semantic taxonomy")
+        raise FileNotFoundError(
+            "semantic_categories.yml missing; bootstrap semantic taxonomy"
+        )
     if not SEMANTIC_CATEGORIES_SCHEMA.exists():
-        raise FileNotFoundError("semantic_categories.schema.yml missing; bootstrap semantic taxonomy")
+        raise FileNotFoundError(
+            "semantic_categories.schema.yml missing; bootstrap semantic taxonomy"
+        )
     payload = load_yaml(SEMANTIC_CATEGORIES_PATH)
     schema = load_yaml(SEMANTIC_CATEGORIES_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -185,9 +242,13 @@ def _load_semantic_categories() -> None:
 
 def _load_semantic_entities() -> None:
     if not SEMANTIC_ENTITIES_PATH.exists():
-        raise FileNotFoundError("semantic_entities.yml missing; bootstrap semantic entities")
+        raise FileNotFoundError(
+            "semantic_entities.yml missing; bootstrap semantic entities"
+        )
     if not SEMANTIC_ENTITIES_SCHEMA.exists():
-        raise FileNotFoundError("semantic_entities.schema.yml missing; bootstrap semantic entities")
+        raise FileNotFoundError(
+            "semantic_entities.schema.yml missing; bootstrap semantic entities"
+        )
     payload = load_yaml(SEMANTIC_ENTITIES_PATH)
     schema = load_yaml(SEMANTIC_ENTITIES_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -201,9 +262,13 @@ def _load_semantic_entities() -> None:
 
 def _load_semantic_crossref() -> None:
     if not SEMANTIC_CROSSREF_PATH.exists():
-        raise FileNotFoundError("semantic_crossref.yml missing; bootstrap semantic crossref")
+        raise FileNotFoundError(
+            "semantic_crossref.yml missing; bootstrap semantic crossref"
+        )
     if not SEMANTIC_CROSSREF_SCHEMA.exists():
-        raise FileNotFoundError("semantic_crossref.schema.yml missing; bootstrap semantic crossref")
+        raise FileNotFoundError(
+            "semantic_crossref.schema.yml missing; bootstrap semantic crossref"
+        )
     payload = load_yaml(SEMANTIC_CROSSREF_PATH)
     schema = load_yaml(SEMANTIC_CROSSREF_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -217,9 +282,13 @@ def _load_semantic_crossref() -> None:
 
 def _load_semantic_registry() -> None:
     if not SEMANTIC_REGISTRY_PATH.exists():
-        raise FileNotFoundError("semantic_registry.yml missing; bootstrap semantic registry")
+        raise FileNotFoundError(
+            "semantic_registry.yml missing; bootstrap semantic registry"
+        )
     if not SEMANTIC_REGISTRY_SCHEMA.exists():
-        raise FileNotFoundError("semantic_registry.schema.yml missing; bootstrap semantic registry")
+        raise FileNotFoundError(
+            "semantic_registry.schema.yml missing; bootstrap semantic registry"
+        )
     payload = load_yaml(SEMANTIC_REGISTRY_PATH)
     schema = load_yaml(SEMANTIC_REGISTRY_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -233,9 +302,13 @@ def _load_semantic_registry() -> None:
 
 def _load_semantic_rule_template() -> None:
     if not SEMANTIC_RULE_TEMPLATE_PATH.exists():
-        raise FileNotFoundError("semantic_rule_template.yml missing; bootstrap semantic rule template")
+        raise FileNotFoundError(
+            "semantic_rule_template.yml missing; bootstrap semantic rule template"
+        )
     if not SEMANTIC_RULE_TEMPLATE_SCHEMA.exists():
-        raise FileNotFoundError("semantic_rule_template.schema.yml missing; bootstrap semantic rule template")
+        raise FileNotFoundError(
+            "semantic_rule_template.schema.yml missing; bootstrap semantic rule template"
+        )
     payload = load_yaml(SEMANTIC_RULE_TEMPLATE_PATH)
     schema = load_yaml(SEMANTIC_RULE_TEMPLATE_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -249,9 +322,13 @@ def _load_semantic_rule_template() -> None:
 
 def _load_semantic_rule_manifest() -> None:
     if not SEMANTIC_RULE_MANIFEST_PATH.exists():
-        raise FileNotFoundError("semantic_rules_manifest.yml missing; bootstrap semantic rule manifest")
+        raise FileNotFoundError(
+            "semantic_rules_manifest.yml missing; bootstrap semantic rule manifest"
+        )
     if not SEMANTIC_RULE_MANIFEST_SCHEMA.exists():
-        raise FileNotFoundError("semantic_rules_manifest.schema.yml missing; bootstrap semantic rule manifest")
+        raise FileNotFoundError(
+            "semantic_rules_manifest.schema.yml missing; bootstrap semantic rule manifest"
+        )
     payload = load_yaml(SEMANTIC_RULE_MANIFEST_PATH)
     schema = load_yaml(SEMANTIC_RULE_MANIFEST_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -265,9 +342,13 @@ def _load_semantic_rule_manifest() -> None:
 
 def _load_semantic_integrity() -> None:
     if not SEMANTIC_INTEGRITY_PATH.exists():
-        raise FileNotFoundError("semantic_integrity.yml missing; bootstrap semantic integrity")
+        raise FileNotFoundError(
+            "semantic_integrity.yml missing; bootstrap semantic integrity"
+        )
     if not SEMANTIC_INTEGRITY_SCHEMA.exists():
-        raise FileNotFoundError("semantic_integrity.schema.yml missing; bootstrap semantic integrity")
+        raise FileNotFoundError(
+            "semantic_integrity.schema.yml missing; bootstrap semantic integrity"
+        )
     payload = load_yaml(SEMANTIC_INTEGRITY_PATH)
     schema = load_yaml(SEMANTIC_INTEGRITY_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -281,9 +362,13 @@ def _load_semantic_integrity() -> None:
 
 def _load_semantic_coverage() -> None:
     if not SEMANTIC_COVERAGE_PATH.exists():
-        raise FileNotFoundError("semantic_coverage.yml missing; bootstrap semantic coverage")
+        raise FileNotFoundError(
+            "semantic_coverage.yml missing; bootstrap semantic coverage"
+        )
     if not SEMANTIC_COVERAGE_SCHEMA.exists():
-        raise FileNotFoundError("semantic_coverage.schema.yml missing; bootstrap semantic coverage")
+        raise FileNotFoundError(
+            "semantic_coverage.schema.yml missing; bootstrap semantic coverage"
+        )
     payload = load_yaml(SEMANTIC_COVERAGE_PATH)
     schema = load_yaml(SEMANTIC_COVERAGE_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -297,9 +382,13 @@ def _load_semantic_coverage() -> None:
 
 def _load_semantic_policy() -> None:
     if not SEMANTIC_POLICY_PATH.exists():
-        raise FileNotFoundError("semantic_policy.yml missing; bootstrap semantic policy")
+        raise FileNotFoundError(
+            "semantic_policy.yml missing; bootstrap semantic policy"
+        )
     if not SEMANTIC_POLICY_SCHEMA.exists():
-        raise FileNotFoundError("semantic_policy.schema.yml missing; bootstrap semantic policy")
+        raise FileNotFoundError(
+            "semantic_policy.schema.yml missing; bootstrap semantic policy"
+        )
     payload = load_yaml(SEMANTIC_POLICY_PATH)
     schema = load_yaml(SEMANTIC_POLICY_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -313,9 +402,13 @@ def _load_semantic_policy() -> None:
 
 def _load_semantic_surface_index() -> None:
     if not SEMANTIC_SURFACE_INDEX_PATH.exists():
-        raise FileNotFoundError("semantic_surface_index.yml missing; bootstrap semantic surface index")
+        raise FileNotFoundError(
+            "semantic_surface_index.yml missing; bootstrap semantic surface index"
+        )
     if not SEMANTIC_SURFACE_INDEX_SCHEMA.exists():
-        raise FileNotFoundError("semantic_surface_index.schema.yml missing; bootstrap semantic surface index")
+        raise FileNotFoundError(
+            "semantic_surface_index.schema.yml missing; bootstrap semantic surface index"
+        )
     payload = load_yaml(SEMANTIC_SURFACE_INDEX_PATH)
     schema = load_yaml(SEMANTIC_SURFACE_INDEX_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -329,9 +422,13 @@ def _load_semantic_surface_index() -> None:
 
 def _load_semantic_surface_groups() -> None:
     if not SEMANTIC_SURFACE_GROUPS_PATH.exists():
-        raise FileNotFoundError("semantic_surface_groups.yml missing; bootstrap semantic surface groups")
+        raise FileNotFoundError(
+            "semantic_surface_groups.yml missing; bootstrap semantic surface groups"
+        )
     if not SEMANTIC_SURFACE_GROUPS_SCHEMA.exists():
-        raise FileNotFoundError("semantic_surface_groups.schema.yml missing; bootstrap semantic surface groups")
+        raise FileNotFoundError(
+            "semantic_surface_groups.schema.yml missing; bootstrap semantic surface groups"
+        )
     payload = load_yaml(SEMANTIC_SURFACE_GROUPS_PATH)
     schema = load_yaml(SEMANTIC_SURFACE_GROUPS_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -345,9 +442,13 @@ def _load_semantic_surface_groups() -> None:
 
 def _load_semantic_surface_map() -> None:
     if not SEMANTIC_SURFACE_MAP_PATH.exists():
-        raise FileNotFoundError("semantic_surface_map.yml missing; bootstrap semantic surface map")
+        raise FileNotFoundError(
+            "semantic_surface_map.yml missing; bootstrap semantic surface map"
+        )
     if not SEMANTIC_SURFACE_MAP_SCHEMA.exists():
-        raise FileNotFoundError("semantic_surface_map.schema.yml missing; bootstrap semantic surface map")
+        raise FileNotFoundError(
+            "semantic_surface_map.schema.yml missing; bootstrap semantic surface map"
+        )
     payload = load_yaml(SEMANTIC_SURFACE_MAP_PATH)
     schema = load_yaml(SEMANTIC_SURFACE_MAP_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -361,9 +462,13 @@ def _load_semantic_surface_map() -> None:
 
 def _load_semantic_surface_matrix() -> None:
     if not SEMANTIC_SURFACE_MATRIX_PATH.exists():
-        raise FileNotFoundError("semantic_surface_matrix.yml missing; bootstrap semantic surface matrix")
+        raise FileNotFoundError(
+            "semantic_surface_matrix.yml missing; bootstrap semantic surface matrix"
+        )
     if not SEMANTIC_SURFACE_MATRIX_SCHEMA.exists():
-        raise FileNotFoundError("semantic_surface_matrix.schema.yml missing; bootstrap semantic surface matrix")
+        raise FileNotFoundError(
+            "semantic_surface_matrix.schema.yml missing; bootstrap semantic surface matrix"
+        )
     payload = load_yaml(SEMANTIC_SURFACE_MATRIX_PATH)
     schema = load_yaml(SEMANTIC_SURFACE_MATRIX_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -377,9 +482,13 @@ def _load_semantic_surface_matrix() -> None:
 
 def _load_semantic_surface_manifest() -> None:
     if not SEMANTIC_SURFACE_MANIFEST_PATH.exists():
-        raise FileNotFoundError("semantic_surface_manifest.yml missing; bootstrap semantic surface manifest")
+        raise FileNotFoundError(
+            "semantic_surface_manifest.yml missing; bootstrap semantic surface manifest"
+        )
     if not SEMANTIC_SURFACE_MANIFEST_SCHEMA.exists():
-        raise FileNotFoundError("semantic_surface_manifest.schema.yml missing; bootstrap semantic surface manifest")
+        raise FileNotFoundError(
+            "semantic_surface_manifest.schema.yml missing; bootstrap semantic surface manifest"
+        )
     payload = load_yaml(SEMANTIC_SURFACE_MANIFEST_PATH)
     schema = load_yaml(SEMANTIC_SURFACE_MANIFEST_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -393,9 +502,13 @@ def _load_semantic_surface_manifest() -> None:
 
 def _load_semantic_governance_index() -> None:
     if not SEMANTIC_GOVERNANCE_INDEX_PATH.exists():
-        raise FileNotFoundError("semantic_governance_index.yml missing; bootstrap semantic governance index")
+        raise FileNotFoundError(
+            "semantic_governance_index.yml missing; bootstrap semantic governance index"
+        )
     if not SEMANTIC_GOVERNANCE_INDEX_SCHEMA.exists():
-        raise FileNotFoundError("semantic_governance_index.schema.yml missing; bootstrap semantic governance index")
+        raise FileNotFoundError(
+            "semantic_governance_index.schema.yml missing; bootstrap semantic governance index"
+        )
     payload = load_yaml(SEMANTIC_GOVERNANCE_INDEX_PATH)
     schema = load_yaml(SEMANTIC_GOVERNANCE_INDEX_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -409,9 +522,13 @@ def _load_semantic_governance_index() -> None:
 
 def _load_semantic_provenance() -> None:
     if not SEMANTIC_PROVENANCE_PATH.exists():
-        raise FileNotFoundError("semantic_provenance.yml missing; bootstrap semantic provenance")
+        raise FileNotFoundError(
+            "semantic_provenance.yml missing; bootstrap semantic provenance"
+        )
     if not SEMANTIC_PROVENANCE_SCHEMA.exists():
-        raise FileNotFoundError("semantic_provenance.schema.yml missing; bootstrap semantic provenance")
+        raise FileNotFoundError(
+            "semantic_provenance.schema.yml missing; bootstrap semantic provenance"
+        )
     payload = load_yaml(SEMANTIC_PROVENANCE_PATH)
     schema = load_yaml(SEMANTIC_PROVENANCE_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -425,9 +542,13 @@ def _load_semantic_provenance() -> None:
 
 def _load_semantic_configuration() -> None:
     if not SEMANTIC_CONFIGURATION_PATH.exists():
-        raise FileNotFoundError("semantic_configuration.yml missing; bootstrap semantic configuration")
+        raise FileNotFoundError(
+            "semantic_configuration.yml missing; bootstrap semantic configuration"
+        )
     if not SEMANTIC_CONFIGURATION_SCHEMA.exists():
-        raise FileNotFoundError("semantic_configuration.schema.yml missing; bootstrap semantic configuration")
+        raise FileNotFoundError(
+            "semantic_configuration.schema.yml missing; bootstrap semantic configuration"
+        )
     payload = load_yaml(SEMANTIC_CONFIGURATION_PATH)
     schema = load_yaml(SEMANTIC_CONFIGURATION_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -441,9 +562,13 @@ def _load_semantic_configuration() -> None:
 
 def _load_semantic_runtime() -> None:
     if not SEMANTIC_RUNTIME_PATH.exists():
-        raise FileNotFoundError("semantic_runtime.yml missing; bootstrap semantic runtime")
+        raise FileNotFoundError(
+            "semantic_runtime.yml missing; bootstrap semantic runtime"
+        )
     if not SEMANTIC_RUNTIME_SCHEMA.exists():
-        raise FileNotFoundError("semantic_runtime.schema.yml missing; bootstrap semantic runtime")
+        raise FileNotFoundError(
+            "semantic_runtime.schema.yml missing; bootstrap semantic runtime"
+        )
     payload = load_yaml(SEMANTIC_RUNTIME_PATH)
     schema = load_yaml(SEMANTIC_RUNTIME_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -457,9 +582,13 @@ def _load_semantic_runtime() -> None:
 
 def _load_semantic_runtime_environment() -> None:
     if not SEMANTIC_RUNTIME_ENVIRONMENT_PATH.exists():
-        raise FileNotFoundError("semantic_runtime_environment.yml missing; bootstrap semantic runtime environment")
+        raise FileNotFoundError(
+            "semantic_runtime_environment.yml missing; bootstrap semantic runtime environment"
+        )
     if not SEMANTIC_RUNTIME_ENVIRONMENT_SCHEMA.exists():
-        raise FileNotFoundError("semantic_runtime_environment.schema.yml missing; bootstrap semantic runtime environment")
+        raise FileNotFoundError(
+            "semantic_runtime_environment.schema.yml missing; bootstrap semantic runtime environment"
+        )
     payload = load_yaml(SEMANTIC_RUNTIME_ENVIRONMENT_PATH)
     schema = load_yaml(SEMANTIC_RUNTIME_ENVIRONMENT_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -473,9 +602,13 @@ def _load_semantic_runtime_environment() -> None:
 
 def _load_semantic_runtime_capabilities() -> None:
     if not SEMANTIC_RUNTIME_CAPABILITIES_PATH.exists():
-        raise FileNotFoundError("semantic_runtime_capabilities.yml missing; bootstrap semantic runtime capabilities")
+        raise FileNotFoundError(
+            "semantic_runtime_capabilities.yml missing; bootstrap semantic runtime capabilities"
+        )
     if not SEMANTIC_RUNTIME_CAPABILITIES_SCHEMA.exists():
-        raise FileNotFoundError("semantic_runtime_capabilities.schema.yml missing; bootstrap semantic runtime capabilities")
+        raise FileNotFoundError(
+            "semantic_runtime_capabilities.schema.yml missing; bootstrap semantic runtime capabilities"
+        )
     payload = load_yaml(SEMANTIC_RUNTIME_CAPABILITIES_PATH)
     schema = load_yaml(SEMANTIC_RUNTIME_CAPABILITIES_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -489,9 +622,13 @@ def _load_semantic_runtime_capabilities() -> None:
 
 def _load_semantic_runtime_capabilities_registry() -> None:
     if not SEMANTIC_RUNTIME_CAPABILITIES_REGISTRY_PATH.exists():
-        raise FileNotFoundError("semantic_runtime_capabilities_registry.yml missing; bootstrap semantic runtime capabilities registry")
+        raise FileNotFoundError(
+            "semantic_runtime_capabilities_registry.yml missing; bootstrap semantic runtime capabilities registry"
+        )
     if not SEMANTIC_RUNTIME_CAPABILITIES_REGISTRY_SCHEMA.exists():
-        raise FileNotFoundError("semantic_runtime_capabilities_registry.schema.yml missing; bootstrap semantic runtime capabilities registry")
+        raise FileNotFoundError(
+            "semantic_runtime_capabilities_registry.schema.yml missing; bootstrap semantic runtime capabilities registry"
+        )
     payload = load_yaml(SEMANTIC_RUNTIME_CAPABILITIES_REGISTRY_PATH)
     schema = load_yaml(SEMANTIC_RUNTIME_CAPABILITIES_REGISTRY_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -505,9 +642,13 @@ def _load_semantic_runtime_capabilities_registry() -> None:
 
 def _load_semantic_runtime_capability_matrix() -> None:
     if not SEMANTIC_RUNTIME_CAPABILITY_MATRIX_PATH.exists():
-        raise FileNotFoundError("semantic_runtime_capability_matrix.yml missing; bootstrap semantic runtime capability matrix")
+        raise FileNotFoundError(
+            "semantic_runtime_capability_matrix.yml missing; bootstrap semantic runtime capability matrix"
+        )
     if not SEMANTIC_RUNTIME_CAPABILITY_MATRIX_SCHEMA.exists():
-        raise FileNotFoundError("semantic_runtime_capability_matrix.schema.yml missing; bootstrap semantic runtime capability matrix")
+        raise FileNotFoundError(
+            "semantic_runtime_capability_matrix.schema.yml missing; bootstrap semantic runtime capability matrix"
+        )
     payload = load_yaml(SEMANTIC_RUNTIME_CAPABILITY_MATRIX_PATH)
     schema = load_yaml(SEMANTIC_RUNTIME_CAPABILITY_MATRIX_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -521,9 +662,13 @@ def _load_semantic_runtime_capability_matrix() -> None:
 
 def _load_semantic_runtime_capability_manifest() -> None:
     if not SEMANTIC_RUNTIME_CAPABILITY_MANIFEST_PATH.exists():
-        raise FileNotFoundError("semantic_runtime_capability_manifest.yml missing; bootstrap semantic runtime capability manifest")
+        raise FileNotFoundError(
+            "semantic_runtime_capability_manifest.yml missing; bootstrap semantic runtime capability manifest"
+        )
     if not SEMANTIC_RUNTIME_CAPABILITY_MANIFEST_SCHEMA.exists():
-        raise FileNotFoundError("semantic_runtime_capability_manifest.schema.yml missing; bootstrap semantic runtime capability manifest")
+        raise FileNotFoundError(
+            "semantic_runtime_capability_manifest.schema.yml missing; bootstrap semantic runtime capability manifest"
+        )
     payload = load_yaml(SEMANTIC_RUNTIME_CAPABILITY_MANIFEST_PATH)
     schema = load_yaml(SEMANTIC_RUNTIME_CAPABILITY_MANIFEST_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -537,9 +682,13 @@ def _load_semantic_runtime_capability_manifest() -> None:
 
 def _load_semantic_runtime_capability_index() -> None:
     if not SEMANTIC_RUNTIME_CAPABILITY_INDEX_PATH.exists():
-        raise FileNotFoundError("semantic_runtime_capability_index.yml missing; bootstrap semantic runtime capability index")
+        raise FileNotFoundError(
+            "semantic_runtime_capability_index.yml missing; bootstrap semantic runtime capability index"
+        )
     if not SEMANTIC_RUNTIME_CAPABILITY_INDEX_SCHEMA.exists():
-        raise FileNotFoundError("semantic_runtime_capability_index.schema.yml missing; bootstrap semantic runtime capability index")
+        raise FileNotFoundError(
+            "semantic_runtime_capability_index.schema.yml missing; bootstrap semantic runtime capability index"
+        )
     payload = load_yaml(SEMANTIC_RUNTIME_CAPABILITY_INDEX_PATH)
     schema = load_yaml(SEMANTIC_RUNTIME_CAPABILITY_INDEX_SCHEMA)
     validator = Draft202012Validator(schema)
@@ -613,7 +762,9 @@ def _load_semantic_runtime_capability_topology() -> None:
 
 def _load_pillar_template() -> None:
     if not PILLAR_TEMPLATE_SPEC_PATH.exists():
-        raise FileNotFoundError("products/pillar-template.yml missing; bootstrap pillar template spec")
+        raise FileNotFoundError(
+            "products/pillar-template.yml missing; bootstrap pillar template spec"
+        )
     if not PILLAR_TEMPLATE_SCHEMA_PATH.exists():
         raise FileNotFoundError(
             "products/schema/pillar-template.schema.yml missing; bootstrap pillar template schema"
@@ -631,7 +782,9 @@ def _load_pillar_template() -> None:
 
 def load_product_index() -> Dict[str, dict]:
     if not PRODUCT_INDEX_PATH.exists():
-        raise FileNotFoundError("products/product_index.yml missing; run index alignment.")
+        raise FileNotFoundError(
+            "products/product_index.yml missing; run index alignment."
+        )
     index_doc = load_yaml(PRODUCT_INDEX_PATH) or {}
     entries = index_doc.get("products", [])
     mapping: Dict[str, dict] = {}
@@ -655,11 +808,17 @@ def _load_canonical_schema() -> dict:
     try:
         payload = json.loads(CANONICAL_SCHEMA_PATH.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:
-        raise ValueError(f"Canonical schema JSON invalid at {CANONICAL_SCHEMA_REL}: {exc}") from exc
+        raise ValueError(
+            f"Canonical schema JSON invalid at {CANONICAL_SCHEMA_REL}: {exc}"
+        ) from exc
     if payload.get("type") != "object":
-        raise ValueError("Canonical schema sanity check failed: top-level type must be 'object'")
+        raise ValueError(
+            "Canonical schema sanity check failed: top-level type must be 'object'"
+        )
     if not isinstance(payload.get("properties"), dict):
-        raise ValueError("Canonical schema sanity check failed: missing properties object")
+        raise ValueError(
+            "Canonical schema sanity check failed: missing properties object"
+        )
     if not isinstance(payload.get("required"), list):
         raise ValueError("Canonical schema sanity check failed: missing required list")
     missing_required = CANONICAL_REQUIRED_TOP_LEVEL - set(payload.get("required", []))
@@ -668,7 +827,9 @@ def _load_canonical_schema() -> dict:
             "Canonical schema sanity check failed: required list missing keys "
             + ", ".join(sorted(missing_required))
         )
-    missing_properties = CANONICAL_REQUIRED_TOP_LEVEL - set(payload.get("properties", {}).keys())
+    missing_properties = CANONICAL_REQUIRED_TOP_LEVEL - set(
+        payload.get("properties", {}).keys()
+    )
     if missing_properties:
         raise ValueError(
             "Canonical schema sanity check failed: properties block missing keys "
@@ -690,7 +851,9 @@ def _validate_issue_samples(product: dict, path: Path) -> List[str]:
     if not issues:
         return errors
     if not isinstance(issues, list):
-        errors.append(f"{path}: sample_data.deterministic_response.issues must be a list when present")
+        errors.append(
+            f"{path}: sample_data.deterministic_response.issues must be a list when present"
+        )
         return errors
     for idx, issue in enumerate(issues):
         if not isinstance(issue, dict):
@@ -760,10 +923,14 @@ def validate_product(
     else:
         pricing_ref = metadata.get("pricing_reference")
         if not isinstance(pricing_ref, str) or not pricing_ref.startswith("pricing/"):
-            errors.append(f"{path}: metadata.pricing_reference must point into pricing/")
+            errors.append(
+                f"{path}: metadata.pricing_reference must point into pricing/"
+            )
         funnel_stage = metadata.get("funnel_stage")
         if funnel_stage not in FUNNEL_STAGES:
-            errors.append(f"{path}: metadata.funnel_stage must be one of {sorted(FUNNEL_STAGES)}")
+            errors.append(
+                f"{path}: metadata.funnel_stage must be one of {sorted(FUNNEL_STAGES)}"
+            )
         ux_goals = metadata.get("ux_goals", [])
         if not isinstance(ux_goals, list) or not ux_goals:
             errors.append(f"{path}: metadata.ux_goals must be a non-empty list")
@@ -777,10 +944,14 @@ def validate_product(
                 errors.append(f"{path}: governance.{key} missing or empty")
         last_reviewed = governance.get("last_reviewed", "")
         if last_reviewed and not re.match(r"^20\d{2}-\d{2}-\d{2}$", last_reviewed):
-            errors.append(f"{path}: governance.last_reviewed must be YYYY-MM-DD in 2000s")
+            errors.append(
+                f"{path}: governance.last_reviewed must be YYYY-MM-DD in 2000s"
+            )
         stability = governance.get("stability_level")
         if stability and stability not in STABILITY_LEVELS:
-            errors.append(f"{path}: governance.stability_level must be one of {sorted(STABILITY_LEVELS)}")
+            errors.append(
+                f"{path}: governance.stability_level must be one of {sorted(STABILITY_LEVELS)}"
+            )
 
     related_products = product.get("related_products")
     if related_products is None:
@@ -793,7 +964,9 @@ def validate_product(
         related_products_list = related_products
         for rel in related_products_list:
             if rel not in known_products:
-                errors.append(f"{path}: related_products entry '{rel}' does not map to a known product spec")
+                errors.append(
+                    f"{path}: related_products entry '{rel}' does not map to a known product spec"
+                )
 
     contract_ref = product.get("contract_ref", None)
     if contract_ref is not None and not isinstance(contract_ref, str):
@@ -817,12 +990,18 @@ def validate_product(
         errors.append(f"{path}: missing entry in product_index.yml for '{product_id}'")
     else:
         if index_entry.get("spec_path") != rel_spec_path:
-            errors.append(f"{path}: product_index spec_path mismatch (expected {rel_spec_path})")
+            errors.append(
+                f"{path}: product_index spec_path mismatch (expected {rel_spec_path})"
+            )
         if index_entry.get("version") != product.get("version"):
-            errors.append(f"{path}: product_index version mismatch ({index_entry.get('version')} != {product.get('version')})")
+            errors.append(
+                f"{path}: product_index version mismatch ({index_entry.get('version')} != {product.get('version')})"
+            )
         expected_category = _expected_category(product.get("product_type"))
         if index_entry.get("category") != expected_category:
-            errors.append(f"{path}: product_index category '{index_entry.get('category')}' != expected '{expected_category}'")
+            errors.append(
+                f"{path}: product_index category '{index_entry.get('category')}' != expected '{expected_category}'"
+            )
         schema_path = index_entry.get("schema_path")
         if schema_path:
             schema_target = ROOT / schema_path
@@ -830,15 +1009,21 @@ def validate_product(
                 errors.append(f"{path}: schema_path {schema_path} missing on disk")
         entry_contract = index_entry.get("contract_ref")
         if (entry_contract or None) != (contract_ref or None):
-            errors.append(f"{path}: contract_ref mismatch between spec and product_index")
+            errors.append(
+                f"{path}: contract_ref mismatch between spec and product_index"
+            )
         entry_related = sorted(index_entry.get("related_products", []))
         if sorted(related_products_list) != entry_related:
-            errors.append(f"{path}: related_products differ from product_index definition")
+            errors.append(
+                f"{path}: related_products differ from product_index definition"
+            )
 
     uses_canonical_schema = _uses_canonical_schema(product)
     if uses_canonical_schema:
         if not references or not isinstance(references, dict):
-            errors.append(f"{path}: references block must exist for canonical schema products")
+            errors.append(
+                f"{path}: references block must exist for canonical schema products"
+            )
         elif references.get("canonical_schema") != CANONICAL_SCHEMA_REL:
             errors.append(
                 f"{path}: references.canonical_schema must point to {CANONICAL_SCHEMA_REL} when schema_source is canonical"
@@ -859,11 +1044,15 @@ def validate_product(
     if product_id == "playground":
         matrix_snippet = product.get("compliance", {}).get("matrix_snippet")
         if not matrix_snippet:
-            errors.append(f"{path}: compliance.matrix_snippet must point to traceability data")
+            errors.append(
+                f"{path}: compliance.matrix_snippet must point to traceability data"
+            )
         else:
             matrix_path = ROOT / matrix_snippet
             if not matrix_path.exists():
-                errors.append(f"{path}: compliance matrix snippet {matrix_snippet} missing on disk")
+                errors.append(
+                    f"{path}: compliance matrix snippet {matrix_snippet} missing on disk"
+                )
     return errors
 
 
@@ -1092,8 +1281,12 @@ def main() -> None:
         product = load_yaml(file_path)
         product_id = product.get("id")
         seen_ids.add(product_id)
-        problems.extend(validate_product(product, file_path, product_index, known_products))
-    missing_in_specs = set(product_index.keys()) - seen_ids - PRODUCT_VALIDATION_EXCLUSIONS
+        problems.extend(
+            validate_product(product, file_path, product_index, known_products)
+        )
+    missing_in_specs = (
+        set(product_index.keys()) - seen_ids - PRODUCT_VALIDATION_EXCLUSIONS
+    )
     if requested is not None:
         missing_in_specs &= requested
     if missing_in_specs:
@@ -1106,7 +1299,9 @@ def main() -> None:
         for issue in problems:
             print(f" - {issue}")
         sys.exit(1)
-    print(f"Validated {len(product_files)} product spec(s) against index and metadata requirements.")
+    print(
+        f"Validated {len(product_files)} product spec(s) against index and metadata requirements."
+    )
 
 
 if __name__ == "__main__":

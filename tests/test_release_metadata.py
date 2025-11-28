@@ -17,7 +17,12 @@ def test_release_metadata_is_consistent():
         p
         for p in PRODUCTS.glob("*.yml")
         if not p.name.endswith("_worksheet.yml")
-        and p.name not in {"guardsuite_master_spec.yml", "guardsuite-template.yml", "pillar-template.yml"}
+        and p.name
+        not in {
+            "guardsuite_master_spec.yml",
+            "guardsuite-template.yml",
+            "pillar-template.yml",
+        }
     ]
     assert specs, "No product specs found"
 
@@ -29,9 +34,11 @@ def test_release_metadata_is_consistent():
 
         release = data.get("release_metadata")
         assert release, f"release_metadata missing in {path}"
-        assert release.get("release_channel") in {"stable", "beta", "incubating"}, (
-            f"release_channel must be stable|beta|incubating in {path}"
-        )
+        assert release.get("release_channel") in {
+            "stable",
+            "beta",
+            "incubating",
+        }, f"release_channel must be stable|beta|incubating in {path}"
 
         url = release.get("release_notes_url", "")
         assert url.startswith("https://shieldcraft-ai.com/"), (

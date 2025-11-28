@@ -8,7 +8,11 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 PRODUCTS_DIR = ROOT / "products"
-EXCLUDED_FILES = {"guardsuite_master_spec.yml", "guardsuite-template.yml", "pillar-template.yml"}
+EXCLUDED_FILES = {
+    "guardsuite_master_spec.yml",
+    "guardsuite-template.yml",
+    "pillar-template.yml",
+}
 
 
 @dataclass(frozen=True)

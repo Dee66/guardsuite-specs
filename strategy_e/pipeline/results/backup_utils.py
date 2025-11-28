@@ -5,8 +5,9 @@ from datetime import datetime
 def write_backup(path, content, backup_dir=None):
     """
     Writes a deterministic timestamped backup for a file being repaired.
-    Returns the backup file path. If `backup_dir` is provided, it's used as the root; otherwise
-    default location `strategy_e/pipeline/results/backups/` is used.
+    Returns the backup file path. If `backup_dir` is provided, it's used as
+    the root. Otherwise the default location
+    `strategy_e/pipeline/results/backups/` is used.
     """
     ts = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
     name = Path(path).name

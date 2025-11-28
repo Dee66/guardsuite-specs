@@ -41,7 +41,9 @@ def test_generate_bootstrap_creates_artifact(tmp_path, monkeypatch):
     assert artifact["version"] == expected_version
     assert isinstance(artifact["timestamp"], str)
 
-    disk_artifact = json.loads((bootstrap_dir / "alpha.bootstrap.json").read_text(encoding="utf-8"))
+    disk_artifact = json.loads(
+        (bootstrap_dir / "alpha.bootstrap.json").read_text(encoding="utf-8")
+    )
     assert disk_artifact == artifact
 
 

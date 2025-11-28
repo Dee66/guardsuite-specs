@@ -19,7 +19,9 @@ def _artifact_path(pid: str) -> Path:
     return BOOTSTRAP_DIR / f"{pid}.bootstrap.json"
 
 
-def _needs_persist(current: Dict[str, Any] | None, new_artifact: Dict[str, Any]) -> bool:
+def _needs_persist(
+    current: Dict[str, Any] | None, new_artifact: Dict[str, Any]
+) -> bool:
     if current is None:
         return True
     return current.get("version") != new_artifact.get("version")
@@ -43,7 +45,9 @@ def run_once() -> Dict[str, List[str]]:
 
         if _needs_persist(current, artifact):
             BOOTSTRAP_DIR.mkdir(parents=True, exist_ok=True)
-            path.write_text(json.dumps(artifact, indent=2, sort_keys=True), encoding="utf-8")
+            path.write_text(
+                json.dumps(artifact, indent=2, sort_keys=True), encoding="utf-8"
+            )
             written.append(pid)
         else:
             skipped.append(pid)

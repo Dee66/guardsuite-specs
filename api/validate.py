@@ -21,7 +21,9 @@ def validate_product(pid: str) -> Dict[str, Any]:
 
     results: List[str] = []
 
-    spec_ok, spec_errors = validate_yaml_text(product.get("spec_yaml", ""), PRODUCT_SCHEMA)
+    spec_ok, spec_errors = validate_yaml_text(
+        product.get("spec_yaml", ""), PRODUCT_SCHEMA
+    )
     if not spec_ok:
         results.extend(f"spec: {err}" for err in spec_errors)
 

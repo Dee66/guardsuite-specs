@@ -50,7 +50,13 @@ env = Environment(loader=FileSystemLoader(str(TEMPLATES)), autoescape=False)
 
 def get_git_commit() -> str:
     try:
-        return subprocess.check_output(["git", "rev-parse", "HEAD"], stderr=subprocess.DEVNULL).decode().strip()
+        return (
+            subprocess.check_output(
+                ["git", "rev-parse", "HEAD"], stderr=subprocess.DEVNULL
+            )
+            .decode()
+            .strip()
+        )
     except Exception:
         return "unknown"
 
@@ -63,7 +69,8 @@ def list_product_ids() -> List[str]:
     return sorted(
         p.stem
         for p in PRODUCTS.glob("*.yml")
-        if not p.name.endswith("_worksheet.yml") and p.name != "guardsuite_master_spec.yml"
+        if not p.name.endswith("_worksheet.yml")
+        and p.name != "guardsuite_master_spec.yml"
     )
 
 
@@ -115,12 +122,15 @@ def export(
     if rollup_path:
         meta["canonical_rollup"] = rollup_path
     product_raw = yaml.safe_dump(product, sort_keys=False).strip()
-    rendered = tpl.render(
-        product=product,
-        meta=meta,
-        product_raw=product_raw,
-        canonical_excerpt=canonical_excerpt,
-    ).strip() + "\n"
+    rendered = (
+        tpl.render(
+            product=product,
+            meta=meta,
+            product_raw=product_raw,
+            canonical_excerpt=canonical_excerpt,
+        ).strip()
+        + "\n"
+    )
     outdir.mkdir(parents=True, exist_ok=True)
     fname = f"{product_id}_snapshot_{ts.strftime('%Y%m%dT%H%M%SZ')}".strip()
     outpath = outdir / f"{fname}.md"
@@ -136,7 +146,9 @@ def _export_pillar_template(
     rollup_path: str | None,
 ) -> Path:
     if not PILLAR_TEMPLATE_SPEC_PATH.exists():
-        raise FileNotFoundError("products/pillar-template.yml missing; bootstrap pillar template spec")
+        raise FileNotFoundError(
+            "products/pillar-template.yml missing; bootstrap pillar template spec"
+        )
     return export(
         PILLAR_TEMPLATE_PRODUCT_ID,
         outdir,
@@ -177,7 +189,10 @@ def export_product_index_snapshot(outdir: Path, canonical_status: str) -> Path:
 
 
 def export_products_bundle(
-    product_ids: List[str], outdir: Path, index_entries: List[dict], canonical_status: str
+    product_ids: List[str],
+    outdir: Path,
+    index_entries: List[dict],
+    canonical_status: str,
 ) -> Path:
     index_lookup = _index_map(index_entries)
     ts = datetime.now(timezone.utc)
@@ -323,7 +338,9 @@ def _export_crossmap_product(
     crossmap_dir.mkdir(parents=True, exist_ok=True)
     fname = f"{product_id}_crossmap_{ts.strftime('%Y%m%dT%H%M%SZ')}.yml"
     outpath = crossmap_dir / fname
-    outpath.write_text(yaml.safe_dump(payload, sort_keys=False).strip() + "\n", encoding="utf-8")
+    outpath.write_text(
+        yaml.safe_dump(payload, sort_keys=False).strip() + "\n", encoding="utf-8"
+    )
     print(f"Crossmap export written to {outpath}")
     return outpath
 
@@ -342,18 +359,27 @@ def _resolve_crossmap_targets(index_entries: List[dict]) -> List[str]:
 
 
 def export_crossmap_products(
-    product_ids: List[str], outdir: Path, canonical_status: str, canonical_excerpt: dict | None
+    product_ids: List[str],
+    outdir: Path,
+    canonical_status: str,
+    canonical_excerpt: dict | None,
 ) -> List[Path]:
     if not product_ids:
         return []
     crossmap_dir = outdir / "crossmap"
     artifacts: List[Path] = []
     for product_id in product_ids:
-        artifacts.append(_export_crossmap_product(product_id, crossmap_dir, canonical_status, canonical_excerpt))
+        artifacts.append(
+            _export_crossmap_product(
+                product_id, crossmap_dir, canonical_status, canonical_excerpt
+            )
+        )
     return artifacts
 
 
-def export_playground_contract(outdir: Path | None = None, canonical_status: str | None = None) -> Path:
+def export_playground_contract(
+    outdir: Path | None = None, canonical_status: str | None = None
+) -> Path:
     """Write the Playground contract as a standalone YAML artifact for downstream AI tools."""
     contract_path = ROOT / "contracts" / "playground_contract.yml"
     if not contract_path.exists():
@@ -381,7 +407,9 @@ def export_playground_contract(outdir: Path | None = None, canonical_status: str
     return outpath
 
 
-def export_canonical_schema(outdir: Path, canonical_payload: dict, canonical_status: str | None = None) -> Path:
+def export_canonical_schema(
+    outdir: Path, canonical_payload: dict, canonical_status: str | None = None
+) -> Path:
     ts = datetime.now(timezone.utc)
     iso_timestamp = ts.isoformat().replace("+00:00", "Z")
     meta = {"commit": get_git_commit(), "timestamp": iso_timestamp}
@@ -417,7 +445,8 @@ def load_canonical_schema_or_die() -> dict:
     missing_required = CANONICAL_REQUIRED_TOP_LEVEL - set(required)
     if missing_required:
         raise ValueError(
-            "Canonical schema required list missing keys: " + ", ".join(sorted(missing_required))
+            "Canonical schema required list missing keys: "
+            + ", ".join(sorted(missing_required))
         )
     properties = payload.get("properties")
     if not isinstance(properties, dict):
@@ -425,7 +454,8 @@ def load_canonical_schema_or_die() -> dict:
     missing_properties = CANONICAL_REQUIRED_TOP_LEVEL - set(properties.keys())
     if missing_properties:
         raise ValueError(
-            "Canonical schema properties missing keys: " + ", ".join(sorted(missing_properties))
+            "Canonical schema properties missing keys: "
+            + ", ".join(sorted(missing_properties))
         )
     return payload
 
@@ -452,7 +482,9 @@ def _write_canonical_status(outdir: Path, status_line: str) -> None:
     print(f"Canonical schema status written to {marker}")
 
 
-def _write_canonical_rollup(outdir: Path, status_line: str, artifact_types: List[str]) -> None:
+def _write_canonical_rollup(
+    outdir: Path, status_line: str, artifact_types: List[str]
+) -> None:
     if not status_line or not artifact_types:
         return
     if not outdir.exists():
@@ -487,12 +519,18 @@ EXPORT_DISPATCH = {
 def main() -> None:
     parser = argparse.ArgumentParser(description="Export AI-friendly GuardSuite specs")
     parser.add_argument("--product", help="single product id to export")
-    parser.add_argument("--all", action="store_true", help="export snapshots for every product")
-    parser.add_argument("--out", default=str(OUTDIR), help="output directory for snapshots")
+    parser.add_argument(
+        "--all", action="store_true", help="export snapshots for every product"
+    )
+    parser.add_argument(
+        "--out", default=str(OUTDIR), help="output directory for snapshots"
+    )
     args = parser.parse_args()
 
     needs_registry_guard = bool(args.all)
-    needs_crossmap_guard = bool(args.product == "product_index") and not needs_registry_guard
+    needs_crossmap_guard = (
+        bool(args.product == "product_index") and not needs_registry_guard
+    )
     if needs_registry_guard:
         validator_prefix = REGISTRY_PREFIX
     elif needs_crossmap_guard:
@@ -520,19 +558,27 @@ def main() -> None:
         if exporter:
             exporter(outdir, canonical_excerpt, canonical_status_line, rollup_reference)
         else:
-            export(pid, outdir, canonical_excerpt, canonical_status_line, rollup_reference)
+            export(
+                pid, outdir, canonical_excerpt, canonical_status_line, rollup_reference
+            )
     if args.all:
         export_products_bundle(targets, outdir, index_entries, canonical_status_line)
         export_product_index_snapshot(outdir, canonical_status_line)
         export_contracts_bundle(index_entries, outdir, canonical_status_line)
-        export_crossmap_products(crossmap_targets, outdir, canonical_status_line, canonical_excerpt)
+        export_crossmap_products(
+            crossmap_targets, outdir, canonical_status_line, canonical_excerpt
+        )
     elif args.product == "product_index":
-        export_crossmap_products(crossmap_targets, outdir, canonical_status_line, canonical_excerpt)
+        export_crossmap_products(
+            crossmap_targets, outdir, canonical_status_line, canonical_excerpt
+        )
     _write_canonical_status(outdir, canonical_status_line)
     export_canonical_schema(outdir, canonical_schema, canonical_status_line)
     artifacts = ["snapshots"]
     if args.all:
-        artifacts.extend(["bundles", "registry", "crossmap", "contracts", "canonical_schema"])
+        artifacts.extend(
+            ["bundles", "registry", "crossmap", "contracts", "canonical_schema"]
+        )
     else:
         if args.product == "product_index":
             artifacts.append("crossmap")

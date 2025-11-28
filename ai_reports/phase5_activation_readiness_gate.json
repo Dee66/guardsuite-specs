@@ -1,0 +1,19 @@
+{
+  "generated_at": "2025-11-27T14:24:00Z",
+  "schema_ready": false,
+  "rules_ready": false,
+  "evaluators_ready": false,
+  "ci_ready": false,
+  "global_readiness": false,
+  "remaining_blockers": [
+    "Promote `ai_reports/schema_templates/*` -> `products/<product>/schema.yml` (per-product schemas missing)",
+    "Update `rule_specs/*/00_base_rule.yml` to include `severity` and `remediation_hint` across product rule sets",
+    "Implement product evaluator adapters under `strategy_e/adapters/` mapping `evaluate(resource)` -> `run_pipeline_on_text`",
+    "Add minimal unit tests and CI validations for adapters and promoted schemas",
+    "Assign owners for promoted schema and rule registry updates"
+  ],
+  "activation_allowed": false,
+  "notes": "Phase-5 readiness gate indicates activation is not allowed. All preconditions (schema, rules, evaluators, CI) must be satisfied and validated via CI before global_readiness can be set to true. Follow the activation plan steps in `ai_reports/phase5_activation_plan.json` and re-run readiness gate after each completed PR.",
+  "source_review": "Derived from ai_reports/phase5_activation_precheck.json and ai_reports/phase5_activation_plan.json. No files outside `ai_reports/` were modified.",
+  "format": "json"
+}

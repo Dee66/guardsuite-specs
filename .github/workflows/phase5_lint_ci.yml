@@ -1,0 +1,34 @@
+name: Phase5 Lint & Test (dry-run)
+
+on:
+  pull_request:
+    paths:
+      - '**/*.py'
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dev deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install black ruff pytest
+
+      - name: Run flake8 (via ruff)
+        run: |
+          python -m ruff check . || true
+
+      - name: Run pytest
+        run: |
+          pytest -q tests strategy_e/adapters/tests || true
+
+    outputs:
+      note: "This workflow is a dry-run scaffold for Phase-5 lint/test enforcement."

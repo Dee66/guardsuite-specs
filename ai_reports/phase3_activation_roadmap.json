@@ -1,0 +1,202 @@
+{
+  "generated": "2025-11-27T13:45:00Z",
+  "source_input": "ai_reports/phase3_unblock_plan.json",
+  "pillar_roadmaps": {
+    "vector": {
+      "roadmap_entries": [
+        {
+          "id": "UNBLOCK-V-01",
+          "category": "schema",
+          "description": "Promote `ai_reports/schema_templates/vectorguard.schema.yml` -> `products/vectorguard/schema.yml` and populate canonical fields",
+          "sequence": "early",
+          "dependencies": []
+        },
+        {
+          "id": "UNBLOCK-V-02",
+          "category": "schema",
+          "description": "Promote `ai_reports/schema_templates/vectorscan.schema.yml` -> `products/vectorscan/schema.yml` and populate canonical fields",
+          "sequence": "early",
+          "dependencies": []
+        },
+        {
+          "id": "UNBLOCK-V-03",
+          "category": "rule_registry",
+          "description": "Update base templates to add `severity` and `remediation_hint` and add one concrete non-template rule per product",
+          "sequence": "mid",
+          "dependencies": ["UNBLOCK-V-01","UNBLOCK-V-02"]
+        },
+        {
+          "id": "UNBLOCK-V-04",
+          "category": "evaluator",
+          "description": "Implement per-product adapters exposing `evaluate(resource)` that call canonical executor or product logic",
+          "sequence": "mid",
+          "dependencies": ["UNBLOCK-V-03"]
+        },
+        {
+          "id": "UNBLOCK-V-05",
+          "category": "governance",
+          "description": "Assign product owners and add PR/CI validation workflow for schema promotion",
+          "sequence": "late",
+          "dependencies": ["UNBLOCK-V-01","UNBLOCK-V-03","UNBLOCK-V-04"]
+        }
+      ]
+    },
+    "compute": {
+      "roadmap_entries": [
+        {
+          "id": "UNBLOCK-C-01",
+          "category": "schema",
+          "description": "Promote `ai_reports/schema_templates/computeguard.schema.yml` -> `products/computeguard/schema.yml` and populate canonical fields",
+          "sequence": "early",
+          "dependencies": []
+        },
+        {
+          "id": "UNBLOCK-C-02",
+          "category": "schema",
+          "description": "Promote `ai_reports/schema_templates/computescan.schema.yml` -> `products/computescan/schema.yml` and populate canonical fields",
+          "sequence": "early",
+          "dependencies": []
+        },
+        {
+          "id": "UNBLOCK-C-03",
+          "category": "rule_registry",
+          "description": "Update base templates to add `severity` and `remediation_hint` and add at least one concrete rule per product",
+          "sequence": "mid",
+          "dependencies": ["UNBLOCK-C-01","UNBLOCK-C-02"]
+        },
+        {
+          "id": "UNBLOCK-C-04",
+          "category": "evaluator",
+          "description": "Implement per-product adapters exposing `evaluate(resource)` or map checklist invocation to pipeline executor via adapters",
+          "sequence": "mid",
+          "dependencies": ["UNBLOCK-C-03"]
+        },
+        {
+          "id": "UNBLOCK-C-05",
+          "category": "governance",
+          "description": "Assign compute product owners and add unit/integration tests validating schema and evaluator bindings",
+          "sequence": "late",
+          "dependencies": ["UNBLOCK-C-01","UNBLOCK-C-03","UNBLOCK-C-04"]
+        }
+      ]
+    },
+    "pipeline": {
+      "roadmap_entries": [
+        {
+          "id": "UNBLOCK-P-01",
+          "category": "adapter",
+          "description": "Document and implement canonical adapter mapping `run_pipeline_on_text` -> `evaluate(resource)` under `strategy_e/adapters/`",
+          "sequence": "early",
+          "dependencies": []
+        },
+        {
+          "id": "UNBLOCK-P-02",
+          "category": "schema",
+          "description": "Promote `ai_reports/schema_templates/pipelineguard.schema.yml` -> `products/pipelineguard/schema.yml` and populate canonical fields",
+          "sequence": "early",
+          "dependencies": []
+        },
+        {
+          "id": "UNBLOCK-P-03",
+          "category": "schema",
+          "description": "Promote `ai_reports/schema_templates/pipelinescan.schema.yml` -> `products/pipelinescan/schema.yml` and populate canonical fields",
+          "sequence": "early",
+          "dependencies": []
+        },
+        {
+          "id": "UNBLOCK-P-04",
+          "category": "rule_registry",
+          "description": "Update pipeline base template rules with `severity` and `remediation_hint` and add concrete rules",
+          "sequence": "mid",
+          "dependencies": ["UNBLOCK-P-02","UNBLOCK-P-03"]
+        },
+        {
+          "id": "UNBLOCK-P-05",
+          "category": "testing",
+          "description": "Add unit/integration tests and CI jobs that validate executor↔adapter↔schema flow",
+          "sequence": "late",
+          "dependencies": ["UNBLOCK-P-01","UNBLOCK-P-04"]
+        }
+      ]
+    }
+  },
+  "global_roadmap": {
+    "entries": [
+      {
+        "id": "UNBLOCK-G-01",
+        "category": "schema",
+        "description": "Promote all ai_reports/schema_templates/*.schema.yml into `products/<product>/schema.yml` via small PRs with CI validation",
+        "sequence": "early",
+        "dependencies": []
+      },
+      {
+        "id": "UNBLOCK-G-02",
+        "category": "rule_registry",
+        "description": "Complete base template rules across pillars by adding required metadata and ensuring at least one concrete rule per product",
+        "sequence": "mid",
+        "dependencies": ["UNBLOCK-G-01"]
+      },
+      {
+        "id": "UNBLOCK-G-03",
+        "category": "evaluator",
+        "description": "Implement canonical adapter layer and per-product adapters exposing `evaluate(resource)`; validate with tests",
+        "sequence": "mid",
+        "dependencies": ["UNBLOCK-G-02"]
+      },
+      {
+        "id": "UNBLOCK-G-04",
+        "category": "governance",
+        "description": "Assign owners for orphan rule_specs and add promotion workflows (CI + PR templates)",
+        "sequence": "late",
+        "dependencies": ["UNBLOCK-G-01","UNBLOCK-G-02","UNBLOCK-G-03"]
+      }
+    ]
+  },
+  "dependency_graph": {
+    "UNBLOCK-G-01": [],
+    "UNBLOCK-V-01": ["UNBLOCK-G-01"],
+    "UNBLOCK-V-02": ["UNBLOCK-G-01"],
+    "UNBLOCK-C-01": ["UNBLOCK-G-01"],
+    "UNBLOCK-C-02": ["UNBLOCK-G-01"],
+    "UNBLOCK-P-02": ["UNBLOCK-G-01"],
+    "UNBLOCK-P-03": ["UNBLOCK-G-01"],
+    "UNBLOCK-P-01": [],
+    "UNBLOCK-V-03": ["UNBLOCK-V-01","UNBLOCK-V-02"],
+    "UNBLOCK-C-03": ["UNBLOCK-C-01","UNBLOCK-C-02"],
+    "UNBLOCK-P-04": ["UNBLOCK-P-02","UNBLOCK-P-03"],
+    "UNBLOCK-G-02": ["UNBLOCK-V-03","UNBLOCK-C-03","UNBLOCK-P-04"],
+    "UNBLOCK-V-04": ["UNBLOCK-V-03"],
+    "UNBLOCK-C-04": ["UNBLOCK-C-03"],
+    "UNBLOCK-G-03": ["UNBLOCK-G-02"],
+    "UNBLOCK-V-05": ["UNBLOCK-V-01","UNBLOCK-V-03","UNBLOCK-V-04"],
+    "UNBLOCK-C-05": ["UNBLOCK-C-01","UNBLOCK-C-03","UNBLOCK-C-04"],
+    "UNBLOCK-P-05": ["UNBLOCK-P-01","UNBLOCK-P-04"],
+    "UNBLOCK-G-04": ["UNBLOCK-G-01","UNBLOCK-G-02","UNBLOCK-G-03"]
+  },
+  "recommended_execution_flow": [
+    "UNBLOCK-G-01",
+    "UNBLOCK-V-01",
+    "UNBLOCK-V-02",
+    "UNBLOCK-C-01",
+    "UNBLOCK-C-02",
+    "UNBLOCK-P-02",
+    "UNBLOCK-P-03",
+    "UNBLOCK-P-01",
+    "UNBLOCK-V-03",
+    "UNBLOCK-C-03",
+    "UNBLOCK-P-04",
+    "UNBLOCK-G-02",
+    "UNBLOCK-V-04",
+    "UNBLOCK-C-04",
+    "UNBLOCK-G-03",
+    "UNBLOCK-V-05",
+    "UNBLOCK-C-05",
+    "UNBLOCK-P-05",
+    "UNBLOCK-G-04"
+  ],
+  "notes": [
+    "Roadmap entries include inferred dependencies: mid-step actions depend on early-step schema promotions; late-step actions depend on prior content and adapters.",
+    "Use small PRs to promote schemas, then complete rule metadata and adapters, then add tests and governance steps.",
+    "Adjust dependencies after owners assign responsibility — this roadmap is a conservative, deterministic plan derived from the unblock plan."
+  ]
+}

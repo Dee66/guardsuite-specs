@@ -9,11 +9,7 @@ def test_backup_written_to_custom_dir(tmp_path):
 
     custom_dir = tmp_path / "my_backups"
 
-    rules = {
-        "repair": {
-            "steps": [{"operation": "trim_trailing_whitespace"}]
-        }
-    }
+    rules = {"repair": {"steps": [{"operation": "trim_trailing_whitespace"}]}}
 
     result = run_pipeline_on_text(
         target.read_text(),

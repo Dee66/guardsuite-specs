@@ -1,0 +1,37 @@
+{
+  "branch": "phase5/pilot-computeguard-clean",
+  "completed_task_ids": [
+    "ACC-005",
+    "ATU-P3-C-01",
+    "ATU-P3-C-02",
+    "ATU-P3-C-03",
+    "ATU-P3-P-01",
+    "ATU-P3-P-04",
+    "BASE_RULE_UPDATED",
+    "EVAL-C-01",
+    "EVAL-C-03",
+    "EVAL-P-01",
+    "PROGRESS_JSON",
+    "PROMOTED_SCHEMA",
+    "RULE-C-01"
+  ],
+  "completed_tasks": 76,
+  "evidence": {
+    "artifacts": [
+      "ai_reports/phase5_full_verification.json",
+      "ai_reports/phase5_pilot_report.json",
+      "ai_reports/phase5_flake8_raw_after.txt",
+      "ai_reports/phase5_pilot_clean.patch"
+    ],
+    "lint": "flake8 run captured in ai_reports/phase5_flake8_raw_after.txt",
+    "promoted_files": [
+      "products/computeguard/schema.yml",
+      "products/computeguard/rules/00_base_rule.yml"
+    ],
+    "tests": "pytest run: 48 passed (see ai_reports/pytest_summary.txt if present)"
+  },
+  "generated_at": "2025-11-27T15:30:00Z",
+  "notes": "This `progress.json` is a machine-readable snapshot of project progress supplied by the user. It is intended to be the authoritative input for automated checklist updates; it does not by itself prove every completed_task_id \u2014 please include commit hashes or exact artifact file paths for auditability when available.",
+  "progress_percentage": 94.0,
+  "total_planned_tasks": 81
+}

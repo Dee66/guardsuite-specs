@@ -4,6 +4,7 @@ Purpose:
   Enforce canonical ordering, remove empty keys, and relocate
   unknown fields into x_legacy.
 """
+
 import yaml
 
 

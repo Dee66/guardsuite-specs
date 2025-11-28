@@ -1,0 +1,168 @@
+{
+  "generated": "2025-11-27T13:05:00Z",
+  "source_input": "ai_reports/phase3_blocking_matrix.json",
+  "pillar_actions": {
+    "vector": [
+      {
+        "id": "ATU-P3-V-01",
+        "title": "Promote and populate product schemas for vectorguard and vectorscan",
+        "description": "Move dry-run templates into `products/<product>/schema.yml` and populate required canonical fields.",
+        "preconditions": ["ai_reports/schema_templates/vectorguard.schema.yml exists","ai_reports/schema_templates/vectorscan.schema.yml exists"],
+        "dependencies": [],
+        "estimated_effort": "2-4h per product",
+        "next": "ATU-P3-V-02"
+      },
+      {
+        "id": "ATU-P3-V-02",
+        "title": "Complete base rule templates and add non-template rules",
+        "description": "Update `rule_specs/*/00_base_rule.yml` to include severity and remediation_hint and add at least one concrete rule per product.",
+        "preconditions": ["ATU-P3-V-01 completed"],
+        "dependencies": ["ATU-P3-V-01"],
+        "estimated_effort": "4-8h per product",
+        "next": "ATU-P3-V-03"
+      },
+      {
+        "id": "ATU-P3-V-03",
+        "title": "Implement per-product evaluator adapters",
+        "description": "Provide small adapter modules that expose `evaluate(resource)` and invoke shared executor or product-specific logic.",
+        "preconditions": ["ATU-P3-V-01 completed","ATU-P3-V-02 completed"],
+        "dependencies": ["ATU-P3-V-01","ATU-P3-V-02"],
+        "estimated_effort": "3-6h per product",
+        "next": "ATU-P3-V-04"
+      },
+      {
+        "id": "ATU-P3-V-04",
+        "title": "Assign product owners and finalize promotion workflows",
+        "description": "Assign ownership and add CI/PR templates to automate schema promotion and validation.",
+        "preconditions": ["ATU-P3-V-01 completed"],
+        "dependencies": ["ATU-P3-V-01"],
+        "estimated_effort": "1-2h coordination",
+        "next": null
+      }
+    ],
+    "compute": [
+      {
+        "id": "ATU-P3-C-01",
+        "title": "Promote and populate product schemas for computeguard and computescan",
+        "description": "Move dry-run templates into `products/<product>/schema.yml` and populate required canonical fields.",
+        "preconditions": ["ai_reports/schema_templates/computeguard.schema.yml exists","ai_reports/schema_templates/computescan.schema.yml exists"],
+        "dependencies": [],
+        "estimated_effort": "2-4h per product",
+        "next": "ATU-P3-C-02"
+      },
+      {
+        "id": "ATU-P3-C-02",
+        "title": "Complete base rule templates and add non-template rules",
+        "description": "Update `rule_specs/*/00_base_rule.yml` with severity and remediation_hint; add concrete rules for computeguard/computescan.",
+        "preconditions": ["ATU-P3-C-01 completed"],
+        "dependencies": ["ATU-P3-C-01"],
+        "estimated_effort": "4-8h per product",
+        "next": "ATU-P3-C-03"
+      },
+      {
+        "id": "ATU-P3-C-03",
+        "title": "Implement evaluator adapters or checklist mapping",
+        "description": "Provide adapters exposing `evaluate(resource)`; map checklist invocation to pipeline executor where appropriate.",
+        "preconditions": ["ATU-P3-C-01 completed","ATU-P3-C-02 completed"],
+        "dependencies": ["ATU-P3-C-01","ATU-P3-C-02"],
+        "estimated_effort": "3-6h per product",
+        "next": "ATU-P3-C-04"
+      },
+      {
+        "id": "ATU-P3-C-04",
+        "title": "Assign compute product owners and add validation tests",
+        "description": "Assign owners and add unit/integration tests for schema and evaluator bindings.",
+        "preconditions": ["ATU-P3-C-01 completed"],
+        "dependencies": ["ATU-P3-C-01"],
+        "estimated_effort": "2-4h coordination + tests",
+        "next": null
+      }
+    ],
+    "pipeline": [
+      {
+        "id": "ATU-P3-P-01",
+        "title": "Document and implement adapter mapping run_pipeline_on_text -> evaluate(resource)",
+        "description": "Create a canonical adapter module that translates `evaluate(resource)` calls to the pipeline executor API and normalizes inputs/outputs.",
+        "preconditions": ["strategy_e/pipeline/executor/pipeline_executor.py present"],
+        "dependencies": [],
+        "estimated_effort": "4-8h",
+        "next": "ATU-P3-P-02"
+      },
+      {
+        "id": "ATU-P3-P-02",
+        "title": "Promote and populate product schemas for pipelineguard and pipelinescan",
+        "description": "Move dry-run templates into `products/<product>/schema.yml` and populate required canonical fields.",
+        "preconditions": ["ai_reports/schema_templates/pipelineguard.schema.yml exists","ai_reports/schema_templates/pipelinescan.schema.yml exists"],
+        "dependencies": [],
+        "estimated_effort": "2-4h per product",
+        "next": "ATU-P3-P-03"
+      },
+      {
+        "id": "ATU-P3-P-03",
+        "title": "Complete base rule templates and add non-template rules",
+        "description": "Update base templates with severity and remediation_hint; add concrete rules for pipeline products.",
+        "preconditions": ["ATU-P3-P-02 completed"],
+        "dependencies": ["ATU-P3-P-02"],
+        "estimated_effort": "4-8h per product",
+        "next": "ATU-P3-P-04"
+      },
+      {
+        "id": "ATU-P3-P-04",
+        "title": "Add tests and CI checks for executor↔adapter↔schema flow",
+        "description": "Add unit/integration tests and CI jobs that validate the adapter, executor, and schema bindings end-to-end.",
+        "preconditions": ["ATU-P3-P-01 completed","ATU-P3-P-02 completed"],
+        "dependencies": ["ATU-P3-P-01","ATU-P3-P-02"],
+        "estimated_effort": "4-8h",
+        "next": null
+      }
+    ]
+  },
+  "global_actions": [
+    {
+      "id": "ATU-P3-G-01",
+      "title": "Promote and populate all product schemas",
+      "description": "Use templates in `ai_reports/schema_templates/` to create `products/<product>/schema.yml` for every mapped product.",
+      "dependencies": ["ATU-P3-V-01","ATU-P3-C-01","ATU-P3-P-02"],
+      "estimated_effort": "varies (2-4h per product)",
+      "critical": true
+    },
+    {
+      "id": "ATU-P3-G-02",
+      "title": "Complete rule registry templates across pillars",
+      "description": "Ensure every base template rule has severity and remediation_hint and add at least one non-template rule per product.",
+      "dependencies": ["ATU-P3-V-02","ATU-P3-C-02","ATU-P3-P-03"],
+      "estimated_effort": "varies",
+      "critical": true
+    },
+    {
+      "id": "ATU-P3-G-03",
+      "title": "Implement adapter layer and validate executor mapping",
+      "description": "Develop adapters and add CI tests proving `evaluate(resource)` semantics across products.",
+      "dependencies": ["ATU-P3-P-01","ATU-P3-V-03","ATU-P3-C-03"],
+      "estimated_effort": "varies",
+      "critical": true
+    },
+    {
+      "id": "ATU-P3-G-04",
+      "title": "Assign product ownership and promotion workflows",
+      "description": "Establish owners and CI-driven promotion/review workflow for schema and rule changes.",
+      "dependencies": ["ATU-P3-V-04","ATU-P3-C-04"],
+      "estimated_effort": "coordination",
+      "critical": false
+    }
+  ],
+  "dependency_graph": {
+    "ATU-P3-V-02": ["ATU-P3-V-01"],
+    "ATU-P3-V-03": ["ATU-P3-V-01","ATU-P3-V-02"],
+    "ATU-P3-C-02": ["ATU-P3-C-01"],
+    "ATU-P3-C-03": ["ATU-P3-C-01","ATU-P3-C-02"],
+    "ATU-P3-P-02": [],
+    "ATU-P3-P-03": ["ATU-P3-P-02"],
+    "ATU-P3-P-04": ["ATU-P3-P-01","ATU-P3-P-02"]
+  },
+  "notes": [
+    "Action stubs are ATU-style and suitable for conversion to PRs or tracked tasks.",
+    "Estimated effort values are heuristics and should be refined by product owners.",
+    "Execute schema promotion in small PRs with schema validation enforced by CI to reduce drift risk."
+  ]
+}

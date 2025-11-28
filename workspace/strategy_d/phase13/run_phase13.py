@@ -11,6 +11,7 @@ Performs deterministic canonicalization of product metadata files:
 
 This script is deterministic and idempotent.
 """
+
 import os
 import sys
 import yaml
@@ -23,13 +24,16 @@ PHASE13_DIR = ROOT / "workspace" / "strategy_d" / "phase13"
 DIFFS_DIR = PHASE13_DIR / "diffs"
 LOG_PATH = PHASE13_DIR / "canonical_alignment_log.md"
 
+
 def load_yaml(path):
     with open(path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f) or {}
 
+
 def dump_yaml(data):
     # stable dump without sorting keys beyond insertion order
     return yaml.safe_dump(data, sort_keys=False, allow_unicode=True)
+
 
 def main():
     PHASE13_DIR.mkdir(parents=True, exist_ok=True)
@@ -50,7 +54,12 @@ def main():
             valid_ids.append(pid)
             products[pid] = p
 
-    log_lines = ["# Phase 13: Canonical Alignment Log", "", f"Processed {len(product_files)} product metadata files.", ""]
+    log_lines = [
+        "# Phase 13: Canonical Alignment Log",
+        "",
+        f"Processed {len(product_files)} product metadata files.",
+        "",
+    ]
 
     for p in product_files:
         old_text = p.read_text(encoding="utf-8")
@@ -112,10 +121,17 @@ def main():
             # write back canonical file
             p.write_text(new_text, encoding="utf-8")
             # write unified diff
-            ud = unified_diff(old_text.splitlines(keepends=True), new_text.splitlines(keepends=True), fromfile=str(p), tofile=str(p))
+            ud = unified_diff(
+                old_text.splitlines(keepends=True),
+                new_text.splitlines(keepends=True),
+                fromfile=str(p),
+                tofile=str(p),
+            )
             diff_path = DIFFS_DIR / f"{pid}.phase13.diff"
             diff_path.write_text("".join(ud), encoding="utf-8")
-            log_lines.append(f"- Updated `{p}`; diff -> `{diff_path.relative_to(ROOT)}`")
+            log_lines.append(
+                f"- Updated `{p}`; diff -> `{diff_path.relative_to(ROOT)}`"
+            )
         else:
             log_lines.append(f"- No changes for `{p}`")
 
@@ -123,5 +139,6 @@ def main():
     LOG_PATH.write_text("\n".join(log_lines) + "\n", encoding="utf-8")
     print("WROTE", LOG_PATH)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

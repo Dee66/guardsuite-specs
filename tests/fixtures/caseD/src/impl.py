@@ -1,0 +1,2 @@
+def useful():
+    return True

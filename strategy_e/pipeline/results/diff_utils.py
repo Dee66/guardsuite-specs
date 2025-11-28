@@ -1,6 +1,9 @@
 from difflib import unified_diff
 
-def generate_unified_diff(before: str, after: str, before_label="before", after_label="after"):
+
+def generate_unified_diff(
+    before: str, after: str, before_label="before", after_label="after"
+):
     """
     Returns a deterministic unified diff string.
     Always uses LF line endings and sorted diff headers.
@@ -13,6 +16,6 @@ def generate_unified_diff(before: str, after: str, before_label="before", after_
         after_lines,
         fromfile=before_label,
         tofile=after_label,
-        lineterm=""
+        lineterm="",
     )
     return "\n".join(diff)
